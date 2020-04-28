@@ -1,2 +1,19 @@
-hello
-<%= @products %>
+
+<% @products.each do |product| %>
+  <ul>
+    <li><%= product.name %></li>
+    <li><%= product.price %></li>
+    <li>
+      <% product.categories.each do |category| %>
+        <%= category.name %> >> <%= category.parent.name  %>
+      <% end %>
+    </li>
+    <li>
+      <ul>
+        <% product.product_variations.each do |variation| %>
+          <li><%= variation.variation_type %> : <%= variation.variation_name %></li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+<% end %>
