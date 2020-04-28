@@ -1,15 +1,15 @@
+<%= render 'shared/carousel' %>
+<%= render 'shared/features' %>
 
-<% @products.each do |product| %>
-  <ul>
-    <li><%= product.name %></li>
-    <li>$<%= product.price %></li>
-    <li>
-      <% product.categories.each do |category| %>
-        <%= category.name %> >> <%= category.parent.name  %>
-      <% end %>
-    </li>
-    <% product.product_variations.each do |variation| %>
-      <li><%= variation.name %> : <%= variation.value %> >>> <%= variation.quantity %></li>
+<div class="container mt-5">
+  <h2 class="text-center mb-5">Nuestros productos</h2>
+  <div class="products">
+    <% @products.each do |product| %>
+      <div class="product">
+        <img src="https://picsum.photos/200" alt="">
+        <b><%= product.name %></b>
+        $<%= product.price %>
+      </div>
     <% end %>
-  </ul>
-<% end %>
+  </div>
+</div>
