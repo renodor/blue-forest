@@ -1,0 +1,10 @@
+parent_category:
+  name: parent_category
+
+child_category:
+  name: child_category
+  parent: parent_category
+
+child_category2:
+  name: child_category2
+  parent: parent_category
