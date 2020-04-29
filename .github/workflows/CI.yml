@@ -43,13 +43,9 @@ jobs:
           REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          BUNDLE_PATH: /vendor/bundle
-          BUNDLE_CACHE_PATH: /vendor/bundle
-          BUNDLE_BIN: /vendor/bundle
-          GEM_HOME: /vendor/bundle
         run: |
           sudo apt-get -yqq install libpq-dev
           gem install bundler
-          bundle install --jobs 4 --retry 3
+          bundle install --path vendor/bundle --jobs 4 --retry 3
           bundle exec rails db:prepare
           bundle exec rails test
