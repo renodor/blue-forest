@@ -33,8 +33,8 @@ categories = [toys, food, masks, gloves]
 p 'Create products, product variations and product/categories associations'
 10.times do |n|
   product = Product.create!(name: Faker::DcComics.hero, description: description, price: rand(50) + rand.round(2))
-  ProductVariation.create!(product_id: product.id, variation_type: 'color', variation_name: Faker::Color.color_name, quantity: rand(10))
-  ProductVariation.create!(product_id: product.id, variation_type: 'size', variation_name: 'M', quantity: rand(10))
+  ProductVariation.create!(product_id: product.id, name: 'color', value: Faker::Color.color_name, quantity: rand(10))
+  ProductVariation.create!(product_id: product.id, name: 'size', value: 'M', quantity: rand(10))
 
   ProductCategory.create!(product_id: product.id, category_id: categories[rand(4)].id)
   p "product #{n + 1} created!"
