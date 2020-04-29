@@ -32,7 +32,7 @@ jobs:
           cmd: install
       - name: Build and run tests
         env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
           PASSWORD: <%= ENV['BLUE_FOREST_DATABASE_PASSWORD'] %>
           REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
