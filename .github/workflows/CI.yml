@@ -6,6 +6,10 @@ jobs:
     services:
       db:
         image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -29,6 +33,7 @@ jobs:
       - name: Build and run tests
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
+          PASSWORD: <%= ENV['BLUE_FOREST_DATABASE_PASSWORD'] %>
           REDIS_URL: redis://localhost:6379/0
           RAILS_ENV: test
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
