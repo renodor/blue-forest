@@ -1,7 +1,9 @@
-class LinesItemsController < ApplicationController
+class LineItemsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:create]
+
   def create
     # Find associated product and current cart
-    chosen_product = ProductVariation.find(params[:product_variation_id])
+    chosen_product = Product.find(params[product.id])
     current_cart = @current_cart
 
     # If cart already has this product then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
@@ -22,7 +24,8 @@ class LinesItemsController < ApplicationController
   end
 
   private
-    def line_item_params
-      params.require(:line_item).permit(:quantity,:product_id, :cart_id)
-    end
+
+  def line_item_params
+    params.require(:line_item).permit(:quantity,:product_id, :cart_id)
+  end
 end

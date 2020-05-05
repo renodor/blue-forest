@@ -9,6 +9,7 @@
         <img src="https://picsum.photos/200" alt="">
         <b><%= product.name %></b>
         $ <%= product.price %>
+        <%= link_to 'show', product_path(product) %>
       </div>
     <% end %>
   </div>

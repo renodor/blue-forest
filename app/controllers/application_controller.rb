@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   def current_cart
     if session[:cart_id]
       cart = Cart.find(session[:cart_id])
-    raise
       if cart.present?
         @current_cart = cart
       else
