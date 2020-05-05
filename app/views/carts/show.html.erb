@@ -4,4 +4,6 @@
   <% @cart.product_variations.each do |variation| %>
     <p><%= variation.product.name %> | <%= variation.size %> | <%= variation.color %></p>
   <% end %>
+
+  <%= link_to "Proceed to checkout", new_order_path %><br>
 </div>

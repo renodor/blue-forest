@@ -44,3 +44,17 @@ end
 p "----------> done, #{Product.count} products created"
 p "----------> done, #{ProductVariation.count} product variations created"
 p "----------> done, #{ProductCategory.count} products/categories created"
+
+
+p 'Destroy all users'
+User.destroy_all
+p '----------> done'
+
+p 'Create users'
+
+10.times do |n|
+  User.create!(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, phone: Faker::PhoneNumber.cell_phone, address: Faker::Address.street_address, password: '123456', password_confirmation: '123456', email: "user#{n + 1}@gmail.com")
+  p "user #{n + 1} created!"
+end
+
+p "----------> done, #{User.count} products created"
