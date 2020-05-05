@@ -13,19 +13,19 @@
       <p>Or continue without account:</p>
       <%= form_tag orders_path, method: :post, class: ""  do %>
         <div class="form-group">
-          <%= text_field_tag :first_name, nil, placeholder: 'First name', class: "form-control" %>
+          <%= text_field_tag 'user[first_name]', nil, placeholder: 'First name', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag :first_name, nil, placeholder: 'Last name', class: "form-control" %>
+          <%= text_field_tag 'user[last_name]', nil, placeholder: 'Last name', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag :email, nil, placeholder: 'Email', class: "form-control" %>
+          <%= text_field_tag 'user[email]', nil, placeholder: 'Email', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag :address, nil, placeholder: 'Address', class: "form-control" %>
+          <%= text_field_tag 'user[address]', nil, placeholder: 'Address', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag :phone, nil, placeholder: 'Phone number', class: "form-control" %>
+          <%= text_field_tag 'user[phone]', nil, placeholder: 'Phone number', class: "form-control" %>
         </div>
         <%= button_tag type: "submit", class: "btn btn-secondary" do %>
           Confirm

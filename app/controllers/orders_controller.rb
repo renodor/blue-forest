@@ -17,8 +17,9 @@ class OrdersController < ApplicationController
       @order = Order.new(user_id: current_user)
     else
       # if user wants to order without account, create a 'fake' user without validation
-      fake_user = User.new(user_params, fake: true)
-      fake_ser.save(validate: false)
+      fake_user = User.new(user_params)
+      fake_user.fake = true
+      fake_user.save(validate: false)
       @order = Order.new(user_id: fake_user)
     end
 
@@ -35,6 +36,6 @@ class OrdersController < ApplicationController
   private
 
   def user_params
-    params.require(:order).permit(:first_name, :last_name, :email, :address, :phone)
+    params.require(:user).permit(:first_name, :last_name, :email, :address, :phone)
   end
 end
