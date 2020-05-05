@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   # We want the Cart to be accessible throughout the entire app so we store it in the application_controller. We want to create a new Cart model each time a user visits the site and store that cart_id in a session[:cart_id]
   def current_cart
     if session[:cart_id]
-      cart = Cart.find(session[:cart_id])
+      cart = Cart.find_by(id: session[:cart_id])
       if cart.present?
         @current_cart = cart
       else

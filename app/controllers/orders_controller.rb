@@ -14,18 +14,16 @@ class OrdersController < ApplicationController
 
   def create
     if user_signed_in?
-      @order = Order.new(user_id: current_user)
+      @order = Order.new(user_id: current_user.id)
     else
       # if user wants to order without account, create a 'fake' user without validation
-      fake_user = User.new(user_params)
-      fake_user.fake = true
-      fake_user.save(validate: false)
-      @order = Order.new(user_id: fake_user)
+      fake_user = FakeUser.create(fake_user_params)
+      @order = Order.new(fake_user_id: fake_user.id)
     end
 
     @current_cart.line_items.each do |item|
       @order.line_items << item
-      item.cart_id = nil
+      # item.cart_id = nil
     end
     @order.save
     Cart.destroy(session[:cart_id])
@@ -35,7 +33,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def user_params
+  def fake_user_params
     params.require(:user).permit(:first_name, :last_name, :email, :address, :phone)
   end
 end
