@@ -1,13 +1,43 @@
 <div class="container">
-  <p><%= @product.name %></p>
-  <p>$<%= @product.price %></p>
-  <p><%= @product.description %></p>
-  <br>
-  <p>
-    <% @product.product_variations.each do |variation| %>
-      <p><%= variation.color %> | <%= variation.size %> | <%= link_to "add to cart", line_items_path(variation_id: variation.id, product_id: @product.id), method: :post %></p>
-    <% end %>
-  </p>
+  <div class="pdp d-flex">
+    <%= image_tag "https://picsum.photos/500" %>
+    <div class="product-info">
+      <h1><%= @product.name %></h1>
+      <p><%= @product.description %></p>
+      <p class="price">$<%= @product.price %></p>
+      <%= form_tag line_items_path do %>
+        <div class="variations">
+          <div class="color">
+            <%# @product.product_variations.each do |variation| %>
+              <!-- <div style="background-color: <%#= variation.color %>"></div> -->
+            <%# end %>
+          </div>
+          <div class="size">
+            <% @product.product_variations.each do |variation| %>
+              <%= radio_button_tag :variation_id, variation.id %>
+              <%= label_tag "variation_id_#{variation.id}", variation.size %>
+            <% end %>
+          </div>
+        </div>
+        <%= button_tag type: "submit", class: "btn btn-primary w-100" do %>
+          Add to Cart
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+    <br>
+    <hr>
+  <div class="product-detail">
+    <h2>Technical specifications</h2>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, temporibus possimus aliquid, repellat nam cum corrupti fugiat quam officiis eos eum soluta praesentium quibusdam, harum animi tenetur voluptates error minus?
+    <ul class="mt-3">
+      <li>Lorem ipsum dolor sit amet</li>
+      <li>Lorem ipsum dolor sit amet</li>
+      <li>Lorem ipsum dolor sit amet</li>
+      <li>Lorem ipsum dolor sit amet</li>
+      <li>Lorem ipsum dolor sit amet</li>
+    </ul>
+  </div>
 </div>
 
 

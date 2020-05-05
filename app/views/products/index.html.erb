@@ -2,14 +2,17 @@
 <%= render 'shared/features' %>
 
 <div class="container mt-5">
+  <hr>
   <h2 class="text-center mb-5">Nuestros productos</h2>
   <div class="products">
     <% @products.each do |product| %>
       <div class="product">
         <img src="https://picsum.photos/200" alt="">
-        <b><%= product.name %></b>
-        $ <%= product.price %>
-        <%= link_to 'show', product_path(product) %>
+        <div class="product-grid-info">
+          <b class="grow-1"><%= product.name %></b>
+          <span>$ <%= product.price %></span>
+          <%= link_to '', product_path(product) %>
+        </div>
       </div>
     <% end %>
   </div>

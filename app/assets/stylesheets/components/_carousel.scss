@@ -1,3 +1,10 @@
-#hp-carousel .carousel-inner {
-  height: 300px;
+#hp-carousel {
+  background-color: black;
+  .carousel-caption {
+    top: 100px;
+    text-align: left;
+  }
+  img {
+    opacity: 0.6
+  }
 }

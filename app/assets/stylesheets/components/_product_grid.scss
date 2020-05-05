@@ -1,12 +1,23 @@
 .products {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 35px;
 }
 
 .product {
   display:flex;
   flex-direction: column;
+  position: relative;
+  .product-grid-info {
+    display: flex;
+  }
+  a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 // Smallest device
