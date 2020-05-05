@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :show]
+  skip_before_action :authenticate_user!, only: [:new, :show, :create]
   def index
     @orders = Order.all
   end
