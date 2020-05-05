@@ -1,2 +1,7 @@
 <h1>Carts#show</h1>
-<p>Find me in app/views/carts/show.html.erb</p>
+
+<div class="container">
+  <% @cart.product_variations.each do |variation| %>
+    <p><%= variation.product.name %> | <%= variation.size %> | <%= variation.color %></p>
+  <% end %>
+</div>

@@ -4,14 +4,21 @@
   <p><%= @product.description %></p>
   <br>
   <p>
-  <%= form_tag line_items_path, method: :post, class: ""  do %>
-      <%= select_tag 'color_id', options_from_collection_for_select(@product_variations[:colors], "id", "value") %>
-      <%= select_tag 'size_id', options_from_collection_for_select(@product_variations[:sizes], "id", "value") %>
-      <%= hidden_field_tag 'product_id', @product.id %>
-      <%= button_tag(type: "submit", class: "btn btn-flat") do %>
-        add to cart
-      <% end %>
-  <% end %>
+    <% @product.product_variations.each do |variation| %>
+      <p><%= variation.color %> | <%= variation.size %> | <%= link_to "add to cart", line_items_path(variation_id: variation.id, product_id: @product.id), method: :post %></p>
+    <% end %>
+  </p>
 </div>
+
+
+
+  <%#= form_tag line_items_path, method: :post, class: ""  do %>
+      <%#= select_tag 'color_id', options_from_collection_for_select(@product_variations[:colors], "id", "value") %>
+      <%#= select_tag 'size_id', options_from_collection_for_select(@product_variations[:sizes], "id", "value") %>
+      <%#= hidden_field_tag 'product_id', @product.id %>
+      <%#= button_tag(type: "submit", class: "btn btn-flat") do %>
+        <!-- add to cart -->
+      <%# end %>
+  <%# end %>
 
 
