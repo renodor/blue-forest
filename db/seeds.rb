@@ -46,6 +46,14 @@ p "----------> done, #{ProductVariation.count} product variations created"
 p "----------> done, #{ProductCategory.count} products/categories created"
 
 
+p 'Destroy all orders'
+Order.destroy_all
+p '----------> done'
+
+p 'Destroy all carts'
+Cart.destroy_all
+p '----------> done'
+
 p 'Destroy all users'
 User.destroy_all
 p '----------> done'

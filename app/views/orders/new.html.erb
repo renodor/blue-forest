@@ -1,6 +1,35 @@
 <div class="container">
-  <%= simple_form_for(@order) do |f| %>
-    <%= f.input :user_id %>
-    <%= f.submit %>
+
+  <% if user_signed_in? %>
+      <p><%= current_user.first_name %></p>
+      <p><%= current_user.last_name %></p>
+      <p><%= current_user.email %></p>
+      <p><%= current_user.address %></p>
+      <p><%= link_to "Confirm", orders_path, method: :post %></p>
+  <% else %>
+      <p>
+        Already have an account? Please <%= link_to 'Login', new_user_session_path %> or <%= link_to 'Signup', new_user_registration_path %> to create one
+      </p>
+      <p>Or continue without account:</p>
+      <%= form_tag orders_path, method: :post, class: ""  do %>
+        <div class="form-group">
+          <%= text_field_tag :first_name, nil, placeholder: 'First name', class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag :first_name, nil, placeholder: 'Last name', class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag :email, nil, placeholder: 'Email', class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag :address, nil, placeholder: 'Address', class: "form-control" %>
+        </div>
+        <div class="form-group">
+          <%= text_field_tag :phone, nil, placeholder: 'Phone number', class: "form-control" %>
+        </div>
+        <%= button_tag type: "submit", class: "btn btn-secondary" do %>
+          Confirm
+        <% end %>
+      <% end %>
   <% end %>
 </div>
