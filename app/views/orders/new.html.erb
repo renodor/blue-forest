@@ -1,5 +1,10 @@
-<div class="container">
+<div class="container mt-5">
 
+  <div class="order-breadcrumb">
+    <div class="">Carrito</div>
+    <div class="">Dirección</div>
+    <div class="">Confirmación</div>
+  </div>
   <% if user_signed_in? %>
       <p><%= current_user.first_name %></p>
       <p><%= current_user.last_name %></p>
@@ -8,24 +13,24 @@
       <p><%= link_to "Confirm", orders_path, method: :post %></p>
   <% else %>
       <p>
-        Already have an account? Please <%= link_to 'Login', new_user_session_path %> or <%= link_to 'Signup', new_user_registration_path %> to create one
+        Ya tienes una cuenta? Porfavor <%= link_to 'Conectarse', new_user_session_path %> o <%= link_to 'Crear cuenta', new_user_registration_path %>
       </p>
-      <p>Or continue without account:</p>
+      <p>O contuniar sin creación de cuenta:</p>
       <%= form_tag orders_path, method: :post, class: ""  do %>
         <div class="form-group">
-          <%= text_field_tag 'user[first_name]', nil, placeholder: 'First name', class: "form-control" %>
+          <%= text_field_tag 'user[first_name]', nil, placeholder: 'Primer nombre', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag 'user[last_name]', nil, placeholder: 'Last name', class: "form-control" %>
+          <%= text_field_tag 'user[last_name]', nil, placeholder: 'Apellido', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag 'user[email]', nil, placeholder: 'Email', class: "form-control" %>
+          <%= text_field_tag 'user[email]', nil, placeholder: 'Correo', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag 'user[address]', nil, placeholder: 'Address', class: "form-control" %>
+          <%= text_field_tag 'user[address]', nil, placeholder: 'Dirección', class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= text_field_tag 'user[phone]', nil, placeholder: 'Phone number', class: "form-control" %>
+          <%= text_field_tag 'user[phone]', nil, placeholder: 'Teléfono', class: "form-control" %>
         </div>
         <%= button_tag type: "submit", class: "btn btn-secondary" do %>
           Confirm
