@@ -27,3 +27,13 @@
     padding: 30px;
   }
 }
+
+.sidebar-cart-products {
+  display: flex;
+  flex-direction: column;
+  .sidebar-cart-product {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+  }
+}
