@@ -4,9 +4,9 @@
     <span>Mi Carrito</span>
   </div>
   <div class="sidebar-cart-content">
-    <div class="sidebar-cart-products">
+    <div class="d-flex flex-column">
       <% @current_cart.product_variations.each do |variation| %>
-        <div class="sidebar-cart-product">
+        <div class="cart-product">
           <img src="https://picsum.photos/50" alt="...">
           <b><%= variation.product.name %></b> | <%= variation.size %> | $<%= variation.price %>
         </div>

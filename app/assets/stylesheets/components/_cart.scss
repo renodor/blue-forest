@@ -28,12 +28,17 @@
   }
 }
 
-.sidebar-cart-products {
-  display: flex;
-  flex-direction: column;
-  .sidebar-cart-product {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid lightgray;
+.cart-product {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid lightgray;
+  img {
+    margin-right: 10px;
   }
 }
+
+.cart-detail {
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+

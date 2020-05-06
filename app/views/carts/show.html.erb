@@ -1,11 +1,31 @@
-<h1>Carts#show</h1>
-
 <div class="container">
-  <% @cart.product_variations.each do |variation| %>
-    <p><%= variation.product.name %> | <%= variation.size %> | $<%= variation.price %></p>
+  <% if @cart.line_items.count > 0 %>
+    <h1 class="mt-5">Mi Carrito</h1>
+    <div class="d-flex mt-5 ">
+      <div class="d-flex flex-column grow-1">
+        <% @cart.line_items.each do |line_item| %>
+          <div class="cart-product d-flex align-items-center">
+            <img src="https://picsum.photos/200" alt="...">
+            <div>
+              <p><b><%= line_item.product_variation.product.name %></b>
+              <p>Tamaño: <%= line_item.product_variation.size %></p>
+              <p>$<%= line_item.product_variation.price %></p>
+              <%= link_to "Remove item", line_item_path(line_item), method: :delete %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="cart-detail ml-3">
+        <h2>Resumen de Compra</h2>
+        <hr>
+        <p><%= pluralize(@cart.line_items.count, 'producto') %></p>
+        <p><b>Total:</b> $<%= @cart.sub_total %></p>
+        <p><b>Entrega Gratis</p>
+        <p><%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %></p>
+      </div>
+    </div>
+  <% else %>
+    <p>Carrito vacillo. <%= link_to 'Ver productos', root_path(anchor: 'products') %></p>
   <% end %>
-
-  $<%= @cart.sub_total %>
-  <%= link_to "Proceed to checkout", new_order_path %><br>
 </div>
 
