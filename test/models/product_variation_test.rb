@@ -19,6 +19,20 @@ class ProductVariationTest < ActiveSupport::TestCase
     assert_not @variation.valid?
   end
 
+  test 'product variation should have a price' do
+    @variation.price = nil
+    assert_not @variation.valid?
+  end
+
+  test 'product variation price should be a number greater or equal to zero' do
+    @variation.price = 'price'
+    assert_not @variation.valid?
+    @variation.price = -1
+    assert_not @variation.valid?
+    @variation.price = 0
+    assert @variation.valid?
+  end
+
   test "product variation should have a quantity greater or equal than 0" do
     @variation.quantity = 'q'
     assert_not @variation.valid?
