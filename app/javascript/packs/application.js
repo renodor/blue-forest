@@ -27,8 +27,10 @@ import "bootstrap";
 
 // Internal imports
 import { sidebarCart } from '../components/sidebar_cart';
+import { sizeCheckbox } from '../components/size_checkbox';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   sidebarCart();
+  sizeCheckbox();
 });

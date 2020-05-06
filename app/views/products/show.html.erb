@@ -7,11 +7,11 @@
       <p class="price">$<%= @product.product_variations.first.price %></p>
       <%= form_tag line_items_path do %>
         <div class="variations">
-          <div class="color">
+<!--           <div class="color"> -->
             <%# @product.product_variations.each do |variation| %>
               <!-- <div style="background-color: <%#= variation.color %>"></div> -->
             <%# end %>
-          </div>
+<!--           </div> -->
           <div class="size">
             <% @product.product_variations.each do |variation| %>
               <%= radio_button_tag :variation_id, variation.id %>
@@ -19,9 +19,12 @@
             <% end %>
           </div>
         </div>
-        <%= button_tag type: "submit", class: "btn btn-primary w-100" do %>
-          Add to Cart
-        <% end %>
+        <div class="atc-container">
+          <%= button_tag type: "submit", class: "btn btn-primary w-100 atc" do %>
+            Add to Cart
+          <% end %>
+          <span class="atc-overlay"></span>
+        </div>
       <% end %>
     </div>
   </div>

@@ -1,5 +1,5 @@
 class LineItemsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :authenticate_user!
 
   def create
     # Find associated product
@@ -11,7 +11,7 @@ class LineItemsController < ApplicationController
     # If cart already has this product variation then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
     if current_cart.product_variations.include?(chosen_product_variation)
       # Find the line_item with the chosen_product variation
-      @line_item = current_cart.line_items.find(chosen_product_variation)
+      @line_item = current_cart.line_items.find_by(product_variation_id: chosen_product_variation.id)
       # Iterate the line_item's quantity by one
       @line_item.quantity += 1
     else
