@@ -3,21 +3,42 @@
     <span class="cart-toggle"><i class="fas fa-arrow-right"></i></span>
     <span>Mi Carrito</span>
   </div>
-  <div class="sidebar-cart-content">
-    <div class="d-flex flex-column">
-      <% @current_cart.product_variations.each do |variation| %>
-        <div class="cart-product">
-          <img src="https://picsum.photos/50" alt="...">
-          <b><%= variation.product.name %></b> | <%= variation.size %> | $<%= variation.price %>
+  <% if @current_cart.line_items.count > 0 %>
+    <div class="padding-30">
+      <div class="d-flex flex-column">
+        <% total_quantity = 0 %>
+        <% @current_cart.line_items.reverse.each do |line_item| %>
+          <div class="cart-product d-flex align-items-center">
+            <img src="https://picsum.photos/100" alt="...">
+            <div class="grow-1">
+              <p><b><%= line_item.product_variation.product.name %></b></p>
+              <p>Tamaño: <%= line_item.product_variation.size %></p>
+              <p>$<%= line_item.product_variation.price %></p>
+            </div>
+            <div class="quantity-counter d-flex">
+              <%= link_to "-", reduce_quantity_line_item_path(line_item), method: :post %>
+              <span class="grow-1 text-center"><%= line_item.quantity %></span>
+              <%= link_to "+", add_quantity_line_item_path(line_item), method: :post %>
+            </div>
+          </div>
+          <% total_quantity += line_item.quantity %>
+        <% end %>
+      </div>
+      <div class="sidebar-cart-footer">
+        <div class="text-right my-3">
+          <p><%= pluralize(total_quantity, 'producto') %></p>
+          <b>Sub-total: $<%= @current_cart.sub_total %></b>
         </div>
-      <% end %>
+        <%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %><br>
+        <div class="w-100 mt-3 text-center">
+          <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
+        </div>
+      </div>
     </div>
-    <div class="sidebar-cart-total text-right my-3">
-      <b>Sub-total: $<%= @current_cart.sub_total %></b>
+  <% else %>
+    <div class="padding-30">
+      <p>Carrito vacillo.</p>
+      <%= link_to 'Ver productos', root_path(anchor: 'products') %></p>
     </div>
-    <%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %><br>
-    <div class="w-100 mt-3 text-center">
-      <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
-    </div>
-  </div>
+  <% end %>
 </div>

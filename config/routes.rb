@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   resources :carts, only: [:show, :destroy]
   resources :orders, only: [:index, :show, :new, :create]
   resources :products
-  resources :line_items, only: [:create, :destroy]
+  resources :line_items, only: [:create, :destroy] do
+    member do
+      post :add_quantity
+      post :reduce_quantity
+    end
+  end
   root to: 'products#index'
 end
