@@ -20,10 +20,13 @@
     border: 1px solid lightgray;
     margin-right: 5px;
   }
+  .size-selection-warning {
+    display: none;
+  }
   .atc-container {
     position: relative;
     .atc-overlay {
-      display: none;
+      // display: none;
       position: absolute;
       top: 0;
       left: 0;
