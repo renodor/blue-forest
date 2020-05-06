@@ -32,11 +32,11 @@ categories = [toys, food, masks, gloves]
 
 p 'Create products, product variations and product/categories associations'
 10.times do |n|
-  product = Product.create!(name: "Product#{n+1}", description: description, price: rand(50) + rand.round(2))
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'S' , quantity: rand(10))
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'M' , quantity: rand(10))
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'L' , quantity: rand(10))
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'XL' , quantity: rand(10))
+  product = Product.create!(name: "Product#{n+1}", description: description)
+  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'S' , quantity: rand(10), price: rand(50) + rand.round(2))
+  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'M' , quantity: rand(10), price: rand(50) + rand.round(2))
+  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'L' , quantity: rand(10), price: rand(50) + rand.round(2))
+  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'XL' , quantity: rand(10), price: rand(50) + rand.round(2))
 
   ProductCategory.create!(product_id: product.id, category_id: categories[rand(4)].id)
   p "product #{n + 1} created!"

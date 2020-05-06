@@ -1,13 +1,11 @@
 <h1>Carts#show</h1>
 
 <div class="container">
-  <% total_price = 0 %>
   <% @cart.product_variations.each do |variation| %>
-    <p><%= variation.product.name %> | <%= variation.size %> | $<%= variation.product.price %></p>
-    <% total_price += variation.product.price %>
+    <p><%= variation.product.name %> | <%= variation.size %> | $<%= variation.price %></p>
   <% end %>
 
-  <%= total_price %>
+  $<%= @cart.sub_total %>
   <%= link_to "Proceed to checkout", new_order_path %><br>
 </div>
 

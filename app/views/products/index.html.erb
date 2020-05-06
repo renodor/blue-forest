@@ -10,7 +10,7 @@
         <img src="https://picsum.photos/200" alt="">
         <div class="product-grid-info">
           <b class="grow-1"><%= product.name %></b>
-          <span>$ <%= product.price %></span>
+          <span>$ <%= product.product_variations.first.price %></span>
           <%= link_to '', product_path(product) %>
         </div>
       </div>
