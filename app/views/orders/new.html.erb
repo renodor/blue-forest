@@ -1,10 +1,21 @@
 <div class="container mt-5">
 
-  <div class="order-breadcrumb">
-    <div class="">Carrito</div>
-    <div class="">Dirección</div>
-    <div class="">Confirmación</div>
+  <div id="order-breadcrumb" class="d-flex w-100 mb-5">
+    <div class="d-flex flex-column align-items-center">
+      <div class="number">1</div>
+      <span>Carrito</span>
+    </div>
+    <div class="d-flex flex-column align-items-center active">
+      <div class="number">2</div>
+      <span>Dirección</span>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+      <div class="number">3</div>
+      <span>Confirmación</span>
+    </div>
   </div>
+
+  <h1>Sus datos de contacto para la entrega</h1>
   <% if user_signed_in? %>
       <p><%= current_user.first_name %></p>
       <p><%= current_user.last_name %></p>
@@ -17,22 +28,26 @@
       </p>
       <p>O contuniar sin creación de cuenta:</p>
       <%= form_tag orders_path, method: :post, class: ""  do %>
-        <div class="form-group">
-          <%= text_field_tag 'user[first_name]', nil, placeholder: 'Primer nombre', class: "form-control" %>
+        <div class="form-row">
+          <div class="form-group col">
+            <%= text_field_tag 'user[first_name]', nil, placeholder: 'Primer nombre', class: "form-control" %>
+          </div>
+          <div class="form-group col">
+            <%= text_field_tag 'user[last_name]', nil, placeholder: 'Apellido', class: "form-control" %>
+          </div>
         </div>
-        <div class="form-group">
-          <%= text_field_tag 'user[last_name]', nil, placeholder: 'Apellido', class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= text_field_tag 'user[email]', nil, placeholder: 'Correo', class: "form-control" %>
+        <div class="form-row">
+          <div class="form-group col">
+            <%= text_field_tag 'user[email]', nil, placeholder: 'Correo', class: "form-control" %>
+          </div>
+          <div class="form-group col">
+            <%= text_field_tag 'user[phone]', nil, placeholder: 'Teléfono', class: "form-control" %>
+          </div>
         </div>
         <div class="form-group">
           <%= text_field_tag 'user[address]', nil, placeholder: 'Dirección', class: "form-control" %>
         </div>
-        <div class="form-group">
-          <%= text_field_tag 'user[phone]', nil, placeholder: 'Teléfono', class: "form-control" %>
-        </div>
-        <%= button_tag type: "submit", class: "btn btn-secondary" do %>
+        <%= button_tag type: "submit", class: "btn btn-secondary w-100" do %>
           Confirm
         <% end %>
       <% end %>

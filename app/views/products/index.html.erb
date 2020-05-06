@@ -9,8 +9,8 @@
       <div class="product">
         <img src="https://picsum.photos/200" alt="">
         <div class="product-grid-info">
-          <b><%= product.name %></b>
-          <span class="grow-1">$ <%= product.product_variations.first.price %></span>
+          <b class="grow-1"><%= product.name %></b>
+          <span>$ <%= product.product_variations.first.price %></span>
           <%= link_to '', product_path(product) %>
         </div>
       </div>
