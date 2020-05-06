@@ -1,0 +1,16 @@
+<div id="sidebar-cart">
+  <div class="sidebar-cart-header">
+    <span class="cart-toggle"><i class="fas fa-arrow-right"></i></span>
+    <span>Mi Carrito</span>
+  </div>
+  <div class="sidebar-cart-content">
+    <% @current_cart.product_variations.each do |variation| %>
+      <p><%= variation.product.name %> | <%= variation.size %> | <%= variation.color %></p>
+    <% end %>
+
+    <%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %><br>
+    <div class="w-100 mt-3 text-center">
+      <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
+    </div>
+  </div>
+</div>
