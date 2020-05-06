@@ -8,11 +8,13 @@
       <% @current_cart.product_variations.each do |variation| %>
         <div class="sidebar-cart-product">
           <img src="https://picsum.photos/50" alt="...">
-          <%= variation.product.name %> | <%= variation.size %>
+          <b><%= variation.product.name %></b> | <%= variation.size %> | $<%= variation_variation.price %>
         </div>
       <% end %>
     </div>
+    <div class="sidebar-cart-total">
 
+    </div>
     <%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %><br>
     <div class="w-100 mt-3 text-center">
       <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
