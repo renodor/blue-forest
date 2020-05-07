@@ -10,6 +10,14 @@ class Cart < ApplicationRecord
     sum
   end
 
+  def total_items
+    qty = 0
+    self.line_items.each do |item|
+      qty += item.quantity
+    end
+    qty
+  end
+
   def shipping
     sub_total > 65 ? 0 : 5
   end

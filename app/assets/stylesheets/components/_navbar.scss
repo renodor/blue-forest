@@ -14,3 +14,23 @@
     cursor: pointer;
   }
 }
+
+.cart-icon {
+  position: relative;
+  i {
+    line-height: auto;
+  }
+  span {
+    position: absolute;
+    background-color: #75858D;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    top: 1px;
+    right: -5px;
+    font-size: 12px;
+    border: 1px solid white;
+  }
+}

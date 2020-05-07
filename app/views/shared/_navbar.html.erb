@@ -17,8 +17,9 @@
        <li class="nav-item">
           <%= link_to "Doctors", '#', class: 'nav-link' %>
         </li>
-        <li class="nav-item">
-            <i class="fas fa-shopping-cart nav-link cart-toggle"></i>
+        <li class="nav-item cart-icon cart-toggle">
+            <i class="fas fa-shopping-cart nav-link"></i>
+            <span><%= @current_cart.total_items if @current_cart.total_items > 0 %></span>
         </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
