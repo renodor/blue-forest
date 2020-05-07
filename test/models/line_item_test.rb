@@ -3,10 +3,12 @@ require 'test_helper'
 class LineItemTest < ActiveSupport::TestCase
   def setup
     @line_item = line_items(:line_item1)
+    @line_item2 = line_items(:line_item2)
+    @variation = product_variations(:product_variation1)
     @line_item.cart = Cart.new
   end
 
-  test "valid product variation" do
+  test "valid line item" do
     assert @line_item.valid?
   end
 
@@ -19,5 +21,6 @@ class LineItemTest < ActiveSupport::TestCase
     assert_equal @line_item.total_price, 10
     @line_item.quantity = 3
     assert_equal @line_item.total_price, 30
+    assert_equal @line_item2.total_price, 46.5
   end
 end

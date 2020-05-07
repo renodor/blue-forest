@@ -4,3 +4,14 @@ product_variation1:
   price: 10
   size: 'M'
 
+product_variation2:
+  quantity: 10
+  product: product1
+  price: 15.5
+  size: 'S'
+
+product_variation3:
+  quantity: 10
+  product: product1
+  price: 65
+  size: 'L'
