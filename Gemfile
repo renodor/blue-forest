@@ -30,13 +30,17 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'devise'
 
+# for seeds
 gem 'faker'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
 
+# Store instances photos
 gem 'cloudinary', '~> 1.12.0'
+
+gem 'rails_admin', '~> 2.0'
 
 group :development, :test do
   gem 'pry-byebug'
