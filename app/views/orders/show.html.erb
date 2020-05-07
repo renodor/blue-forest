@@ -1,3 +1,25 @@
-<% @order.line_items.each do |line_item| %>
-  <%= line_item.id %>
-<% end %>
+<div class="container mt-5">
+  <h1>Detalle de su orden</h1>
+
+   <% total_quantity = 0 %>
+  <% @order.line_items.each do |line_item| %>
+    <div class="d-flex align-items-center bg-white p-3">
+      <img class="mr-3" src="https://picsum.photos/100" alt="...">
+      <div>
+        <p class="mb-0"><b><%= line_item.product_variation.product.name %></b></p>
+        <p class="mb-0">Tamaño: <%= line_item.product_variation.size %></p>
+        <p class="mb-0">Precio: $<%= line_item.product_variation.price %></p>
+        <p class="mb-0">Candidad: <%= line_item.quantity %></p>
+      </div>
+    </div>
+    <% total_quantity += line_item.quantity %>
+  <% end %>
+
+  <div class="text-right">
+    <hr>
+    <p><%= pluralize(total_quantity, 'producto') %></p>
+    <p><b>Entrega Gratis</p>
+    <p><b>Total:</b> $<%= @order.sub_total %></p>
+  </div>
+</div>
+

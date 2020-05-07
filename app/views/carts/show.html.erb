@@ -31,7 +31,7 @@
         <hr>
         <p><%= pluralize(total_quantity, 'producto') %></p>
         <p><b>Total:</b> $<%= @cart.sub_total %></p>
-        <p><b>Entrega Gratis</p>
+        <p><b>Entrega Gratis</b></p>
         <p><%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %></p>
       </div>
     </div>
@@ -39,7 +39,4 @@
     <p>Carrito vacillo. <%= link_to 'Ver productos', root_path(anchor: 'products') %></p>
   <% end %>
 </div>
-<% else %>
-<p>Carrito vacillo. <%= link_to 'Ver productos', root_path(anchor: 'products') %></p>
-<% end %>
 
