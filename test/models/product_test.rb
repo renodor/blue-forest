@@ -16,14 +16,14 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'when destroy a product, its variations should be destroyed' do
-      assert_difference 'ProductVariation.count', -1 do
-        @product.destroy
-      end
+    assert_difference 'ProductVariation.count', -1 do
+      @product.destroy
+    end
   end
 
   test 'when destroy a product, its product_categories should be destroyed' do
-      assert_difference 'ProductCategory.count', -1 do
-        @product.destroy
-      end
+    assert_difference 'ProductCategory.count', -1 do
+      @product.destroy
+    end
   end
 end

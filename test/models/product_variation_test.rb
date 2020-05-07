@@ -4,6 +4,7 @@ class ProductVariationTest < ActiveSupport::TestCase
   def setup
     @product = products(:product1)
     @variation = product_variations(:product_variation1)
+    @line_item = line_items(:line_item1)
   end
 
   test "valid product variation" do
@@ -24,6 +25,11 @@ class ProductVariationTest < ActiveSupport::TestCase
     assert_not @variation.valid?
   end
 
+  test 'product variation should have a size' do
+    @variation.size = nil
+    assert_not @variation.valid?
+  end
+
   test 'product variation price should be a number greater or equal to zero' do
     @variation.price = 'price'
     assert_not @variation.valid?
@@ -33,12 +39,24 @@ class ProductVariationTest < ActiveSupport::TestCase
     assert @variation.valid?
   end
 
-  test "product variation should have a quantity greater or equal than 0" do
+  test "product variation quantity should be a number greater or equal than 0" do
     @variation.quantity = 'q'
     assert_not @variation.valid?
     @variation.quantity = -1
     assert_not @variation.valid?
     @variation.quantity = 0
     assert @variation.valid?
+  end
+
+  test 'if quantity == 0, product variation should not be published' do
+    @variation.quantity = 0
+    @variation.save
+    assert_not @variation.published
+  end
+
+  test 'when destroy a product variation, its line items should be destroyed' do
+    assert_difference 'LineItem.count', -1 do
+      @variation.destroy
+    end
   end
 end

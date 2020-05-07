@@ -1,5 +1,6 @@
 product_variation1:
-    quantity: 10
-    product: product1
-    price: 10
+  quantity: 10
+  product: product1
+  price: 10
+  size: 'M'
 
