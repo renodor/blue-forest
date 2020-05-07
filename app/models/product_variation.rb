@@ -4,5 +4,4 @@ class ProductVariation < ApplicationRecord
 
   validates :price, presence: true
   validates :price, :quantity, numericality: {greater_than_or_equal_to: 0}
-  validates :published, presence: true
 end

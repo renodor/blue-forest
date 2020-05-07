@@ -6,14 +6,16 @@
   <h2 id="products" class="text-center mb-5">Nuestros productos</h2>
   <div class="products">
     <% @products.each do |product| %>
-      <div class="product">
-        <%= cl_image_tag product.main_photo.key, height: 200, width: 350, crop: :fill %>
-        <div class="product-grid-info">
-          <b class="grow-1"><%= product.name %></b>
-          <span>$ <%= product.product_variations.first.price %></span>
-          <%= link_to '', product_path(product) %>
+      <% if product.product_variations.length > 0 %>
+        <div class="product">
+          <%= cl_image_tag product.main_photo.key, height: 200, width: 350, crop: :fill %>
+          <div class="product-grid-info">
+            <b class="grow-1"><%= product.name %></b>
+            <span>$ <%= product.product_variations.first.price %></span>
+            <%= link_to '', product_path(product) %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>

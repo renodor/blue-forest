@@ -4,7 +4,7 @@ class CreateProductVariations < ActiveRecord::Migration[6.0]
       t.references :product, null: false, foreign_key: true
       t.string :variation_name
       t.string :variation_type
-      t.string :quantity
+      t.integer :quantity
       t.boolean :published
 
       t.timestamps

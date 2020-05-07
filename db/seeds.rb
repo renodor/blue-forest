@@ -49,7 +49,7 @@ p 'Create products, product variations and product/categories associations'
   product.main_photo.attach(io: images[n], filename: "#{product.name}_main_photo.png", content_type: "image/jpg")
   product.save!
 
-  ProductVariation.new(product_id: product.id, color: Faker::Color.color_name, size: 'S' , quantity: rand(10), price: rand(50) + rand.round(2))
+  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'S' , quantity: rand(10), price: rand(50) + rand.round(2))
   ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'M' , quantity: rand(10), price: rand(50) + rand.round(2))
   ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'L' , quantity: rand(10), price: rand(50) + rand.round(2))
   ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'XL' , quantity: rand(10), price: rand(50) + rand.round(2))

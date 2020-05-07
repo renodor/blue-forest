@@ -16,8 +16,10 @@
 <!--           </div> -->
           <div class="size">
             <% @product.product_variations.each do |variation| %>
-              <%= radio_button_tag :variation_id, variation.id %>
-              <%= label_tag "variation_id_#{variation.id}", variation.size %>
+              <% if variation.published && variation.quantity > 0 %>
+                <%= radio_button_tag :variation_id, variation.id %>
+                <%= label_tag "variation_id_#{variation.id}", variation.size %>
+              <% end %>
             <% end %>
           </div>
         </div>

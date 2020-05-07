@@ -39,7 +39,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = ["Product", "ProductVariation", "User", "Order", "ProductCategory", "Category"]
+  config.included_models = ["Product", "ProductVariation", "User", "Order", "ProductCategory", "Category", "FakeUser"]
 
   config.model 'ProductVariation' do
     parent Product

@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_115311) do
     t.bigint "product_id", null: false
     t.string "size"
     t.string "color"
-    t.string "quantity"
+    t.integer "quantity"
     t.boolean "published", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
