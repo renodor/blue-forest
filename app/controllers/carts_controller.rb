@@ -3,6 +3,9 @@ class CartsController < ApplicationController
 
   def show
     @cart = @current_cart
+
+    # prevent users from trying to access other users carts by changing the cart id in the url
+    redirect_to cart_path(@cart) if @cart.id != params[:id].to_i
   end
 
   def destroy
