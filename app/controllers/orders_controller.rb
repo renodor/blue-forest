@@ -21,14 +21,19 @@ class OrdersController < ApplicationController
       @order = Order.new(fake_user_id: fake_user.id)
     end
 
+
+    # append all line items of current cart to the order
     @current_cart.line_items.each do |item|
       @order.line_items << item
-      # item.cart_id = nil
+      # remove the link between theses line items and the current cart otherwises they will be destroyed when we destroy the cart later
+      item.cart_id = nil
     end
     @order.save
+
+    # destroy the current cart, because order has been confirmed and user can now create new cart with new products
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
-    redirect_to root_path
+    redirect_to order_path(@order)
   end
 
   private
