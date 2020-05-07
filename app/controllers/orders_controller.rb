@@ -28,6 +28,11 @@ class OrdersController < ApplicationController
     # append all line items of current cart to the order
     @current_cart.line_items.each do |item|
       @order.line_items << item
+
+      # reduce stock quantity product variation by the quantity purchased of each line item
+      new_quantity = item.product_variation.quantity - item.quantity
+      item.product_variation.update(quantity: new_quantity)
+
       # remove the link between theses line items and the current cart otherwises they will be destroyed when we destroy the cart later
       item.cart_id = nil
     end
