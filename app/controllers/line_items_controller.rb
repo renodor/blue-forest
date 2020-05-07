@@ -62,9 +62,9 @@ class LineItemsController < ApplicationController
     redirect_to cart_path(@current_cart)
   end
 
-  private
+  # private
 
-  def line_item_params
-    params.require(:line_item).permit(:quantity,:product_id, :cart_id)
-  end
+  # def line_item_params
+  #   params.require(:line_item).permit(:quantity, :product_variation_id, :cart_id)
+  # end
 end
