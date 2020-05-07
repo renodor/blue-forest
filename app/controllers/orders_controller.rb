@@ -24,7 +24,6 @@ class OrdersController < ApplicationController
       @order = Order.new(fake_user_id: fake_user.id)
     end
 
-
     # append all line items of current cart to the order
     @current_cart.line_items.each do |item|
       @order.line_items << item
