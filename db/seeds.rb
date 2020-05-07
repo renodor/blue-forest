@@ -81,4 +81,4 @@ p 'Create users'
   p "user #{n + 1} created!"
 end
 
-p "----------> done, #{User.count} products created"
+p "----------> done, #{User.count} users created"

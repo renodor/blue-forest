@@ -6,6 +6,9 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+
+    # prevent users from trying to access other users orders by changing the order id in the url
+    redirect_to root_path if session[:order_id] != params[:id].to_i
   end
 
   def new
@@ -29,6 +32,9 @@ class OrdersController < ApplicationController
       item.cart_id = nil
     end
     @order.save
+
+    # link order to the session
+    session[:order_id] = @order.id
 
     # destroy the current cart, because order has been confirmed and user can now create new cart with new products
     Cart.destroy(session[:cart_id])
