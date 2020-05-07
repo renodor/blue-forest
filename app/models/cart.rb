@@ -9,4 +9,16 @@ class Cart < ApplicationRecord
     end
     sum
   end
+
+  def shipping
+    sub_total > 65 ? 0 : 5
+  end
+
+  def itbms
+    (sub_total * 0.07).round(2)
+  end
+
+  def total
+    sub_total + shipping + itbms
+  end
 end

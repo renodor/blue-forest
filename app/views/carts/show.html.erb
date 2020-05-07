@@ -30,8 +30,10 @@
         <h2>Resumen de Compra</h2>
         <hr>
         <p><%= pluralize(total_quantity, 'producto') %></p>
-        <p><b>Total:</b> $<%= @cart.sub_total %></p>
-        <p><b>Entrega Gratis</b></p>
+        <p>Sub Total: $<%= @cart.sub_total %></p>
+        <p>Entrega: $<%= @cart.shipping %></p>
+        <p>ITBMS (7%): $<%= (@cart.itbms) %></p>
+        <p><b>TOTAL: $<%= @cart.total %></b></p>
         <p><%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %></p>
       </div>
     </div>

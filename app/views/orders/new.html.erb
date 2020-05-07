@@ -21,7 +21,7 @@
       <p><%= current_user.last_name %></p>
       <p><%= current_user.email %></p>
       <p><%= current_user.address %></p>
-      <p><%= link_to "Confirm", orders_path, method: :post %></p>
+      <p><%= link_to "Confirm", orders_path, method: :post, class: "btn btn-secondary w-100" %></p>
   <% else %>
       <p>
         Ya tienes una cuenta? Porfavor <%= link_to 'Conectarse', new_user_session_path %> o <%= link_to 'Crear cuenta', new_user_registration_path %>
@@ -52,4 +52,26 @@
         <% end %>
       <% end %>
   <% end %>
+  <hr>
+  <h2>Resumen de su orden</h2>
+  <% total_quantity = 0 %>
+  <% @current_cart.line_items.reverse.each do |line_item| %>
+    <div class="cart-product d-flex align-items-center">
+      <img src="https://picsum.photos/100" alt="...">
+      <div class="grow-1">
+        <p><b><%= line_item.product_variation.product.name %></b></p>
+        <p>Tamaño: <%= line_item.product_variation.size %></p>
+        <p>$<%= line_item.product_variation.price %></p>
+        <p>Cantidad: <%= line_item.quantity %></p>
+      </div>
+    </div>
+    <% total_quantity += line_item.quantity %>
+  <% end %>
+  <div class="text-right my-3">
+    <p><%= pluralize(total_quantity, 'producto') %></p>
+    <p>Sub Total: $<%= @current_cart.sub_total %></p>
+    <p>Entrega: $<%= @current_cart.shipping %></p>
+    <p>ITBMS (7%): $<%= (@current_cart.itbms) %></p>
+    <p><b>TOTAL: $<%= @current_cart.total %></b></p>
+  </div>
 </div>
