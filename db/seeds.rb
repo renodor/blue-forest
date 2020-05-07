@@ -30,10 +30,26 @@ p "----------> done, #{Category.count} categories created"
 
 categories = [toys, food, masks, gloves]
 
+images = [
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/861-500x500_s0fflw.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/730-500x500_p309fr.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/823-500x500_ock3ba.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846863/627-500x500_vb3ohc.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846863/530-500x500_p2pps6.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846862/519-500x500_zigrse.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846862/527-500x500_hcdyun.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846862/541-500x500_kl6oy4.jpg'),
+  URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846862/413-500x500_knqcya.jpg')
+]
+
 p 'Create products, product variations and product/categories associations'
 10.times do |n|
-  product = Product.create!(name: "Product#{n+1}", description: description)
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'S' , quantity: rand(10), price: rand(50) + rand.round(2))
+  product = Product.new(name: "Product#{n+1}", description: description)
+  product.main_photo.attach(io: images[n], filename: "#{product.name}_main_photo.png", content_type: "image/jpg")
+  product.save!
+
+  ProductVariation.new(product_id: product.id, color: Faker::Color.color_name, size: 'S' , quantity: rand(10), price: rand(50) + rand.round(2))
   ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'M' , quantity: rand(10), price: rand(50) + rand.round(2))
   ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'L' , quantity: rand(10), price: rand(50) + rand.round(2))
   ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'XL' , quantity: rand(10), price: rand(50) + rand.round(2))
