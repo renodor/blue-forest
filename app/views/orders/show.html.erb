@@ -52,10 +52,10 @@
   <div class="sidebar-cart-footer">
     <div class="text-right my-3">
       <p><%= pluralize(total_quantity, 'producto') %></p>
-      <p>Sub Total: $<%= @current_cart.sub_total %></p>
-      <p>Entrega: $<%= @current_cart.shipping %></p>
-      <p>ITBMS (7%): $<%= (@current_cart.itbms) %></p>
-      <p><b>TOTAL: $<%= @current_cart.total %></b></p>
+      <p>Sub Total: $<%= @order.sub_total %></p>
+      <p>Entrega: $<%= @order.shipping %></p>
+      <p>ITBMS (7%): $<%= (@order.itbms) %></p>
+      <p><b>TOTAL: $<%= @order.total %></b></p>
     </div>
   </div>
 </div>
