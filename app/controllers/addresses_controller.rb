@@ -11,7 +11,7 @@ class AddressesController < ApplicationController
     @fake_user = FakeUser.find(params[:fake_user_id])
     @address.fake_user = @fake_user
     if @address.save
-      redirect_to new_order_path
+      redirect_to new_fake_user_order_path(@fake_user)
     else
       render :new
     end

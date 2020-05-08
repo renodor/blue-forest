@@ -13,6 +13,11 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
+    @fake_user = FakeUser.includes(:addresses).find(params[:fake_user_id])
+
+    # for now we will considere that users only have 1 address, so always take the first one
+    # we could easily have users with many addresses in the future
+    @address = @fake_user.addresses.first
   end
 
   def create
