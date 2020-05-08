@@ -16,10 +16,12 @@ class AddressesController < ApplicationController
       @user = current_user
       @address.user = @user
       redirect_to new_user_order_path(@user) if @address.save
+      return
     else
       @user = FakeUser.find(params[:fake_user_id])
       @address.fake_user = @user
       redirect_to new_fake_user_order_path(@user) if @address.save
+      return
     end
 
     # if non of the address can be saved, then no redirect, then render new again for form validation

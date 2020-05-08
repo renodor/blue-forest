@@ -17,5 +17,6 @@ Rails.application.routes.draw do
     resources :orders, only: [:index, :show, :new, :create]
     resources :addresses, only: [:new, :create]
   end
+  get 'login_before_new_order', to: 'orders#login_before_new'
   root to: 'products#index'
 end

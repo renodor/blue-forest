@@ -15,38 +15,18 @@
     </div>
   </div>
 
-  <h1>Sus datos de contacto para la entrega</h1>
-  <% if user_signed_in? %>
-      <p><%= current_user.first_name %></p>
-      <p><%= current_user.last_name %></p>
-      <p><%= current_user.email %></p>
-      <p><%= current_user.address %></p>
-      <p><%= link_to "Confirm", orders_path, method: :post, class: "btn btn-secondary w-100" %></p>
-  <% else %>
-      <p>
-        Ya tienes una cuenta? Porfavor <%= link_to 'Conectarse', new_user_session_path %> o <%= link_to 'Crear cuenta', new_user_registration_path %>
-      </p>
-      <p>O contuniar sin creación de cuenta:</p>
-      <%= simple_form_for [@fake_user] do |f| %>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-        <%= f.input :email %>
-        <%= f.input :phone %>
-        <%= f.submit %>
-      <% end %>
-
-        <button class="btn btn-secondary">Elegir en el mapa</button>
-        <%= Geocoder.search("PH Zaphiro, Panama") %>
-        <div id="map"
-         style="width: 100%; height: 600px;"
-         data-markers="<%= @markers.to_json %>"
-         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-
-        <%= button_tag type: "submit", class: "btn btn-secondary w-100" do %>
-          Confirm
-        <% end %>
+  <h1>Información de Contacto</h1>
+  <p>
+    Ya tienes una cuenta? Porfavor <%= link_to 'Conectarse', login_before_new_order_path %> o <%= link_to 'Crear cuenta', new_user_registration_path %>
+  </p>
+  <p>O continuar sin creación de cuenta:</p>
+  <%= simple_form_for [@fake_user] do |f| %>
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :email %>
+    <%= f.input :phone %>
+    <%= f.button :submit, 'Entrar Dirección', class: 'btn btn-secondary w-100' %>
   <% end %>
-  <hr>
 </div>
 
 

@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
       @user = @order.fake_user
       # for now we will considere that users only have 1 address, so always take the first one
       # we could easily have users with many addresses in the future
-      @address = @fake_user.addresses.first
+      @address = @user.addresses.first
     end
 
     # prevent users from trying to access other users orders by changing the order id in the url
@@ -79,5 +79,10 @@ class OrdersController < ApplicationController
     else
       redirect_to fake_user_order_path(@fake_user, @order)
     end
+  end
+
+  def login_before_new
+    redirect_to new_user_order_path(current_user)
+    return
   end
 end
