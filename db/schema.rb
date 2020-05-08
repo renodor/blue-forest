@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_154518) do
+ActiveRecord::Schema.define(version: 2020_05_08_082239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,22 @@ ActiveRecord::Schema.define(version: 2020_05_07_154518) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "fake_user_id"
+    t.string "street"
+    t.string "flat_number"
+    t.string "district"
+    t.text "detail"
+    t.string "city"
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fake_user_id"], name: "index_addresses_on_fake_user_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -54,7 +70,6 @@ ActiveRecord::Schema.define(version: 2020_05_07_154518) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone"
-    t.string "address"
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -122,13 +137,14 @@ ActiveRecord::Schema.define(version: 2020_05_07_154518) do
     t.string "first_name"
     t.string "last_name"
     t.string "phone"
-    t.string "address"
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "fake_users"
+  add_foreign_key "addresses", "users"
   add_foreign_key "line_items", "carts"
   add_foreign_key "line_items", "orders"
   add_foreign_key "line_items", "product_variations"

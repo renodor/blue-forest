@@ -42,6 +42,9 @@ gem 'cloudinary', '~> 1.12.0'
 
 gem 'rails_admin', '~> 2.0'
 
+# geocode addresses
+gem 'geocoder'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'

@@ -34,7 +34,7 @@
         <p>Entrega: $<%= @cart.shipping %></p>
         <p>ITBMS (7%): $<%= (@cart.itbms) %></p>
         <p><b>TOTAL: $<%= @cart.total %></b></p>
-        <p><%= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %></p>
+        <p><%= link_to "Ordenar", shipping_orders_path, class: 'btn btn-primary w-100' %></p>
       </div>
     </div>
   <% else %>

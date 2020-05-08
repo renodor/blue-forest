@@ -19,7 +19,9 @@
         </li>
         <li class="nav-item cart-icon cart-toggle">
             <i class="fas fa-shopping-cart nav-link"></i>
-            <span><%= @current_cart.total_items if @current_cart.total_items > 0 %></span>
+            <% if @current_cart.total_items > 0 %>
+              <span><%= @current_cart.total_items %></span>
+            <% end %>
         </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">

@@ -47,6 +47,11 @@
         <div class="form-group">
           <%= text_field_tag 'user[address]', nil, placeholder: 'Dirección', class: "form-control" %>
         </div>
+          <div id="map"
+     style="width: 100%; height: 600px;"
+     data-markers="<%= @markers.to_json %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+
         <%= button_tag type: "submit", class: "btn btn-secondary w-100" do %>
           Confirm
         <% end %>
@@ -55,8 +60,5 @@
   <hr>
 </div>
 
-  <div id="map"
-     style="width: 100%; height: 600px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-</div>
+
+

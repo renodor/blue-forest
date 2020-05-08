@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :show, :create]
+  skip_before_action :authenticate_user!, only: [:new, :show, :create, :shipping]
   def index
     @orders = Order.all
   end
@@ -44,6 +44,10 @@ class OrdersController < ApplicationController
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
     redirect_to order_path(@order)
+  end
+
+
+  def shipping
   end
 
   private
