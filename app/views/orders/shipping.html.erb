@@ -44,15 +44,16 @@
             <%= text_field_tag 'fake_user[phone]', nil, placeholder: 'Teléfono', class: "form-control" %>
           </div>
         </div>
+      <%= submit_tag %>
         <b>Dirección</b>
 
-          <%= simple_form_for(Address.new) do |f| %>
+          <%= simple_form_for(@address) do |f| %>
             <%= f.input :street %>
             <%= f.input :flat_number %>
             <%= f.input :district %>
             <%= f.input :detail %>
             <%= f.input :city %>
-            <%#= f.submit %>
+            <%= f.submit %>
           <% end %>
 
         <button class="btn btn-secondary">Elegir en el mapa</button>

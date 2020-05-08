@@ -48,6 +48,12 @@ class OrdersController < ApplicationController
 
 
   def shipping
+    if user_signed_in
+      @user = User.find(current_user.id)
+    else
+      @user = FakeUser.new
+      @address = Address.new
+    end
   end
 
   private
