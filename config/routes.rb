@@ -14,5 +14,6 @@ Rails.application.routes.draw do
       post :reduce_quantity
     end
   end
+  resources :addresses, only: [:new, :create]
   root to: 'products#index'
 end

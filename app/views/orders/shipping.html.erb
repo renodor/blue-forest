@@ -30,27 +30,37 @@
       <%= form_tag orders_path, method: :post, class: ""  do %>
         <div class="form-row">
           <div class="form-group col">
-            <%= text_field_tag 'user[first_name]', nil, placeholder: 'Primer nombre', class: "form-control" %>
+            <%= text_field_tag 'fake_user[first_name]', nil, placeholder: 'Primer nombre', class: "form-control" %>
           </div>
           <div class="form-group col">
-            <%= text_field_tag 'user[last_name]', nil, placeholder: 'Apellido', class: "form-control" %>
+            <%= text_field_tag 'fake_user[last_name]', nil, placeholder: 'Apellido', class: "form-control" %>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col">
-            <%= text_field_tag 'user[email]', nil, placeholder: 'Correo', class: "form-control" %>
+            <%= text_field_tag 'fake_user[email]', nil, placeholder: 'Correo', class: "form-control" %>
           </div>
           <div class="form-group col">
-            <%= text_field_tag 'user[phone]', nil, placeholder: 'Teléfono', class: "form-control" %>
+            <%= text_field_tag 'fake_user[phone]', nil, placeholder: 'Teléfono', class: "form-control" %>
           </div>
         </div>
-        <div class="form-group">
-          <%= text_field_tag 'user[address]', nil, placeholder: 'Dirección', class: "form-control" %>
-        </div>
-          <div id="map"
-     style="width: 100%; height: 600px;"
-     data-markers="<%= @markers.to_json %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+        <b>Dirección</b>
+
+          <%= simple_form_for(Address.new) do |f| %>
+            <%= f.input :street %>
+            <%= f.input :flat_number %>
+            <%= f.input :district %>
+            <%= f.input :detail %>
+            <%= f.input :city %>
+            <%#= f.submit %>
+          <% end %>
+
+        <button class="btn btn-secondary">Elegir en el mapa</button>
+        <%= Geocoder.search("PH Zaphiro, Panama") %>
+        <div id="map"
+         style="width: 100%; height: 600px;"
+         data-markers="<%= @markers.to_json %>"
+         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 
         <%= button_tag type: "submit", class: "btn btn-secondary w-100" do %>
           Confirm
