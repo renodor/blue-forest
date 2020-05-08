@@ -15,44 +15,47 @@
     </div>
   </div>
 
-  <h2>Información de Contacto</h2>
-  <p><%= @fake_user.first_name %> <%= @fake_user.last_name %></p>
-  <p><%= @fake_user.email %></p>
-  <p><%= @fake_user.phone %></p>
-  <p><b>Dirección</b></p>
-  <p><%= @address.street %></p>
-  <p><%= @address.flat_number %></p>
-  <p><%= @address.district %></p>
-  <p><%= @address.detail %></p>
-  <p><%= @address.city %></p>
+  <div>
+    <h2>Información de Contacto</h2>
+    <p><%= @fake_user.first_name %> <%= @fake_user.last_name %></p>
+    <p><%= @fake_user.email %></p>
+    <p><%= @fake_user.phone %></p>
+    <h2>Dirección</h2>
+    <p><%= @address.street %></p>
+    <p><%= @address.flat_number %></p>
+    <p><%= @address.district %></p>
+    <p><%= @address.detail %></p>
+    <p><%= @address.city %></p>
 
-  <div id="show-address-map"
-   style="width: 100%; height: 600px;"
-   data-lat="<%= @address.latitude %>"
-   data-lng="<%= @address.longitude %>"
-   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+    <div id="show-address-map"
+     style="width: 100%; height: 600px;"
+     data-lat="<%= @address.latitude %>"
+     data-lng="<%= @address.longitude %>"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+  </div>
   <hr>
-
-        <% total_quantity = 0 %>
-        <% @current_cart.line_items.reverse.each do |line_item| %>
-          <div class="cart-product d-flex align-items-center">
-            <%= cl_image_tag line_item.product_variation.product.main_photo.key, height: 100, width: 100, crop: :fill %>
-            <div class="grow-1">
-              <p><b><%= line_item.product_variation.product.name %></b></p>
-              <p>Tamaño: <%= line_item.product_variation.size %></p>
-              <p>$<%= line_item.product_variation.price %></p>
-              <p><%= line_item.quantity %></p>
-          </div>
-          <% total_quantity += line_item.quantity %>
-        <% end %>
-      <div class="sidebar-cart-footer">
-        <div class="text-right my-3">
-          <p><%= pluralize(total_quantity, 'producto') %></p>
-          <p>Sub Total: $<%= @current_cart.sub_total %></p>
-          <p>Entrega: $<%= @current_cart.shipping %></p>
-          <p>ITBMS (7%): $<%= (@current_cart.itbms) %></p>
-          <p><b>TOTAL: $<%= @current_cart.total %></b></p>
-        </div>
-        <%#= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %><br>
-</div>
+  <h2>Resumen de Pedido</h2>
+  <% total_quantity = 0 %>
+  <% @current_cart.line_items.reverse.each do |line_item| %>
+    <div class="cart-product d-flex align-items-center">
+      <%= cl_image_tag line_item.product_variation.product.main_photo.key, height: 100, width: 100, crop: :fill %>
+      <div class="grow-1">
+        <p><b><%= line_item.product_variation.product.name %></b></p>
+        <p>Tamaño: <%= line_item.product_variation.size %></p>
+        <p>$<%= line_item.product_variation.price %></p>
+        <p><%= line_item.quantity %></p>
+      </div>
+      <% total_quantity += line_item.quantity %>
+    </div>
+  <% end %>
+  <div class="sidebar-cart-footer">
+    <div class="text-right my-3">
+      <p><%= pluralize(total_quantity, 'producto') %></p>
+      <p>Sub Total: $<%= @current_cart.sub_total %></p>
+      <p>Entrega: $<%= @current_cart.shipping %></p>
+      <p>ITBMS (7%): $<%= (@current_cart.itbms) %></p>
+      <p><b>TOTAL: $<%= @current_cart.total %></b></p>
+    </div>
+  </div>
+  <%= link_to "CONFIRMAR PEDIDO", fake_user_orders_path, method: :post, class: 'btn btn-primary w-100' %><br>
 </div>

@@ -9,7 +9,7 @@ const initMapbox = () => {
     mapboxgl.accessToken = createAddressMap.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
       container: 'create-address-map',
-      center: [-79.5254181, 9.0152974],
+      center: [-79.5254181, 9.0152974], // by default showing Panama
       zoom: 11,
       style: 'mapbox://styles/mapbox/streets-v10'
     });
@@ -36,8 +36,8 @@ const initMapbox = () => {
     mapboxgl.accessToken = showAddressMap.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
       container: 'show-address-map',
-      center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat],
-      zoom: 11,
+      center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat], // by default showing address location
+      zoom: 15,
       style: 'mapbox://styles/mapbox/streets-v10'
     });
 

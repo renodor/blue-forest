@@ -6,7 +6,10 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-
+    @fake_user = @order.fake_user
+    # for now we will considere that users only have 1 address, so always take the first one
+    # we could easily have users with many addresses in the future
+    @address = @fake_user.addresses.first
     # prevent users from trying to access other users orders by changing the order id in the url
     redirect_to root_path if session[:order_id] != params[:id].to_i
   end
@@ -24,9 +27,9 @@ class OrdersController < ApplicationController
     if user_signed_in?
       @order = Order.new(user_id: current_user.id)
     else
-      # if user wants to order without account, create a 'fake' user without validation
-      fake_user = FakeUser.create(fake_user_params)
-      @order = Order.new(fake_user_id: fake_user.id)
+      @order = Order.new
+      @fake_user = FakeUser.find(params[:fake_user_id])
+      @order.fake_user = @fake_user
     end
 
     # append all line items of current cart to the order
@@ -48,6 +51,6 @@ class OrdersController < ApplicationController
     # destroy the current cart, because order has been confirmed and user can now create new cart with new products
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
-    redirect_to order_path(@order)
+    redirect_to fake_user_order_path(@fake_user, @order)
   end
 end
