@@ -14,13 +14,13 @@
     </div>
   </div>
 
-  <p><%= @fake_user.first_name %> <%= @fake_user.last_name %></p>
-  <p><%= @fake_user.email %></p>
-  <p><%= @fake_user.phone %></p>
+  <p><%= @user.first_name %> <%= @user.last_name %></p>
+  <p><%= @user.email %></p>
+  <p><%= @user.phone %></p>
 
   <b>Dirección</b>
 
-  <%= simple_form_for [ @fake_user, @address ] do |f| %>
+  <%= simple_form_for [ @user, @address ] do |f| %>
   <div class="d-flex">
     <div class="grow-1">
       <%= f.input :street %>

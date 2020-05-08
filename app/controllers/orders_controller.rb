@@ -6,26 +6,48 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @fake_user = @order.fake_user
-    # for now we will considere that users only have 1 address, so always take the first one
-    # we could easily have users with many addresses in the future
-    @address = @fake_user.addresses.first
+
+    if user_signed_in?
+      @user = @order.user
+      # for now we will considere that users only have 1 address, so always take the first one
+      # we could easily have users with many addresses in the future
+      @address = @user.addresses.first
+    else
+      @user = @order.fake_user
+      # for now we will considere that users only have 1 address, so always take the first one
+      # we could easily have users with many addresses in the future
+      @address = @fake_user.addresses.first
+    end
+
     # prevent users from trying to access other users orders by changing the order id in the url
     redirect_to root_path if session[:order_id] != params[:id].to_i
   end
 
   def new
     @order = Order.new
-    @fake_user = FakeUser.includes(:addresses).find(params[:fake_user_id])
+    if user_signed_in?
+      @user = User.includes(:addresses).find(current_user.id)
 
-    # for now we will considere that users only have 1 address, so always take the first one
-    # we could easily have users with many addresses in the future
-    @address = @fake_user.addresses.first
+      # security check that current user has an address
+      redirect_to new_user_address_path(@user) if @user.addresses.empty?
+
+      # for now we will considere that users only have 1 address, so always take the first one
+      # we could easily have users with many addresses in the future
+      @address = @user.addresses.first
+    else
+      @user = FakeUser.includes(:addresses).find(params[:fake_user_id])
+      # for now we will considere that users only have 1 address, so always take the first one
+      # we could easily have users with many addresses in the future
+      @address = @user.addresses.first
+    end
+
   end
 
   def create
     if user_signed_in?
-      @order = Order.new(user_id: current_user.id)
+      @order = Order.new
+      @user = current_user
+      @order.user = @user
     else
       @order = Order.new
       @fake_user = FakeUser.find(params[:fake_user_id])
@@ -51,6 +73,11 @@ class OrdersController < ApplicationController
     # destroy the current cart, because order has been confirmed and user can now create new cart with new products
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
-    redirect_to fake_user_order_path(@fake_user, @order)
+
+    if @user
+      redirect_to user_order_path(@user, @order)
+    else
+      redirect_to fake_user_order_path(@fake_user, @order)
+    end
   end
 end

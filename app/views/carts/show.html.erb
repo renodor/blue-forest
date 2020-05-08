@@ -35,7 +35,7 @@
         <p>ITBMS (7%): $<%= (@cart.itbms) %></p>
         <p><b>TOTAL: $<%= @cart.total %></b></p>
         <% if user_signed_in? %>
-          <p><%= link_to "Ordenar", '#', class: 'btn btn-primary w-100' %></p>
+          <p><%= link_to "Ordenar", new_user_order_path(current_user), class: 'btn btn-primary w-100' %></p>
         <% else %>
           <p><%= link_to "Ordenar", new_fake_user_path, class: 'btn btn-primary w-100' %></p>
         <% end %>
