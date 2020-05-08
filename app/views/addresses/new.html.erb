@@ -1,0 +1,43 @@
+<div class="container mt-5">
+    <div id="order-breadcrumb" class="d-flex w-100 mb-5">
+    <div class="d-flex flex-column align-items-center">
+      <div class="number">1</div>
+      <span>Carrito</span>
+    </div>
+    <div class="d-flex flex-column align-items-center active">
+      <div class="number">2</div>
+      <span>Dirección</span>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+      <div class="number">3</div>
+      <span>Confirmación</span>
+    </div>
+  </div>
+
+  <p><%= @fake_user.first_name %> <%= @fake_user.last_name %></p>
+  <p><%= @fake_user.email %></p>
+  <p><%= @fake_user.phone %></p>
+
+  <b>Dirección</b>
+
+  <%= simple_form_for [ @fake_user, @address ] do |f| %>
+  <div class="d-flex">
+    <div class="grow-1">
+      <%= f.input :street %>
+      <%= f.input :flat_number %>
+      <%= f.input :district %>
+      <%= f.input :detail %>
+      <%= f.input :city %>
+    </div>
+    <div style="width: 50%;">
+    <b>Elegir en el mapa</b>
+      <div id="map"
+       style="width: 100%; height: 600px;"
+       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+    </div>
+    <%= f.input :latitude, as: :hidden %>
+    <%= f.input :longitude, as: :hidden %>
+  </div>
+    <%= f.submit "Confirm", class: "btn btn-primary" %>
+  <% end %>
+</div>

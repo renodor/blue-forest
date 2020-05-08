@@ -27,34 +27,13 @@
         Ya tienes una cuenta? Porfavor <%= link_to 'Conectarse', new_user_session_path %> o <%= link_to 'Crear cuenta', new_user_registration_path %>
       </p>
       <p>O contuniar sin creación de cuenta:</p>
-      <%= form_tag orders_path, method: :post, class: ""  do %>
-        <div class="form-row">
-          <div class="form-group col">
-            <%= text_field_tag 'fake_user[first_name]', nil, placeholder: 'Primer nombre', class: "form-control" %>
-          </div>
-          <div class="form-group col">
-            <%= text_field_tag 'fake_user[last_name]', nil, placeholder: 'Apellido', class: "form-control" %>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col">
-            <%= text_field_tag 'fake_user[email]', nil, placeholder: 'Correo', class: "form-control" %>
-          </div>
-          <div class="form-group col">
-            <%= text_field_tag 'fake_user[phone]', nil, placeholder: 'Teléfono', class: "form-control" %>
-          </div>
-        </div>
-      <%= submit_tag %>
-        <b>Dirección</b>
-
-          <%= simple_form_for(@address) do |f| %>
-            <%= f.input :street %>
-            <%= f.input :flat_number %>
-            <%= f.input :district %>
-            <%= f.input :detail %>
-            <%= f.input :city %>
-            <%= f.submit %>
-          <% end %>
+      <%= simple_form_for [@fake_user] do |f| %>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
+        <%= f.input :email %>
+        <%= f.input :phone %>
+        <%= f.submit %>
+      <% end %>
 
         <button class="btn btn-secondary">Elegir en el mapa</button>
         <%= Geocoder.search("PH Zaphiro, Panama") %>
@@ -66,7 +45,6 @@
         <%= button_tag type: "submit", class: "btn btn-secondary w-100" do %>
           Confirm
         <% end %>
-      <% end %>
   <% end %>
   <hr>
 </div>

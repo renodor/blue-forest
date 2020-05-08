@@ -45,20 +45,4 @@ class OrdersController < ApplicationController
     session[:cart_id] = nil
     redirect_to order_path(@order)
   end
-
-
-  def shipping
-    if user_signed_in
-      @user = User.find(current_user.id)
-    else
-      @user = FakeUser.new
-      @address = Address.new
-    end
-  end
-
-  private
-
-  def fake_user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :address, :phone)
-  end
 end
