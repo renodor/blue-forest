@@ -26,6 +26,11 @@
   <p><%= @address.detail %></p>
   <p><%= @address.city %></p>
 
+  <div id="show-address-map"
+   style="width: 100%; height: 600px;"
+   data-lat="<%= @address.latitude %>"
+   data-lng="<%= @address.longitude %>"
+   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
   <hr>
 
         <% total_quantity = 0 %>

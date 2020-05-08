@@ -5,10 +5,10 @@ const initMapbox = () => {
   const showAddressMap = document.getElementById('show-address-map');
 
   // Interactive map when creating addresses
-  if (createMap) {
-    mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
+  if (createAddressMap) {
+    mapboxgl.accessToken = createAddressMap.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
-      container: 'map',
+      container: 'create-address-map',
       center: [-79.5254181, 9.0152974],
       zoom: 11,
       style: 'mapbox://styles/mapbox/streets-v10'
@@ -33,20 +33,17 @@ const initMapbox = () => {
 
   // Static map when showing addresse
   if (showAddressMap) {
-    mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
+    mapboxgl.accessToken = showAddressMap.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
-      container: 'map',
-      center: [-79.5254181, 9.0152974],
+      container: 'show-address-map',
+      center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat],
       zoom: 11,
       style: 'mapbox://styles/mapbox/streets-v10'
     });
 
-      const markers = JSON.parse(mapElement.dataset.markers);
-      markers.forEach((marker) => {
-        new mapboxgl.Marker()
-          .setLngLat([ marker.lng, marker.lat ])
-          .addTo(map);
-      });
+      new mapboxgl.Marker()
+        .setLngLat([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ])
+        .addTo(map);
   };
 };
 
