@@ -55,7 +55,7 @@ class ProductVariationTest < ActiveSupport::TestCase
   end
 
   test 'when destroy a product variation, its line items should be destroyed' do
-    assert_difference 'LineItem.count', -1 do
+    assert_difference 'LineItem.count', -2 do
       @variation.destroy
     end
   end

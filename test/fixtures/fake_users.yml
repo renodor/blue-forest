@@ -1,0 +1,5 @@
+fake_user1:
+  first_name: Gaston
+  last_name: Lagaffe
+  email: gaston@gmail.com
+  phone: '123456789'
