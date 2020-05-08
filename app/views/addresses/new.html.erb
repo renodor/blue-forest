@@ -29,16 +29,15 @@
       <%= f.input :district %>
       <%= f.input :detail %>
       <%= f.input :city %>
+      <%= f.input :latitude, as: :hidden %>
+      <%= f.input :longitude, as: :hidden %>
     </div>
     <div style="width: 50%;">
     <b>Elegir en el mapa</b>
-    <p><%= 'Por favor seleccionar su punto en el mapa' if @address.errors.messages[:latitude] || @address.errors.messages[:longitude] %></p>
-      <div id="create-address-map"
-       style="width: 100%; height: 600px;"
-       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+    <div id="create-address-map"
+     style="width: 100%; height: 600px;"
+     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
     </div>
-    <%= f.input :latitude, as: :hidden %>
-    <%= f.input :longitude, as: :hidden %>
   </div>
     <%= f.submit "Confirm", class: "btn btn-primary" %>
   <% end %>
