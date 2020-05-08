@@ -32,7 +32,7 @@ class LineItemsController < ApplicationController
       @line_item.save
 
       # Once line item created, put a notice and redirect back to the product page
-      flash.notice = "Producto añadido a su carrito."
+      flash[:atc] = "Producto añadido a su carrito."
       redirect_back fallback_location: product_path(chosen_product_variation.product)
     else
       flash.alert = "No se puede añadir más de este producto"

@@ -9,11 +9,6 @@
       <p class="price">$<%= @product.product_variations.first.price %></p>
       <%= form_tag line_items_path do %>
         <div class="variations">
-<!--           <div class="color"> -->
-            <%# @product.product_variations.each do |variation| %>
-              <!-- <div style="background-color: <%#= variation.color %>"></div> -->
-            <%# end %>
-<!--           </div> -->
           <div class="size">
             <% @product.product_variations.each do |variation| %>
               <% if variation.published && variation.quantity > 0 %>
