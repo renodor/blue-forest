@@ -1,26 +1,29 @@
 line_item1:
   product_variation: product_variation1
   quantity: 1
+  cart: cart1
 
 line_item2:
   product_variation: product_variation2
   quantity: 3
+  cart: cart1
 
 line_item3:
   product_variation: product_variation3
   quantity: 1
+  cart: cart1
 
 line_item4:
   product_variation: product_variation1
-  order_id: order1
+  order: order1
   quantity: 1
 
 line_item5:
   product_variation: product_variation2
-  order_id: order1
+  order: order1
   quantity: 3
 
 line_item6:
   product_variation: product_variation3
-  order_id: order1
+  order: order1
   quantity: 1

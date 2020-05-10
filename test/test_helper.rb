@@ -9,7 +9,7 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures %w[categories products product_categories product_variations line_items orders users fake_users]
+  fixtures %w[categories products product_categories product_variations users fake_users addresses carts orders line_items]
 
   # Devise test helpers
   include Warden::Test::Helpers
