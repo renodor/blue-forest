@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :addresses, dependent: :destroy
   has_many :orders
+
   before_destroy :remove_orders_foreign_key
 
   validates :first_name, :last_name, :phone, :email, presence: true
