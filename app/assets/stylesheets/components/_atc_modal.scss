@@ -1,0 +1,17 @@
+#atcModal {
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  .modal-header {
+    border-bottom: none;
+    align-items: center;
+  }
+  .modal-body {
+    padding: 2rem;
+  }
+  .modal-footer {
+    justify-content: center;
+  }
+}

@@ -21,6 +21,8 @@ class LineItemsController < ApplicationController
           @line_item.quantity += 1
         else
           flash.alert = "No se puede añadir más de este producto"
+          redirect_to product_path(chosen_product_variation.product)
+          return
         end
       else
         @line_item = LineItem.new
@@ -32,12 +34,11 @@ class LineItemsController < ApplicationController
       @line_item.save
 
       # Once line item created, put a notice and redirect back to the product page
-      flash[:atc] = "Producto añadido a su carrito."
-      redirect_back fallback_location: product_path(chosen_product_variation.product)
-    else
-      flash.alert = "No se puede añadir más de este producto"
-      redirect_to product_path(chosen_product_variation.product)
+      redirect_to product_path(chosen_product_variation.product, atc_modal: true, product_variation: chosen_product_variation)
+      return
     end
+    flash.alert = "No se puede añadir más de este producto"
+    redirect_to product_path(chosen_product_variation.product)
   end
 
   def add_quantity
