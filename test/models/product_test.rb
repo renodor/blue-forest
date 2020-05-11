@@ -15,6 +15,10 @@ class ProductTest < ActiveSupport::TestCase
     assert_not @product.valid?
   end
 
+  test "product should be published by default" do
+    assert @product.published
+  end
+
   test 'when destroy a product, its variations should be destroyed' do
     assert_difference 'ProductVariation.count', -3 do
       @product.destroy

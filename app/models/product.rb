@@ -4,5 +4,5 @@ class Product < ApplicationRecord
   has_many :categories, through: :product_categories
   has_one_attached :main_photo
 
-  validates :name, presence: true
+  validates :name, :published, presence: true
 end
