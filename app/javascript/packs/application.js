@@ -28,6 +28,8 @@ import "bootstrap";
 // Internal imports
 import { sidebarCart } from '../components/sidebar_cart';
 import { sizeCheckbox } from '../components/size_checkbox';
+import { atcModal } from '../components/atc_modal';
+
 import { initMapbox } from '../plugins/init_mapbox';
 
 document.addEventListener('turbolinks:load', () => {
@@ -35,4 +37,7 @@ document.addEventListener('turbolinks:load', () => {
   sidebarCart();
   sizeCheckbox();
   initMapbox();
+  atcModal();
 });
+
+

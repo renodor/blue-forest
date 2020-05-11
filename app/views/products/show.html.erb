@@ -43,15 +43,30 @@
   </div>
 </div>
 
+<a href=""></a>
 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#atcModal">
+  Launch demo modal
+</button>
 
-  <%#= form_tag line_items_path, method: :post, class: ""  do %>
-      <%#= select_tag 'color_id', options_from_collection_for_select(@product_variations[:colors], "id", "value") %>
-      <%#= select_tag 'size_id', options_from_collection_for_select(@product_variations[:sizes], "id", "value") %>
-      <%#= hidden_field_tag 'product_id', @product.id %>
-      <%#= button_tag(type: "submit", class: "btn btn-flat") do %>
-        <!-- add to cart -->
-      <%# end %>
-  <%# end %>
-
-
+  <!-- Modal -->
+  <div class="modal fade" id="atcModal" tabindex="-1" role="dialog" aria-labelledby="atcModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="atcModalTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>

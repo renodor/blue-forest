@@ -1,5 +1,9 @@
+<%= render 'shared/carousel' %>
+<%= render 'shared/features' %>
+
 <div class="container mt-5">
-  <h2 class="text-center mb-5">Nuestros productos</h2>
+  <hr>
+  <h2 id="products" class="text-center mb-5">Nuestros productos</h2>
   <div class="products">
     <% @products.each do |product| %>
       <% if product.product_variations.length > 0 %>
