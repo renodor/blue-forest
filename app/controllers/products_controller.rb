@@ -13,10 +13,10 @@ class ProductsController < ApplicationController
 
   def search
     sql_query = " \
-      products.name ILIKE :query \
-      OR products.description ILIKE :query \
+      products.name ILIKE :query AND products.published = true \
+      OR products.description ILIKE :query AND products.published = true \
     "
-    @products = Product.where(sql_query, query: "%#{params[:query]}%")
+    @products = Product.includes(:product_variations).where(sql_query, query: "%#{params[:query]}%")
   end
 end
 
