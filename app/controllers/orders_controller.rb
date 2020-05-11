@@ -74,6 +74,10 @@ class OrdersController < ApplicationController
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
 
+    # send confirmation email
+    OrderMailer.confirmation(@order).deliver_now
+
+    # redirect to the correct path
     if @user
       redirect_to user_order_path(@user, @order)
     else
@@ -81,6 +85,7 @@ class OrdersController < ApplicationController
     end
   end
 
+  # aditional method and route to just to redirect users to the correct new order path if they start creating an order without being logged in and wants to log in afterword
   def login_before_new
     redirect_to new_user_order_path(current_user)
     return
