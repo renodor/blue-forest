@@ -5,13 +5,30 @@ class ProductVariation < ApplicationRecord
   validates :price, :quantity, :size, presence: true
   validates :price, :quantity, numericality: {greater_than_or_equal_to: 0}
 
-  before_save :check_quantity, if: :will_save_change_to_quantity?
+  # each time there is a quantity change, check stock level
+  before_save :check_stock_level, if: :will_save_change_to_quantity?
+
+  # each time there is a publishing status change to on product variation,
+  # check if the product has other product variations published
+  after_commit :check_other_variations_stock_level, if: :saved_change_to_published?
 
   private
 
-  def check_quantity
+  def check_stock_level
     if self.quantity.zero?
+      # if stock is down, unpublish product variation
       self.published = false
     end
+  end
+
+  def check_other_variations_stock_level
+    product = self.product
+    product.product_variations.each do |variation|
+      # return without doing anything if at least one variation is published
+      return if variation.published
+    end
+
+    # otherwise unpublish the product
+    product.update(published: false)
   end
 end
