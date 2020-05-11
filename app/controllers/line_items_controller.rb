@@ -33,7 +33,7 @@ class LineItemsController < ApplicationController
       # Save and redirect to cart show path
       @line_item.save
 
-      # Once line item created, put a notice and redirect back to the product page
+      # Once line item created, put a params to trigger add to cart modal and redirect back to the product page
       redirect_to product_path(chosen_product_variation.product, atc_modal: true, product_variation: chosen_product_variation)
       return
     end
