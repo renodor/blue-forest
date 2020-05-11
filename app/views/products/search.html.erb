@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-5"><%= @products.count %> Resultados de búsqueda para: <em><%= params[:query] %></em></h2>
+  <% if @products.count > 0 %>
+    <div class="products">
+      <% @products.each do |product| %>
+        <% if product.product_variations.length > 0 %>
+          <div class="product">
+            <%= cl_image_tag product.main_photo.key, height: 200, width: 350, crop: :fill %>
+            <div class="product-grid-info">
+              <b class="grow-1"><%= product.name %></b>
+              <span>$ <%= product.product_variations.first.price %></span>
+              <%= link_to '', product_path(product) %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p><%= link_to 'Ver todos los productos', products_path %></p>
+  <% end %>
+</div>
+
+

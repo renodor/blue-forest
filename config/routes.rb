@@ -6,7 +6,11 @@ Rails.application.routes.draw do
     resources :addresses, only: [:new, :create]
   end
   resources :carts, only: [:show, :destroy]
-  resources :products
+  resources :products do
+    collection do
+      get :search
+    end
+  end
   resources :line_items, only: [:create, :destroy] do
     member do
       post :add_quantity

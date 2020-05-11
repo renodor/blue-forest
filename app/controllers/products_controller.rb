@@ -9,5 +9,13 @@ class ProductsController < ApplicationController
     # get all product pre-loading its product variations
     @product = Product.includes(:product_variations).find(params[:id])
   end
+
+  def search
+    sql_query = " \
+      products.name ILIKE :query \
+      OR products.description ILIKE :query \
+    "
+    @products = Product.where(sql_query, query: "%#{params[:query]}%")
+  end
 end
 
