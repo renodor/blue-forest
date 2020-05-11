@@ -2,7 +2,8 @@ class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @products = Product.includes(:product_variations).all
+    @products = Product.includes(:product_variations).find_by(published: true)
+
   end
 
   def show
