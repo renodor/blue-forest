@@ -4,7 +4,7 @@
     <span>Mi Carrito</span>
   </div>
   <% if @current_cart.line_items.count > 0 %>
-    <div class="padding-30">
+    <div class="padding-30 sidebar-cart-content">
       <div class="d-flex flex-column">
         <% total_quantity = 0 %>
         <% @current_cart.line_items.reverse.each do |line_item| %>
@@ -24,18 +24,19 @@
           <% total_quantity += line_item.quantity %>
         <% end %>
       </div>
-      <div class="sidebar-cart-footer">
-        <div class="text-right my-3">
-          <p><%= pluralize(total_quantity, 'producto') %></p>
-          <p>Sub Total: $<%= @current_cart.sub_total %></p>
-          <p>Entrega: $<%= @current_cart.shipping %></p>
-          <p>ITBMS (7%): $<%= (@current_cart.itbms) %></p>
-          <p><b>TOTAL: $<%= @current_cart.total %></b></p>
-        </div>
-        <%#= link_to "Ir a Pagar", new_order_path, class: 'btn btn-primary w-100' %><br>
-        <div class="w-100 mt-3 text-center">
-          <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
-        </div>
+    </div>
+    <div class="sidebar-cart-footer">
+      <div class="text-right my-3">
+        <p><%= pluralize(total_quantity, 'producto') %></p>
+        <p><b>Sub Total: $<%= @current_cart.sub_total %></b></p>
+      </div>
+      <div class="w-100 mt-3 text-center">
+        <% if user_signed_in? %>
+          <%= link_to "Ordenar", new_user_order_path(current_user), class: 'btn btn-primary w-100' %>
+        <% else %>
+          <%= link_to "Ordenar", new_fake_user_path, class: 'btn btn-primary w-100' %>
+        <% end %>
+        <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
       </div>
     </div>
   <% else %>

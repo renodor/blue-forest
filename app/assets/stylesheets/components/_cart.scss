@@ -23,12 +23,20 @@
     top: 20px;
     left: 30px;
   }
+  .sidebar-cart-content {
+    max-height: calc(100vh - 222px);
+    overflow-y: auto;
+  }
   .cart-product p {
     margin-bottom: 0px;
   }
   .sidebar-cart-footer {
-    background-color: white;
+    background-color: #E5E5E5;
     width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0 30px;
   }
 }
 
