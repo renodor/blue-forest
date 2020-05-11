@@ -54,19 +54,19 @@ class CartTest < ActiveSupport::TestCase
     assert_equal @cart.itbms, 8.51
 
     @cart.line_items = [@line_item1, @line_item2]
-    assert_equal @cart.itbms, 3.96
+    assert_in_delta @cart.itbms, 4.30, 0.01
 
     @cart.line_items = [@line_item1]
-    assert_equal @cart.itbms, 0.7
+    assert_equal @cart.itbms, 1.05
   end
 
-  test 'cart total method' do
+  test 'cart total instance method' do
     assert_equal @cart.total, 130.01
 
     @cart.line_items = [@line_item1, @line_item2]
-    assert_in_delta @cart.total, 65.46, 0.01
+    assert_in_delta @cart.total, 65.80, 0.01
 
     @cart.line_items = [@line_item1]
-    assert_equal @cart.total, 15.7
+    assert_equal @cart.total, 16.05
   end
 end

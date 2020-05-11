@@ -27,7 +27,7 @@ class OrderTest < ActiveSupport::TestCase
     assert_equal @order.product_variations.first.product.name, 'product1'
   end
 
-test 'cart sub total instance method' do
+test 'order sub total instance method' do
     assert_equal @order.sub_total, 121.5
 
     @order.line_items = [@line_item1, @line_item2]
@@ -37,7 +37,7 @@ test 'cart sub total instance method' do
     assert_equal @order.sub_total, 10
   end
 
-  test 'cart total items instance method' do
+  test 'order total items instance method' do
     assert_equal @order.total_items, 5
 
     @order.line_items = [@line_item1, @line_item2]
@@ -47,7 +47,7 @@ test 'cart sub total instance method' do
     assert_equal @order.total_items, 1
   end
 
-  test 'cart shipping instance method' do
+  test 'order shipping instance method' do
     assert_equal @order.shipping, 0
     @order.line_items = [@line_item1, @line_item2]
     assert_equal @order.shipping, 5
@@ -55,23 +55,23 @@ test 'cart sub total instance method' do
     assert_equal @order.shipping, 0
   end
 
-  test 'cart ITBMS instance method' do
+  test 'order ITBMS instance method' do
     assert_equal @order.itbms, 8.51
 
     @order.line_items = [@line_item1, @line_item2]
-    assert_equal @order.itbms, 3.96
+    assert_in_delta @order.itbms, 4.30, 0.01
 
     @order.line_items = [@line_item1]
-    assert_equal @order.itbms, 0.7
+    assert_equal @order.itbms, 1.05
   end
 
-  test 'cart total method' do
+  test 'order total instance method' do
     assert_equal @order.total, 130.01
 
     @order.line_items = [@line_item1, @line_item2]
-    assert_in_delta @order.total, 65.46, 0.01
+    assert_in_delta @order.total, 65.80, 0.01
 
     @order.line_items = [@line_item1]
-    assert_equal @order.total, 15.7
+    assert_equal @order.total, 16.05
   end
 end

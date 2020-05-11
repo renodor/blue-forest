@@ -25,7 +25,7 @@ class Order < ApplicationRecord
   end
 
   def itbms
-    (sub_total * 0.07).round(2)
+    ((sub_total + shipping) * 0.07).round(2)
   end
 
   def total
