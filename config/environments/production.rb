@@ -1,6 +1,8 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: "http://TODO_PUT_YOUR_DOMAIN_HERE" }
-  # Settings specified here will take precedence over those in config/application.rb.
+  # postmark configuration
+  config.action_mailer.delivery_method     = :postmark
+  config.action_mailer.postmark_settings   = { api_token: ENV['POSTMARK_API_TOKEN'] }
+  config.action_mailer.default_url_options = { host: "https://www.blueforestpanamapanama.com/" }
 
   # Code is not reloaded between requests.
   config.cache_classes = true

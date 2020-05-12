@@ -45,6 +45,9 @@ gem 'rails_admin', '~> 2.0'
 # geocode addresses
 gem 'geocoder'
 
+# Postmark mailer
+gem 'postmark-rails'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
