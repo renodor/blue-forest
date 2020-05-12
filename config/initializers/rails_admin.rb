@@ -163,6 +163,25 @@ RailsAdmin.config do |config|
 
   config.model 'Address' do
     visible false
+
+    show do
+      configure :latitude do hide end
+      configure :longitude do hide end
+      configure :google_maps_link do show end
+    end
+
+    edit do
+      configure :latitude do hide end
+      configure :longitude do hide end
+      configure :user do
+        inline_add false
+        inline_edit false
+      end
+      configure :fake_user do
+        inline_add false
+        inline_edit false
+      end
+    end
   end
 
   config.authorize_with do
