@@ -81,4 +81,6 @@ p 'Create users'
   p "user #{n + 1} created!"
 end
 
+User.first.update(admin: true)
+
 p "----------> done, #{User.count} users created"

@@ -39,14 +39,69 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = ["Product", "ProductVariation", "User", "Order", "ProductCategory", "Category", "FakeUser"]
+  config.included_models = ["Product", "ProductVariation", "User", "Order", "Category", "FakeUser", "Address"]
 
   config.model 'ProductVariation' do
     parent Product
+    list do
+      field :id
+      field :name
+      field :published
+      field :price
+      field :discount_price
+      field :quantity
+      field :product
+      field :size
+      field :color
+      field :created_at
+      field :updated_at
+    end
+
+    create do
+      configure :name do
+        hide
+      end
+    end
   end
 
-  config.model 'ProductCategory' do
-    parent Category
+  config.model 'Product' do
+    list do
+      field :id
+      field :name
+      field :published
+      field :categories
+      field :product_variations
+      field :main_photo
+      field :description
+      field :created_at
+      field :updated_at
+    end
+  end
+
+  config.model 'Order' do
+    list do
+      field :id
+      field :total
+      field :product_variations
+      field :shipping
+      field :itbms
+      field :sub_total
+      field :fake_user
+      field :user
+      field :created_at
+    end
+
+    show do
+      field :id
+      field :total
+      field :product_variations
+      field :shipping
+      field :itbms
+      field :sub_total
+      field :fake_user
+      field :user
+      field :created_at
+    end
   end
 
   config.authorize_with do

@@ -3,7 +3,6 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.includes(:product_variations).where(published: true)
-
   end
 
   def show

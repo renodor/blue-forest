@@ -2,9 +2,12 @@ class ProductVariation < ApplicationRecord
   belongs_to :product
   has_many :line_items, dependent: :destroy
 
-  validates :price, :quantity, :size, presence: true
+  validates :price, :quantity, :size, :name, presence: true
   validates :price, :quantity, numericality: {greater_than_or_equal_to: 0}
   validates :published, inclusion: { in: [true, false] }
+
+  # automatically name the product variation (according to the product name)
+  before_validation :add_name
 
   # each time there is a quantity change, check stock level
   before_save :check_stock_level, if: :will_save_change_to_quantity?
@@ -31,5 +34,9 @@ class ProductVariation < ApplicationRecord
 
     # otherwise unpublish the product
     product.update(published: false)
+  end
+
+  def add_name
+    self.name = "#{self.product.name}-#{self.size}"
   end
 end
