@@ -1,0 +1,37 @@
+<p>There is a new order on Blue Forest Panama</p>
+
+<b>Order Detail:</b>
+<ul>
+  <% @order.line_items.each do |line_item| %>
+    <b><%= line_item.product_variation.product.name %>: </b>
+      <ul>
+        <li><b>Unit price: </b> $<%= line_item.product_variation.price %></li>
+        <li><b>Size:</b> <%= line_item.product_variation.size %></li>
+        <li><b>Quantity:</b> <%= line_item.quantity %></li>
+      </ul></li>
+  <% end %>
+</ul>
+<p><b>Total items:</b> <%= @order.total_items %></p>
+<p><b>Sub total:</b> $<%= @order.sub_total %></p>
+<p><b>Entrega:</b> $<%= @order.shipping %></p>
+<p><b>ITBMS:</b> $<%= @order.itbms %></p>
+<p><b>Total: $<%= @order.total %></b></p>
+
+<p> ----------------------------------</p>
+<b>Client Contact Information:</b>
+<ul>
+  <li><b>First name:</b> <%= @user.first_name %></li>
+  <li><b>Last name:</b> <%= @user.last_name %></li>
+  <li><b>Email:</b> <%= @user.email %></li>
+  <li><b>Phone:</b> <%= @user.phone %></li>
+</ul>
+<br>
+<b>Client Address:</b>
+<ul>
+  <li><b>Street:</b> <%= @address.street %></li>
+  <li><b>Flat or house number:</b> <%= @address.flat_number %></li>
+  <li><b>District:</b> <%= @address.district %></li>
+  <li><b>Address details:</b> <%= @address.detail %></li>
+  <li><b>City:</b> <%= @address.city %></li>
+  <li><b><a target='_blank' href="http://www.google.com/maps/place/<%= @address.latitude %>, <%= @address.longitude %>">Map link</a></b></li>
+</ul>

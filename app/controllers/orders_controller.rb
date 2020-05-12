@@ -76,6 +76,8 @@ class OrdersController < ApplicationController
 
     # send confirmation email
     OrderMailer.confirmation(@order).deliver_now
+    # send new order notice email
+    OrderMailer.new_order_notice(@order).deliver_now
 
     # redirect to the correct path
     if @user
