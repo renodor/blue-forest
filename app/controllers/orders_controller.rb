@@ -65,6 +65,12 @@ class OrdersController < ApplicationController
       # remove the link between theses line items and the current cart otherwises they will be destroyed when we destroy the cart later
       item.cart_id = nil
     end
+
+    raise
+    # to add here : before saving append all cart info to the order:
+    # @order.sub_total = @current_cart.sub_total
+    # @order.shipping = @current_cart.shipping
+    # etc...
     @order.save
 
     # link order to the session

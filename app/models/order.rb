@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :product_variations, through: :line_items
 
+  # TODO : replace those methods by real DB columns
   def sub_total
     sum = 0
     self.line_items.each do |line_item|
