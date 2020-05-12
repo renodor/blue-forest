@@ -41,6 +41,33 @@ RailsAdmin.config do |config|
 
   config.included_models = ["Product", "ProductVariation", "User", "Order", "Category", "FakeUser", "Address"]
 
+  config.model 'Product' do
+    weight 0
+    list do
+      field :id
+      field :name
+      field :published
+      field :categories
+      field :product_variations do inverse_of :products end
+      field :main_photo
+      field :description
+      field :created_at
+      field :updated_at
+    end
+
+    create do
+      configure :product_variations do
+        hide
+      end
+    end
+
+    edit do
+      configure :product_variations do
+        inline_add false
+      end
+    end
+  end
+
   config.model 'ProductVariation' do
     parent Product
     list do
@@ -62,23 +89,20 @@ RailsAdmin.config do |config|
         hide
       end
     end
-  end
 
-  config.model 'Product' do
-    list do
-      field :id
-      field :name
-      field :published
-      field :categories
-      field :product_variations
-      field :main_photo
-      field :description
-      field :created_at
-      field :updated_at
+    edit do
+      configure :name do
+        hide
+      end
     end
   end
 
+  config.model 'Category' do
+    weight 1
+  end
+
   config.model 'Order' do
+    weight 3
     list do
       field :id
       field :total
@@ -102,6 +126,43 @@ RailsAdmin.config do |config|
       field :user
       field :created_at
     end
+  end
+
+  config.model 'User' do
+    weight 4
+    exclude_fields :reset_password_sent_at, :remember_created_at
+
+    create do
+      configure :orders do
+        hide
+      end
+    end
+
+    edit do
+      configure :orders do
+        hide
+      end
+    end
+  end
+
+  config.model 'FakeUser' do
+    weight 5
+
+    create do
+      configure :orders do
+        hide
+      end
+    end
+
+    edit do
+      configure :orders do
+        hide
+      end
+    end
+  end
+
+  config.model 'Address' do
+    visible false
   end
 
   config.authorize_with do
