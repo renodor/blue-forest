@@ -2,8 +2,9 @@ class ProductVariation < ApplicationRecord
   belongs_to :product
   has_many :line_items, dependent: :destroy
 
-  validates :price, :quantity, :published, :size, presence: true
+  validates :price, :quantity, :size, presence: true
   validates :price, :quantity, numericality: {greater_than_or_equal_to: 0}
+  validates :published, inclusion: { in: [true, false] }
 
   # each time there is a quantity change, check stock level
   before_save :check_stock_level, if: :will_save_change_to_quantity?
