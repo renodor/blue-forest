@@ -66,11 +66,12 @@ class OrdersController < ApplicationController
       item.cart_id = nil
     end
 
-    raise
-    # to add here : before saving append all cart info to the order:
-    # @order.sub_total = @current_cart.sub_total
-    # @order.shipping = @current_cart.shipping
-    # etc...
+    # append all order details of current cart to the order
+    @order.sub_total = @current_cart.sub_total
+    @order.total_items = @current_cart.total_items
+    @order.shipping = @current_cart.shipping
+    @order.itbms = @current_cart.itbms
+    @order.total = @current_cart.total
     @order.save
 
     # link order to the session
