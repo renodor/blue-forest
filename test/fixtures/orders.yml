@@ -1,9 +1,24 @@
 order1:
   fake_user: fake_user1
+  sub_total: 121.5
+  total_items: 5
+  shipping: 0
+  itbms: 8.51
+  total: 130.01
 
 order2:
   user: user1
+  sub_total: 121.5
+  total_items: 5
+  shipping: 0
+  itbms: 8.51
+  total: 130.01
 
 order3:
   user: user1
+  sub_total: 121.5
+  total_items: 5
+  shipping: 0
+  itbms: 8.51
+  total: 130.01
 

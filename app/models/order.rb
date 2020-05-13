@@ -4,5 +4,5 @@ class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :product_variations, through: :line_items
 
-  validates :sub_total, :total_items, :shipping, :itbms, total: presence: true
+  validates :sub_total, :total_items, :shipping, :itbms, :total, presence: true
 end
