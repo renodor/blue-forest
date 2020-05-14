@@ -17,7 +17,14 @@
                 </b>
               </p>
               <p>Tamaño: <%= line_item.product_variation.size %></p>
-              <p>$<%= line_item.product_variation.price %></p>
+              <p>
+                <% if line_item.product_variation.discount_price %>
+                  <span class="crossed">$<%= line_item.product_variation.price %></span>
+                  <span>$<%= line_item.product_variation.discount_price %></span>
+                <% else %>
+                  $<%= line_item.product_variation.price %>
+                <% end %>
+              </p>
             </div>
             <div class="quantity-counter d-flex">
               <%= link_to "-", reduce_quantity_line_item_path(line_item), method: :post, remote: true %>
