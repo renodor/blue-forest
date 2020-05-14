@@ -9,14 +9,17 @@
     <div class="product-info">
       <h1><%= @product.name %></h1>
       <p><%= @product.description %></p>
-      <p class="price" data-price="">$<%= @price_to_show %></p>
+      <p class="prices">
+        <span class="price <%= "crossed" if @first_published_variation.discount_price %>" >$<%= @first_published_variation.price %></span>
+        <span class="discount-price"><%= "$#{@first_published_variation.discount_price}" if @first_published_variation.discount_price %></span>
+       </p>
       <%= form_tag line_items_path do %>
         <div class="variations">
           <div class="size">
             <% @product.product_variations.each do |variation| %>
               <% if variation.published && variation.quantity > 0 %>
                 <% if variation.size != 'unique' %>
-                  <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price %>
+                  <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
                   <%= label_tag "variation_id_#{variation.id}", variation.size %>
                 <% else %>
                   <%= radio_button_tag :variation_id, variation.id, true %>
