@@ -1,0 +1,7 @@
+const pdpPrice = () => {
+
+
+}
+
+
+export { pdpPrice };

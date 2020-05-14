@@ -8,6 +8,11 @@ class ProductsController < ApplicationController
   def show
     # get all product pre-loading its product variations
     @product = Product.includes(:product_variations).find(params[:id])
+
+    first_published_variation = @product.product_variations.find do |variation|
+      variation.published && variation.quantity > 0
+    end
+    @price_to_show = first_published_variation.price
   end
 
   def search

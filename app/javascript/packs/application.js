@@ -29,6 +29,7 @@ import "bootstrap";
 // Internal imports
 import { sidebarCart } from '../components/sidebar_cart';
 import { sizeCheckbox } from '../components/size_checkbox';
+import { pdpPrice } from '../components/pdp_price';
 import { atcModal } from '../components/atc_modal';
 
 import { initMapbox } from '../plugins/init_mapbox';
@@ -37,6 +38,7 @@ document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   sidebarCart();
   sizeCheckbox();
+  pdpPrice();
   initMapbox();
   atcModal();
 });

@@ -8,7 +8,7 @@ const sizeCheckbox = () => {
     // disable add to cart button by default
     atc.disabled = true
 
-    // check if on size is selected (after making sure the page is fully loaded)
+    // check if one size is selected (after making sure the page is fully loaded)
     // if yes, disable the overlay and enable the add to cart button
     // this step is needed if you hit the 'previous' button of your browser
     setTimeout(() => {
