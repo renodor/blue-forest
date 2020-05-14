@@ -8,7 +8,11 @@
           <div class="cart-product d-flex align-items-center bg-white">
             <%= cl_image_tag line_item.product_variation.product.main_photo.key, height: 200, width: 200, crop: :fill %>
             <div>
-              <p><b><%= line_item.product_variation.product.name %></b></p>
+              <p>
+                <b>
+                  <%= link_to line_item.product_variation.product.name, product_path(line_item.product_variation.product.id) %>
+                </b>
+              </p>
               <p>Tamaño: <%= line_item.product_variation.size %></p>
               <p>$<%= line_item.product_variation.price %></p>
               <div class="quantity-counter d-flex">
