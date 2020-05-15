@@ -1,17 +1,18 @@
 <%= render 'shared/carousel' %>
 
-<div class="container mt-5">
-  <hr>
-  <h2 id="products" class="text-center mb-5">Nuestros productos</h2>
+<div class="container product-grid-container">
   <div class="products">
     <% @products.each do |product| %>
       <% if product.product_variations.length > 0 %>
         <div class="product">
-          <%= cl_image_tag product.main_photo.key, height: 200, width: 350, crop: :fill %>
-          <div class="product-grid-info">
-            <b class="grow-1"><%= product.name %></b>
-            <span>$ <%= product.product_variations.first.price %></span>
-            <%= link_to '', product_path(product) %>
+          <%= cl_image_tag product.main_photo.key, height: 400, crop: :fill %>
+          <div class="product-grid-info-container">
+            <%= image_tag 'brand-symbol.png' %>
+            <div class="product-grid-info">
+              <span class="grow-1"><%= product.name.upcase %></span>
+              <!-- <span>$ --> <%#= product.product_variations.first.price %> <!--</span> -->
+              <%= link_to '', product_path(product) %>
+            </div>
           </div>
         </div>
       <% end %>
