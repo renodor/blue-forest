@@ -1,7 +1,7 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container">
+<div class="container navbar-container">
+  <div class="navbar navbar-expand-sm navbar-light navbar-blueforest">
     <%= link_to root_path, class: "navbar-brand" do %>
-        <b>LOGO</b>
+        <% image_tag "logo.png" %>
       <% end %>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,31 +11,20 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <%= form_tag search_products_path, method: :get, class: 'form-inline' do %>
-            <%= text_field_tag :query,
+        <!-- commenting searchbar for now -->
+        <!-- <li class="nav-item"> -->
+          <%#= form_tag search_products_path, method: :get, class: 'form-inline' do %>
+            <%#= text_field_tag :query,
               params[:query],
               class: "form-control",
               placeholder: "Buscar productos"
             %>
-            <%= submit_tag "Search", class: "btn btn-secondary" %>
-          <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Products", root_path(anchor: 'products'), class: 'nav-link' %>
-        </li>
-       <li class="nav-item">
-          <%= link_to "Doctors", '#', class: 'nav-link' %>
-        </li>
-        <li class="nav-item cart-icon cart-toggle">
-            <i class="fas fa-shopping-cart nav-link"></i>
-            <% if @current_cart.total_items > 0 %>
-              <span><%= @current_cart.total_items %></span>
-            <% end %>
-        </li>
+            <%#= submit_tag "Search", class: "btn btn-secondary" %>
+          <%# end %>
+        <!-- </li> -->
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MI CUENTA</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <%= link_to "My orders", "#", class: "dropdown-item" %>
               <%= link_to "Account detail", "#", class: "dropdown-item" %>
@@ -44,9 +33,18 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "| Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to "CREA TU CUENTA", new_user_registration_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "INGRESA", new_user_session_path, class: "nav-link" %>
           </li>
         <% end %>
+        <li class="nav-item cart-icon cart-toggle simple-flexbox">
+            <a href=""><%= image_tag 'cart.png' %></a>
+            <% if @current_cart.total_items > 0 %>
+              <span><%= @current_cart.total_items %></span>
+            <% end %>
+        </li>
       </ul>
     </div>
 
