@@ -1,4 +1,12 @@
 .top-banner {
-  background-color: #FFBF3C;
-  height: 50px;
+  background-color: $yellow;
+  height: 35px;
+  color: $blue;
+  font-size: 50px;
+  text-transform: uppercase;
+  h6 {
+    margin-bottom: 0px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
 }

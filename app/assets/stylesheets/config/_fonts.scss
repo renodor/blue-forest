@@ -1,9 +1,23 @@
-// Import Google fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
+@font-face {
+  font-family: "AvenirLTStd";
+  src: font-url('AvenirLTStd-Book.otf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "AvenirLTStd";
+  src: font-url('AvenirLTStd-Heavy.otf') format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Din Bold";
+  src: font-url('DIN-Bold.otf') format("truetype");
+}
 
 // Define fonts for body and headers
-$body-font: "Work Sans", "Helvetica", "sans-serif";
-$headers-font: "Nunito", "Helvetica", "sans-serif";
+$body-font: "AvenirLTStd", "Helvetica", "sans-serif";
+$headers-font: "Din Bold", "Helvetica", "sans-serif";
 
 // To use a font file (.woff) uncomment following lines
 // @font-face {
