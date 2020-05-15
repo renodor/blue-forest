@@ -1,6 +1,20 @@
+.carousel-container {
+  height: 425px;
+}
+
 #hp-carousel {
-  background-color: transparent;
-  height: 350px;
+  position: absolute;
+  width: 100%;
+  top: 35px;
+  .container {
+    position: relative;
+  }
+  .carousel-control-prev {
+    left: -100px;
+  }
+  .carousel-control-next {
+    right: -100px;
+  }
   .carousel-caption {
     top: 100px;
     text-align: left;
@@ -11,6 +25,15 @@
       opacity: 0.6;
       object-fit: cover;
       height: 100%;
+    }
+  }
+  .carousel-bottom-banner {
+    height: 75px;
+    color: white;
+    background-color: $blue;
+    img {
+      width: 40px;
+      margin-right: 30px;
     }
   }
 }
