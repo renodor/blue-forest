@@ -11,7 +11,12 @@
             <div class="product-grid-info">
               <span class="grow-1"><%= product.name.upcase %></span>
               <!-- <span>$ --> <%#= product.product_variations.first.price %> <!--</span> -->
-              <%= link_to '', product_path(product) %>
+              <%= link_to product_path(product), class: 'simple-flexbox' do %>
+                <div>
+                  <h3><%= product.name.upcase %></h3>
+                  <p><%= product.description.upcase.truncate(50) %></p>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>

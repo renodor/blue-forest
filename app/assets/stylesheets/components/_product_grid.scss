@@ -15,6 +15,7 @@
       object-fit: cover;
     }
     .product-grid-info-container {
+      background-color: white;
       display: flex;
       align-items: center;
       padding: 15px;
@@ -36,6 +37,21 @@
       left: 0;
       right: 0;
       bottom: 0;
+      color: transparent;
+      text-decoration: none;
+      padding: 0 50px;
+      background-color: transparent;
+      transition: color .8s, background-color .5s ease;
+      div {
+        display:none;
+      }
+      &:hover {
+        color: white;
+        background-color: rgba(10, 31, 143, 0.9);
+      }
+      &:hover div {
+        display: block;
+      }
     }
   }
   .product:nth-child(3n-1) .product-grid-info-container {
