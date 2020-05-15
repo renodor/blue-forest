@@ -1,10 +1,16 @@
 #hp-carousel {
-  background-color: black;
+  background-color: transparent;
+  height: 350px;
   .carousel-caption {
     top: 100px;
     text-align: left;
   }
-  img {
-    opacity: 0.6
+  .carousel-item {
+    height: 350px;
+    img {
+      opacity: 0.6;
+      object-fit: cover;
+      height: 100%;
+    }
   }
 }
