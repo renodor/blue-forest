@@ -41,7 +41,7 @@
             </li>
           <% end %>
           <li class="nav-item cart-icon cart-toggle simple-flexbox">
-              <a href=""><%= image_tag 'cart.png' %></a>
+              <%= image_tag 'cart.png' %>
               <% if @current_cart.total_items > 0 %>
                 <span><%= @current_cart.total_items %></span>
               <% end %>
