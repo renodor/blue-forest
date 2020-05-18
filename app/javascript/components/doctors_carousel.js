@@ -12,8 +12,9 @@ const doctorsCarousel = () => {
         const targetId = slide.dataset.slideId;
         doctorProfiles.forEach(profile => {
           if (profile.dataset.slideId == targetId) {
-            console.log(profile);
-            profile.style.display = "flex";
+            profile.children[1].classList.add('active');
+          } else {
+            profile.children[1].classList.remove('active');
           }
         })
       }
