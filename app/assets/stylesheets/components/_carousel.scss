@@ -150,16 +150,22 @@
 
 @media (max-width: 767px) {
   #hp-carousel-doctor {
-    .carousel-inner {
-      .carousel-item {
-        .carousel-caption {
-          display: none!important;
+    height: 500px;
+    .carousel-inner .carousel-item img {
+      width: 100%;
+    }
+    .carousel-item div {
+      flex-direction: column;
+      .carousel-caption {
+        padding: 30px!important;
+        a {
+          margin-left: 0!important;
         }
-
-      }
-      .carousel-item img {
-        width: 100%;
       }
     }
+  }
+
+  .hp-carousel-doctors-grid {
+    display: none;
   }
 }
