@@ -105,6 +105,11 @@
       }
     }
   }
+
+  #sidebar-cart {
+    width: 100vw;
+    right: -100vw;
+  }
 }
 
 @media (max-width: 767px) {
