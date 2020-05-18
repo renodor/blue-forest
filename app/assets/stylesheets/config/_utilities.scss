@@ -25,3 +25,10 @@
   background-color: $yellow;
   position: relative;
 }
+
+
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none;
+  }
+}

@@ -35,3 +35,14 @@
     }
   }
 }
+
+
+@media (max-width: 767px) {
+  #footer .footer-items {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  #footer .social {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

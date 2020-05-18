@@ -48,7 +48,7 @@
       height: 100%;
       img {
         height: 100%;
-        width: 850px;
+        width: 60%;
         object-fit: cover;
       }
       .carousel-caption {
@@ -145,5 +145,21 @@
   }
   .carousel-control-next {
     right: 0!important;
+  }
+}
+
+@media (max-width: 767px) {
+  #hp-carousel-doctor {
+    .carousel-inner {
+      .carousel-item {
+        .carousel-caption {
+          display: none!important;
+        }
+
+      }
+      .carousel-item img {
+        width: 100%;
+      }
+    }
   }
 }
