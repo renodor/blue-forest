@@ -32,6 +32,7 @@
       img {
         width: 15px;
         margin-right: 20px;
+        margin-left: 10px;
       }
       .product-grid-info {
         padding: 5px 20px;
@@ -66,6 +67,16 @@
   }
 }
 
+@media (max-width: 767px) {
+  .products {
+    .product .product-grid-info-container {
+      background-color: $blue!important;
+    }
+    .product:nth-child(even) .product-grid-info-container {
+      background-color: $dark-blue!important;
+    }
+  }
+}
 
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {

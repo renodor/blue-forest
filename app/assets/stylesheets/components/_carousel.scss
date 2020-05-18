@@ -125,6 +125,10 @@
   }
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+  z-index: 101;
+}
 
 .carousel-control-prev-icon {
   background-image: url('flechas-01.png');
@@ -150,7 +154,7 @@
 
 @media (max-width: 767px) {
   #hp-carousel-doctor {
-    height: 500px;
+    height: 510px;
     .carousel-inner .carousel-item img {
       width: 100%;
     }

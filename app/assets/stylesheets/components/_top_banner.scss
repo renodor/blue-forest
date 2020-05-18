@@ -9,3 +9,9 @@
     letter-spacing: 1px;
   }
 }
+
+@media (max-width: 575px) {
+  .top-banner h6 {
+    font-size: 11px;
+  }
+}
