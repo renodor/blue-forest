@@ -137,3 +137,13 @@
   height: 22px;
   width: 15px;
 }
+
+
+@media (min-width: 100px) and (max-width: 1299px) {
+  .carousel-control-prev {
+    left: 0!important;
+  }
+  .carousel-control-next {
+    right: 0!important;
+  }
+}
