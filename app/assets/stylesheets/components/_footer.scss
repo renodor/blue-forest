@@ -1,5 +1,36 @@
 #footer {
+  background-color: $blue;
   margin-top: 50px;
-  height: 100px;
-  background-color: rgba(0, 0, 0, .5);
+ .logo-footer {
+    width: 100px;
+    display: block;
+  }
+  .footer-items {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 30px;
+    margin-bottom: 30px;
+    .footer-item {
+      border-right: 2px solid $light-blue;
+      &:last-child {
+        border-right: 2px solid transparent;
+      }
+      p {
+        font-size: 12px;
+      }
+      a, h5, p {
+        color: white;
+      }
+    }
+  }
+  .social {
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 30px;
+    padding-bottom: 30px;
+    img {
+      width: 40px;
+      margin-right: 10px;
+    }
+  }
 }
