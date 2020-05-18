@@ -83,4 +83,18 @@
     right: -100px;
     }
   }
+  .hp-carousel-doctors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 30px;
+    height: 290px;
+    .hp-carousel-doctor-profile {
+      background-color: white;
+      margin-top: -30px;
+      img {
+        padding: 35px;
+        width: 100%;
+      }
+    }
+  }
 }
