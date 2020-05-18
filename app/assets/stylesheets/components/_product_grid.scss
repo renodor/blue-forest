@@ -2,8 +2,11 @@
   padding-top: 90px;
   padding-bottom: 70px;
   background-color: white;
-  // background-image: url('background2.svg');
-  // background-size: cover;
+  background-image: url('background-02.svg');
+  background-position: right;
+  background-repeat-x: no-repeat;
+  background-size: 1000px;
+  background-position-y: 186px;
 }
 .products {
   display: grid;
@@ -96,5 +99,20 @@
 @media (min-width: 1200px) {
   .products {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (min-width: 1300px) {
+  .product-grid-container {
+    background-size: 1500px;
+    background-position-y: 558px;
+  }
+}
+
+
+@media (min-width: 1700px) {
+  .product-grid-container  {
+    background-size: 2000px;
+    background-position-y: -551px;
   }
 }
