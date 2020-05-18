@@ -1,6 +1,6 @@
 <div class="container navbar-container">
   <div class="navbar navbar-expand-sm navbar-light navbar-blueforest">
-    <%= link_to root_path, class: "navbar-brand" do %>
+    <%= link_to root_path, class: "navbar-brand grow-1" do %>
         <% image_tag "logo.svg" %>
       <% end %>
 
@@ -39,13 +39,15 @@
             <%= link_to "INGRESA", new_user_session_path, class: "nav-link" %>
           </li>
         <% end %>
-        <li class="nav-item cart-icon cart-toggle simple-flexbox">
-            <%= image_tag 'cart.png' %>
-            <% if @current_cart.total_items > 0 %>
-              <span><%= @current_cart.total_items %></span>
-            <% end %>
-        </li>
       </ul>
     </div>
+    <ul class="cart-list">
+      <li class="nav-item cart-icon cart-toggle simple-flexbox">
+        <%= image_tag 'cart.png' %>
+        <% if @current_cart.total_items > 0 %>
+          <span><%= @current_cart.total_items %></span>
+        <% end %>
+      </li>
+    </ul>
   </div>
 </div>
