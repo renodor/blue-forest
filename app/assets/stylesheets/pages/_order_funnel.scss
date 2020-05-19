@@ -1,0 +1,51 @@
+.orders-funnel {
+  margin-bottom: 35px;
+  a {
+    color: $dark-blue;
+  }
+  .shipping-container {
+    display: flex;
+    .shipping-details {
+      margin-right: 20px;
+      flex-basis: 50%;
+      .address_latitude.form-group-invalid,
+      .address_longitude.form-group-invalid {
+        display: none;
+      }
+    }
+    .map {
+      flex-basis: 50%;
+    }
+    .map.invalid {
+      .map-title {
+        color: red;
+      }
+      #create-address-map {
+        border: 1px solid red;
+      }
+    }
+  }
+  .shipping-cta {
+    margin-top: 10px;
+  }
+}
+
+
+@media (max-width: 575px) {
+  .orders-funnel {
+    h1 {
+      font-size: 30px;
+    }
+    .shipping-cta {
+      padding: 20px 10px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .orders-funnel {
+    .shipping-container {
+      flex-direction: column;
+    }
+  }
+}

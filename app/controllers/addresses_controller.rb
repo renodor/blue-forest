@@ -6,6 +6,14 @@ class AddressesController < ApplicationController
       @user = current_user
     else
       @user = FakeUser.find(params[:fake_user_id])
+
+      # define what part of order breadcrumb is active/pending or hidden en mobile
+      # (depending on what step we are on the order funnel)
+      # those are css classes
+      @breadcrumb_contact_class = 'hide-under-576'
+      @breadcrumb_shipping_class = 'active'
+      @breadcrumb_review_class = 'pending'
+      @breadcrumb_confirm_class = 'pending hide-under-576'
     end
     @address = Address.new
   end
@@ -29,6 +37,11 @@ class AddressesController < ApplicationController
       end
     else
       # if none of the address can be saved, then no redirect, then render new again for form validation
+
+      @breadcrumb_contact_class = 'hide-under-576'
+      @breadcrumb_shipping_class = 'active'
+      @breadcrumb_review_class = 'pending'
+      @breadcrumb_confirm_class = 'pending hide-under-576'
       render :new
     end
   end

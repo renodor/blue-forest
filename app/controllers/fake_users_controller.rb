@@ -5,7 +5,8 @@ class FakeUsersController < ApplicationController
     @fake_user = FakeUser.new
     @address = Address.new
     @breadcrumb_contact_class = 'active'
-    @breadcrumb_shipping_class = @breadcrumb_review_class = @breadcrumb_confirm_class = 'pending'
+    @breadcrumb_shipping_class = 'pending'
+    @breadcrumb_review_class = @breadcrumb_confirm_class = 'pending hide-under-576'
   end
 
   def create

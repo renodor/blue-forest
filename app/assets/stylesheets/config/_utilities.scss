@@ -26,9 +26,14 @@
   position: relative;
 }
 
+@media (max-width: 575px) {
+  .hide-under-576 {
+    display: none!important;
+  }
+}
 
 @media (max-width: 767px) {
-  .hide-mobile {
-    display: none;
+  .hide-under-768 {
+    display: none!important;
   }
 }

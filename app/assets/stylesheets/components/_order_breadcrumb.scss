@@ -40,3 +40,13 @@
     }
   }
 }
+
+
+@media (max-width: 575px) {
+  #order-breadcrumb {
+    grid-template-columns: repeat(2, 1fr);
+    .order-breadcrumb-item span {
+      font-size: 13px;
+    }
+  }
+}
