@@ -1,11 +1,15 @@
 #cart {
   display: flex;
   margin-bottom: 50px;
+  margin-top: 35px;
   .cart-products {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     flex-basis: 80%;
+    .cart-product div {
+      padding-left: 20px;
+    }
   }
 }
 
