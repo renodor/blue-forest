@@ -115,3 +115,21 @@
     background-position-y: -610px;
   }
 }
+
+@media (max-width: 575px) {
+  .pdp {
+    .product-image {
+      height: 300px;
+    }
+    .product-info {
+      padding: 30px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .pdp {
+    flex-direction: column;
+  }
+}
+
