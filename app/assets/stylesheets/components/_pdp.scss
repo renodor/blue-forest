@@ -1,13 +1,23 @@
+.pdp-container {
+  margin-top: 35px;
+}
+
 .pdp {
   background-color: #f7f7f7;
+  margin-bottom: -50px;
   div {
     flex-basis: 50%;
   }
+  .product-image {
+    width: 100%;
+    object-fit: cover;
+  }
   .product-info {
-    margin: 30px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #f7f7f7;
   }
   .variations {
     margin-bottom: 30px;
@@ -57,10 +67,12 @@
 .pdp .size {
   label {
     border: 1px solid lightgray;
-    border-radius: 3px;
-    padding: 5px 10px;
+    padding: 10px 10px 5px 10px;
+    text-align: center;
     margin-right: 5px;
     cursor: pointer;
+    width: 40px;
+    height: 40px;
   }
   input {
     display: none;
@@ -70,5 +82,36 @@
   }
   input:checked + label {
     border: 1px solid black;
+  }
+}
+
+
+.product-detail-container {
+  background-color: white;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  background-image: url('background-02.svg');
+  background-position: right;
+  background-repeat-x: no-repeat;
+  background-size: 1000px;
+  background-position-y: 126px;
+  .product-detail {
+    background-color: rgba(255,255,255,.7);
+    padding: 40px;
+  }
+}
+
+
+@media (min-width: 1300px) {
+  .product-detail-container {
+    background-size: 1500px;
+    background-position-y: 498px;
+  }
+}
+
+@media (min-width: 1700px) {
+  .product-detail-container  {
+    background-size: 2000px;
+    background-position-y: -610px;
   }
 }

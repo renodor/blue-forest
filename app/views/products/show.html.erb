@@ -1,14 +1,14 @@
 <!-- render add to cart modal if params is present -->
 <%= render 'shared/atc_modal' if params[:atc_modal] %>
 
-<div class="container">
+<div class="container pdp-container">
   <div class="pdp d-flex">
     <div class="grow-1">
-      <%= cl_image_tag @product.main_photo.key, height: 500, width: 500, crop: :fill %>
+      <%= cl_image_tag @product.main_photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
     </div>
     <div class="product-info">
-      <h1><%= @product.name %></h1>
-      <p><%= @product.short_description %></p>
+      <h1><%= @product.name.upcase %></h1>
+      <p><%= @product.short_description.upcase %></p>
       <p class="prices">
         <span class="price <%= "crossed" if @first_published_variation.discount_price %>" >$<%= @first_published_variation.price %></span>
         <span class="discount-price"><%= "$#{@first_published_variation.discount_price}" if @first_published_variation.discount_price %></span>
@@ -39,9 +39,11 @@
       <% end %>
     </div>
   </div>
-    <br>
-    <hr>
-  <div class="product-detail">
-    <%= @product.long_description %>
-  </div>
 </div>
+<section class="product-detail-container">
+  <div class="container">
+    <div class="product-detail">
+      <%= @product.long_description %>
+    </div>
+  </div>
+</section>
