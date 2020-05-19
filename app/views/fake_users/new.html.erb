@@ -1,31 +1,29 @@
-<div class="container mt-5">
-
-  <div id="order-breadcrumb" class="d-flex w-100 mb-5">
-    <div class="d-flex flex-column align-items-center">
-      <div class="number">1</div>
-      <span>Carrito</span>
-    </div>
-    <div class="d-flex flex-column align-items-center active">
-      <div class="number">2</div>
-      <span>Dirección</span>
-    </div>
-    <div class="d-flex flex-column align-items-center">
-      <div class="number">3</div>
-      <span>Confirmación</span>
-    </div>
-  </div>
-
-  <h1>Información de Contacto</h1>
+<div class="container orders-1">
+  <%= render 'shared/order_breadcrumb' %>
+  <h1>INFORMACIÓN DE CONTACTO</h1>
+  <br>
   <p>
-    Ya tienes una cuenta? Porfavor <%= link_to 'Conectarse', login_before_new_order_path %> o <%= link_to 'Crear cuenta', new_user_registration_path %>
+    Ya tienes una cuenta? Porfavor <b><%= link_to 'CONECTARSE', login_before_new_order_path %></b> o <b><%= link_to 'CREAR CUENTA', new_user_registration_path %></b>
   </p>
   <p>O continuar sin creación de cuenta:</p>
   <%= simple_form_for [@fake_user] do |f| %>
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :email %>
-    <%= f.input :phone %>
-    <%= f.button :submit, 'Entrar Dirección', class: 'btn btn-secondary w-100' %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :first_name, label: false, placeholder: 'Nombre', class: 'form-control' %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :last_name, label: false, placeholder: 'Apellido', class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :email, label: false, placeholder: 'Email', class: 'form-control' %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :phone, label: false, placeholder: 'Teléfono', class: 'form-control' %>
+      </div>
+    </div>
+    <%= f.button :submit, 'SEGUIR', class: 'btn btn-blue w-100' %>
   <% end %>
 </div>
 

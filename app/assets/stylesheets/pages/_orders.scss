@@ -1,0 +1,12 @@
+.orders-1 {
+  margin-bottom: 35px;
+  a {
+    color: $dark-blue;
+  }
+}
+
+@media (max-width: 575px) {
+  .orders-1 h1 {
+    font-size: 30px;
+  }
+}

@@ -1,8 +1,11 @@
 class FakeUsersController < ApplicationController
   skip_before_action :authenticate_user!
+
   def new
     @fake_user = FakeUser.new
     @address = Address.new
+    @breadcrumb_contact_class = 'active'
+    @breadcrumb_shipping_class = @breadcrumb_review_class = @breadcrumb_confirm_class = 'pending'
   end
 
   def create
