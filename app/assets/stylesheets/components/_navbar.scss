@@ -52,29 +52,30 @@
   margin: 0;
   .cart-icon {
     position: relative;
-    padding-left: 1.5rem;
-    opacity: 0.7;
+    padding: 1rem 0 1rem 1.5rem;
     transition: opacity .3s ease;
     border-right: 1px solid transparent;
-    &:hover {
+    &:hover img {
       opacity: 1;
     }
     img {
+      transition: opacity .3s ease;
+      opacity: 0.7;
       width: 18px;
       margin-bottom: 5px;
     }
     span {
-      position: absolute;
-      background-color: #75858D;
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-      text-align: center;
-      color: white;
-      top: 1px;
-      right: -5px;
-      font-size: 12px;
-      border: 1px solid white;
+    position: absolute;
+    background-color: $yellow;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    top: 8px;
+    right: -7px;
+    font-size: 10px;
+    border: 1px solid $yellow;
     }
   }
 }
@@ -102,6 +103,9 @@
       padding: 0;
       img {
         margin: 0 0 0 20px;
+      }
+      span {
+        top: -7px;
       }
     }
   }

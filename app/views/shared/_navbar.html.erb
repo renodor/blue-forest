@@ -41,13 +41,13 @@
         <% end %>
       </ul>
     </div>
-    <ul class="cart-list">
-      <li class="nav-item cart-icon cart-toggle simple-flexbox">
+    <div class="cart-list">
+      <div class="nav-item cart-icon cart-toggle simple-flexbox">
         <%= image_tag 'cart.png' %>
         <% if @current_cart.total_items > 0 %>
           <span><%= @current_cart.total_items %></span>
         <% end %>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </div>

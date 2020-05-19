@@ -13,5 +13,27 @@
   }
   .modal-footer {
     justify-content: center;
+    .btn {
+      border-radius: 0px;
+      border: none;
+      padding: 10px 20px;
+      opacity: 0.8;
+      transition: opacity .3s ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+    .btn:first-child {
+      background-color: $dark-gray;
+    }
+    .btn:last-child {
+      background-color: $blue;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  #atcModal .modal-footer .btn {
+    width: 100%;
   }
 }
