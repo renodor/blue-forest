@@ -1,8 +1,8 @@
 <div class="container">
   <% if @cart.line_items.count > 0 %>
-    <h1 class="mt-5">Mi Carrito</h1>
-    <div class="d-flex mt-5 ">
-      <div class="d-flex flex-column grow-1">
+    <h1 class="mt-5">MI CARRITO</h1>
+    <div id="cart">
+      <div class="cart-products">
         <% total_quantity = 0 %>
         <% @cart.line_items.reverse.each do |line_item| %>
           <div class="cart-product d-flex align-items-center bg-white">
@@ -29,7 +29,7 @@
               </div>
               <span class="remove-items">
                 <%= link_to line_item_path(line_item), method: :delete do %>
-                  <i class="fas fa-trash-alt"></i>
+                  <i class="far fa-trash-alt"></i>
                 <% end %>
               </span>
               <% total_quantity += line_item.quantity %>
@@ -37,8 +37,8 @@
           </div>
         <% end %>
       </div>
-      <div class="cart-detail padding-30 ml-3">
-        <h2>Resumen de Compra</h2>
+      <div class="cart-detail padding-30">
+        <h2>RESUMEN DE COMPRA</h2>
         <hr>
         <p><%= pluralize(total_quantity, 'producto') %></p>
         <p>Sub Total: $<%= @cart.sub_total %></p>
@@ -46,9 +46,9 @@
         <p>ITBMS (7%): $<%= (@cart.itbms) %></p>
         <p><b>TOTAL: $<%= @cart.total %></b></p>
         <% if user_signed_in? %>
-          <p><%= link_to "Ordenar", new_user_order_path(current_user), class: 'btn btn-primary w-100' %></p>
+          <p><%= link_to "Ordenar", new_user_order_path(current_user), class: 'btn btn-blue w-100' %></p>
         <% else %>
-          <p><%= link_to "Ordenar", new_fake_user_path, class: 'btn btn-primary w-100' %></p>
+          <p><%= link_to "Ordenar", new_fake_user_path, class: 'btn btn-blue w-100' %></p>
         <% end %>
       </div>
     </div>
