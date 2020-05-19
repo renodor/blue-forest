@@ -46,7 +46,7 @@
       <p><b>TOTAL: $<%= @current_cart.total %></b></p>
     </div>
     <% if user_signed_in? %>
-      <%= link_to "CONFIRMAR PEDIDO", user_orders_path, method: :post, class: 'btn btn-blue w-100' %>
+      <%= link_to "CONFIRMAR PEDIDO", user_orders_path, method: :post, class: 'btn btn-yellow w-100' %>
     <% else %>
       <%= link_to "CONFIRMAR PEDIDO", fake_user_orders_path, method: :post, class: 'btn btn-yellow w-100' %>
     <% end %>

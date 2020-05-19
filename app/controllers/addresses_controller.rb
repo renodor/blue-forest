@@ -7,14 +7,15 @@ class AddressesController < ApplicationController
     else
       @user = FakeUser.find(params[:fake_user_id])
 
-      # define what part of order breadcrumb is active/pending or hidden en mobile
-      # (depending on what step we are on the order funnel)
-      # those are css classes
-      @breadcrumb_contact_class = 'hide-under-576'
-      @breadcrumb_shipping_class = 'active'
-      @breadcrumb_review_class = 'pending'
-      @breadcrumb_confirm_class = 'pending hide-under-576'
     end
+    # define what part of order breadcrumb is active/pending or hidden en mobile
+    # (depending on what step we are on the order funnel)
+    # those are css classes
+    @breadcrumb_contact_class = 'hide-under-576'
+    @breadcrumb_shipping_class = 'active'
+    @breadcrumb_review_class = 'pending'
+    @breadcrumb_confirm_class = 'pending hide-under-576'
+
     @address = Address.new
   end
 
