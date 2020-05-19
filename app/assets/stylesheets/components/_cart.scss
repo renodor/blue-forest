@@ -22,13 +22,26 @@
     position: absolute;
     top: 20px;
     left: 30px;
+    img {
+      height: 22px;
+      width: 15px;
+    }
   }
   .sidebar-cart-content {
     max-height: calc(100vh - 222px);
     overflow-y: auto;
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, .1);
+    }
   }
   .cart-product p {
     margin-bottom: 0px;
+    a {
+      color: $dark-gray;
+    }
   }
   .sidebar-cart-footer {
     background-color: #E5E5E5;
@@ -36,7 +49,28 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    padding: 0 30px;
+    padding: 0 30px 10px 30px;
+    .sidebar-cart-footer-top {
+      margin: 10px 0;
+      p {
+        margin-bottom: 5px;
+      }
+    }
+    .btn {
+      padding-top: 10px;
+      margin-bottom: 5px;
+      background-color: $blue;
+      color: white;
+      border-radius: 0;
+      opacity: 0.8;
+      transition: opacity .3s ease;
+      &:hover {
+        opacity: 1
+      }
+    }
+    a {
+      color: $dark-gray;
+    }
   }
 }
 
@@ -45,6 +79,9 @@
   padding-bottom: 10px;
   border-bottom: 1px solid lightgray;
   position: relative;
+  &:last-child {
+    border-bottom: none;
+  }
   img {
     margin-right: 10px;
   }
@@ -54,7 +91,7 @@
     border-radius: 3px;
     padding: 5px 10px;
     a {
-      color: black;
+      color: $gray;
     }
   }
   .remove-items {
@@ -71,3 +108,12 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+
+@media (max-width: 575px) {
+  .sidebar-cart-content {
+    padding: 10px;
+  }
+  .cart-product .quantity-counter {
+    width: 70px;
+  }
+}

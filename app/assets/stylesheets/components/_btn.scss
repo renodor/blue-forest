@@ -1,0 +1,19 @@
+.btn-blue {
+  border-radius: 0px;
+  background-color: $blue;
+  text-transform: uppercase;
+  padding: 20px 40px;
+  color: white;
+  opacity: 0.8;
+  transition: opacity .3s ease;
+  &:hover {
+    opacity: 1;
+    color: white;
+  }
+  a {
+    color: white;
+    &:hover {
+      color: white;
+    }
+  }
+}

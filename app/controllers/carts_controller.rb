@@ -1,5 +1,7 @@
 class CartsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :destroy]
+  layout 'cart'
+
 
   def show
     @cart = @current_cart

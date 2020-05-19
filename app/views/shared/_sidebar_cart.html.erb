@@ -1,7 +1,7 @@
 <div id="sidebar-cart">
   <div class="sidebar-cart-header">
-    <span class="cart-toggle"><i class="fas fa-arrow-right"></i></span>
-    <span>Mi Carrito</span>
+    <span class="cart-toggle"><%= image_tag 'flechas-02.png' %></span>
+    <b>MI CARRITO</b>
   </div>
   <% if @current_cart.line_items.count > 0 %>
     <div class="padding-30 sidebar-cart-content">
@@ -37,15 +37,15 @@
       </div>
     </div>
     <div class="sidebar-cart-footer">
-      <div class="text-right my-3">
+      <div class="text-right sidebar-cart-footer-top">
         <p><%= pluralize(total_quantity, 'producto') %></p>
         <p><b>Sub Total: $<%= @current_cart.sub_total %></b></p>
       </div>
-      <div class="w-100 mt-3 text-center">
+      <div class="w-100 text-center">
         <% if user_signed_in? %>
-          <%= link_to "Ordenar", new_user_order_path(current_user), class: 'btn btn-primary w-100' %>
+          <%= link_to "ORDENAR", new_user_order_path(current_user), class: 'btn w-100' %>
         <% else %>
-          <%= link_to "Ordenar", new_fake_user_path, class: 'btn btn-primary w-100' %>
+          <%= link_to "ORDENAR", new_fake_user_path, class: 'btn w-100' %>
         <% end %>
         <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
       </div>
