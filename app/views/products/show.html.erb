@@ -8,7 +8,7 @@
     </div>
     <div class="product-info">
       <h1><%= @product.name %></h1>
-      <p><%= @product.description %></p>
+      <p><%= @product.short_description %></p>
       <p class="prices">
         <span class="price <%= "crossed" if @first_published_variation.discount_price %>" >$<%= @first_published_variation.price %></span>
         <span class="discount-price"><%= "$#{@first_published_variation.discount_price}" if @first_published_variation.discount_price %></span>
@@ -41,14 +41,6 @@
     <br>
     <hr>
   <div class="product-detail">
-    <h2>Technical specifications</h2>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, temporibus possimus aliquid, repellat nam cum corrupti fugiat quam officiis eos eum soluta praesentium quibusdam, harum animi tenetur voluptates error minus?
-    <ul class="mt-3">
-      <li>Lorem ipsum dolor sit amet</li>
-      <li>Lorem ipsum dolor sit amet</li>
-      <li>Lorem ipsum dolor sit amet</li>
-      <li>Lorem ipsum dolor sit amet</li>
-      <li>Lorem ipsum dolor sit amet</li>
-    </ul>
+    <%= @product.long_description %>
   </div>
 </div>

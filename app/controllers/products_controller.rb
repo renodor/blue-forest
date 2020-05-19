@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  layout "pdp", only: [:show]
 
   def index
     @products = Product.includes(:product_variations).where(published: true)
