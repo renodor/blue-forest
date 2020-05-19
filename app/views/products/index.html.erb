@@ -13,7 +13,7 @@
                 <%= link_to product_path(product), class: 'simple-flexbox' do %>
                   <div>
                     <h3><%= product.name.upcase %></h3>
-                    <p><%= product.description.upcase.truncate(50) %></p>
+                    <p><%= product.short_description.upcase.truncate(50) %></p>
                   </div>
                 <% end %>
               </div>

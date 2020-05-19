@@ -30,8 +30,9 @@
         </div>
         <div class="atc-container">
           <p class="size-selection-warning">Por favor seleccionar una talla</p>
-          <%= button_tag type: "submit", class: "btn btn-primary w-100 atc" do %>
-            Add to Cart
+          <%= button_tag type: "submit", class: "btn atc" do %>
+            <span><%= image_tag 'cart.png' %></span>
+            <span>ADD TO CART</span>
           <% end %>
           <span class="atc-overlay"></span>
         </div>

@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
-description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis officiis expedita cupiditate ipsa accusamus eius possimus porro vero perspiciatis ipsum nulla excepturi, non, rem numquam quasi similique facere et deleniti."
+short_description = "Lorem ipsum dolor sit amet"
+long_description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt labore distinctio voluptatem totam, veniam sunt officiis quidem ex maxime enim deleniti ullam ut officia temporibus ducimus assumenda nemo ab quibusdam!"
 
 
 p 'Destroy all categories'
@@ -19,13 +20,13 @@ Product.destroy_all
 p '----------> done'
 
 p 'Create categories'
-pets = Category.create!(name: 'pets', description: description)
-toys = Category.create!(name: 'toys', description: description, parent_id: pets.id)
-food = Category.create!(name: 'food', description: description, parent_id: pets.id)
+pets = Category.create!(name: 'pets', description: long_description)
+toys = Category.create!(name: 'toys', description: long_description, parent_id: pets.id)
+food = Category.create!(name: 'food', description: long_description, parent_id: pets.id)
 
-health = Category.create!(name: 'health', description: description)
-masks = Category.create!(name: 'masks', description: description, parent_id: health.id)
-gloves = Category.create!(name: 'gloves', description: description, parent_id: health.id)
+health = Category.create!(name: 'health', description: long_description)
+masks = Category.create!(name: 'masks', description: long_description, parent_id: health.id)
+gloves = Category.create!(name: 'gloves', description: long_description, parent_id: health.id)
 p "----------> done, #{Category.count} categories created"
 
 categories = [toys, food, masks, gloves]
@@ -45,7 +46,7 @@ images = [
 
 p 'Create products, product variations and product/categories associations'
 10.times do |n|
-  product = Product.new(name: "Product#{n+1}", description: description)
+  product = Product.new(name: "Product#{n+1}", short_description: short_description, long_description: long_description)
   product.main_photo.attach(io: images[n], filename: "#{product.name}_main_photo.png", content_type: "image/jpg")
   product.save!
 

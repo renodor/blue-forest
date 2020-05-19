@@ -1,7 +1,13 @@
 .pdp {
+  background-color: #f7f7f7;
+  div {
+    flex-basis: 50%;
+  }
   .product-info {
-    margin-left: 30px;
-    margin-top: 30px;
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .variations {
     margin-bottom: 30px;
@@ -17,7 +23,7 @@
     width: 30px;
     height: 30px;
     border-radius: 3px;
-    border: 1px solid lightgray;
+    border: 1px solid $light-gray;
     margin-right: 5px;
   }
   .size-selection-warning {
@@ -25,8 +31,20 @@
   }
   .atc-container {
     position: relative;
+    .atc {
+      background-color: #ffbf3c;
+      color: white;
+      border-radius: 0;
+      padding: 15px;
+      span:first-child {
+        border-right: 1px solid white;
+        padding: 10px 15px 10px 0;
+      }
+      span:last-child {
+        padding-left:15px;
+      }
+    }
     .atc-overlay {
-      // display: none;
       position: absolute;
       top: 0;
       left: 0;
