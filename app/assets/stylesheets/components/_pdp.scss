@@ -41,23 +41,12 @@
   }
   .atc-container {
     position: relative;
-    .atc {
-      background-color: #ffbf3c;
-      color: white;
-      border-radius: 0;
-      padding: 15px;
-      opacity: 0.8;
-      transition: opacity .3s ease;
-      &:hover {
-        opacity: 1;
-      }
-      span:first-child {
-        border-right: 1px solid white;
-        padding: 10px 15px 10px 0;
-      }
-      span:last-child {
-        padding-left:15px;
-      }
+    span:first-child {
+      border-right: 1px solid white;
+      padding: 10px 15px 10px 0;
+    }
+    span:last-child {
+      padding-left:15px;
     }
     .atc-overlay {
       position: absolute;
@@ -131,6 +120,9 @@
     }
     .product-info {
       padding: 30px;
+    }
+    .atc {
+      padding: 20px;
     }
   }
 }

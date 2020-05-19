@@ -1,11 +1,10 @@
-.btn-blue {
+.btn {
   border-radius: 0px;
-  background-color: $blue;
-  text-transform: uppercase;
   padding: 20px 40px;
   color: white;
   opacity: 0.8;
   transition: opacity .3s ease;
+  text-transform: uppercase;
   &:hover {
     opacity: 1;
     color: white;
@@ -16,4 +15,12 @@
       color: white;
     }
   }
+}
+
+.btn-blue {
+  background-color: $blue;
+}
+
+.btn-yellow {
+  background-color: $yellow;
 }

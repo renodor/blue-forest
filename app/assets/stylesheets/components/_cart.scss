@@ -57,18 +57,10 @@
       }
     }
     .btn {
-      padding-top: 10px;
+      padding: 10px;
       margin-bottom: 5px;
-      background-color: $blue;
-      color: white;
-      border-radius: 0;
-      opacity: 0.8;
-      transition: opacity .3s ease;
-      &:hover {
-        opacity: 1
-      }
     }
-    a {
+    a:last-child {
       color: $dark-gray;
     }
   }
