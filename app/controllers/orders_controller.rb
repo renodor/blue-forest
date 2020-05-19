@@ -19,6 +19,9 @@ class OrdersController < ApplicationController
       @address = @user.addresses.first
     end
 
+    @breadcrumb_contact_class = @breadcrumb_shipping_class = 'hide-under-576'
+    @breadcrumb_confirm_class = 'active'
+
     # prevent users from trying to access other users orders by changing the order id in the url
     redirect_to root_path if session[:order_id] != params[:id].to_i
   end
@@ -40,6 +43,10 @@ class OrdersController < ApplicationController
       # we could easily have users with many addresses in the future
       @address = @user.addresses.first
     end
+
+    @breadcrumb_contact_class = @breadcrumb_shipping_class = 'hide-under-576'
+    @breadcrumb_review_class = 'active'
+    @breadcrumb_confirm_class = 'pending'
 
   end
 

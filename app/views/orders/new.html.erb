@@ -1,66 +1,54 @@
-<div class="container mt-5">
+<div class="container orders-funnel">
+  <%= render 'shared/order_breadcrumb' %>
+  <br>
+  <h1>REVISIÓN DEL PEDIDO</h1>
 
-  <div id="order-breadcrumb" class="d-flex w-100 mb-5">
-    <div class="d-flex flex-column align-items-center">
-      <div class="number">1</div>
-      <span>Carrito</span>
+  <div class="order-review">
+    <div class="order-summary">
+      <% total_quantity = 0 %>
+      <% @current_cart.line_items.reverse.each do |line_item| %>
+        <div class="cart-product d-flex align-items-center">
+          <%= cl_image_tag line_item.product_variation.product.main_photo.key, height: 100, width: 100, crop: :fill %>
+          <div class="grow-1">
+            <p><b><%= line_item.product_variation.product.name %></b></p>
+            <p>Tamaño: <%= line_item.product_variation.size %></p>
+            <p>$<%= line_item.product_variation.price %></p>
+            <p>Cantidad: <%= line_item.quantity %></p>
+          </div>
+          <% total_quantity += line_item.quantity %>
+        </div>
+      <% end %>
     </div>
-    <div class="d-flex flex-column align-items-center active">
-      <div class="number">2</div>
-      <span>Dirección</span>
-    </div>
-    <div class="d-flex flex-column align-items-center">
-      <div class="number">3</div>
-      <span>Confirmación</span>
+    <div class="order-detail">
+      <h2>Información de contacto</h2>
+      <p><%= @user.first_name %> <%= @user.last_name %></p>
+      <p><%= @user.email %></p>
+      <p><%= @user.phone %></p>
+      <h2>Dirección</h2>
+      <p><%= @address.street %></p>
+      <p><%= @address.flat_number %></p>
+      <p><%= @address.district %></p>
+      <p><%= @address.detail %></p>
+      <p><%= @address.city %></p>
+      <div id="show-address-map"
+       style="width: 100%; height: 200px;"
+       data-lat="<%= @address.latitude %>"
+       data-lng="<%= @address.longitude %>"
+       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
     </div>
   </div>
-
-  <div>
-    <h1 class="text-center">Revisión del Pedido</h1>
-    <h2>Información de Contacto</h2>
-    <p><%= @user.first_name %> <%= @user.last_name %></p>
-    <p><%= @user.email %></p>
-    <p><%= @user.phone %></p>
-    <h2>Dirección</h2>
-    <p><%= @address.street %></p>
-    <p><%= @address.flat_number %></p>
-    <p><%= @address.district %></p>
-    <p><%= @address.detail %></p>
-    <p><%= @address.city %></p>
-
-    <div id="show-address-map"
-     style="width: 100%; height: 600px;"
-     data-lat="<%= @address.latitude %>"
-     data-lng="<%= @address.longitude %>"
-     data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-  </div>
-  <hr>
-  <h2>Resumen de Pedido</h2>
-  <% total_quantity = 0 %>
-  <% @current_cart.line_items.reverse.each do |line_item| %>
-    <div class="cart-product d-flex align-items-center">
-      <%= cl_image_tag line_item.product_variation.product.main_photo.key, height: 100, width: 100, crop: :fill %>
-      <div class="grow-1">
-        <p><b><%= line_item.product_variation.product.name %></b></p>
-        <p>Tamaño: <%= line_item.product_variation.size %></p>
-        <p>$<%= line_item.product_variation.price %></p>
-        <p><%= line_item.quantity %></p>
-      </div>
-      <% total_quantity += line_item.quantity %>
-    </div>
-  <% end %>
-  <div class="sidebar-cart-footer">
-    <div class="text-right my-3">
+  <div class="order-review-footer">
+    <div class="my-3">
       <p><%= pluralize(total_quantity, 'producto') %></p>
       <p>Sub Total: $<%= @current_cart.sub_total %></p>
       <p>Entrega: $<%= @current_cart.shipping %></p>
       <p>ITBMS (7%): $<%= (@current_cart.itbms) %></p>
       <p><b>TOTAL: $<%= @current_cart.total %></b></p>
     </div>
+    <% if user_signed_in? %>
+      <%= link_to "CONFIRMAR PEDIDO", user_orders_path, method: :post, class: 'btn btn-blue w-100' %>
+    <% else %>
+      <%= link_to "CONFIRMAR PEDIDO", fake_user_orders_path, method: :post, class: 'btn btn-yellow w-100' %>
+    <% end %>
   </div>
-  <% if user_signed_in? %>
-    <%= link_to "CONFIRMAR PEDIDO", user_orders_path, method: :post, class: 'btn btn-primary w-100' %>
-  <% else %>
-    <%= link_to "CONFIRMAR PEDIDO", fake_user_orders_path, method: :post, class: 'btn btn-primary w-100' %>
-  <% end %>
 </div>
