@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # permiting personal parameters to devise controller
+  # permiting personal fields in devise user signup
   before_action :configure_permitted_parameters, if: :devise_controller?
   # store current url before redirect to login page in order to retrieve it after login
   before_action :store_user_location!, if: :storable_location?
@@ -12,10 +12,9 @@ class ApplicationController < ActionController::Base
 
   private
 
-
+  # By default devise only permit email, password and password confirmation fields through the new user form
+  # This "sanitizer" method allows to permit custom fields (firt_name, last_namet etc..) when users submit the signup form
   def configure_permitted_parameters
-    # Permit the `subscribe_newsletter` parameter along with the other
-    # sign up parameters.
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone])
   end
 
