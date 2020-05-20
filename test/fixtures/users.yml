@@ -3,3 +3,4 @@ user1:
   last_name: Potter
   email: harry@gmail.com
   phone: '123456789'
+  confirmed_at: <%= DateTime.now %>
