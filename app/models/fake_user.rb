@@ -12,7 +12,7 @@ class FakeUser < ApplicationRecord
   # we need this callback to avoid foreign key constraint
   def remove_orders_foreign_key
     self.orders.each do |order|
-      order.update(user: nil)
+      order.update(fake_user: nil)
     end
   end
 end
