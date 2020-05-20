@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  # permiting personal parameters to devise controller
+  before_action :configure_permitted_parameters, if: :devise_controller?
   # store current url before redirect to login page in order to retrieve it after login
   before_action :store_user_location!, if: :storable_location?
   before_action :authenticate_user!
@@ -9,6 +11,14 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+
+  def configure_permitted_parameters
+    # Permit the `subscribe_newsletter` parameter along with the other
+    # sign up parameters.
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone])
+  end
+
 
   # The callback which stores the current location must be added before you authenticate the user
   # as `authenticate_user!` will halt the filter chain and redirect
