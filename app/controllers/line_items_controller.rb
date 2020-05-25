@@ -5,12 +5,12 @@ class LineItemsController < ApplicationController
     # Find associated product
     chosen_product_variation = ProductVariation.find(params[:variation_id])
 
-    # Additional security to check if there is stock available for this product (Normally it shouldn't appear on the PDP any whay it there is no stock)
+    # Additional security to check if there is stock available for this product (Normally it shouldn't appear on the PDP any whay if there is no stock)
     if chosen_product_variation.quantity > 0
       # Find associated product variations
       current_cart = @current_cart
 
-      # If cart already has this product variation then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
+      # If cart already has this product variation then find the relevant line_item and incrment quantity otherwise create a new line_item for this product
       if current_cart.product_variations.include?(chosen_product_variation)
         # Find the line_item with the chosen_product variation
         @line_item = current_cart.line_items.find_by(product_variation_id: chosen_product_variation.id)
@@ -21,7 +21,13 @@ class LineItemsController < ApplicationController
           @line_item.quantity += 1
         else
           flash.alert = "No se puede añadir más de este producto"
-          redirect_to product_path(chosen_product_variation.product)
+          # if it was added from home page, redirect to home page
+          # else, redirect to product page
+          if params[:atc_grid]
+            redirect_to root_path
+          else
+            redirect_to product_path(chosen_product_variation.product)
+          end
           return
         end
       else
@@ -33,12 +39,25 @@ class LineItemsController < ApplicationController
       # Save and redirect to cart show path
       @line_item.save
 
-      # Once line item created, put a params to trigger add to cart modal and redirect back to the product page
-      redirect_to product_path(chosen_product_variation.product, atc_modal: true, product_variation: chosen_product_variation)
+      # Once line item created, put a params to trigger add to cart modal
+      # and redirect back to home page (if it was added from home page)
+      # or to pdp (if it was added from pdp)
+      if params[:atc_grid]
+        redirect_to root_path(chosen_product: chosen_product_variation.product.name, atc_modal: true)
+      else
+        redirect_to product_path(chosen_product_variation.product, atc_modal: true)
+      end
       return
     end
     flash.alert = "No se puede añadir más de este producto"
-    redirect_to product_path(chosen_product_variation.product)
+
+    # if it was added from home page, redirect to home page
+    # else, redirect to product page
+    if params[:atc_grid]
+      redirect_to root_path
+    else
+      redirect_to product_path(chosen_product_variation.product)
+    end
   end
 
   def add_quantity

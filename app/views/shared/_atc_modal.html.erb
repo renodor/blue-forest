@@ -2,7 +2,11 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body text-center">
-        <b><%= @product.name %></b> añadido a su carrito
+        <% if params[:chosen_product] %>
+          <b><%= params[:chosen_product]%></b> añadido a su carrito
+        <% else %>
+          <b><%= @product.name %></b> añadido a su carrito
+        <% end %>
       </div>
       <div class="modal-footer text-center">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">SEGUIR COMPRANDO</button>
