@@ -1,0 +1,31 @@
+<div class="container orders-funnel">
+  <%= render 'shared/order_breadcrumb' %>
+  <h1>DIRECCIÓN</h1>
+  <br>
+  <%= simple_form_for [ @user, @address ] do |f| %>
+    <div class="shipping-container">
+      <div class="grow-1 shipping-details">
+        <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
+        <p><b>Email:</b> <%= @user.email %></p>
+        <p><b>Teléfono:</b> <%= @user.phone %></p>
+        <div>
+          <%= f.input :street, label: false, placeholder: 'Calle' %>
+          <%= f.input :flat_number, label: false, placeholder: 'Num de Casa o Apto' %>
+          <%= f.input :district, label: false, placeholder: 'Corregimiento' %>
+          <%= f.input :detail, label: false, placeholder: 'Punto de Referencia' %>
+          <%= f.input :city, label: false, placeholder: 'Ciudad' %>
+          <%= f.input :latitude, as: :hidden %>
+          <%= f.input :longitude, as: :hidden %>
+        </div>
+      </div>
+      <div class="map <%= 'invalid' if params[:address] && params[:address][:longitude] = '' %>">
+        <b class="map-title">ELEGIR PUNTO EN EL MAPA</b>
+        <div id="create-address-map"
+         style="width: 100%; height: 380px;"
+         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+      </div>
+    </div>
+    <%= f.submit "REVISAR ANTES DE CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>
+  <% end %>
+</div>
+

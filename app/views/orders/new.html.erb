@@ -20,21 +20,43 @@
       <% end %>
     </div>
     <div class="order-detail">
-      <h2>Información de contacto</h2>
-      <p><%= @user.first_name %> <%= @user.last_name %></p>
-      <p><%= @user.email %></p>
-      <p><%= @user.phone %></p>
-      <h2>Dirección</h2>
-      <p><%= @address.street %></p>
-      <p><%= @address.flat_number %></p>
-      <p><%= @address.district %></p>
-      <p><%= @address.detail %></p>
-      <p><%= @address.city %></p>
-      <div id="show-address-map"
-       style="width: 100%; height: 200px;"
-       data-lat="<%= @address.latitude %>"
-       data-lng="<%= @address.longitude %>"
-       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+      <div class="position-relative">
+        <% if user_signed_in? %>
+          <%#= link_to edit_user_path(@user) do %>
+<!--             <i class="fas fa-pen"></i> -->
+          <%# end %>
+        <% else %>
+          <%= link_to edit_fake_user_path(@user) do %>
+            <i class="fas fa-pen"></i>
+          <% end %>
+        <% end %>
+        <h2>Información de contacto</h2>
+        <p><%= @user.first_name %> <%= @user.last_name %></p>
+        <p><%= @user.email %></p>
+        <p><%= @user.phone %></p>
+      </div>
+      <div class="position-relative">
+        <h2>Dirección</h2>
+        <% if user_signed_in? %>
+          <%= link_to edit_user_address_path(@user, @address) do %>
+            <i class="fas fa-pen"></i>
+          <% end %>
+        <% else %>
+          <%= link_to edit_fake_user_address_path(@user, @address) do %>
+            <i class="fas fa-pen"></i>
+          <% end %>
+        <% end %>
+        <p><%= @address.street %></p>
+        <p><%= @address.flat_number %></p>
+        <p><%= @address.district %></p>
+        <p><%= @address.detail %></p>
+        <p><%= @address.city %></p>
+        <div id="show-address-map"
+         style="width: 100%; height: 200px;"
+         data-lat="<%= @address.latitude %>"
+         data-lng="<%= @address.longitude %>"
+         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+      </div>
     </div>
   </div>
   <div class="order-review-footer">

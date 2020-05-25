@@ -18,6 +18,23 @@ class FakeUsersController < ApplicationController
     end
   end
 
+  def edit
+    # DRY
+    @breadcrumb_contact_class = 'active'
+    @breadcrumb_review_class = @breadcrumb_confirm_class = 'pending hide-under-576'
+
+    @fake_user = FakeUser.find(params[:id])
+  end
+
+  def update
+    @user = FakeUser.find(params[:id])
+    if @user.update(fake_user_params)
+      redirect_to new_fake_user_order_path(@user)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def fake_user_params
