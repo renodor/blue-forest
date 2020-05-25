@@ -20,7 +20,9 @@
     <div class="header bg-blue cart-layout">
       <%= render 'shared/navbar' %>
     </div>
-    <%= yield %>
+    <div class="content-wrapper">
+      <%= yield %>
+    </div>
     <%= render 'shared/footer' %>
     <%= render 'shared/top_banner' %>
   </body>
