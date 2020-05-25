@@ -21,6 +21,14 @@
     img {
       object-fit: cover;
     }
+    .atc-grid {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      &:hover .product-hover {
+        background-color: rgba(10, 31, 143, 0.9);
+      }
+    }
     .product-grid-info-container {
       background-color: white;
       display: flex;
@@ -29,7 +37,7 @@
       background-color: $blue;
       color: white;
       border-right: 1px solid #3f3f75;
-      img {
+      .grid-symbol {
         width: 15px;
         margin-right: 20px;
         margin-left: 10px;
@@ -39,7 +47,7 @@
         border-left: 1px solid $light-blue;
       }
     }
-    a {
+    .product-hover {
       position: absolute;
       top: 0;
       left: 0;

@@ -6,17 +6,20 @@
           <div class="product">
             <%= cl_image_tag product.main_photo.key, height: 400, crop: :fill %>
             <div class="product-grid-info-container">
-              <%= image_tag 'symbol.svg' %>
+              <%= image_tag 'symbol.svg', class: 'grid-symbol' %>
               <div class="product-grid-info">
                 <span class="grow-1"><%= product.name.upcase %></span>
                 <!-- <span>$ --> <%#= product.product_variations.first.price %> <!--</span> -->
-                <%= link_to product_path(product), class: 'simple-flexbox' do %>
+                <%= link_to product_path(product), class: 'simple-flexbox product-hover' do %>
                   <div>
                     <h3><%= product.name.upcase %></h3>
                     <p><%= product.short_description.upcase.truncate(50) %></p>
                   </div>
                 <% end %>
               </div>
+            <% if product.product_variations.first.size == 'unique' %>
+              <%= link_to image_tag('cart.png'), line_items_path, method: 'post', class: 'atc-grid' %>
+            <% end %>
             </div>
           </div>
         <% end %>
