@@ -11,17 +11,18 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <!-- commenting searchbar for now -->
-        <!-- <li class="nav-item"> -->
-          <%#= form_tag search_products_path, method: :get, class: 'form-inline' do %>
-            <%#= text_field_tag :query,
+        <li class="nav-item search">
+          <%= form_tag search_products_path, method: :get, class: 'form-inline' do %>
+            <%= text_field_tag :query,
               params[:query],
               class: "form-control",
-              placeholder: "Buscar productos"
+              placeholder: "BUSCAR PRODUCTOS"
             %>
-            <%#= submit_tag "Search", class: "btn btn-secondary" %>
-          <%# end %>
-        <!-- </li> -->
+            <%= button_tag type: "submit", class: "btn" do %>
+              <i class="fas fa-search"></i>
+            <% end %>
+          <% end %>
+        </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MI CUENTA</a>
