@@ -25,8 +25,13 @@
       position: absolute;
       top: 20px;
       right: 30px;
-      &:hover .product-hover {
+      z-index: 100;
+      &:hover + .product-grid-info .product-hover {
+        color: white;
         background-color: rgba(10, 31, 143, 0.9);
+      }
+      &:hover + .product-grid-info .product-hover div {
+        display: block;
       }
     }
     .product-grid-info-container {

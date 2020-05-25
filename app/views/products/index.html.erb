@@ -7,6 +7,9 @@
             <%= cl_image_tag product.main_photo.key, height: 400, crop: :fill %>
             <div class="product-grid-info-container">
               <%= image_tag 'symbol.svg', class: 'grid-symbol' %>
+            <% if product.product_variations.first.size == 'unique' %>
+              <%= link_to image_tag('cart.png'), line_items_path(variation_id: product.product_variations.first), method: 'post', class: 'atc-grid' %>
+            <% end %>
               <div class="product-grid-info">
                 <span class="grow-1"><%= product.name.upcase %></span>
                 <!-- <span>$ --> <%#= product.product_variations.first.price %> <!--</span> -->
@@ -17,9 +20,6 @@
                   </div>
                 <% end %>
               </div>
-            <% if product.product_variations.first.size == 'unique' %>
-              <%= link_to image_tag('cart.png'), line_items_path, method: 'post', class: 'atc-grid' %>
-            <% end %>
             </div>
           </div>
         <% end %>
