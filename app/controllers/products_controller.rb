@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show, :search]
   layout 'pdp', only: [:show]
   layout 'homepage', only: [:index]
 
@@ -20,7 +20,8 @@ class ProductsController < ApplicationController
   def search
     sql_query = " \
       products.name ILIKE :query AND products.published = true \
-      OR products.description ILIKE :query AND products.published = true \
+      OR products.short_description ILIKE :query AND products.published = true \
+      OR products.long_description ILIKE :query AND products.published = true \
     "
     @products = Product.includes(:product_variations).where(sql_query, query: "%#{params[:query]}%")
   end

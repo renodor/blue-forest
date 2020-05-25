@@ -1,4 +1,16 @@
 <div class="container navbar-container">
+  <div class="nav-item search mobile">
+    <%= form_tag search_products_path, method: :get, class: 'form-inline' do %>
+      <%= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "BUSCAR PRODUCTOS"
+      %>
+      <%= button_tag type: "submit", class: "btn" do %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    <% end %>
+  </div>
   <div class="navbar navbar-expand-sm navbar-light navbar-blueforest">
     <%= link_to root_path, class: "navbar-brand grow-1" do %>
         <% image_tag "logo.svg" %>
@@ -11,7 +23,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item search">
+        <li class="nav-item search desktop">
           <%= form_tag search_products_path, method: :get, class: 'form-inline' do %>
             <%= text_field_tag :query,
               params[:query],

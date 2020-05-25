@@ -1,22 +1,30 @@
-<div class="container mt-5">
+<div class="container my-5 search-results text-center">
   <h2 class="text-center mb-5"><%= @products.count %> Resultados de búsqueda para: <em><%= params[:query] %></em></h2>
   <% if @products.count > 0 %>
     <div class="products">
       <% @products.each do |product| %>
         <% if product.product_variations.length > 0 %>
           <div class="product">
-            <%= cl_image_tag product.main_photo.key, height: 200, width: 350, crop: :fill %>
-            <div class="product-grid-info">
-              <b class="grow-1"><%= product.name %></b>
-              <span>$ <%= product.product_variations.first.price %></span>
-              <%= link_to '', product_path(product) %>
+            <%= cl_image_tag product.main_photo.key, height: 400, crop: :fill %>
+            <div class="product-grid-info-container">
+              <%= image_tag 'symbol.svg' %>
+              <div class="product-grid-info">
+                <span class="grow-1"><%= product.name.upcase %></span>
+                <!-- <span>$ --> <%#= product.product_variations.first.price %> <!--</span> -->
+                <%= link_to product_path(product), class: 'simple-flexbox' do %>
+                  <div>
+                    <h3><%= product.name.upcase %></h3>
+                    <p><%= product.short_description.upcase.truncate(50) %></p>
+                  </div>
+                <% end %>
+              </div>
             </div>
           </div>
         <% end %>
       <% end %>
     </div>
   <% else %>
-    <p><%= link_to 'Ver todos los productos', products_path %></p>
+    <p><%= link_to 'Ver todos los productos', products_path, class: 'btn btn-blue' %></p>
   <% end %>
 </div>
 
