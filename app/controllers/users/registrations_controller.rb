@@ -15,9 +15,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    # if :order_edit params is present, it means that user is trying to change its contact info while ordering
+    # in that case we need to render order breadcrumb and its relevant CSS classes
+    if params[:order_edit]
+      # DRY
+      @breadcrumb_contact_class = 'active'
+      @breadcrumb_review_class = @breadcrumb_confirm_class = 'pending hide-under-576'
+    end
+    super
+  end
 
   # PUT /resource
   def update
