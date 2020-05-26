@@ -32,6 +32,7 @@ import { sizeCheckbox } from '../components/size_checkbox';
 import { pdpPrice } from '../components/pdp_price';
 import { atcModal } from '../components/atc_modal';
 import { doctorsCarousel } from '../components/doctors_carousel';
+import { boostrapTabs } from '../components/boostrap_tabs';
 
 import { initMapbox } from '../plugins/init_mapbox';
 
@@ -43,6 +44,7 @@ document.addEventListener('turbolinks:load', () => {
   initMapbox();
   atcModal();
   doctorsCarousel();
+  boostrapTabs();
 });
 
 
