@@ -4,6 +4,14 @@
   h1 {
     margin-bottom: 20px;
   }
+  a {
+    color: $dark-gray;
+  }
+}
+#dashboardTab {
+  .nav-link.active {
+    font-weight: 600;
+  }
 }
 #dashboard {
   border-left: 1px solid #dee2e6;
@@ -26,7 +34,7 @@
   .dashboard-order {
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     background-color: $light-gray;
     grid-column-gap: 30px;
     margin-bottom: 20px;

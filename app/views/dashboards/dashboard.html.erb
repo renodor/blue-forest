@@ -55,12 +55,16 @@
             </div>
           </div>
           <div>
-            <p><b>Shipping</b></p>
+            <p><b>Entrega</b></p>
             <span>$<%= order.shipping %></span>
           </div>
           <div>
             <p><b>Total</b></p>
             <span>$<%= order.total %></span>
+          </div>
+          <div>
+            <p><b>Fecha</b></p>
+            <span><%= order.created_at.strftime("%-d %B %Y") %></span>
           </div>
         </div>
       <% end %>
