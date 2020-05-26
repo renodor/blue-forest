@@ -39,8 +39,8 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">MI CUENTA</a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <%= link_to "Mis datos", "#", class: "dropdown-item" %>
-              <%= link_to "Mis ordenes", "#", class: "dropdown-item" %>
+              <%= link_to "Mis datos", dashboards_path(anchor: 'profile'), class: "dropdown-item" %>
+              <%= link_to "Mis ordenes", dashboards_path(anchor: 'orders'), class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
