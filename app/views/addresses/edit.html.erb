@@ -1,13 +1,17 @@
 <div class="container orders-funnel">
-  <%= render 'shared/order_breadcrumb' %>
-  <h1>DIRECCIÓN</h1>
+  <% if params[:order_edit] %>
+    <%= render 'shared/order_breadcrumb' %>
+  <% end %>
+  <h1 class="mt-5">DIRECCIÓN</h1>
   <br>
   <%= simple_form_for [ @user, @address ] do |f| %>
     <div class="shipping-container">
       <div class="grow-1 shipping-details">
-        <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
-        <p><b>Email:</b> <%= @user.email %></p>
-        <p><b>Teléfono:</b> <%= @user.phone %></p>
+        <% if params[:order_edit] %>
+          <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
+          <p><b>Email:</b> <%= @user.email %></p>
+          <p><b>Teléfono:</b> <%= @user.phone %></p>
+        <% end %>
         <div>
           <%= f.input :street, label: false, placeholder: 'Calle' %>
           <%= f.input :flat_number, label: false, placeholder: 'Num de Casa o Apto' %>
