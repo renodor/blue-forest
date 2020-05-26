@@ -6,7 +6,7 @@
     Ya tienes una cuenta? Porfavor <b><%= link_to 'CONECTARSE', login_before_new_order_path %></b> o <b><%= link_to 'CREAR CUENTA', new_user_registration_path %></b>
   </p>
   <p>O continuar sin creación de cuenta:</p>
-  <%= simple_form_for [@fake_user] do |f| %>
+  <%= simple_form_for @fake_user do |f| %>
     <div class="row">
       <div class="col-sm-6">
         <%= f.input :first_name, label: false, placeholder: 'Nombre', class: 'form-control' %>

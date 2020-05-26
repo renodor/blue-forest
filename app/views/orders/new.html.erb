@@ -22,9 +22,9 @@
     <div class="order-detail">
       <div class="position-relative">
         <% if user_signed_in? %>
-          <%#= link_to edit_user_path(@user) do %>
-<!--             <i class="fas fa-pen"></i> -->
-          <%# end %>
+          <%= link_to edit_user_registration_path(order_edit: true) do %>
+            <i class="fas fa-pen"></i>
+          <% end %>
         <% else %>
           <%= link_to edit_fake_user_path(@user) do %>
             <i class="fas fa-pen"></i>
