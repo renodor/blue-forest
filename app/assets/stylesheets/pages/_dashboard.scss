@@ -1,0 +1,28 @@
+.dashboard-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  h1 {
+    margin-bottom: 20px;
+  }
+}
+#dashboard {
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  padding: 30px;
+  #profile {
+    display: flex;
+    .dashboard-profile {
+      flex-basis: 50%;
+      i {
+        color: $dark-gray;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+      }
+    }
+    #show-address-map {
+      flex-basis: 50%;
+    }
+  }
+}

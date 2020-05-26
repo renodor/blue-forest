@@ -1,0 +1,46 @@
+<div class="dashboard-container container">
+  <h1>MI CUENTA</h1>
+  <ul class="nav nav-tabs" id="dashboardTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Mi Perfil</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Mis Ordenes</a>
+    </li>
+  </ul>
+
+  <div class="tab-content" id="dashboard">
+    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="dashboard-profile">
+        <div class="position-relative">
+            <%= link_to edit_user_registration_path(order_edit: true) do %>
+              <i class="fas fa-pen"></i>
+            <% end %>
+          <h2>Información de contacto</h2>
+          <p><%= current_user.first_name %> <%= current_user.last_name %></p>
+          <p><%= current_user.email %></p>
+          <p><%= current_user.phone %></p>
+        </div>
+        <div class="position-relative">
+          <h2>Dirección</h2>
+            <%= link_to edit_user_address_path(current_user, @address) do %>
+              <i class="fas fa-pen"></i>
+            <% end %>
+          <p><%= @address.street %></p>
+          <p><%= @address.flat_number %></p>
+          <p><%= @address.district %></p>
+          <p><%= @address.detail %></p>
+          <p><%= @address.city %></p>
+        </div>
+      </div>
+      <div id="show-address-map" class="dashboard-map"
+       style="width: 100%"
+       data-lat="<%= @address.latitude %>"
+       data-lng="<%= @address.longitude %>"
+       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+    </div>
+    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">...</div>
+  </div>
+
+</div>
+

@@ -21,6 +21,10 @@ Rails.application.routes.draw do
     resources :orders, only: [:index, :show, :new, :create]
     resources :addresses, only: [:new, :create, :edit, :update]
   end
+  # custom route to redirect user to the correct page when the start an order and want to login after
   get 'login_before_new_order', to: 'orders#login_before_new'
+
+  # route to the use profile page
+  get 'dashboards', to: 'dashboards#dashboard'
   root to: 'products#index'
 end
