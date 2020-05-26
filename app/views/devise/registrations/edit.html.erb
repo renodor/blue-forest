@@ -16,8 +16,7 @@
         <%= f.input :phone, label: false, placeholder: 'Teléfono', class: 'form-control' %>
       </div>
     </div>
-    <%= f.input :order_edit, as: :fake, label: false, :input_html => { :value => "some value" } %>
-    <%#= f.input :order_edit, as: :hidden, input_html: { value: true }  %>
+    <%= f.input :order_edit, as: :fake, label: false, input_html: { value: "some value" } %>
     <%= f.button :submit, 'SEGUIR', class: 'btn btn-blue w-100' %>
   <% end %>
 <% else %>

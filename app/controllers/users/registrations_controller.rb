@@ -21,6 +21,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
+    # if order_edit params is present, it means that the user is trying to change its contact info while ordering
+    # in that case we don't want him to enter his password or to offer him the possibility to modify his password
+    # so we use a custom 'custom_user_params' strong params methods and a custom 'update' method
+    # (otherwise we juste use the 'super' kw to trigger the normal devise update method)
     if params['order_edit']
       if current_user.update(custom_user_params)
         redirect_to new_user_order_path(current_user)
@@ -49,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def custom_user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :address, :phone)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone)
   end
 
   # By default devise only permit email, password and password confirmation fields through the new user form
