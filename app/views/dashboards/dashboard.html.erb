@@ -12,34 +12,59 @@
   <div class="tab-content" id="dashboard">
     <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
       <div class="dashboard-profile">
-        <div class="position-relative">
-            <%= link_to edit_user_registration_path(order_edit: true) do %>
-              <i class="fas fa-pen"></i>
-            <% end %>
-          <h2>Información de contacto</h2>
-          <p><%= current_user.first_name %> <%= current_user.last_name %></p>
-          <p><%= current_user.email %></p>
-          <p><%= current_user.phone %></p>
+        <div class="dashboard-info">
+          <div class="position-relative">
+              <%= link_to edit_user_registration_path(order_edit: true) do %>
+                <i class="fas fa-pen"></i>
+              <% end %>
+            <h2>Información de contacto</h2>
+            <p><%= current_user.first_name %> <%= current_user.last_name %></p>
+            <p><%= current_user.email %></p>
+            <p><%= current_user.phone %></p>
+          </div>
+          <div class="position-relative">
+            <h2>Dirección</h2>
+              <%= link_to edit_user_address_path(current_user, @address) do %>
+                <i class="fas fa-pen"></i>
+              <% end %>
+            <p><%= @address.street %></p>
+            <p><%= @address.flat_number %></p>
+            <p><%= @address.district %></p>
+            <p><%= @address.detail %></p>
+            <p><%= @address.city %></p>
+          </div>
         </div>
-        <div class="position-relative">
-          <h2>Dirección</h2>
-            <%= link_to edit_user_address_path(current_user, @address) do %>
-              <i class="fas fa-pen"></i>
-            <% end %>
-          <p><%= @address.street %></p>
-          <p><%= @address.flat_number %></p>
-          <p><%= @address.district %></p>
-          <p><%= @address.detail %></p>
-          <p><%= @address.city %></p>
-        </div>
+        <div id="show-address-map" class="dashboard-map"
+         style="width: 100%"
+         data-lat="<%= @address.latitude %>"
+         data-lng="<%= @address.longitude %>"
+         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
       </div>
-      <div id="show-address-map" class="dashboard-map"
-       style="width: 100%"
-       data-lat="<%= @address.latitude %>"
-       data-lng="<%= @address.longitude %>"
-       data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
     </div>
-    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">...</div>
+    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+      <% @orders.each do |order| %>
+        <div class="dashboard-order">
+          <div>
+            <p><b><%= pluralize(order.total_items.to_i, 'producto') %></b></p>
+            <div>
+              <% order.line_items.each do |item| %>
+                <%= link_to product_path(item.product_variation.product) do %>
+                  <p class="mb-0"><%= item.product_variation.name %> <%= "(x #{item.quantity})" if item.quantity > 1%></p>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div>
+            <p><b>Shipping</b></p>
+            <span>$<%= order.shipping %></span>
+          </div>
+          <div>
+            <p><b>Total</b></p>
+            <span>$<%= order.total %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
 </div>
