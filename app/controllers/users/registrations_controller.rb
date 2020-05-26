@@ -20,9 +20,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    if params['order_edit']
+      if current_user.update(custom_user_params)
+        redirect_to new_user_order_path(current_user)
+      else
+        render :edit
+      end
+    else
+      super
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -40,6 +48,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def custom_user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :address, :phone)
+  end
 
   # By default devise only permit email, password and password confirmation fields through the new user form
   # This "sanitizer" method allows to permit custom fields (firt_name, last_namet etc..) when users submit the signup form
@@ -60,4 +71,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end
