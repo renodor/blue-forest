@@ -1,31 +1,36 @@
-<div class="container my-5 search-results text-center">
-  <h2 class="text-center mb-5"><%= @products.count %> Resultados de búsqueda para: <em><%= params[:query] %></em></h2>
-  <% if @products.count > 0 %>
-    <div class="products">
-      <% @products.each do |product| %>
-        <% if product.product_variations.length > 0 %>
-          <div class="product">
-            <%= cl_image_tag product.main_photo.key, height: 400, crop: :fill %>
-            <div class="product-grid-info-container">
-              <%= image_tag 'symbol.svg' %>
-              <div class="product-grid-info">
-                <span class="grow-1"><%= product.name.upcase %></span>
-                <!-- <span>$ --> <%#= product.product_variations.first.price %> <!--</span> -->
-                <%= link_to product_path(product), class: 'simple-flexbox' do %>
-                  <div>
-                    <h3><%= product.name.upcase %></h3>
-                    <p><%= product.short_description.upcase.truncate(50) %></p>
-                  </div>
+<div class="">
+  <div class="container my-5 search-results text-center">
+    <h2 class="text-center mb-5"><%= @products.count %> Resultados de búsqueda para: <em><%= params[:query] %></em></h2>
+    <% if @products.count > 0 %>
+      <div class="products">
+        <% @products.each do |product| %>
+          <% if product.product_variations.length > 0 %>
+            <div class="product">
+              <%= cl_image_tag product.main_photo.key, height: 400, crop: :fill %>
+              <div class="product-grid-info-container">
+                <%= image_tag 'symbol.svg', class: 'grid-symbol' %>
+                <% if product.product_variations.first.size == 'unique' %>
+                <%= link_to image_tag('cart.png'), line_items_path(variation_id: product.product_variations.first, atc_grid: true), method: 'post', class: 'atc-grid' %>
                 <% end %>
+                <div class="product-grid-info">
+                  <span class="grow-1"><%= product.name.upcase %></span>
+                  <!-- <span>$ --> <%#= product.product_variations.first.price %> <!--</span> -->
+                  <%= link_to product_path(product), class: 'simple-flexbox product-hover' do %>
+                    <div>
+                      <h3><%= product.name.upcase %></h3>
+                      <p><%= product.short_description.upcase.truncate(50) %></p>
+                    </div>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
-  <% else %>
-    <p><%= link_to 'Ver todos los productos', products_path, class: 'btn btn-blue' %></p>
-  <% end %>
+      </div>
+    <% else %>
+      <p><%= link_to 'Ver todos los productos', products_path, class: 'btn btn-blue' %></p>
+    <% end %>
+  </div>
 </div>
 
 
