@@ -27,9 +27,9 @@ class FakeUsersController < ApplicationController
   end
 
   def update
-    @user = FakeUser.find(params[:id])
-    if @user.update(fake_user_params)
-      redirect_to new_fake_user_order_path(@user)
+    @fake_user = FakeUser.find(params[:id])
+    if @fake_user.update(fake_user_params)
+      redirect_to new_fake_user_order_path(@fake_user)
     else
       render :edit
     end
