@@ -45,6 +45,10 @@
       <% @orders.each do |order| %>
         <div class="dashboard-order">
           <div>
+            <p><b>Fecha</b></p>
+            <span><%= order.created_at.strftime("%-d %B %Y") %></span>
+          </div>
+          <div>
             <p><b><%= pluralize(order.total_items.to_i, 'producto') %></b></p>
             <div>
               <% order.line_items.each do |item| %>
@@ -61,10 +65,6 @@
           <div>
             <p><b>Total</b></p>
             <span>$<%= order.total %></span>
-          </div>
-          <div>
-            <p><b>Fecha</b></p>
-            <span><%= order.created_at.strftime("%-d %B %Y") %></span>
           </div>
         </div>
       <% end %>
