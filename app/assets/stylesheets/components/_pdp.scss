@@ -68,22 +68,47 @@
     width: 40px;
     height: 40px;
     transition: border .3s, color .3s ease;
+    &:hover {
+      border: 1px solid $dark-gray;
+      color: $dark-gray;
+    }
   }
   input {
     display: none;
+    &:checked + label {
+      border: 1px solid $dark-gray;
+      color: $dark-gray;
+    }
+    &:disabled + label {
+      color: $light-gray;
+      border: 1px solid $light-gray;
+      cursor: not-allowed;
+    }
   }
-  label:hover {
-    border: 1px solid $dark-gray;
-    color: $dark-gray;
+}
+
+.pdp .colors {
+  label {
+    border: 1px solid white;
+    margin-right: 5px;
+    cursor: pointer;
+    width: 45px;
+    height: 30px;
+    transition: opacity .3s, outline .3s ease;
+    opacity: 0.5;
+    margin: 10px;
+    outline: 1px solid transparent;
+    &:hover {
+      opacity: 1;
+      outline: 1px solid $dark-gray;
+    }
   }
-  input:checked + label {
-    border: 1px solid $dark-gray;
-    color: $dark-gray;
-  }
-  input:disabled + label {
-    color: $light-gray;
-    border: 1px solid $light-gray;
-    cursor: not-allowed;
+  input {
+    display: none;
+    &:checked + label {
+      opacity: 1;
+      outline: 1px solid $dark-gray;
+    }
   }
 }
 

@@ -37,7 +37,7 @@
               <!-- the third value of radio_button_tag define is the button is checked or not
               putting i == 0 here will automatically check the first color -->
               <%= radio_button_tag 'color', color, i == 0, 'data-color': color %>
-              <%= label_tag "color_#{color}", color %>
+              <%= label_tag "color_#{color}", "", style: "background-color: #{color}" %>
             <% end %>
           </div>
           <div class="sizes">
