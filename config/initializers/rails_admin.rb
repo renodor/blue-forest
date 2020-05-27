@@ -105,6 +105,7 @@ RailsAdmin.config do |config|
     weight 3
     list do
       field :id
+      field :status
       field :total
       field :product_variations
       field :shipping
@@ -117,6 +118,7 @@ RailsAdmin.config do |config|
 
     show do
       field :id
+      field :status
       field :total
       field :product_variations
       field :shipping
@@ -125,6 +127,14 @@ RailsAdmin.config do |config|
       field :fake_user
       field :user
       field :created_at
+    end
+
+    edit do
+      configure :status , :enum do
+        enum do
+          ['confirmed', 'pick_pack', 'shipping', 'delivered']
+        end
+      end
     end
   end
 
