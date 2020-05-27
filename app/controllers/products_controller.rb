@@ -12,8 +12,24 @@ class ProductsController < ApplicationController
     # get all product pre-loading its product variations
     @product = Product.includes(:product_variations).find(params[:id])
 
-    @first_published_variation = @product.product_variations.find do |variation|
-      variation.published && variation.quantity > 0
+    # filter product variations to only take the ones published and with stock quantity
+    @product_variations = @product.product_variations.filter do |variation|
+      if variation.published && variation.quantity > 0
+        variation
+      end
+    end
+
+    # build an array to store all the photos
+    @photos = []
+
+    # put first the main product photo
+    @photos << @product.main_photo
+
+    # then put all product variations photos
+    @product_variations.each do |variation|
+      variation.photos.each do |photo|
+       @photos << photo
+      end
     end
   end
 

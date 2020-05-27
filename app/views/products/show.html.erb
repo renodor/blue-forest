@@ -4,26 +4,24 @@
 <div class="container pdp-container">
   <div class="pdp d-flex">
     <div class="grow-1">
-      <%= cl_image_tag @product.main_photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
+      <%= cl_image_tag @photos.first.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
     </div>
     <div class="product-info">
       <h1><%= @product.name.upcase %></h1>
       <p><%= @product.short_description.upcase %></p>
       <p class="prices">
-        <span class="price <%= "crossed" if @first_published_variation.discount_price %>" >$<%= @first_published_variation.price %></span>
-        <span class="discount-price"><%= "$#{@first_published_variation.discount_price}" if @first_published_variation.discount_price %></span>
+        <span class="price <%= "crossed" if @product_variations.first.discount_price %>" >$<%= @product_variations.first.price %></span>
+        <span class="discount-price"><%= "$#{@product_variations.first.discount_price}" if @product_variations.first.discount_price %></span>
        </p>
       <%= form_tag line_items_path do %>
         <div class="variations">
           <div class="size">
-            <% @product.product_variations.each do |variation| %>
-              <% if variation.published && variation.quantity > 0 %>
-                <% if variation.size.downcase != 'unique' %>
-                  <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
-                  <%= label_tag "variation_id_#{variation.id}", variation.size %>
-                <% else %>
-                  <%= radio_button_tag :variation_id, variation.id, true %>
-                <% end %>
+            <% @product_variations.each do |variation| %>
+              <% if variation.size.downcase != 'unique' %>
+                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
+                <%= label_tag "variation_id_#{variation.id}", variation.size %>
+              <% else %>
+                <%= radio_button_tag :variation_id, variation.id, true %>
               <% end %>
             <% end %>
           </div>
