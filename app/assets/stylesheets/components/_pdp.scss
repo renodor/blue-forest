@@ -70,7 +70,7 @@
     transition: border .3s, color .3s ease;
   }
   input {
-    display: none;
+    // display: none;
   }
   label:hover {
     border: 1px solid $dark-gray;
@@ -79,6 +79,11 @@
   input:checked + label {
     border: 1px solid $dark-gray;
     color: $dark-gray;
+  }
+  input:disabled + label {
+    color: $light-gray;
+    border: 1px solid $light-gray;
+    cursor: not-allowed;
   }
 }
 

@@ -32,12 +32,20 @@
        </p>
       <%= form_tag line_items_path do %>
         <div class="variations">
+          <div class="colors">
+            <% @colors.each_key do |color| %>
+              <%= radio_button_tag 'color', color, false, 'data-color': color %>
+              <%= label_tag "color_#{color}", color %>
+            <% end %>
+          </div>
           <div class="size">
 
-            <% @variations_by_color.each do |color, variations| %>
-              <p><b><%= color %></b></p>
-                <% variations.each do |variation| %>
-                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
+            <% @product_variations.each do |variation| %>
+                <% if @sizes[variation.size] > 1 %>
+                  <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated': true %>
+                  <%= label_tag "variation_id_#{variation.id}", variation.size %>
+                <% else %>
+                                 <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color %>
                   <%= label_tag "variation_id_#{variation.id}", variation.size %>
                 <% end %>
 
