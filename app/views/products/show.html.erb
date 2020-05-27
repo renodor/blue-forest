@@ -33,14 +33,24 @@
       <%= form_tag line_items_path do %>
         <div class="variations">
           <div class="size">
-            <% @product_variations.each do |variation| %>
-              <% if variation.size.downcase != 'unique' %>
+
+            <% @variations_by_color.each do |color, variations| %>
+              <p><b><%= color %></b></p>
+                <% variations.each do |variation| %>
                 <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
-                <%= label_tag "variation_id_#{variation.id}", variation.size %>
-              <% else %>
-                <%= radio_button_tag :variation_id, variation.id, true %>
-              <% end %>
+                  <%= label_tag "variation_id_#{variation.id}", variation.size %>
+                <% end %>
+
             <% end %>
+
+            <%# @product_variations.each do |variation| %>
+              <%# if variation.size.downcase != 'unique' %>
+                <%#= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
+                <%#= label_tag "variation_id_#{variation.id}", variation.size %>
+              <%# else %>
+                <%#= radio_button_tag :variation_id, variation.id, true %>
+              <%# end %>
+            <%# end %>
           </div>
         </div>
         <div class="atc-container">

@@ -21,14 +21,23 @@ class ProductsController < ApplicationController
 
     # build an array to store all the photos
     @photos = []
-
     # put first the main product photo
     @photos << @product.main_photo
 
-    # then put all product variations photos
+    # build an hash to group variation by colors
+    @variations_by_color = {}
+
+    # then iterate over all product variations and do 2 things:
+    # 1. group them by colors in the @variations_by_color hash
+    # 2. put all picturs in the @photo array
     @product_variations.each do |variation|
+      if @variations_by_color[variation.color]
+        @variations_by_color[variation.color] << variation
+      else
+        @variations_by_color[variation.color] = [variation]
+      end
       variation.photos.each do |photo|
-       @photos << photo
+        @photos << photo
       end
     end
   end
