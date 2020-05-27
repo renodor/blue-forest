@@ -18,12 +18,16 @@
   .carousel-caption {
     top: 100px;
     text-align: left;
+    h2 {
+      font-size: 2.5rem;
+    }
   }
   .carousel-item {
     height: 350px;
     img {
       object-fit: cover;
       height: 100%;
+      width: 100%;
     }
   }
   .carousel-bottom-banner {
@@ -141,6 +145,13 @@
 }
 
 @media (max-width: 575px) {
+#hp-carousel {
+  .carousel-caption {
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+}
   #hp-carousel .carousel-bottom-banner {
     padding: 20px;
     span {

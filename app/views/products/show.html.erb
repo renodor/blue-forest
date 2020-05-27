@@ -18,7 +18,7 @@
           <div class="size">
             <% @product.product_variations.each do |variation| %>
               <% if variation.published && variation.quantity > 0 %>
-                <% if variation.size != 'unique' %>
+                <% if variation.size.downcase != 'unique' %>
                   <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
                   <%= label_tag "variation_id_#{variation.id}", variation.size %>
                 <% else %>
