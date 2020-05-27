@@ -21,7 +21,11 @@
           <%= f.input :phone, label: false, placeholder: 'Teléfono', class: 'form-control' %>
         </div>
       </div>
-      <%= f.input :order_edit, as: :fake, label: false, input_html: { value: "some value" } %>
+<!--       this is a 'fake' (hidden) input that is not link to the user model
+      it is just a flag to let the controller know that the user is trying to modify its profile while ordering
+      (so that it is redirected to the correct page after) -->
+      <%= f.input :order_edit, as: :fake, label: false, input_html: { value: true } %>
+
       <%= f.button :submit, 'SEGUIR', class: 'btn btn-blue w-100' %>
     <% end %>
   </div>

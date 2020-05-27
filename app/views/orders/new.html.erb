@@ -22,6 +22,8 @@
     <div class="order-detail">
       <div class="position-relative">
         <% if user_signed_in? %>
+<!--           If user want to modify its profile while ordering, we need to add a flag parameter 'order_edit' in URL
+          to differenciate it from users who wants to modify their profile from dashboard -->
           <%= link_to edit_user_registration_path(order_edit: true) do %>
             <i class="fas fa-pen"></i>
           <% end %>
@@ -38,11 +40,13 @@
       <div class="position-relative">
         <h2>Dirección</h2>
         <% if user_signed_in? %>
-          <%= link_to edit_user_address_path(@user, @address) do %>
+<!--           If user want to modify its address while ordering, we need to add a flag parameter 'order_edit' in URL
+          to differenciate it from users who wants to modify their address from dashboard -->
+          <%= link_to edit_user_address_path(@user, @address, order_edit: true) do %>
             <i class="fas fa-pen"></i>
           <% end %>
         <% else %>
-          <%= link_to edit_fake_user_address_path(@user, @address) do %>
+          <%= link_to edit_fake_user_address_path(@user, @address, order_edit: true) do %>
             <i class="fas fa-pen"></i>
           <% end %>
         <% end %>

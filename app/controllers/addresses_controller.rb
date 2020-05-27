@@ -68,28 +68,42 @@ class AddressesController < ApplicationController
   def update
     # DRY
     if user_signed_in?
-      @user = current_user
-      user_type = 'user'
+      params['order_edit'] ? update_order_edit_user_address : update_user_address
     else
-      @user = FakeUser.find(params[:fake_user_id])
+      update_order_edit_fake_user_address
     end
+  end
 
+  def update_order_edit_fake_user_address
     @address = Address.find(params[:id])
-    # DRY & ugly...
-    if user_type == 'user'
-      @address.user = @user
-      if @address.update(address_params)
-        redirect_to new_user_order_path(@user)
-      else
-        render :edit
-      end
+    @fake_user = FakeUser.find(params[:fake_user_id])
+    @address.fake_user = @fake_user
+    if @address.update(address_params)
+       redirect_to new_fake_user_order_path(@fake_user)
     else
-      @address.fake_user = @user
-      if @address.update(address_params)
-        redirect_to new_fake_user_order_path(@user)
-      else
-        render :edit
-      end
+      render :edit
+    end
+  end
+
+  def update_order_edit_user_address
+    @address = Address.find(params[:id])
+    @user = current_user
+    @address.user = @user
+    if @address.update(address_params)
+       redirect_to new_user_order_path(@user)
+    else
+      render :edit
+    end
+  end
+
+  def update_user_address
+    @address = Address.find(params[:id])
+    @user = current_user
+    @address.user = @user
+    if @address.update(address_params)
+       redirect_to dashboards_path
+    else
+      render :edit
     end
   end
 

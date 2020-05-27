@@ -1,11 +1,14 @@
 <div class="container orders-funnel">
+<!--   show order breadcrumb only if user is modifying its address while ordering (not from dashboard) -->
   <% if params[:order_edit] %>
     <%= render 'shared/order_breadcrumb' %>
   <% end %>
   <h1 class="mt-5">DIRECCIÓN</h1>
   <br>
   <%= simple_form_for [ @user, @address ] do |f| %>
-    <div class="shipping-container">
+<!--     if user is modifying its address from dashboard (not while ordering),
+    we need to align items in the center, cause divs are smallers -->
+    <div class="shipping-container <%= 'align-items-center' if !params[:order_edit] %> ">
       <div class="grow-1 shipping-details">
         <% if params[:order_edit] %>
           <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
@@ -20,6 +23,13 @@
           <%= f.input :city, label: false, placeholder: 'Ciudad' %>
           <%= f.input :latitude, as: :hidden %>
           <%= f.input :longitude, as: :hidden %>
+
+  <!--   this is a 'fake' (hidden) input that is not link to the address model
+        it is just a flag to let the controller know that the user is trying to modify its profile while ordering
+        (so that it is redirected to the correct page after) -->
+          <% if params[:order_edit] %>
+            <%= f.input :order_edit, as: :fake, label: false, input_html: { value: true } %>
+          <% end %>
         </div>
       </div>
       <div class="map <%= 'invalid' if params[:address] && params[:address][:longitude] = '' %>">
