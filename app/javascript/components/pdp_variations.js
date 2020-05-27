@@ -1,30 +1,40 @@
 const pdpVariations = () => {
   const pdpContainer = document.querySelector('.pdp-container');
-  const sizes = document.querySelectorAll('.pdp .size input');
-  const colors = document.querySelectorAll('.pdp .colors input');
 
   if (pdpContainer) {
+    const sizes = document.querySelectorAll('.pdp .size input');
+    const colors = document.querySelectorAll('.pdp .colors input');
+
+    const disableSizes = (size, targetColor) => {
+      if (size.dataset.color == targetColor) {
+        size.disabled = false;
+        if (size.dataset.repeated) {
+          size.style.display = 'inline-block';
+          console.log(size.value);
+          document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'inline-block'
+        }
+      } else {
+        size.checked = false;
+        size.disabled = true;
+        if (size.dataset.repeated) {
+          size.style.display = 'none';
+          document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'none';
+        }
+      }
+    }
+    sizes.forEach((size) => {
+      const targetColor = colors[0].dataset.color;
+      disableSizes(size, targetColor);
+    })
+
     colors.forEach((color) => {
       color.addEventListener('click', event => {
         sizes.forEach((size) => {
-          if (size.dataset.color == color.dataset.color) {
-            size.disabled = false;
-            if (size.dataset.repeated) {
-              size.style.display = 'inline-block';
-              console.log(size.value);
-              document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'inline-block'
-            }
-          } else {
-            size.checked = false;
-            size.disabled = true;
-            if (size.dataset.repeated) {
-              size.style.display = 'none';
-              document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'none';
-            }
-          }
-        })
-      })
-    })
+          const targetColor = color.dataset.color;
+          disableSizes(size, targetColor);
+        });
+      });
+    });
 
     if (sizes.length > 0) {
       const atc = document.querySelector('.pdp .atc');
@@ -66,7 +76,7 @@ const pdpVariations = () => {
       })
 
     }
-  }
+  };
 }
 
 export { pdpVariations };
