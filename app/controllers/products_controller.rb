@@ -24,19 +24,28 @@ class ProductsController < ApplicationController
     # put first the main product photo
     @photos << @product.main_photo
 
-    @colors = Hash.new(0)
+    # build an array to store all colors
+    @colors = []
+
+    # build an hash to store all sizes and their count
+    # (in order to know what sizes are repeated accross colors)
     @sizes = Hash.new(0)
 
 
-    # then iterate over all product variations and do 2 things:
-    # 2. put all picturs in the @photo array
+    # then iterate over all product variations and do 3 things:
+    # 1. add its color to the @colors array
+    # 2. add its size and its size count to the @sizes hash
+    # 3. add all its picturs in the @photo array
     @product_variations.each do |variation|
-      @colors[variation.color] += 1
+      @colors << variation.color
       @sizes[variation.size] += 1
       variation.photos.each do |photo|
         @photos << photo
       end
     end
+
+    # remove duplicates from colors
+    @colors.uniq!
   end
 
   def search

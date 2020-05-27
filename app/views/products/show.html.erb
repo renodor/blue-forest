@@ -33,36 +33,21 @@
       <%= form_tag line_items_path do %>
         <div class="variations">
           <div class="colors">
-            <% @colors.each_key do |color| %>
-              <% if color == @colors.keys[0] %>
-                <%= radio_button_tag 'color', color, true, 'data-color': color %>
-              <% else %>
-                <%= radio_button_tag 'color', color, false, 'data-color': color %>
-              <% end %>
+            <% @colors.each_with_index do |color, i| %>
+              <!-- the third value of radio_button_tag define is the button is checked or not
+              putting i == 0 here will automatically check the first color -->
+              <%= radio_button_tag 'color', color, i == 0, 'data-color': color %>
               <%= label_tag "color_#{color}", color %>
             <% end %>
           </div>
-          <div class="size">
-
+          <div class="sizes">
             <% @product_variations.each do |variation| %>
-                <% if @sizes[variation.size] > 1 %>
-                  <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated': true %>
-                  <%= label_tag "variation_id_#{variation.id}", variation.size %>
-                <% else %>
-                                 <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color %>
-                  <%= label_tag "variation_id_#{variation.id}", variation.size %>
-                <% end %>
-
+              <!-- the data-price helps to dynamically change the displayed price (regarding to selected size) -->
+              <!-- the data-color helps map size variations to the correct selected sizes -->
+              <!-- the data-repeated will be 'true' if size is repeated and 'false' otherwise. It helps remove duplicated sizes accross colors from the DOM regarding what color is selected -->
+              <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated': @sizes[variation.size] > 1 %>
+              <%= label_tag "variation_id_#{variation.id}", variation.size %>
             <% end %>
-
-            <%# @product_variations.each do |variation| %>
-              <%# if variation.size.downcase != 'unique' %>
-                <%#= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price %>
-                <%#= label_tag "variation_id_#{variation.id}", variation.size %>
-              <%# else %>
-                <%#= radio_button_tag :variation_id, variation.id, true %>
-              <%# end %>
-            <%# end %>
           </div>
         </div>
         <div class="atc-container">

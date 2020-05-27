@@ -58,7 +58,7 @@
   }
 }
 
-.pdp .size {
+.pdp .sizes {
   label {
     border: 1px solid lightgray;
     padding: 10px 10px 5px 10px;
@@ -70,7 +70,7 @@
     transition: border .3s, color .3s ease;
   }
   input {
-    // display: none;
+    display: none;
   }
   label:hover {
     border: 1px solid $dark-gray;
