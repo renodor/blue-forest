@@ -43,7 +43,7 @@
             </div>
           <% end %>
           <div class="sizes">
-            <% @product_variations.each do |variation| %>
+            <% @product_variations.each_with_index do |variation, i| %>
               <!-- if size is inot unique, show sizes -->
               <!-- (it still possible to have several 'unique' sizes, if there are several colors -->
               <!-- for example a product that have a 'red' (unique), variation and a 'green' (unique) variation -->
@@ -51,11 +51,13 @@
                 <!-- the data-price helps to dynamically change the displayed price (regarding to selected size) -->
                 <!-- the data-color helps map size variations to the correct selected sizes -->
                 <!-- the data-repeated will be 'true' if size is repeated and 'false' otherwise. It helps remove duplicated sizes accross colors from the DOM regarding what color is selected -->
-                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated': @sizes[variation.size] > 1 %>
+                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated': @sizes[variation.size] > 1, 'data-label': variation.size %>
                 <%= label_tag "variation_id_#{variation.id}", variation.size %>
               <!-- if size is unique, don't show sizes, and check size by default -->
+              <!-- automatically check the first 'unique' size -->
+              <!-- + add a data-unique attribute to trigger specific js method -->
               <% else %>
-                <%= radio_button_tag :variation_id, variation.id, true, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color %>
+                <%= radio_button_tag :variation_id, variation.id, i == 0, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-unique': true %>
               <% end %>
             <% end %>
           </div>
