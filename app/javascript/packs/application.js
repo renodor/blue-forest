@@ -30,6 +30,7 @@ import "bootstrap";
 import { sidebarCart } from '../components/sidebar_cart';
 import { pdpVariations } from '../components/pdp_variations';
 import { pdpPrice } from '../components/pdp_price';
+import { pdpPhotos } from '../components/pdp_photos';
 import { atcModal } from '../components/atc_modal';
 import { doctorsCarousel } from '../components/doctors_carousel';
 import { boostrapTabs } from '../components/boostrap_tabs';
@@ -41,6 +42,7 @@ document.addEventListener('turbolinks:load', () => {
   sidebarCart();
   pdpVariations();
   pdpPrice();
+  pdpPhotos();
   initMapbox();
   atcModal();
   doctorsCarousel();

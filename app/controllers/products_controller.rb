@@ -21,8 +21,6 @@ class ProductsController < ApplicationController
 
     # build an array to store all the photos
     @photos = []
-    # put first the main product photo
-    @photos << @product.main_photo
 
     # build an array to store all colors
     @colors = []
@@ -51,8 +49,8 @@ class ProductsController < ApplicationController
           colors: [variation.color]
         }
       end
-      variation.photos.each do |photo|
-        @photos << photo
+      variation.photos.each_with_index do |photo, i|
+        @photos << [photo, variation.color, i+1]
       end
     end
     # remove duplicates from colors
