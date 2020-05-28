@@ -55,7 +55,6 @@ class ProductsController < ApplicationController
         @photos << photo
       end
     end
-
     # remove duplicates from colors
     @colors.uniq!
   end

@@ -5,14 +5,21 @@ const pdpVariations = () => {
     const sizes = document.querySelectorAll('.pdp .sizes input');
     const colors = document.querySelectorAll('.pdp .colors input');
 
+    const atc = document.querySelector('.pdp .atc');
+    const atcOverlay = document.querySelector('.pdp .atc-overlay');
+    const sizeWarning = document.querySelector('.size-selection-warning');
+
     // helper method to disable sizes that don't belong to the selected color
     // and to display-none sizes that are repeated accross colors
-    const disableSizes = (size, targetColor) => {
+    const disableSizes = (size, targetColor, first) => {
+
+      atc.disabled = true;
+      atcOverlay.style.display = 'block';
+
       // if size belong to current selected color we do 2 things:
       // 1. enable size
       // 2. make sure that size label is displayed (it could have been hiden before if this size is repeated)
       if (size.dataset.color == targetColor) {
-
         size.disabled = false;
         document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'inline-block'
 
@@ -46,7 +53,7 @@ const pdpVariations = () => {
     if (colors.length > 1) {
       // when page load, first color is automatically selected
       // so we need to call our 'disableSizes' method on the first colour
-      const targetColor = colors[0].dataset.color;
+      const targetColor = colors[0].value;
       sizes.forEach((size) => {
         // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
         if (size.dataset.unique) {
@@ -61,8 +68,8 @@ const pdpVariations = () => {
     // each time user select a different color, we need to call our 'disableSizes' method on the selected color
     colors.forEach((color) => {
       color.addEventListener('click', event => {
-        sizes.forEach((size) => {
-          const targetColor = color.dataset.color;
+        sizes.forEach((size, i) => {
+          const targetColor = color.value;
           // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
           if (size.dataset.unique) {
             uniqueSizesToggle(size, targetColor);
@@ -74,9 +81,7 @@ const pdpVariations = () => {
     });
 
     if (sizes.length > 0) {
-      const atc = document.querySelector('.pdp .atc');
-      const atcOverlay = document.querySelector('.pdp .atc-overlay');
-      const sizeWarning = document.querySelector('.size-selection-warning');
+
 
       // disable add to cart button by default
       atc.disabled = true
