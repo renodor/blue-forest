@@ -31,11 +31,10 @@ class ProductsController < ApplicationController
     # (in order to know what sizes are repeated accross colors)
     @sizes = Hash.new(0)
 
-
     # then iterate over all product variations and do 3 things:
     # 1. add its color to the @colors array
     # 2. add its size and its size count to the @sizes hash
-    # 3. add all its picturs in the @photo array
+    # 3. add all its photos in the @photo array
     @product_variations.each do |variation|
       @colors << variation.color
       @sizes[variation.size] += 1
