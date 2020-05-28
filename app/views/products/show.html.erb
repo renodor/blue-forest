@@ -46,15 +46,15 @@
             <% @product_variations.each_with_index do |variation, i| %>
               <!-- if size is inot unique, show sizes -->
               <!-- (it still possible to have several 'unique' sizes, if there are several colors -->
-              <!-- for example a product that have a 'red' (unique), variation and a 'green' (unique) variation -->
+              <!-- for example a product can have a 'red' (unique size), variation and a 'green' (unique size) variation -->
               <% if variation.size.downcase != 'unique' %>
-                <!-- the data-price helps to dynamically change the displayed price (regarding to selected size) -->
-                <!-- the data-color helps map size variations to the correct selected sizes -->
-                <!-- the data-repeated will be 'true' if size is repeated and 'false' otherwise. It helps remove duplicated sizes accross colors from the DOM regarding what color is selected -->
-                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated': @sizes[variation.size][:count] > 1, 'data-repeated-for': @sizes[variation.size][:colors], 'data-label': variation.size %>
+                <!-- the data-price helps to dynamically change the displayed price (regarding the selected size) -->
+                <!-- the data-color helps map size variations to the correct selected color -->
+                <!-- the data-repeated-for list for what colors this size is repeated. It allows to remove repeated sizes from the front end, but only if the correct color is selected (otherwise repeated colors would disapear completely when it is not the correct color that is selected) -->
+                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated-for': @sizes[variation.size][:colors] %>
                 <%= label_tag "variation_id_#{variation.id}", variation.size %>
-              <!-- if size is unique, don't show sizes, and check size by default -->
-              <!-- automatically check the first 'unique' size -->
+              <!-- if size is 'unique' automatically check the first 'unique' size -->
+              <!-- (because if size is unique, it doesn't show on frontend, and each time a color is selected, it will automatically check its unique size. But we need to check the first one by default for when the page load) -->
               <!-- + add a data-unique attribute to trigger specific js method -->
               <% else %>
                 <%= radio_button_tag :variation_id, variation.id, i == 0, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-unique': true %>

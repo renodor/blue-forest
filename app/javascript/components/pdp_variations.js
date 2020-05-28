@@ -10,27 +10,35 @@ const pdpVariations = () => {
     const disableSizes = (size, targetColor) => {
       // if size belong to current selected color we do 2 things:
       // 1. enable size
-      // 2. check if size is repeated. If yes, it means it was hidden when color was not selected (to avoid repeted sizes on front end). So we need to display it again
+      // 2. make sure that size label is displayed (it could have been hiden before if this size is repeated)
       if (size.dataset.color == targetColor) {
+
         size.disabled = false;
+        document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'inline-block'
+
       // if size doesn't belong to current selected color, we do 3 things
       // 1. uncheck size (to make sure no size remain checked if user change color seleccion)
       // 2. disable size
-      // 3. check if size is repeated, if yes hide it
+      // 3. check if size is repeated for the current target color, if yes hide its label (to avoid repeated sizes on front end)
       } else {
         size.checked = false;
         size.disabled = true;
-      }
-
-      if (size.dataset.repeated === 'true') {
-        if (size.dataset.color === targetColor) {
-          // size.style.display = 'inline-block';
-          document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'inline-block'
-        } else if (size.dataset.repeatedFor.match(targetColor)) {
-          if (size.dataset.first != 'true')
-          // size.style.display = 'none';
+        if (size.dataset.repeatedFor.match(targetColor)) {
           document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'none';
         }
+      }
+    }
+
+    // simple healper method for 'unique' sizes
+    // if size is unique, and there are several colors, we just need to enable and check the size of the target color
+    // and disable and uncheck the other sizes
+    const uniqueSizesToggle = (size, targetColor) => {
+     if (size.dataset.color === targetColor) {
+        size.disabled = false
+        size.checked = true
+      } else {
+        size.disabled = true
+        size.checked = false
       }
     }
 
@@ -40,26 +48,24 @@ const pdpVariations = () => {
       // so we need to call our 'disableSizes' method on the first colour
       const targetColor = colors[0].dataset.color;
       sizes.forEach((size) => {
-        disableSizes(size, targetColor);
+        // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
+        if (size.dataset.unique) {
+          uniqueSizesToggle(size, targetColor);
+        } else {
+          disableSizes(size, targetColor);
+        }
       })
     }
 
     // add event listener on color selection
-    // each time user select a different color, if sizes is note 'unique', we need to call our 'disableSize' method on this color
+    // each time user select a different color, we need to call our 'disableSizes' method on the selected color
     colors.forEach((color) => {
       color.addEventListener('click', event => {
         sizes.forEach((size) => {
           const targetColor = color.dataset.color;
-          // if size is unique, there is no size choice to make. So just enable and check the size of the target color
-          // and disable and uncheck sizes of the not targeted color
+          // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
           if (size.dataset.unique) {
-            if (size.dataset.color === color.dataset.color) {
-              size.disabled = false
-              size.checked = true
-            } else {
-              size.disabled = true
-              size.checked = false
-            }
+            uniqueSizesToggle(size, targetColor);
           } else {
             disableSizes(size, targetColor);
           }
