@@ -13,7 +13,7 @@ const pdpVariations = () => {
       // 2. check if size is repeated. If yes, it means it was hidden when color was not selected (to avoid repeted sizes on front end). So we need to display it again
       if (size.dataset.color == targetColor) {
         size.disabled = false;
-      // id size doesn't belong to current selected color, we do 3 things
+      // if size doesn't belong to current selected color, we do 3 things
       // 1. uncheck size (to make sure no size remain checked if user change color seleccion)
       // 2. disable size
       // 3. check if size is repeated, if yes hide it
@@ -21,14 +21,25 @@ const pdpVariations = () => {
         size.checked = false;
         size.disabled = true;
       }
+
+      if (size.dataset.repeated === 'true') {
+        if (size.dataset.color === targetColor) {
+          // size.style.display = 'inline-block';
+          document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'inline-block'
+        } else if (size.dataset.repeatedFor.match(targetColor)) {
+          if (size.dataset.first != 'true')
+          // size.style.display = 'none';
+          document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'none';
+        }
+      }
     }
 
     // making sure that there is more than 1 color. Otherwise the color option is not even displayed
     if (colors.length > 1) {
       // when page load, first color is automatically selected
       // so we need to call our 'disableSizes' method on the first colour
+      const targetColor = colors[0].dataset.color;
       sizes.forEach((size) => {
-        const targetColor = colors[0].dataset.color;
         disableSizes(size, targetColor);
       })
     }
