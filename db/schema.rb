@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_29_083857) do
+ActiveRecord::Schema.define(version: 2020_05_29_105122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,15 @@ ActiveRecord::Schema.define(version: 2020_05_29_083857) do
     t.index ["product_id"], name: "index_product_categories_on_product_id"
   end
 
+  create_table "product_photos", force: :cascade do |t|
+    t.string "color"
+    t.boolean "main", default: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_product_photos_on_product_id"
+  end
+
   create_table "product_variations", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.string "size"
@@ -132,7 +141,6 @@ ActiveRecord::Schema.define(version: 2020_05_29_083857) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "published", default: true
     t.text "long_description"
-    t.string "main_photo_key"
   end
 
   create_table "users", force: :cascade do |t|
@@ -165,5 +173,6 @@ ActiveRecord::Schema.define(version: 2020_05_29_083857) do
   add_foreign_key "orders", "users"
   add_foreign_key "product_categories", "categories"
   add_foreign_key "product_categories", "products"
+  add_foreign_key "product_photos", "products"
   add_foreign_key "product_variations", "products"
 end

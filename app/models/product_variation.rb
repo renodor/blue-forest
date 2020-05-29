@@ -1,8 +1,6 @@
 class ProductVariation < ApplicationRecord
   belongs_to :product
   has_many :line_items, dependent: :destroy
-  has_one_attached :main_photo
-  has_many_attached :photos
 
   validates :price, :quantity, :size, :name, presence: true
   validates :price, :quantity, numericality: {greater_than_or_equal_to: 0}
@@ -18,7 +16,6 @@ class ProductVariation < ApplicationRecord
   # check if the product has other product variations published
   after_commit :check_other_variations_stock_level, if: :saved_change_to_published?
 
-  after_commit :update_product_main_photo, if: :persisted?
 
   private
 
@@ -42,12 +39,6 @@ class ProductVariation < ApplicationRecord
 
     # otherwise unpublish the product
     product.update(published: false)
-  end
-
-  def update_product_main_photo
-    if self.main_photo.attached?
-      self.product.update(main_photo_key: self.main_photo.key)
-    end
   end
 
 end

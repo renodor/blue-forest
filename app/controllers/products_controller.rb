@@ -19,11 +19,17 @@ class ProductsController < ApplicationController
       end
     end
 
+    # find main product color
+    @main_product_photos = @product.product_photos.find_by(main: true).photos
     # build an array to store all the photos
-    @photos = []
+    # @photos = []
 
     # build an array to store all colors
-    @colors = []
+
+
+    @colors = @product.product_photos.map do |product_photo|
+      product_photo.color
+    end
 
     # build an hash to store all sizes, their count and their associated colors
     # (in order to know what sizes are repeated accross colors)
@@ -34,7 +40,6 @@ class ProductsController < ApplicationController
     # 2. add its size, its size count and its associated colors to the @sizes hash
     # 3. add all its photos in the @photo array
     @product_variations.each do |variation|
-      @colors << variation.color
 
       if @sizes[variation.size]
         @sizes[variation.size][:count] += 1
@@ -49,13 +54,11 @@ class ProductsController < ApplicationController
           colors: [variation.color]
         }
       end
-      @photos << [variation.main_photo, variation.color, 'main'] if variation.main_photo.attached?
-      variation.photos.each_with_index do |photo, i|
-        @photos << [photo, variation.color, i+1]
-      end
+      # @photos << [variation.main_photo, variation.color, 'main'] if variation.main_photo.attached?
+      # variation.photos.each_with_index do |photo, i|
+      #   @photos << [photo, variation.color, i+1]
+      # end
     end
-    # remove duplicates from colors
-    @colors.uniq!
   end
 
   def search

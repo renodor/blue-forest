@@ -7,10 +7,20 @@
       <div id="pdp-carousel" class="carousel slide">
         <div class="carousel-inner">
         <!-- iterate over all photos to put it in the carousel the 'main photo' is first one of the array, so put the class 'active' by default to the first one -->
-          <% @photos.each_with_index do |photo, i| %>
-            <div class="carousel-item <%= 'active' if i == 0 %>" data-product-id="<%= photo[0].record_id %>" data-color="<%= photo[1] %>" data-order="<%= photo[2] %>" >
-              <%= cl_image_tag photo[0].key, height: 500, width: 500, crop: :fill, class: "product-image" %>
-            </div>
+          <% @product.product_photos.each do |product_photo| %>
+            <% if product_photo.main %>
+              <% product_photo.photos.each_with_index do |photo, i| %>
+                <div class="carousel-item <%= 'active' if i == 0 %>" data-product-id="" data-color="<%= product_photo.color%>" data-order="" >
+                  <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
+                </div>
+              <% end %>
+            <% else %>
+              <% product_photo.photos.each do |photo| %>
+                <div class="carousel-item display-none" data-product-id="" data-color="<%= product_photo.color%>" data-order="" >
+                  <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
+                </div>
+              <% end %>
+            <% end %>
           <% end %>
         </div>
         <a class="carousel-control-prev" href="#pdp-carousel" role="button" data-slide="prev">

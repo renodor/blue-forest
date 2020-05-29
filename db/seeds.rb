@@ -73,16 +73,22 @@ p 'Create products, product variations and product/categories associations'
   product = Product.new(name: "Product#{n+1}", short_description: short_description, long_description: long_description)
   product.save!
 
-  pv1 = ProductVariation.new(product_id: product.id, color: 'red', size: 'S' , quantity: 10, price: rand(50) + rand.round(2))
-  pv1.photos.attach(images[n])
-  pv1.main_photo.attach(main_photos[n])
-  pv1.save!
+  product_photo = ProductPhoto.new(color: 'red', main: true)
+  product_photo.product = product
+  product_photo.photos.attach(images[n])
+  product_photo.save!
+
+    product_photo = ProductPhoto.new(color: 'blue')
+  product_photo.product = product
+  product_photo.photos.attach(images[n+2])
+  product_photo.save!
+
+
+  pv1 = ProductVariation.create!(product_id: product.id, color: 'red', size: 'S' , quantity: 10, price: rand(50) + rand.round(2))
 
   pv2 = ProductVariation.create!(product_id: product.id, color: 'red', size: 'M' , quantity: 10, price: rand(50) + rand.round(2))
 
-  pv3 = ProductVariation.new(product_id: product.id, color: 'blue', size: 'S' , quantity: 10, price: rand(50) + rand.round(2))
-  pv3.photos.attach(images[n+2])
-  pv3.save!
+  pv3 = ProductVariation.create!(product_id: product.id, color: 'blue', size: 'S' , quantity: 10, price: rand(50) + rand.round(2))
 
   pv4 = ProductVariation.create!(product_id: product.id, color: 'blue', size: 'M' , quantity: 10, price: rand(50) + rand.round(2))
 
