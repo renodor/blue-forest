@@ -19,11 +19,16 @@ class ProductsController < ApplicationController
       end
     end
 
+    @colors = []
+
+    @product_variations.each do |variation|
+      @colors << variation.color if variation.color
+    end
 
     # build an array to store all colors
     if @product.product_photos.count > 1
-      @colors = @product.product_photos.map do |product_photo|
-        product_photo.color
+      @product_photos = @product.product_photos.filter do |product_photo|
+        @colors.include?(product_photo.color)
       end
     end
 
@@ -50,10 +55,6 @@ class ProductsController < ApplicationController
           colors: [variation.color]
         }
       end
-      # @photos << [variation.main_photo, variation.color, 'main'] if variation.main_photo.attached?
-      # variation.photos.each_with_index do |photo, i|
-      #   @photos << [photo, variation.color, i+1]
-      # end
     end
   end
 
