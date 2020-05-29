@@ -63,11 +63,6 @@ images = [
   ]
 ]
 
-main_photos = [
-  {io: image_urls[8], filename: "7.png", content_type: "image/jpg"},
-  {io: image_urls[9], filename: "8.png", content_type: "image/jpg"}
-]
-
 p 'Create products, product variations and product/categories associations'
 2.times do |n|
   product = Product.new(name: "Product#{n+1}", short_description: short_description, long_description: long_description)

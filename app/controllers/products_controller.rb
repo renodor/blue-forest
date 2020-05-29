@@ -19,16 +19,12 @@ class ProductsController < ApplicationController
       end
     end
 
-    # find main product color
-    @main_product_photos = @product.product_photos.find_by(main: true).photos
-    # build an array to store all the photos
-    # @photos = []
 
     # build an array to store all colors
-
-
-    @colors = @product.product_photos.map do |product_photo|
-      product_photo.color
+    if @product.product_photos.count > 1
+      @colors = @product.product_photos.map do |product_photo|
+        product_photo.color
+      end
     end
 
     # build an hash to store all sizes, their count and their associated colors

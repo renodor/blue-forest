@@ -42,7 +42,7 @@
        </p>
       <%= form_tag line_items_path do %>
         <div class="variations">
-          <% if @colors.length > 1 %>
+          <% if @colors %>
             <div class="colors">
               <% @colors.each_with_index do |color, i| %>
                 <!-- the third value of radio_button_tag define is the button is checked or not
