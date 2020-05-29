@@ -49,6 +49,7 @@ class ProductsController < ApplicationController
           colors: [variation.color]
         }
       end
+      @photos << [variation.main_photo, variation.color, 'main'] if variation.main_photo.attached?
       variation.photos.each_with_index do |photo, i|
         @photos << [photo, variation.color, i+1]
       end

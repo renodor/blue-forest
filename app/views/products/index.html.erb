@@ -7,7 +7,7 @@
       <% @products.each do |product| %>
         <% if product.product_variations.length > 0 %>
           <div class="product">
-            <%= cl_image_tag product.main_photo.key, height: 400, crop: :fill %>
+            <%= cl_image_tag product.main_photo_key, height: 400, crop: :fill %>
             <div class="product-grid-info-container">
               <%= image_tag 'symbol.svg', class: 'grid-symbol' %>
             <% if product.product_variations.first.size.downcase == 'unique' %>

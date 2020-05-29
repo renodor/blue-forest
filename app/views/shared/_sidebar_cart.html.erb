@@ -9,7 +9,7 @@
         <% total_quantity = 0 %>
         <% @current_cart.line_items.reverse.each do |line_item| %>
           <div class="cart-product d-flex align-items-center">
-            <%= cl_image_tag line_item.product_variation.product.main_photo.key, height: 100, width: 100, crop: :fill %>
+            <%= cl_image_tag line_item.product_variation.photos[0].key, height: 100, width: 100, crop: :fill %>
             <div class="grow-1">
               <p>
                 <b>

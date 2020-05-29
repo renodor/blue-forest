@@ -31,7 +31,7 @@ p "----------> done, #{Category.count} categories created"
 
 categories = [toys, food, masks, gloves]
 
-images = [
+image_urls = [
   URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
   URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/861-500x500_s0fflw.jpg'),
   URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/730-500x500_p309fr.jpg'),
@@ -44,16 +44,47 @@ images = [
   URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846862/413-500x500_knqcya.jpg')
 ]
 
+images = [
+  [
+    {io: image_urls[0], filename: "1.png", content_type: "image/jpg"},
+    {io: image_urls[1], filename: "2.png", content_type: "image/jpg"}
+  ],
+  [
+    {io: image_urls[2], filename: "3.png", content_type: "image/jpg"},
+    {io: image_urls[3], filename: "4.png", content_type: "image/jpg"}
+  ],
+  [
+    {io: image_urls[4], filename: "5.png", content_type: "image/jpg"},
+    {io: image_urls[5], filename: "6.png", content_type: "image/jpg"}
+  ],
+  [
+    {io: image_urls[6], filename: "7.png", content_type: "image/jpg"},
+    {io: image_urls[7], filename: "8.png", content_type: "image/jpg"}
+  ]
+]
+
+main_photos = [
+  {io: image_urls[8], filename: "7.png", content_type: "image/jpg"},
+  {io: image_urls[9], filename: "8.png", content_type: "image/jpg"}
+]
+
 p 'Create products, product variations and product/categories associations'
-10.times do |n|
+2.times do |n|
   product = Product.new(name: "Product#{n+1}", short_description: short_description, long_description: long_description)
-  product.main_photo.attach(io: images[n], filename: "#{product.name}_main_photo.png", content_type: "image/jpg")
   product.save!
 
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'S' , quantity: rand(10), price: rand(50) + rand.round(2))
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'M' , quantity: rand(10), price: rand(50) + rand.round(2))
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'L' , quantity: rand(10), price: rand(50) + rand.round(2))
-  ProductVariation.create!(product_id: product.id, color: Faker::Color.color_name, size: 'XL' , quantity: rand(10), price: rand(50) + rand.round(2))
+  pv1 = ProductVariation.new(product_id: product.id, color: 'red', size: 'S' , quantity: 10, price: rand(50) + rand.round(2))
+  pv1.photos.attach(images[n])
+  pv1.main_photo.attach(main_photos[n])
+  pv1.save!
+
+  pv2 = ProductVariation.create!(product_id: product.id, color: 'red', size: 'M' , quantity: 10, price: rand(50) + rand.round(2))
+
+  pv3 = ProductVariation.new(product_id: product.id, color: 'blue', size: 'S' , quantity: 10, price: rand(50) + rand.round(2))
+  pv3.photos.attach(images[n+2])
+  pv3.save!
+
+  pv4 = ProductVariation.create!(product_id: product.id, color: 'blue', size: 'M' , quantity: 10, price: rand(50) + rand.round(2))
 
   ProductCategory.create!(product_id: product.id, category_id: categories[rand(4)].id)
   p "product #{n + 1} created!"
