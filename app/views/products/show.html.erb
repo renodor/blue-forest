@@ -6,10 +6,13 @@
     <div class="grow-1">
       <div id="pdp-carousel" class="carousel slide">
         <div class="carousel-inner">
-        <!-- iterate over all photos to put it in the carousel the 'main photo' is first one of the array, so put the class 'active' by default to the first one -->
+        <!-- iterate over all product_photos and for each, iterate over its photos -->
+        <!-- data-color help to know at what color this photo is linked -->
+        <!-- data-order help to determine the first photo (to put the boostrap 'active' class only on 1 slide) -->
+        <!-- the other classes (carousel-item or display-none), will be added in JS regarding what is the selected color -->
           <% @product_photos.each_with_index do |product_photo, i| %>
             <% product_photo.photos.each_with_index do |photo, j| %>
-              <div class="<%= i == 0 ? 'carousel-item' : 'display-none' %> <%= 'active' if j == 0 %>" data-color="<%= product_photo.color %>" data-order=<%= j+1 %> >
+              <div class="" data-color="<%= product_photo.color %>" data-order=<%= j+1 %> >
                 <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
               </div>
             <% end %>

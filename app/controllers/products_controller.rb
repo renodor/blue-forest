@@ -19,13 +19,20 @@ class ProductsController < ApplicationController
       end
     end
 
+    # build an array to store all colors
     @colors = []
 
+    # store colors of all published product variations in the @colors array
     @product_variations.each do |variation|
       @colors << variation.color if variation.color
     end
 
-    # build an array to store all colors
+    # remove duplicates
+    @colors.uniq!
+
+    # if product has several product_photos instances, it means it has several color variations
+    # in that case we need to build a @product_photo array that has the product_photo instances of all published product_variations
+    # for that we use the @color array, because we already filtered it to only take the colors of published product variations
     if @product.product_photos.count > 1
       @product_photos = @product.product_photos.filter do |product_photo|
         @colors.include?(product_photo.color)
