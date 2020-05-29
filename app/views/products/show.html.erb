@@ -10,13 +10,13 @@
           <% @product.product_photos.each do |product_photo| %>
             <% if product_photo.main %>
               <% product_photo.photos.each_with_index do |photo, i| %>
-                <div class="carousel-item <%= 'active' if i == 0 %>" data-product-id="" data-color="<%= product_photo.color%>" data-order="" >
+                <div class="carousel-item <%= 'active' if i == 0 %>" data-color="<%= product_photo.color %>" data-order=<%= i+1 %> >
                   <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
                 </div>
               <% end %>
             <% else %>
-              <% product_photo.photos.each do |photo| %>
-                <div class="carousel-item display-none" data-product-id="" data-color="<%= product_photo.color%>" data-order="" >
+              <% product_photo.photos.each_with_index do |photo, i| %>
+                <div class="display-none" data-color="<%= product_photo.color %>" data-order=<%= i+1 %> >
                   <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
                 </div>
               <% end %>

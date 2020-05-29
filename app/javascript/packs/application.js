@@ -38,7 +38,7 @@ import { boostrapTabs } from '../components/boostrap_tabs';
 import { initMapbox } from '../plugins/init_mapbox';
 
 document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
+  // Call your functions here
   sidebarCart();
   pdpVariations();
   pdpPrice();
