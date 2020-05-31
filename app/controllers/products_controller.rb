@@ -33,10 +33,14 @@ class ProductsController < ApplicationController
     # if product has several product_photos instances, it means it has several color variations
     # in that case we need to build a @product_photo array that has the product_photo instances of all published product_variations
     # for that we use the @color array, because we already filtered it to only take the colors of published product variations
+    @product_photos = []
+
     if @product.product_photos.count > 1
       @product_photos = @product.product_photos.filter do |product_photo|
         @colors.include?(product_photo.color)
       end
+    else
+      @product_photos << @product.product_photos.first
     end
 
     # build an hash to store all sizes, their count and their associated colors
