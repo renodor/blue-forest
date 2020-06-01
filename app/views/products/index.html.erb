@@ -7,7 +7,14 @@
       <% @products.each do |product| %>
         <% if product.product_variations.length > 0 %>
           <div class="product">
-            <%= cl_image_tag product.product_photos.first.photos[0].key, height: 400, crop: :fill %>
+            <!-- iterate over product photos, find the main photos -->
+            <!-- take the first on of the main photos and break the iteration -->
+            <% product.product_photos.each do |product_photo| %>
+              <% if product_photo.main %>
+                <%= cl_image_tag product_photo.photos[0].key, height: 400, crop: :fill %>
+                <% break %>
+              <% end %>
+            <% end %>
             <div class="product-grid-info-container">
               <%= image_tag 'symbol.svg', class: 'grid-symbol' %>
             <% if product.product_variations.first.size.downcase == 'unique' %>
