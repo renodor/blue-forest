@@ -37,13 +37,13 @@
         <div class="col">
           <div class="form-group">
             <%= label_tag  :price, "Price" %>
-            <%= number_field_tag 'size_variations[][price]', nil, class: "form-control"  %>
+            <%= number_field_tag 'size_variations[][price]', nil, step: 0.01, class: "form-control"  %>
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <%= label_tag  :discount_price, "Discount Price" %>
-            <%= number_field_tag 'size_variations[][discount_price]', nil, class: "form-control"  %>
+            <%= number_field_tag 'size_variations[][discount_price]', nil,  step: 0.01, class: "form-control"  %>
           </div>
         </div>
         <div class="col">
@@ -93,13 +93,13 @@
             <div class="col">
               <div class="form-group">
                 <%= label_tag  :price, "Price" %>
-                <%= number_field_tag 'color_variations[][size_variations][][price]', nil, class: "form-control"  %>
+                <%= number_field_tag 'color_variations[][size_variations][][price]', nil, step: 0.01, class: "form-control"  %>
               </div>
             </div>
             <div class="col">
               <div class="form-group">
                 <%= label_tag  :discount_price, "Discount Price" %>
-                <%= number_field_tag 'color_variations[][size_variations][][discount_price]', nil, class: "form-control"  %>
+                <%= number_field_tag 'color_variations[][size_variations][][discount_price]', nil, step: 0.01, class: "form-control"  %>
               </div>
             </div>
             <div class="col">

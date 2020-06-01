@@ -38,13 +38,13 @@ class DashboardsController < ApplicationController
       @product_photo.save
     else
       params[:color_variations].each do |color_variation|
-        params[:size_variations].each do |size_variation|
-          ProductVariation.create(product_id: @product.id, color: color_variation[:color], size: size_variation[:size],price: size_variation[:price], discount_price: size_variation[:discount_price], quantity: size_variation[:quantity])
+        color_variation[:size_variations].each do |size_variation|
+          ProductVariation.create!(product_id: @product.id, color: color_variation[:color], size: size_variation[:size],price: size_variation[:price], discount_price: size_variation[:discount_price], quantity: size_variation[:quantity])
         end
 
         photos = []
         color_variation[:photos].each do |variation_photo|
-          photos << {io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type}
+          photos << {io: variation_photo, filename: @product.name, content_type: variation_photo.content_type}
         end
 
         @product_photo = ProductPhoto.new
