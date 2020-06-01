@@ -12,7 +12,9 @@
         <!-- the other classes (carousel-item or display-none), will be added in JS regarding what is the selected color -->
           <% @product_photos.each_with_index do |product_photo, i| %>
             <% product_photo.photos.each_with_index do |photo, j| %>
-              <div class="" data-color="<%= product_photo.color %>" data-order=<%= j+1 %> >
+            <!-- if there are several product_photos (it means there are several color variations) -->
+            <!-- put the color in data-color, otherwise put 'unique' -->
+              <div class="" data-color="<%= @product_photos.length > 1 ? product_photo.color : 'unique' %>" data-order=<%= j+1 %> >
                 <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
               </div>
             <% end %>
@@ -37,16 +39,20 @@
        </p>
       <%= form_tag line_items_path do %>
         <div class="variations">
-          <% if @colors %>
-            <div class="colors">
+          <div class="colors">
+            <!-- if there are several colors, show the color swatch -->
+            <% if @colors.length > 1 %>
               <% @colors.each_with_index do |color, i| %>
                 <!-- the third value of radio_button_tag define is the button is checked or not
                 putting i == 0 here will automatically check the first color -->
                 <%= radio_button_tag 'color', color, i == 0 %>
                 <%= label_tag "color_#{color}", "", style: "background-color: #{color}" %>
               <% end %>
-            </div>
-          <% end %>
+            <!-- if there is only 1 color, just put a checked radio button with the id 'unique' -->
+            <% else %>
+              <%= radio_button_tag 'color', 'unique', true %>
+            <% end %>
+          </div>
           <div class="sizes">
             <% @product_variations.each_with_index do |variation, i| %>
               <!-- if size is inot unique, show sizes -->
