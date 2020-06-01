@@ -34,6 +34,7 @@ import { pdpPhotos } from '../components/pdp_photos';
 import { atcModal } from '../components/atc_modal';
 import { doctorsCarousel } from '../components/doctors_carousel';
 import { boostrapTabs } from '../components/boostrap_tabs';
+import { productCreation } from '../components/product_creation';
 
 import { initMapbox } from '../plugins/init_mapbox';
 
@@ -47,6 +48,7 @@ document.addEventListener('turbolinks:load', () => {
   atcModal();
   doctorsCarousel();
   boostrapTabs();
+  productCreation();
 });
 
 

@@ -15,6 +15,9 @@
       color: white;
     }
   }
+  &.small {
+    padding: 10px 20px!important;
+  }
 }
 
 .btn-blue {
@@ -23,4 +26,8 @@
 
 .btn-yellow {
   background-color: $yellow;
+}
+
+.btn-dark-gray {
+  background-color: $dark-gray;
 }
