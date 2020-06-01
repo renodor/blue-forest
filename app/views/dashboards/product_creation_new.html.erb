@@ -1,0 +1,83 @@
+<div class="container my-5">
+  <h1>Create New Product</h1>
+  <br>
+  <%= form_tag product_creation_path, multipart: true do %>
+    <div class="form-group">
+      <%= label_tag  :name, "Name" %>
+      <%= text_field_tag :name, nil, class: "form-control"  %>
+    </div>
+    <div class="form-group">
+      <%= label_tag  :short_description, "Short Description" %>
+      <%= text_field_tag :short_description, nil, class: "form-control"  %>
+    </div>
+    <div class="form-group">
+      <%= label_tag  :long_description, "Long Description" %>
+      <%= text_area_tag :long_description, nil, class: "form-control"  %>
+    </div>
+    <div class="form-group">
+      <%= label_tag  :published, "Published" %>
+      <%= check_box_tag :published, true, class: "form-control"  %>
+    </div>
+    <div class="form-group">
+      <label for="file">Main Photo</label>
+      <%= file_field_tag "file" %>
+    </div>
+    <h5>Variations</h5>
+    <div class="row size-variation">
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :size, "Size" %>
+          <%= text_field_tag :size, nil, class: "form-control"  %>
+          <small class="form-text text-muted">Put 'unique' for unique sizes</small>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :price, "Price" %>
+          <%= number_field_tag :price, nil, class: "form-control"  %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :discount_price, "Discount Price" %>
+          <%= number_field_tag :discount_price, nil, class: "form-control"  %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :quantity, "Quantity" %>
+          <%= text_field_tag :quantity, nil, class: "form-control"  %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row color-variation">
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :color, "Color" %>
+          <%= text_field_tag :color, nil, class: "form-control"  %>
+          <small class="form-text text-muted">Put 'unique' for unique sizes</small>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :price, "Price" %>
+          <%= number_field_tag :price, nil, class: "form-control"  %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :discount_price, "Discount Price" %>
+          <%= number_field_tag :discount_price, nil, class: "form-control"  %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <%= label_tag  :quantity, "Quantity" %>
+          <%= text_field_tag :quantity, nil, class: "form-control"  %>
+        </div>
+      </div>
+    </div>
+    <%= submit_tag 'CREATE PRODUCT', class: 'btn btn-blue w-100' %>
+  <% end %>
+</div>
