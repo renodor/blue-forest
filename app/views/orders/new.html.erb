@@ -8,9 +8,12 @@
       <% total_quantity = 0 %>
       <% @current_cart.line_items.reverse.each do |line_item| %>
         <div class="cart-product d-flex align-items-center">
-          <%= cl_image_tag line_item.product_variation.product.main_photo.key, height: 100, width: 100, crop: :fill %>
+          <%= cl_image_tag line_item.photo_key, height: 120, width: 120, crop: :fill %>
           <div class="grow-1">
             <p><b><%= line_item.product_variation.product.name %></b></p>
+            <% if line_item.product_variation.color != '' %>
+              <p>Color: <%= line_item.product_variation.color %></p>
+            <% end %>
             <p>Tamaño: <%= line_item.product_variation.size %></p>
             <p>$<%= line_item.product_variation.price %></p>
             <p>Cantidad: <%= line_item.quantity %></p>

@@ -6,7 +6,8 @@ class ProductVariation < ApplicationRecord
   validates :price, :quantity, numericality: {greater_than_or_equal_to: 0}
   validates :published, inclusion: { in: [true, false] }
 
-  # automatically name the product variation (according to the product name)
+  # automatically name the product variation
+  # which is the product name + size and color variations
   before_validation :add_name
 
   # each time there is a quantity change, check stock level
@@ -20,7 +21,11 @@ class ProductVariation < ApplicationRecord
   private
 
   def add_name
-    self.name = "#{self.product.name}-#{self.size}"
+    if self.color != ''
+      self.name = "#{self.product.name}-#{self.size}-#{self.color}"
+    else
+      self.name = "#{self.product.name}-#{self.size}"
+    end
   end
 
   def check_stock_level
