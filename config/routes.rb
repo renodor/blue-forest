@@ -37,4 +37,7 @@ Rails.application.routes.draw do
   get 'product_creation', to: 'dashboards#product_creation_new'
   post 'product_creation', to: 'dashboards#product_creation_create'
   root to: 'products#index'
+
+  get 'privacy_policy', to: 'pages#privacy_policy'
+  get 'terms_and_conditions', to: 'pages#terms_and_conditions'
 end
