@@ -18,8 +18,8 @@
 
   <div>
     <p><b>Información de Orden</b></p>
-    <div style="display:flex; justify-content: flex-start; align-items: center;">
-      <% @order.line_items.each do |line_item| %>
+    <% @order.line_items.each do |line_item| %>
+      <div style="display:flex; justify-content: flex-start; align-items: center; margin-bottom: 10px;">
         <div style="margin-right: 20px;">
           <%= cl_image_tag line_item.photo_key, height: 120, width: 120, crop: :fill %>
         </div>
@@ -32,23 +32,23 @@
           <p style="margin: 0 0 5px 0;">$<%= line_item.product_variation.price %></p>
           <p style="margin: 0 0 5px 0;">Cantidad: <%= line_item.quantity %></p>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
 <div style="font-family: sans-serif; background-color: lightgray; color: #33333A; padding: 10px 30px;">
-    <p>Cantidad de producto: <%= @order.total_items.to_i %></p>
-    <p>Sub total: $<%= @order.sub_total %></p>
-    <p>Manejo y envío:
-      <% if @order.shipping > 0 %>
-        $<%= @order.shipping %>
-      <% else %>
-        <b>¡Envío gratuito!</b>
-      <% end %>
-    </p>
-    <p>ITBMS: $<%= @order.itbms %></p>
-    <hr>
-    <p><b>Total Orden: $<%= @order.total %></b></p>
+  <p>Cantidad de producto: <%= @order.total_items.to_i %></p>
+  <p>Sub total: $<%= @order.sub_total %></p>
+  <p>Manejo y envío:
+    <% if @order.shipping > 0 %>
+      $<%= @order.shipping %>
+    <% else %>
+      <b>¡Envío gratuito!</b>
+    <% end %>
+  </p>
+  <p>ITBMS: $<%= @order.itbms %></p>
+  <hr>
+  <p><b>Total Orden: $<%= @order.total %></b></p>
 </div>
 <div style="text-align: center; font-family: sans-serif; padding: 30px 60px;">
   <p>Importante: En el caso de no estar presente a la hora de entrega nos comunicaremos al teléfono incluido es su
