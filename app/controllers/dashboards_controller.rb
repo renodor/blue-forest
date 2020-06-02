@@ -16,6 +16,8 @@ class DashboardsController < ApplicationController
     @photo = ProductPhoto.new
   end
 
+  # DRY
+  # to simplify
   def product_creation_create
     @product = Product.new(name: params[:name], short_description: params[:short_description], long_description: params[:long_description], published: params[:published])
     @product.save
