@@ -35,9 +35,9 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  # set asset host in order to show images on emails
   config.action_controller.asset_host = 'http://www.blueforestpanama.com'
-  config.action_mailer.asset_host = 'http://www.blueforestpanama.com'
+  config.action_mailer.asset_host = config.action_controller.asset_host
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
