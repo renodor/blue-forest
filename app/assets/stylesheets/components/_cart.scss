@@ -76,6 +76,19 @@
     a:last-child {
       color: $dark-gray;
     }
+    .sidebar-cart-footer-bottom {
+      border-top: 1px solid $gray;
+      padding-top: 5px;
+      margin-top: 5px;
+      p {
+        font-size: 14px;
+      }
+      .payment-logos {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+    }
   }
 }
 
