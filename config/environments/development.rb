@@ -32,14 +32,19 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :cloudinary
 
-  # Don't care if the mailer can't send.
+  # Raise error if the mail can't send
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
+  # Don't send real email but using letter opener
   config.action_mailer.delivery_method = :letter_opener
 
-  # Print deprecation notices to the Rails logger.
+  # set asset host in order to show images on emails
+  config.action_controller.asset_host = 'http://localhost:3000'
+  config.action_mailer.asset_host = 'http://localhost:3000'
+
+  # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.
