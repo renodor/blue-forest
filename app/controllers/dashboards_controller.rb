@@ -20,11 +20,11 @@ class DashboardsController < ApplicationController
   # to simplify
   def product_creation_create
     @product = Product.new(name: params[:name], short_description: params[:short_description], long_description: params[:long_description], published: params[:published])
-    @product.save
+    @product.save!
 
     if params[:product_type] == 'without_colors'
       params[:size_variations].each do |size_variation|
-        ProductVariation.create(product_id: @product.id, size: size_variation[:size], price: size_variation[:price], discount_price: size_variation[:discount_price], quantity: size_variation[:quantity])
+        ProductVariation.create!(product_id: @product.id, size: size_variation[:size], price: size_variation[:price], discount_price: size_variation[:discount_price], quantity: size_variation[:quantity])
       end
 
       photos = []
@@ -37,7 +37,7 @@ class DashboardsController < ApplicationController
       @product_photo.photos.attach(photos)
       @product_photo.main = true
       @product_photo.product = @product
-      @product_photo.save
+      @product_photo.save!
     else
       params[:color_variations].each do |color_variation|
         color_variation[:size_variations].each do |size_variation|
@@ -54,9 +54,11 @@ class DashboardsController < ApplicationController
         @product_photo.photos.attach(photos)
         @product_photo.main = true
         @product_photo.product = @product
-        @product_photo.save
+        @product_photo.save!
       end
     end
+    flash[:notice] = "Product Created"
+    redirect_to product_creation_path
   end
 
   private
