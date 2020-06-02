@@ -5,28 +5,27 @@ const productCreation = () => {
 
     // chose product type
     const productWithColorBtn = document.getElementById('product-with-color');
-    const productWithColor = document.querySelector('.product-with-color')
+    const productWithColorDiv = document.querySelector('.product-with-color')
 
     const productWithoutColorBtn = document.getElementById('product-without-color');
-    const productWithoutColor = document.querySelector('.product-without-color')
+    const productWithoutColorDiv = document.querySelector('.product-without-color')
 
-
+    // show the correct product type creation form regarding what type is selected
     productWithoutColorBtn.addEventListener('click', event => {
-      productWithoutColor.classList.remove('display-none');
+      productWithoutColorDiv.classList.remove('display-none');
       productWithoutColorBtn.style.opacity = '1'
 
-      productWithColor.classList.add('display-none');
+      productWithColorDiv.classList.add('display-none');
       productWithColorBtn.style.opacity = '0.3'
     });
 
     productWithColorBtn.addEventListener('click', event => {
-      productWithColor.classList.remove('display-none');
+      productWithColorDiv.classList.remove('display-none');
       productWithColorBtn.style.opacity = '1';
 
-      productWithoutColor.classList.add('display-none');
+      productWithoutColorDiv.classList.add('display-none');
       productWithoutColorBtn.style.opacity = '0.3';
     });
-
 
     // add more size variations
     const addSizeBtn = document.querySelector('.add-size');

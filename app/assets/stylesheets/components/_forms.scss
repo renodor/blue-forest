@@ -18,7 +18,12 @@
 }
 
 #product-creation {
-  .color-variation {
+  .product-with-color,
+  .product-without-color {
+    margin-bottom: 15px;
+  }
+  .color-variation,
+  .product-without-color .size-variation {
     background-color: $gray;
     padding: 15px;
     margin-bottom: 15px;
