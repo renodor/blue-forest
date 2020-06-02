@@ -1,5 +1,17 @@
-<p>Bienvenido a Blue Forest Panama <%= @first_name %>!</p>
+<div style="font-family: sans-serif; color: #33333A; padding: 0 30px 30px 30px; text-align: center;">
+  <div style="text-align: center;">
+    <%= image_tag 'logo-blue.png', width: '300px' %>
+  </div>
+  <h1 style="text-transform: uppercase; color: #0a1f8f; font-size: 24px; text-align: center">¡Bienvenido a Blue Forest Panama!</h1>
 
-<p>Por favor confirma su cuenta haciendo click en el siguiente link:</p>
+  <p style="margin-bottom: 40px">Por favor confirma su cuenta haciendo click en el siguiente link:</p>
 
-<p><%= link_to 'Confirmar mi cuenta', confirmation_url(@resource, confirmation_token: @token) %></p>
+  <%= link_to 'Confirmar mi cuenta', confirmation_url(@resource, confirmation_token: @token),
+  style: "
+  border-radius: 0px;
+  padding: 20px 40px;
+  color: white!important;
+  text-transform: uppercase;
+  background-color: #0a1f8f;
+  text-decoration: none;" %>
+</div>
