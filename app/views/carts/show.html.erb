@@ -45,7 +45,13 @@
         <hr>
         <p><%= pluralize(total_quantity, 'producto') %></p>
         <p>Sub Total: $<%= @cart.sub_total %></p>
-        <p>Entrega: $<%= @cart.shipping %></p>
+        <p>Entrega:
+          <% if @cart.shipping > 0 %>
+            $<%= @cart.shipping %>
+          <% else %>
+            <b>¡Envío gratuito!</b>
+          <% end %>
+        </p>
         <p>ITBMS (7%): $<%= (@cart.itbms) %></p>
         <p><b>TOTAL: $<%= @cart.total %></b></p>
         <% if user_signed_in? %>

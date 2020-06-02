@@ -44,7 +44,13 @@
     <div class="my-3">
       <p><%= pluralize(total_quantity, 'producto') %></p>
       <p>Sub Total: $<%= @order.sub_total %></p>
-      <p>Entrega: $<%= @order.shipping %></p>
+       <p>Entrega:
+          <% if @order.shipping > 0 %>
+            $<%= @order.shipping %>
+          <% else %>
+            <b>¡Envío gratuito!</b>
+          <% end %>
+        </p>
       <p>ITBMS (7%): $<%= (@order.itbms) %></p>
       <p><b>TOTAL: $<%= @order.total %></b></p>
     </div>

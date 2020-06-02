@@ -70,7 +70,13 @@
     <div class="my-3">
       <p><%= pluralize(total_quantity, 'producto') %></p>
       <p>Sub Total: $<%= @current_cart.sub_total %></p>
-      <p>Entrega: $<%= @current_cart.shipping %></p>
+       <p>Entrega:
+          <% if @current_cart.shipping > 0 %>
+            $<%= @current_cart.shipping %>
+          <% else %>
+            <b>¡Envío gratuito!</b>
+          <% end %>
+        </p>
       <p>ITBMS (7%): $<%= (@current_cart.itbms) %></p>
       <p><b>TOTAL: $<%= @current_cart.total %></b></p>
     </div>
