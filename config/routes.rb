@@ -38,6 +38,10 @@ Rails.application.routes.draw do
   post 'product_creation', to: 'dashboards#product_creation_create'
   root to: 'products#index'
 
+  # routes for info pages
   get 'privacy_policy', to: 'pages#privacy_policy'
   get 'terms_and_conditions', to: 'pages#terms_and_conditions'
+
+  # route form doctor contact form
+  post 'doctor_contact_form', to: 'doctors#doctor_contact_form'
 end
