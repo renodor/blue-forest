@@ -1,19 +1,57 @@
-<div style="background-color: blue">
-  <%= image_tag 'facebook.png' %>
+<div style="font-family: sans-serif; color: #33333A; padding: 0 30px 30px 30px;">
+  <div style="text-align: center;">
+    <%= image_tag 'logo-blue.png', width: '300px' %>
+  </div>
+
+  <h1 style="text-transform: uppercase; color: #0a1f8f; font-size: 24px; text-align: center">¡<%= @user.first_name %> gracias por su orden!</h1>
+
+  <div style="margin-bottom: 30px">
+    <p><b>Información de Envío</b></p>
+    <p><%= @user.first_name %> <%= @user.last_name %></p>
+    <p><%= @address.flat_number %>, <%= @address.street %></p>
+    <p><%= @address.detail %></p>
+    <p><%= @address.district %></p>
+    <p><%= @address.city %></p>
+    <p><%= @user.phone %></p>
+    <p><a target='_blank' href="http://www.google.com/maps/place/<%= @address.latitude %>, <%= @address.longitude %>">Ver en el mapa</a></p>
+  </div>
+
+  <div>
+    <p><b>Información de Orden</b></p>
+    <div style="display:flex; justify-content: flex-start; align-items: center;">
+      <% @order.line_items.each do |line_item| %>
+        <div style="margin-right: 20px;">
+          <%= cl_image_tag line_item.photo_key, height: 120, width: 120, crop: :fill %>
+        </div>
+        <div>
+          <p style="margin: 0 0 5px 0;"><b><%= line_item.product_variation.product.name %></b></p>
+          <% if line_item.product_variation.color != '' %>
+            <p style="margin: 0 0 5px 0;">Color: <%= line_item.product_variation.color %></p>
+          <% end %>
+          <p style="margin: 0 0 5px 0;">Tamaño: <%= line_item.product_variation.size %></p>
+          <p style="margin: 0 0 5px 0;">$<%= line_item.product_variation.price %></p>
+          <p style="margin: 0 0 5px 0;">Cantidad: <%= line_item.quantity %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<p>Hola <%= @user.first_name %>,</p>
-
-El detalle de su pedido:
-
-<ul>
-  <% @order.line_items.each do |line_item| %>
-    <li><%= line_item.product_variation.product.name %></li>
-  <% end %>
-</ul>
-
-<p>Total items: <%= @order.total_items %></p>
-<p>Sub total: <%= @order.sub_total %></p>
-<p>Entrega: <%= @order.shipping %></p>
-<p>ITBMS: <%= @order.itbms %></p>
-<p>Total: <%= @order.total %></p>
+<div style="font-family: sans-serif; background-color: lightgray; color: #33333A; padding: 10px 30px;">
+    <p>Cantidad de producto: <%= @order.total_items.to_i %></p>
+    <p>Sub total: $<%= @order.sub_total %></p>
+    <p>Manejo y envío:
+      <% if @order.shipping > 0 %>
+        $<%= @order.shipping %>
+      <% else %>
+        <b>¡Envío gratuito!</b>
+      <% end %>
+    </p>
+    <p>ITBMS: $<%= @order.itbms %></p>
+    <hr>
+    <p><b>Total Orden: $<%= @order.total %></b></p>
+</div>
+<div style="text-align: center; font-family: sans-serif; padding: 30px 60px;">
+  <p>Importante: En el caso de no estar presente a la hora de entrega nos comunicaremos al teléfono incluido es su
+pedido. Si tiene cualquier consulta nos puede contactar a nuestro número de contacto.</p>
+<a href="http://www.blueforestpanama.com/">www.blueforestpanama.com</a>
+</div>
