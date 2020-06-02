@@ -79,5 +79,16 @@
     <% else %>
       <%= link_to "CONFIRMAR PEDIDO", fake_user_orders_path, method: :post, class: 'btn btn-yellow w-100' %>
     <% end %>
+    <div class="order-review-footer-bottom mt-3">
+      <p class='text-center'>Todos los pagos se hacen contra entrega. Gracias por preferirnos.</p>
+      <div class="payment-logos">
+        <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088125/payments-logo/1-visa_unvmtw.png', width: 50, crop: :fill, style: 'background-color: white, padding: 10px;' %>
+        <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/2-mastercard_scrnh5.png', width: 50, crop: :fill %>
+        <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088123/payments-logo/3-clave_dzrpsj.png', width: 50, crop: :fill %>
+        <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/4-yappy_mzep5g.png', width: 50, crop: :fill %>
+        <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/5-ach_ddyell.png', width: 50, crop: :fill %>
+        <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/6-cash_fa0zx5.png', width: 50, crop: :fill %>
+      </div>
+    </div>
   </div>
 </div>

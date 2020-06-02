@@ -53,14 +53,14 @@
         <%= link_to "Ver carrito", cart_path(session[:cart_id]) %>
       </div>
       <div class="sidebar-cart-footer-bottom">
-        <p class='text-center mb-0'><b>Todos los pagos se hacen contra entrega.</b></p>
+        <p class='text-center mb-0'>Todos los pagos se hacen contra entrega.</p>
         <div class="payment-logos">
-          <%= image_tag '1-visa.png', width: '35px' %>
-          <%= image_tag '2-mastercard.png', width: '35px' %>
-          <%= image_tag '3-clave.png', width: '35px' %>
-          <%= image_tag '4-yappy.jpg', width: '35px' %>
-          <%= image_tag '5-ach.png', width: '35px' %>
-          <%= image_tag '6-cash.png', width: '35px' %>
+          <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088125/payments-logo/1-visa_unvmtw.png', width: 35, crop: :fill %>
+          <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/2-mastercard_scrnh5.png', width: 35, crop: :fill %>
+          <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088123/payments-logo/3-clave_dzrpsj.png', width: 35, crop: :fill %>
+          <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/4-yappy_mzep5g.png', width: 35, crop: :fill %>
+          <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/5-ach_ddyell.png', width: 35, crop: :fill %>
+          <%= cl_image_tag 'https://res.cloudinary.com/blueforest/image/upload/v1591088122/payments-logo/6-cash_fa0zx5.png', width: 35, crop: :fill %>
         </div>
       </div>
     </div>
