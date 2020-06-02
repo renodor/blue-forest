@@ -1,37 +1,57 @@
-<p>There is a new order on Blue Forest Panama</p>
+<div style="font-family: sans-serif; color: #33333A; padding: 0 30px 30px 30px;">
+  <div style="text-align: center;">
+    <%= image_tag 'logo-blue.png', width: '300px' %>
+  </div>
 
-<b>Order Detail:</b>
-<ul>
-  <% @order.line_items.each do |line_item| %>
-    <b><%= line_item.product_variation.product.name %>: </b>
-      <ul>
-        <li><b>Unit price: </b> $<%= line_item.product_variation.price %></li>
-        <li><b>Size:</b> <%= line_item.product_variation.size %></li>
-        <li><b>Quantity:</b> <%= line_item.quantity %></li>
-      </ul></li>
-  <% end %>
-</ul>
-<p><b>Total items:</b> <%= @order.total_items %></p>
-<p><b>Sub total:</b> $<%= @order.sub_total %></p>
-<p><b>Entrega:</b> $<%= @order.shipping %></p>
-<p><b>ITBMS:</b> $<%= @order.itbms %></p>
-<p><b>Total: $<%= @order.total %></b></p>
+  <h1 style="text-transform: uppercase; color: #0a1f8f; font-size: 24px; text-align: center">There is a New Order in BlueForest Panama</h1>
 
-<p> ----------------------------------</p>
-<b>Client Contact Information:</b>
-<ul>
-  <li><b>First name:</b> <%= @user.first_name %></li>
-  <li><b>Last name:</b> <%= @user.last_name %></li>
-  <li><b>Email:</b> <%= @user.email %></li>
-  <li><b>Phone:</b> <%= @user.phone %></li>
-</ul>
-<br>
-<b>Client Address:</b>
-<ul>
-  <li><b>Street:</b> <%= @address.street %></li>
-  <li><b>Flat or house number:</b> <%= @address.flat_number %></li>
-  <li><b>District:</b> <%= @address.district %></li>
-  <li><b>Address details:</b> <%= @address.detail %></li>
-  <li><b>City:</b> <%= @address.city %></li>
-  <li><b><a target='_blank' href="http://www.google.com/maps/place/<%= @address.latitude %>, <%= @address.longitude %>">Map link</a></b></li>
-</ul>
+  <div style="margin-bottom: 30px">
+    <p><b>Client Information:</b></p>
+    <p><b>First Name:</b> <%= @user.first_name %></p>
+    <p><b>Last Name:</b> <%= @user.last_name %></p>
+    <p><b>Phone:</b> <%= @user.phone %></p>
+    <p><b>Email:</b> <%= @user.email %></p>
+    <br>
+    <p><b>Client Address:</b></p>
+    <p><b>Flat Number:</b> <%= @address.flat_number %></p>
+    <p><b>Street:</b> <%= @address.street %></p>
+    <p><b>Address Detail:</b> <%= @address.detail %></p>
+    <p><b>District:</b> <%= @address.district %></p>
+    <p><b>City:</b> <%= @address.city %></p>
+    <p><a target='_blank' href="http://www.google.com/maps/place/<%= @address.latitude %>, <%= @address.longitude %>">Map Link</a></p>
+  </div>
+
+  <div>
+    <p><b>Order Detail</b></p>
+    <% @order.line_items.each do |line_item| %>
+      <div style="display:flex; justify-content: flex-start; align-items: center; margin-bottom: 10px;">
+        <div style="margin-right: 20px;">
+          <%= cl_image_tag line_item.photo_key, height: 120, width: 120, crop: :fill %>
+        </div>
+        <div>
+          <p style="margin: 0 0 5px 0;"><b><%= line_item.product_variation.product.name %></b></p>
+          <% if line_item.product_variation.color != '' %>
+            <p style="margin: 0 0 5px 0;">Color: <%= line_item.product_variation.color %></p>
+          <% end %>
+          <p style="margin: 0 0 5px 0;">Tamaño: <%= line_item.product_variation.size %></p>
+          <p style="margin: 0 0 5px 0;">$<%= line_item.product_variation.price %></p>
+          <p style="margin: 0 0 5px 0;">Cantidad: <%= line_item.quantity %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div style="font-family: sans-serif; background-color: lightgray; color: #33333A; padding: 10px 30px;">
+  <p>Cantidad de producto: <%= @order.total_items.to_i %></p>
+  <p>Sub total: $<%= @order.sub_total %></p>
+  <p>Manejo y envío:
+    <% if @order.shipping > 0 %>
+      $<%= @order.shipping %>
+    <% else %>
+      <b>¡Envío gratuito!</b>
+    <% end %>
+  </p>
+  <p>ITBMS: $<%= @order.itbms %></p>
+  <hr>
+  <p><b>Total Orden: $<%= @order.total %></b></p>
+</div>
