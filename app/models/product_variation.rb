@@ -17,6 +17,20 @@ class ProductVariation < ApplicationRecord
   # check if the product has other product variations published
   after_commit :check_other_variations_stock_level, if: :saved_change_to_published?
 
+  COLORS = {
+    black: 'black',
+    white: 'white',
+    gray: '#b0b3b2',
+    red: '#c73429',
+    blue: '#0a1f8f',
+    green: '#4CAF50',
+    orange: '#ff9234',
+    yellow: '#ffbf3c',
+    pink: '#f38b8b',
+    brown: '#884b20',
+    purple: '#c480d0'
+  }
+
 
   private
 

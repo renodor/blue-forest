@@ -28,4 +28,20 @@
     padding: 15px;
     margin-bottom: 15px;
   }
+
+  .product-with-color {
+    .color-selections {
+      display: flex;
+      justify-content: space-evenly;
+      .color-selection {
+        width: 60px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid $dark-gray;
+        cursor: pointer;
+      }
+    }
+  }
 }

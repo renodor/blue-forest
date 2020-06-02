@@ -51,7 +51,7 @@
                 <!-- the third value of radio_button_tag define is the button is checked or not
                 putting i == 0 here will automatically check the first color -->
                 <%= radio_button_tag 'color', color, i == 0 %>
-                <%= label_tag "color_#{color}", "", style: "background-color: #{color}" %>
+                <%= label_tag "color_#{color}", "", style: "background-color: #{ProductVariation::COLORS[color.to_sym]}" %>
               <% end %>
             <!-- if there is only 1 color, just put a checked radio button with the id 'unique' -->
             <% else %>

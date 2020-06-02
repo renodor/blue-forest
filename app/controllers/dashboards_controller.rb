@@ -14,6 +14,11 @@ class DashboardsController < ApplicationController
     @product = Product.new
     @product_variation = ProductVariation.new
     @photo = ProductPhoto.new
+
+    @colors = []
+    ProductVariation::COLORS.each do |key, value|
+      @colors << "<option value='#{key}'>#{key}</option>"
+    end
   end
 
   # DRY
