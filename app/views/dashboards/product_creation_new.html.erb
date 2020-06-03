@@ -26,27 +26,21 @@
       <%= radio_button_tag 'product_type', 'without_colors', false, class: "display-none"  %>
     </div>
     <div class="product-without-color display-none">
-      <div class="row size-variation">
-        <div class="col">
+      <div class="size-variations">
+        <div class="size-variation">
           <div class="form-group">
             <%= label_tag  :size, "Size" %>
             <%= text_field_tag 'size_variations[][size]', nil, class: "form-control"  %>
             <small class="form-text text-muted">Put 'unique' for unique sizes</small>
           </div>
-        </div>
-        <div class="col">
           <div class="form-group">
             <%= label_tag  :price, "Price" %>
             <%= number_field_tag 'size_variations[][price]', nil, step: 0.01, class: "form-control"  %>
           </div>
-        </div>
-        <div class="col">
           <div class="form-group">
             <%= label_tag  :discount_price, "Discount Price" %>
             <%= number_field_tag 'size_variations[][discount_price]', nil,  step: 0.01, class: "form-control"  %>
           </div>
-        </div>
-        <div class="col">
           <div class="form-group">
             <%= label_tag  :quantity, "Quantity" %>
             <%= text_field_tag 'size_variations[][quantity]', nil, class: "form-control"  %>
@@ -54,73 +48,59 @@
         </div>
       </div>
       <span class="btn btn-dark-gray small add-size">Add Size</span>
-      <div class="row product-photo">
-        <div class="col">
+      <div class="product-photos">
+        <div class="product-photo">
           <div class="form-group">
             <%= label_tag  :photo, "Photo" %>
             <%= file_field_tag 'variation_photos[][photo]' %>
           </div>
-        </div>
-        <div class="col">
           <div class="form-group">
             <%= label_tag  :main_photo, "Main Photo?" %>
             <%= check_box_tag "variation_photos[][main]" %>
           </div>
         </div>
       </div>
-      <span class="btn btn-dark-gray small" id='add-photos'>Add Photo</span>
+      <span class="btn btn-dark-gray small add-photos">Add Photo</span>
     </div>
 
     <div class="product-with-color display-none">
-      <div class="color-variation" data-id='1'>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <%= select_tag "color_variations[][color]", raw(@colors), class: 'form-control'%>
-            </div>
+      <div class="color-variations">
+        <div class="color-variation" data-id='1'>
+          <div class="form-group">
+            <%= select_tag "color_variations[][color]", raw(@colors), class: 'form-control'%>
           </div>
-        </div>
-        <div class="size-variations">
-          <div class="row size-variation">
-            <div class="col">
+          <div class="size-variations">
+            <div class="size-variation">
               <div class="form-group">
                 <%= label_tag  :size, "Size" %>
                 <%= text_field_tag 'color_variations[][size_variations][][size]', nil, class: "form-control"  %>
                 <small class="form-text text-muted">Put 'unique' for unique sizes</small>
               </div>
-            </div>
-            <div class="col">
               <div class="form-group">
                 <%= label_tag  :price, "Price" %>
                 <%= number_field_tag 'color_variations[][size_variations][][price]', nil, step: 0.01, class: "form-control"  %>
               </div>
-            </div>
-            <div class="col">
               <div class="form-group">
                 <%= label_tag  :discount_price, "Discount Price" %>
                 <%= number_field_tag 'color_variations[][size_variations][][discount_price]', nil, step: 0.01, class: "form-control"  %>
               </div>
-            </div>
-            <div class="col">
               <div class="form-group">
                 <%= label_tag  :quantity, "Quantity" %>
                 <%= text_field_tag 'color_variations[][size_variations][][quantity]', nil, class: "form-control"  %>
               </div>
             </div>
           </div>
-        </div>
-        <span class="btn btn-dark-gray small add-size-to-color" data-id='1'>Add Size</span>
-        <div class="product-photos">
-          <div class="row product-photo">
-            <div class="col">
+          <div class="btn btn-dark-gray small add-size" data-id='1'>Add Size</div>
+          <div class="product-photos">
+            <div class="product-photo">
               <div class="form-group">
                 <%= label_tag  :photo, "Photo" %>
                 <%= file_field_tag 'color_variations[][photos][]' %>
               </div>
             </div>
           </div>
+          <span class="btn btn-dark-gray small add-photos" data-id='1'>Add Photo</span>
         </div>
-        <span class="btn btn-dark-gray small" id='add-photos-to-color' data-id='1'>Add Photo</span>
       </div>
       <span class="btn btn-dark-gray small" id='add-color'>Add Color</span>
     </div>

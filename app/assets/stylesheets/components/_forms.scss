@@ -44,4 +44,17 @@
       }
     }
   }
+
+  .size-variation,
+  .product-photo {
+    display: flex;
+    .form-group {
+      margin: 0 10px;
+    }
+  }
+
+  .product-photos {
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
 }
