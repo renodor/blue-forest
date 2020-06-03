@@ -3,7 +3,9 @@ const productCreation = () => {
 
   if (productCreationContainer) {
 
-    // chose product type
+    // CHOSE PRODUCT TYPE
+
+    // select the btn and the div for both product types
     const productWithColorBtn = document.getElementById('product-with-color');
     const productWithColorDiv = document.querySelector('.product-with-color')
 
@@ -27,6 +29,28 @@ const productCreation = () => {
       productWithoutColorBtn.style.opacity = '0.3';
     });
 
+    // ADD ELEMENTS
+
+    // method to listen clicks on 'remove element'
+    // when a remove element is clicked it will remove from DOM its node parent
+    const addClickListenerToRemoveElement = (removeElement) => {
+      removeElement.addEventListener('click', event => {
+        // select the node parent of the clicked element
+        const elementToRemove = event.currentTarget.parentNode;
+        const elementType = elementToRemove.dataset.type
+        // and remove it
+        elementToRemove.remove();
+        // if the element to remove is a color element, we need to do specific work
+        if (event.currentTarget.dataset.type === 'color') {
+          // select the Id of last color variation that remain on DOM
+          const lastColorVariationId = document.querySelector('.color-variations .color-element:last-child').dataset.id
+          // update the color variation id count so that it has the correct id
+          // (if we don't do that, if the last color variation is deleted, the color variation id count won't be correct)
+          // (and we won't be able to add a new color variation element)
+          colorVariationId = parseInt(lastColorVariationId)
+        }
+      })
+    }
 
     // method to insert a new element on the DOM regarding its type and its ID
     const insertNewElement = (elementType, id) => {
@@ -52,9 +76,16 @@ const productCreation = () => {
       // we can then insert the new element after the last element of the same type into the correct color variation
       lastChildElement.insertAdjacentHTML('afterend', `
         <div class="${elementType}-element" data-id='${id}'>
+          <div class="remove-element" data-type='${elementType}'><i class="fas fa-trash-alt"></i></div>
           ${elementToAdd}
         </div>
       `);
+
+      // we then need to select the 'remove' link of this newly created element
+      const removeElement = document.querySelector(`.${elementType}-element[data-id='${id}']:last-child .remove-element`);
+
+      // and add an event listener on it so that it removes the element when clicked
+      addClickListenerToRemoveElement(removeElement);
     }
 
     // method to add a click event onto a specific btn
@@ -98,6 +129,8 @@ const productCreation = () => {
       // for each btn, call the method that add listen click events
       addClickListenerToBtn(addElementBtn);
     })
+
+    // REMOVE ELEMENTS
   }
 }
 
