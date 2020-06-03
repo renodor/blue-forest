@@ -22,8 +22,8 @@
   .product-without-color {
     margin-bottom: 15px;
   }
-  .color-variation,
-  .product-without-color .size-variation {
+  .color-element,
+  .product-without-color .size-element {
     background-color: $gray;
     padding: 15px;
     margin-bottom: 15px;
@@ -45,15 +45,15 @@
     }
   }
 
-  .size-variation,
-  .product-photo {
+  .size-element,
+  .photo-element {
     display: flex;
     .form-group {
       margin: 0 10px;
     }
   }
 
-  .product-photos {
+  .photo-element{
     margin-top: 30px;
     margin-bottom: 10px;
   }

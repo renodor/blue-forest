@@ -26,9 +26,9 @@
       <%= radio_button_tag 'product_type', 'without_colors', false, class: "display-none"  %>
     </div>
     <div class="product-without-color display-none">
-      <div class="color-variation" data-id='0'>
+      <div class="color-element" data-id='0'>
         <div class="size-variations">
-          <div class="size-variation">
+          <div class="size-element">
             <div class="form-group">
               <%= label_tag  :size, "Size" %>
               <%= text_field_tag 'size_variations[][size]', nil, class: "form-control"  %>
@@ -48,9 +48,9 @@
             </div>
           </div>
         </div>
-        <span class="btn btn-dark-gray small add-size" data-id='0'>Add Size</span>
+        <span class="btn btn-dark-gray small add-element" data-id='0' data-type="size">Add Size</span>
         <div class="product-photos">
-          <div class="product-photo">
+          <div class="photo-element">
             <div class="form-group">
               <%= label_tag  :photo, "Photo" %>
               <%= file_field_tag 'variation_photos[][photo]' %>
@@ -61,18 +61,18 @@
             </div>
           </div>
         </div>
-        <span class="btn btn-dark-gray small add-photos" data-id='0'>Add Photo</span>
+        <span class="btn btn-dark-gray small add-element" data-id='0' data-type="photo">Add Photo</span>
       </div>
     </div>
 
     <div class="product-with-color display-none">
       <div class="color-variations">
-        <div class="color-variation" data-id='1'>
+        <div class="color-element" data-id='1'>
           <div class="form-group">
             <%= select_tag "color_variations[][color]", raw(@colors), class: 'form-control'%>
           </div>
           <div class="size-variations">
-            <div class="size-variation">
+            <div class="size-element">
               <div class="form-group">
                 <%= label_tag  :size, "Size" %>
                 <%= text_field_tag 'color_variations[][size_variations][][size]', nil, class: "form-control"  %>
@@ -92,19 +92,19 @@
               </div>
             </div>
           </div>
-          <span class="btn btn-dark-gray small add-size" data-id='1'>Add Size</span>
+          <span class="btn btn-dark-gray small add-element" data-id='1' data-type='size'>Add Size</span>
           <div class="product-photos">
-            <div class="product-photo">
+            <div class="photo-element">
               <div class="form-group">
                 <%= label_tag  :photo, "Photo" %>
                 <%= file_field_tag 'color_variations[][photos][]' %>
               </div>
             </div>
           </div>
-          <span class="btn btn-dark-gray small add-photos" data-id='1'>Add Photo</span>
+          <span class="btn btn-dark-gray small add-element" data-id='1' data-type='photo'>Add Photo</span>
         </div>
       </div>
-      <span class="btn btn-dark-gray small add-color">Add Color</span>
+      <span class="btn btn-dark-gray small add-color" data-type='color'>Add Color</span>
     </div>
     <%= submit_tag 'CREATE PRODUCT', class: 'btn btn-blue w-100' %>
   <% end %>

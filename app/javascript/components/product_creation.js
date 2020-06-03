@@ -28,53 +28,52 @@ const productCreation = () => {
     });
 
 
-    const insertNewElement = (lastChildElement, elementToAdd, cssClass, id=null) => {
+    const insertNewElement = (lastChildElement, elementType, id=null) => {
+      let elementToAdd = eval(`${elementType}Element`);
+
+      if (id) {
+        elementToAdd = elementToAdd.replace(/(data-id=['"])(\d+)(['"])/g, `$1${id}$3`);
+      }
+
       lastChildElement.insertAdjacentHTML('afterend', `
-        <div class="${cssClass}" ${id ? `data-id='${id}'` : ''}>
+        <div class="${elementType}-element" ${id ? `data-id='${id}'` : ''}>
           ${elementToAdd}
         </div>
       `);
     }
 
-    const addClickListenerToBtn = (btn, elementToAdd, cssClass) => {
+    const addClickListenerToBtn = (btn) => {
       btn.addEventListener('click', event => {
-        const currentColor = document.querySelector(`.color-variation[data-id='${event.currentTarget.dataset.id}'`);
-        const lastChildElement = currentColor.querySelector(`.${cssClass}:last-child`);
-        insertNewElement(lastChildElement, elementToAdd, `${cssClass}`);
+        const elementType = event.currentTarget.dataset.type;
+        const currentColor = document.querySelector(`.color-element[data-id='${event.currentTarget.dataset.id}'`);
+        const lastChildElement = currentColor.querySelector(`.${elementType}-element:last-child`);
+        insertNewElement(lastChildElement, elementType);
       })
     }
 
-    const savedSizeVariation = document.querySelector('.size-variation').innerHTML;
-    const savedProductPhoto = document.querySelector('.product-photo').innerHTML;
-    const savedColorVariation = document.querySelector(".color-variation[data-id='1']").innerHTML;
+    const sizeElement = document.querySelector('.size-element').innerHTML;
+    const photoElement = document.querySelector('.photo-element').innerHTML;
+    const colorElement = document.querySelector(".color-element[data-id='1']").innerHTML;
 
     // add more size variations
-    const addSizeBtns = document.querySelectorAll('.add-size');
-    addSizeBtns.forEach((addSizeBtn) => {
-      addClickListenerToBtn(addSizeBtn, savedSizeVariation, 'size-variation');
-    })
-
-    // add more product photos
-    // DRY
-    const addPhotosBtns = document.querySelectorAll('.add-photos');
-    addPhotosBtns.forEach((addPhotosBtn) => {
-      addClickListenerToBtn(addPhotosBtn, savedProductPhoto, 'product-photo');
+    const addElementBtns = document.querySelectorAll('.add-element');
+    addElementBtns.forEach((addElementBtn) => {
+      addClickListenerToBtn(addElementBtn);
     })
 
     let colorVariationId = 1
 
     const addColorBtn = document.querySelector('.add-color');
     addColorBtn.addEventListener('click', event => {
-      let lastColorVariation = document.querySelector(`.color-variation[data-id='${colorVariationId}']`);
+      let lastColorVariation = document.querySelector(`.color-element[data-id='${colorVariationId}']`);
       colorVariationId += 1
-      const updatedColorVariation = savedColorVariation.replace(/(data-id=['"])(\d+)(['"])/g, `$1${colorVariationId}$3`);
-      insertNewElement(lastColorVariation, updatedColorVariation, 'color-variation', colorVariationId)
+      insertNewElement(lastColorVariation, event.currentTarget.dataset.type, colorVariationId)
 
-      const newColorAddSizeBtn = document.querySelector(`.add-size[data-id='${colorVariationId}']`);
-      addClickListenerToBtn(newColorAddSizeBtn, savedSizeVariation, 'size-variation');
-
-      const newColorAddPhotosBtn = document.querySelector(`.add-photos[data-id='${colorVariationId}']`);
-      addClickListenerToBtn(newColorAddPhotosBtn, savedProductPhoto, 'product-photo');
+      const newColorAddElementBtns = document.querySelectorAll(`.add-element[data-id='${colorVariationId}']`);
+      console.log(newColorAddElementBtns)
+      newColorAddElementBtns.forEach((newColorAddElementBtn) => {
+        addClickListenerToBtn(newColorAddElementBtn);
+      });
     })
   }
 }
