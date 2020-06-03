@@ -1,9 +1,12 @@
 const pdpPrice = () => {
 
-  const sizes = document.querySelectorAll('.pdp .sizes input');
-  const price = document.querySelector('.pdp .price');
-  const discountPrice = document.querySelector('.pdp .discount-price');
+  const pdpContainer = document.querySelector('.pdp-container');
+  if (pdpContainer) {
+    const sizes = document.querySelectorAll('.pdp .sizes input');
+    const price = document.querySelector('.pdp .price');
+    const discountPrice = document.querySelector('.pdp .discount-price');
 
+    // update price regarding what product variation is selected
     sizes.forEach(size => {
       size.addEventListener('click', event => {
         if (size.checked) {
@@ -20,6 +23,7 @@ const pdpPrice = () => {
         }
       })
     });
+  };
 }
 
 
