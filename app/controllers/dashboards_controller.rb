@@ -27,41 +27,30 @@ class DashboardsController < ApplicationController
     @product = Product.new(name: params[:name], short_description: params[:short_description], long_description: params[:long_description], published: params[:published])
     @product.save!
 
-    if params[:product_type] == 'without_colors'
-      params[:size_variations].each do |size_variation|
-        ProductVariation.create!(product_id: @product.id, size: size_variation[:size], price: size_variation[:price], discount_price: size_variation[:discount_price], quantity: size_variation[:quantity])
+    params[:color_variations].each do |color_variation|
+
+      next if params[:product_type] == 'without_colors' && color_variation[:color] != 'unique'
+      next if params[:product_type] == 'with_colors' && color_variation[:color] == 'unique'
+
+      color_variation[:size_variations].each do |size_variation|
+        product_variation = ProductVariation.new(product_id: @product.id, size: size_variation[:size], price: size_variation[:price], discount_price: size_variation[:discount_price], quantity: size_variation[:quantity])
+        product_variation.color = color_variation[:color] if color_variation[:color] != 'unique'
+        product_variation.save!
       end
 
       photos = []
-      params[:variation_photos].each do |variation_photo|
-        photos << {io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type}
+      color_variation[:photos].each do |variation_photo|
+        photos << {io: variation_photo, filename: @product.name, content_type: variation_photo.content_type}
       end
 
       @product_photo = ProductPhoto.new
-
       @product_photo.photos.attach(photos)
+      @product_photo.color = color_variation[:color] if color_variation[:color] != 'unique'
       @product_photo.main = true
       @product_photo.product = @product
       @product_photo.save!
-    else
-      params[:color_variations].each do |color_variation|
-        color_variation[:size_variations].each do |size_variation|
-          ProductVariation.create!(product_id: @product.id, color: color_variation[:color], size: size_variation[:size],price: size_variation[:price], discount_price: size_variation[:discount_price], quantity: size_variation[:quantity])
-        end
-
-        photos = []
-        color_variation[:photos].each do |variation_photo|
-          photos << {io: variation_photo, filename: @product.name, content_type: variation_photo.content_type}
-        end
-
-        @product_photo = ProductPhoto.new
-        @product_photo.color = color_variation[:color]
-        @product_photo.photos.attach(photos)
-        @product_photo.main = true
-        @product_photo.product = @product
-        @product_photo.save!
-      end
     end
+
     flash[:notice] = "Product Created"
     redirect_to product_creation_path
   end

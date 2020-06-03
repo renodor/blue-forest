@@ -27,24 +27,27 @@
     </div>
     <div class="product-without-color display-none">
       <div class="color-element" data-id='0'>
+        <div class="form-group">
+          <%= hidden_field_tag "color_variations[][color]", 'unique' %>
+        </div>
         <div class="size-variations">
           <div class="size-element" data-id='0'>
             <div class="form-group">
               <%= label_tag  :size, "Size" %>
-              <%= text_field_tag 'size_variations[][size]', nil, class: "form-control"  %>
+              <%= text_field_tag 'color_variations[][size_variations][][size]', nil, class: "form-control"  %>
               <small class="form-text text-muted">Put 'unique' for unique sizes</small>
             </div>
             <div class="form-group">
               <%= label_tag  :price, "Price" %>
-              <%= number_field_tag 'size_variations[][price]', nil, step: 0.01, class: "form-control"  %>
+              <%= number_field_tag 'color_variations[][size_variations][][price]', nil, step: 0.01, class: "form-control"  %>
             </div>
             <div class="form-group">
               <%= label_tag  :discount_price, "Discount Price" %>
-              <%= number_field_tag 'size_variations[][discount_price]', nil,  step: 0.01, class: "form-control"  %>
+              <%= number_field_tag 'color_variations[][size_variations][][discount_price]', nil,  step: 0.01, class: "form-control"  %>
             </div>
             <div class="form-group">
               <%= label_tag  :quantity, "Quantity" %>
-              <%= text_field_tag 'size_variations[][quantity]', nil, class: "form-control"  %>
+              <%= text_field_tag 'color_variations[][size_variations][][quantity]', nil, class: "form-control"  %>
             </div>
           </div>
         </div>
@@ -54,11 +57,7 @@
           <div class="photo-element" data-id='0'>
             <div class="form-group">
               <%= label_tag  :photo, "Photo" %>
-              <%= file_field_tag 'variation_photos[][photo]' %>
-            </div>
-            <div class="form-group">
-              <%= label_tag  :main_photo, "Main Photo?" %>
-              <%= check_box_tag "variation_photos[][main]" %>
+              <%= file_field_tag 'color_variations[][photos][]' %>
             </div>
           </div>
         </div>
