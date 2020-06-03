@@ -72,7 +72,7 @@
             <%= select_tag "color_variations[][color]", raw(@colors), class: 'form-control'%>
           </div>
           <div class="size-variations">
-            <div class="size-element">
+            <div class="size-element" data-id='1'>
               <div class="form-group">
                 <%= label_tag  :size, "Size" %>
                 <%= text_field_tag 'color_variations[][size_variations][][size]', nil, class: "form-control"  %>
@@ -94,7 +94,7 @@
           </div>
           <span class="btn btn-dark-gray small add-element" data-id='1' data-type='size'>Add Size</span>
           <div class="product-photos">
-            <div class="photo-element">
+            <div class="photo-element" data-id='1'>
               <div class="form-group">
                 <%= label_tag  :photo, "Photo" %>
                 <%= file_field_tag 'color_variations[][photos][]' %>
@@ -104,7 +104,7 @@
           <span class="btn btn-dark-gray small add-element" data-id='1' data-type='photo'>Add Photo</span>
         </div>
       </div>
-      <span class="btn btn-dark-gray small add-element" data-id='1' data-type='color'>Add Color</span>
+      <span class="btn btn-dark-gray small add-element" data-type='color'>Add Color</span>
     </div>
     <%= submit_tag 'CREATE PRODUCT', class: 'btn btn-blue w-100' %>
   <% end %>
