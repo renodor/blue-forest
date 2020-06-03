@@ -28,132 +28,54 @@ const productCreation = () => {
     });
 
 
-    const insertNewElement = (lastChild, elementToAdd, cssClass, id=null) => {
-      lastChild.insertAdjacentHTML('afterend', `
+    const insertNewElement = (lastChildElement, elementToAdd, cssClass, id=null) => {
+      lastChildElement.insertAdjacentHTML('afterend', `
         <div class="${cssClass}" ${id ? `data-id='${id}'` : ''}>
           ${elementToAdd}
         </div>
       `);
     }
 
+    const addClickListenerToBtn = (btn, elementToAdd, cssClass) => {
+      btn.addEventListener('click', event => {
+        const currentColor = document.querySelector(`.color-variation[data-id='${event.currentTarget.dataset.id}'`);
+        const lastChildElement = currentColor.querySelector(`.${cssClass}:last-child`);
+        insertNewElement(lastChildElement, elementToAdd, `${cssClass}`);
+      })
+    }
+
     const savedSizeVariation = document.querySelector('.size-variation').innerHTML;
     const savedProductPhoto = document.querySelector('.product-photo').innerHTML;
-    const savedColorVariation = document.querySelector('.color-variation').innerHTML;
+    const savedColorVariation = document.querySelector(".color-variation[data-id='1']").innerHTML;
 
     // add more size variations
-    // DRY
-    const addSizeBtn = document.querySelector('.add-size');
-    addSizeBtn.addEventListener('click', event => {
-      const lastSizeVariation = document.querySelector('.size-variation:last-child');
-      insertNewElement(lastSizeVariation, savedSizeVariation, 'size-variation');
+    const addSizeBtns = document.querySelectorAll('.add-size');
+    addSizeBtns.forEach((addSizeBtn) => {
+      addClickListenerToBtn(addSizeBtn, savedSizeVariation, 'size-variation');
     })
 
     // add more product photos
     // DRY
-    const addPhotosBtn = document.querySelector('.add-photos');
-    addPhotosBtn.addEventListener('click', event => {
-      const lastPhoto = document.querySelector('.product-photo:last-child');
-      insertNewElement(lastPhoto, savedProductPhoto, 'product-photo');
+    const addPhotosBtns = document.querySelectorAll('.add-photos');
+    addPhotosBtns.forEach((addPhotosBtn) => {
+      addClickListenerToBtn(addPhotosBtn, savedProductPhoto, 'product-photo');
     })
 
+    let colorVariationId = 1
 
-    const addColorBtn = document.getElementById('add-color');
+    const addColorBtn = document.querySelector('.add-color');
     addColorBtn.addEventListener('click', event => {
-      let lastColorVariation = document.querySelector('.color-variation:last-child');
-      const lastColorVariationId = parseInt(lastColorVariation.dataset.id)
-      insertNewElement(lastColorVariation, savedColorVariation, 'color-variation', lastColorVariationId + 1)
+      let lastColorVariation = document.querySelector(`.color-variation[data-id='${colorVariationId}']`);
+      colorVariationId += 1
+      const updatedColorVariation = savedColorVariation.replace(/(data-id=['"])(\d+)(['"])/g, `$1${colorVariationId}$3`);
+      insertNewElement(lastColorVariation, updatedColorVariation, 'color-variation', colorVariationId)
 
-      const targetColorVariation = document.querySelector(`.color-variation[data-id='${lastColorVariationId + 1}']`)
+      const newColorAddSizeBtn = document.querySelector(`.add-size[data-id='${colorVariationId}']`);
+      addClickListenerToBtn(newColorAddSizeBtn, savedSizeVariation, 'size-variation');
 
-      const newColorAddSizeBtn = targetColorVariation.querySelector('.add-size');
-      newColorAddSizeBtn.addEventListener('click', event => {
-        const targetColorLastSizeVariation = targetColorVariation.querySelector('.size-variation:last-child');
-        insertNewElement(targetColorLastSizeVariation, savedSizeVariation, 'size-variation');
-      })
-
-      const newColorAddPhotosBtn = targetColorVariation.querySelector('.add-photos');
-      newColorAddPhotosBtn.addEventListener('click', event => {
-        const targetColorLastPhoto = targetColorVariation.querySelector('.product-photo:last-child');
-        insertNewElement(targetColorLastPhoto, savedProductPhoto, 'product-photo');
-      })
+      const newColorAddPhotosBtn = document.querySelector(`.add-photos[data-id='${colorVariationId}']`);
+      addClickListenerToBtn(newColorAddPhotosBtn, savedProductPhoto, 'product-photo');
     })
-
-
-
-
-
-    // const colorVariation = document.querySelector('.color-variation');
-
-    // // DRY
-    // let addSizeToColorBtns = document.querySelectorAll('.add-size-to-color');
-
-    // addSizeToColorBtns.forEach((addSizeToColorBtn) => {
-    //   addSizeToColorBtn.addEventListener('click', event => {
-    //     const lastVariation = document.querySelector('.color-variation .size-variation');
-    //     lastVariation.insertAdjacentHTML('afterend', `
-    //       <div class="row size-variation">
-    //         ${lastVariation.innerHTML}
-    //       </div>
-    //     `);
-    //   })
-    // })
-
-
-    // // add more product photos
-    // // DRY
-    // const addPhotosToColorBtn = document.getElementById('add-photos-to-color');
-    // let colorVariationId = 1
-    // addPhotosToColorBtn.addEventListener('click', event => {
-    //   const lastPhoto = document.querySelector('.color-variation .product-photo');
-    //   lastPhoto.insertAdjacentHTML('afterend', `
-    //     <div class="row product-photo">
-    //       ${lastPhoto.innerHTML}
-    //     </div>
-    //   `);
-    // })
-
-    // DRY
-    // TO CLEAN !! HARDCORE
-  //   const addColorBtn = document.getElementById('add-color');
-  //   let colorId = 1
-  //   addColorBtn.addEventListener('click', event => {
-  //     let lastColor = document.querySelector(`.color-variation[data-id='${colorId}'`);
-  //     const oneSizeVariation = lastColor.querySelectorAll('.size-variation')[0].innerHTML;
-  //     const onePhoto = lastColor.querySelectorAll('.product-photo')[0].innerHTML;
-  //     colorId += 1;
-  //     lastColor.insertAdjacentHTML('afterend', `
-  //       <div class="color-variation" data-id='${colorId}'>
-  //         ${lastColor.innerHTML}
-  //       </div>
-  //     `);
-  //     lastColor = document.querySelector(`.color-variation[data-id='${colorId}'`);
-  //     lastColor.querySelector('.size-variations').innerHTML = `<div class="row size-variation">${oneSizeVariation}`;
-
-  //     lastColor = document.querySelector(`.color-variation[data-id='${colorId}'`);
-  //     lastColor.querySelector('.product-photos').innerHTML = `<div class="row product-photo">${onePhoto}`;
-
-  //     addSizeToColorBtns = lastColor.querySelector('.add-size-to-color');
-  //     addSizeToColorBtns.addEventListener('click', event => {
-  //       const targetColorSizeVariations = event.currentTarget.parentNode.querySelectorAll('.size-variation');
-  //       const lastVariation = targetColorSizeVariations[targetColorSizeVariations.length - 1]
-  //        lastVariation.insertAdjacentHTML('afterend', `
-  //           <div class="row size-variation">
-  //             ${lastVariation.innerHTML}
-  //           </div>
-  //         `);
-  //     })
-
-  //     const addPhotoToColorBtns = lastColor.querySelector('#add-photos-to-color');
-  //     addPhotoToColorBtns.addEventListener('click', event => {
-  //       const targetColorProductPhotos = event.currentTarget.parentNode.querySelectorAll('.product-photo');
-  //       const lastPhoto = targetColorProductPhotos[targetColorProductPhotos.length - 1]
-  //        lastPhoto.insertAdjacentHTML('afterend', `
-  //           <div class="row product-photo">
-  //             ${lastPhoto.innerHTML}
-  //           </div>
-  //         `);
-  //     })
-  //   })
   }
 }
 

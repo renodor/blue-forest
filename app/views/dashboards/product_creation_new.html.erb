@@ -26,41 +26,43 @@
       <%= radio_button_tag 'product_type', 'without_colors', false, class: "display-none"  %>
     </div>
     <div class="product-without-color display-none">
-      <div class="size-variations">
-        <div class="size-variation">
-          <div class="form-group">
-            <%= label_tag  :size, "Size" %>
-            <%= text_field_tag 'size_variations[][size]', nil, class: "form-control"  %>
-            <small class="form-text text-muted">Put 'unique' for unique sizes</small>
-          </div>
-          <div class="form-group">
-            <%= label_tag  :price, "Price" %>
-            <%= number_field_tag 'size_variations[][price]', nil, step: 0.01, class: "form-control"  %>
-          </div>
-          <div class="form-group">
-            <%= label_tag  :discount_price, "Discount Price" %>
-            <%= number_field_tag 'size_variations[][discount_price]', nil,  step: 0.01, class: "form-control"  %>
-          </div>
-          <div class="form-group">
-            <%= label_tag  :quantity, "Quantity" %>
-            <%= text_field_tag 'size_variations[][quantity]', nil, class: "form-control"  %>
-          </div>
-        </div>
-      </div>
-      <span class="btn btn-dark-gray small add-size">Add Size</span>
-      <div class="product-photos">
-        <div class="product-photo">
-          <div class="form-group">
-            <%= label_tag  :photo, "Photo" %>
-            <%= file_field_tag 'variation_photos[][photo]' %>
-          </div>
-          <div class="form-group">
-            <%= label_tag  :main_photo, "Main Photo?" %>
-            <%= check_box_tag "variation_photos[][main]" %>
+      <div class="color-variation" data-id='0'>
+        <div class="size-variations">
+          <div class="size-variation">
+            <div class="form-group">
+              <%= label_tag  :size, "Size" %>
+              <%= text_field_tag 'size_variations[][size]', nil, class: "form-control"  %>
+              <small class="form-text text-muted">Put 'unique' for unique sizes</small>
+            </div>
+            <div class="form-group">
+              <%= label_tag  :price, "Price" %>
+              <%= number_field_tag 'size_variations[][price]', nil, step: 0.01, class: "form-control"  %>
+            </div>
+            <div class="form-group">
+              <%= label_tag  :discount_price, "Discount Price" %>
+              <%= number_field_tag 'size_variations[][discount_price]', nil,  step: 0.01, class: "form-control"  %>
+            </div>
+            <div class="form-group">
+              <%= label_tag  :quantity, "Quantity" %>
+              <%= text_field_tag 'size_variations[][quantity]', nil, class: "form-control"  %>
+            </div>
           </div>
         </div>
+        <span class="btn btn-dark-gray small add-size" data-id='0'>Add Size</span>
+        <div class="product-photos">
+          <div class="product-photo">
+            <div class="form-group">
+              <%= label_tag  :photo, "Photo" %>
+              <%= file_field_tag 'variation_photos[][photo]' %>
+            </div>
+            <div class="form-group">
+              <%= label_tag  :main_photo, "Main Photo?" %>
+              <%= check_box_tag "variation_photos[][main]" %>
+            </div>
+          </div>
+        </div>
+        <span class="btn btn-dark-gray small add-photos" data-id='0'>Add Photo</span>
       </div>
-      <span class="btn btn-dark-gray small add-photos">Add Photo</span>
     </div>
 
     <div class="product-with-color display-none">
@@ -90,7 +92,7 @@
               </div>
             </div>
           </div>
-          <div class="btn btn-dark-gray small add-size" data-id='1'>Add Size</div>
+          <span class="btn btn-dark-gray small add-size" data-id='1'>Add Size</span>
           <div class="product-photos">
             <div class="product-photo">
               <div class="form-group">
@@ -102,7 +104,7 @@
           <span class="btn btn-dark-gray small add-photos" data-id='1'>Add Photo</span>
         </div>
       </div>
-      <span class="btn btn-dark-gray small" id='add-color'>Add Color</span>
+      <span class="btn btn-dark-gray small add-color">Add Color</span>
     </div>
     <%= submit_tag 'CREATE PRODUCT', class: 'btn btn-blue w-100' %>
   <% end %>
