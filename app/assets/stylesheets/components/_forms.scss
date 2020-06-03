@@ -23,7 +23,7 @@
     margin-bottom: 15px;
   }
   .color-element,
-  .product-without-color .size-element {
+  .product-without-color {
     background-color: $gray;
     padding: 15px;
     margin-bottom: 15px;
@@ -48,13 +48,28 @@
   .size-element,
   .photo-element {
     display: flex;
+    position: relative;
     .form-group {
       margin: 0 10px;
     }
   }
 
   .photo-element{
-    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  .remove-element {
+    position: absolute;
+    top: 0;
+    right: 0;
+    i:hover {
+      cursor: pointer;
+      color: white;
+    }
+  }
+  .remove-element[data-type='color'] {
+    position: relative;
+    text-align: right;
     margin-bottom: 10px;
   }
 }
