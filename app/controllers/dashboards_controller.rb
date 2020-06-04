@@ -21,8 +21,6 @@ class DashboardsController < ApplicationController
     end
   end
 
-  # DRY
-  # to simplify
   def product_creation_create
     @product = Product.new(name: params[:name], short_description: params[:short_description], long_description: params[:long_description], published: params[:published])
     @product.save!
@@ -39,14 +37,20 @@ class DashboardsController < ApplicationController
       end
 
       photos = []
+      main_photo = false
       color_variation[:photos].each do |variation_photo|
-        photos << {io: variation_photo, filename: @product.name, content_type: variation_photo.content_type}
+        if variation_photo[:main]
+          photos.unshift({io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type})
+          main_photo = true if variation_photo[:main]
+        else
+          photos << {io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type}
+        end
       end
 
       @product_photo = ProductPhoto.new
       @product_photo.photos.attach(photos)
       @product_photo.color = color_variation[:color] if color_variation[:color] != 'unique'
-      @product_photo.main = true
+      @product_photo.main = main_photo
       @product_photo.product = @product
       @product_photo.save!
     end

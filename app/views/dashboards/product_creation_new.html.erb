@@ -57,7 +57,11 @@
           <div class="photo-element" data-id='0'>
             <div class="form-group">
               <%= label_tag  :photo, "Photo" %>
-              <%= file_field_tag 'color_variations[][photos][]' %>
+              <%= file_field_tag 'color_variations[][photos][][photo]' %>
+            </div>
+            <div class="form-group">
+              <%= label_tag  :main_photo, "Main Photo?" %>
+              <%= radio_button_tag 'color_variations[][photos][][main]', true %>
             </div>
           </div>
         </div>
@@ -98,7 +102,11 @@
             <div class="photo-element" data-id='1'>
               <div class="form-group">
                 <%= label_tag  :photo, "Photo" %>
-                <%= file_field_tag 'color_variations[][photos][]' %>
+                <%= file_field_tag 'color_variations[][photos][][photo]' %>
+              </div>
+              <div class="form-group">
+                <%= label_tag  :main_photo, "Main Photo?" %>
+                <%= radio_button_tag 'color_variations[][photos][][main]', true %>
               </div>
             </div>
           </div>
