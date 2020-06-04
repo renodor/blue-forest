@@ -10,7 +10,7 @@ class LineItemsController < ApplicationController
       # Find associated product variations
       current_cart = @current_cart
 
-      # If cart already has this product variation then find the relevant line_item and incrment quantity otherwise create a new line_item for this product
+      # If cart already has this product variation then find the relevant line_item and increment quantity otherwise create a new line_item for this product
       if current_cart.product_variations.include?(chosen_product_variation)
         # Find the line_item with the chosen_product variation
         @line_item = current_cart.line_items.find_by(product_variation_id: chosen_product_variation.id)
@@ -36,7 +36,6 @@ class LineItemsController < ApplicationController
         @line_item.product_variation = chosen_product_variation
       end
 
-      # Save and redirect to cart show path
       @line_item.save
 
       # Once line item created, put a params to trigger add to cart modal

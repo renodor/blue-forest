@@ -1,6 +1,11 @@
+<!-- add a warning message if product is not published -->
+<!-- (only admins can see it, normal users would be redirected to hp if trying to access an unpublished product) -->
+<% if !@product.published %>
+  <div class='unpublished-warning'>THIS PRODUCT IS NOT PUBLISHED (only you can see this)</div>
+<% end %>
+
 <!-- render add to cart modal if params is present -->
 <%= render 'shared/atc_modal' if params[:atc_modal] %>
-
 <div class="container pdp-container">
   <div class="pdp d-flex">
     <div class="grow-1">

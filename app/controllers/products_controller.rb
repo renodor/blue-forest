@@ -73,6 +73,11 @@ class ProductsController < ApplicationController
     if @product_photos.empty?
       @product_photos << @product.product_photos.first
     end
+
+    # if product is not published, redirect to hp unless current user is an admin
+    if !@product.published
+      redirect_to root_path unless current_user && current_user.admin
+    end
   end
 
   def search

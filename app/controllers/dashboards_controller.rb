@@ -23,7 +23,8 @@ class DashboardsController < ApplicationController
 
   def product_creation_create
     # create a new product with product creation form params
-    @product = Product.new(name: params[:name], short_description: params[:short_description], long_description: params[:long_description], published: params[:published])
+    @product = Product.new(name: params[:name], short_description: params[:short_description], long_description: params[:long_description])
+    params[:published] ? @product.published = true : @product.published = false
     @product.save!
 
     # iterate over all color variations params
