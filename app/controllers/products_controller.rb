@@ -20,17 +20,24 @@ class ProductsController < ApplicationController
     end
 
     # build an array to store all colors
-    @colors = []
+    @colors = {}
 
     # build an hash to store all sizes, their count and their associated colors
     # (in order to know what sizes are repeated accross colors)
     @sizes = {}
 
+    @product_photos = []
+
     # then iterate over all product variations and do 2 things:
     # 1. add its color to the @colors array
     # 2. add its size, its size count and its associated colors to the @sizes hash
     @product_variations.each do |variation|
-      @colors << variation.color if variation.color
+      if variation.color && !@colors[variation.color]
+        @colors[variation.color] = true
+        product_photo = @product.product_photos.find_by(color: variation.color)
+        @product_photos << product_photo
+        @colors[variation.color] = 'main' if product_photo.main
+      end
 
       if @sizes[variation.size]
         @sizes[variation.size][:count] += 1
@@ -47,24 +54,28 @@ class ProductsController < ApplicationController
       end
     end
 
-    # remove color duplicates
-    # OPTMIZE > We could use a hash for @colors in order to count colors and not put duplicate at the very beginning.
-    # which would allow to delete this .uniq! step
-    @colors.uniq!
-
-    # if product has several product_photos instances, it means it has several color variations
-    # in that case we need to build a @product_photo array that has the product_photo instances of all published product_variations
-    # for that we use the @color array, because we already filtered it to only take the colors of published product variations
-    @product_photos = []
-
-    if @product.product_photos.count > 1
-      @product_photos = @product.product_photos.filter do |product_photo|
-        @colors.include?(product_photo.color)
-      end
-    else
-      # if product only has 1 product_photos instance, just store this one
+    if @product_photos.empty?
       @product_photos << @product.product_photos.first
     end
+
+    # # remove color duplicates
+    # # OPTMIZE > We could use a hash for @colors in order to count colors and not put duplicate at the very beginning.
+    # # which would allow to delete this .uniq! step
+    # @colors.uniq!
+
+    # # if product has several product_photos instances, it means it has several color variations
+    # # in that case we need to build a @product_photo array that has the product_photo instances of all published product_variations
+    # # for that we use the @color array, because we already filtered it to only take the colors of published product variations
+
+
+    # if @product.product_photos.count > 1
+    #   @product_photos = @product.product_photos.filter do |product_photo|
+    #     @colors.include?(product_photo.color)
+    #   end
+    # else
+    #   # if product only has 1 product_photos instance, just store this one
+    #   @product_photos << @product.product_photos.first
+    # end
   end
 
   def search

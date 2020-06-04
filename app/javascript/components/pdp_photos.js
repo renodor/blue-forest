@@ -8,8 +8,8 @@ const pdpPhotos = () => {
     // select all colors
     const colors = document.querySelectorAll('.pdp .colors input');
 
-    // select the first color (it is the one selected by default)
-    const firstColor = document.querySelector('.pdp .colors input:first-child');
+    // select the default checked color (which is the main one)
+    const checkedColor = document.querySelector('.pdp .colors input:checked');
 
     // select all carousel items
     const carouselItems = document.querySelectorAll('.pdp #pdp-carousel .carousel-inner div');
@@ -32,9 +32,9 @@ const pdpPhotos = () => {
       });
     }
 
-    // call the photoToggle method by default when page load on the first color
-    // (because the first color is the one selected by default)
-    photoToggle(firstColor);
+    // call the photoToggle method by default when page load on the checked color
+    // (the checked color when page load is the main color)
+    photoToggle(checkedColor);
 
     // each time a color is clicked, call the photoToggle method on this color
     colors.forEach((color) => {
