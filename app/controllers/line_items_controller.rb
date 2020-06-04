@@ -4,6 +4,7 @@ class LineItemsController < ApplicationController
   def create
     # Find associated product
     chosen_product_variation = ProductVariation.find(params[:variation_id])
+
     # Additional security to check if there is stock available for this product (Normally it shouldn't appear on the PDP any whay if there is no stock)
     if chosen_product_variation.quantity > 0
       # Find associated product variations
@@ -57,7 +58,6 @@ class LineItemsController < ApplicationController
     else
       redirect_to product_path(chosen_product_variation.product)
     end
-
   end
 
   def add_quantity

@@ -74,7 +74,7 @@ class DashboardsController < ApplicationController
       @product_photo.save!
     end
 
-    flash[:notice] = "Product Created >> <a href>see product</a>"
+    flash[:notice] = "Product Created"
     redirect_to product_creation_path
   end
 

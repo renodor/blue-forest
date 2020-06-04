@@ -40,14 +40,22 @@ const initMapbox = () => {
     mapboxgl.accessToken = showAddressMap.dataset.mapboxApiKey;
     const map = new mapboxgl.Map({
       container: 'show-address-map',
+      style: 'mapbox://styles/mapbox/streets-v10',
       center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat], // by default showing address location
-      zoom: 15,
-      style: 'mapbox://styles/mapbox/streets-v10'
+      zoom: 14
     });
 
-      new mapboxgl.Marker()
-        .setLngLat([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ])
-        .addTo(map);
+    new mapboxgl.Marker()
+      .setLngLat([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ])
+      .addTo(map);
+
+    // const bounds = new mapboxgl.LngLatBounds();
+    // console.log(bounds);
+    // map.fitBounds([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ], { padding: 70, maxZoom: 15, duration: 10 })
+    // map.fitBounds([
+    //   [showAddressMap.dataset.lng - 15, showAddressMap.dataset.lat -15],
+    //   [showAddressMap.dataset.lng -15, showAddressMap.dataset.lat -15]
+    // ]);
   };
 };
 
