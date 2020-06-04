@@ -36,10 +36,15 @@
         <b class="map-title">ELEGIR PUNTO EN EL MAPA</b>
         <div id="create-address-map"
          style="width: 100%; height: 380px;"
+         data-lat="<%= @address.latitude %>"
+         data-lng="<%= @address.longitude %>"
          data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
       </div>
     </div>
-    <%= f.submit "REVISAR ANTES DE CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>
+    <% if params[:order_edit] %>
+      <%= f.submit "REVISAR ANTES DE CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>
+    <% else %>
+      <%= f.submit "CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>
+    <% end %>
   <% end %>
 </div>
-
