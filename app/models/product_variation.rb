@@ -35,7 +35,7 @@ class ProductVariation < ApplicationRecord
   private
 
   def add_name
-    if self.color != ''
+    if self.color
       self.name = "#{self.product.name}-#{self.size}-#{self.color}"
     else
       self.name = "#{self.product.name}-#{self.size}"
