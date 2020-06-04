@@ -51,9 +51,10 @@ const pdpVariations = () => {
 
     // making sure that there is more than 1 color. Otherwise the color option is not even displayed
     if (colors.length > 1) {
-      // when page load, first color is automatically selected
-      // so we need to call our 'disableSizes' method on the first colour
-      const targetColor = colors[0].value;
+      // when page load, select the checked color (the one of the main photo)
+      // and call our 'disableSizes' method on this color
+      const targetColor = document.querySelector('.pdp .colors input:checked').value;
+      console.log(targetColor.value)
       sizes.forEach((size) => {
         // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
         if (size.dataset.unique) {
