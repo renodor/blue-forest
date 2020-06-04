@@ -3,7 +3,7 @@
 
 <div class="product-grid-container">
   <div class="container">
-    <div class="products">
+    <div class="products" id='products'>
       <% @products.each do |product| %>
         <% if product.product_variations.length > 0 %>
           <div class="product">

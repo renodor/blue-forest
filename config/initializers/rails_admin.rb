@@ -41,6 +41,10 @@ RailsAdmin.config do |config|
 
   config.included_models = ["Product", "ProductVariation", "User", "Order", "Category", "FakeUser", "Address"]
 
+  config.navigation_static_links = {
+  'CREATE PRODUCT' => '/product_creation'
+  }
+
   config.model 'Product' do
     weight 0
     list do

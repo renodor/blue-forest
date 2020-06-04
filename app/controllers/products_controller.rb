@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    # get all product pre-loading its product variations and product photos
+    # get the product pre-loading its product variations and product photos
     @product = Product.includes(:product_variations, :product_photos).find(params[:id])
 
     # filter product variations to only take the ones published and with stock quantity
@@ -19,33 +19,44 @@ class ProductsController < ApplicationController
       end
     end
 
-    # build an array to store all colors
+    # build an hash to store all colors (without repetition)
+    # and identify the main color
     @colors = {}
 
     # build an hash to store all sizes, their count and their associated colors
     # (in order to know what sizes are repeated accross colors)
     @sizes = {}
 
+    # build an array to store all product photos
     @product_photos = []
 
-    # then iterate over all product variations and do 2 things:
-    # 1. add its color to the @colors array
-    # 2. add its size, its size count and its associated colors to the @sizes hash
+    # then iterate over all product variations and do 3 things:
+    # 1. add its color to the @colors hash
+    # 2. add its photos to the @product_photos hrray
+    # 3. add its size, its size count and its associated colors to the @sizes hash
     @product_variations.each do |variation|
+      # only add color and photos if the variation has a specific color (that we didn't came accross before)
+      # indeed different product variations can have the same color
+      # but a color need to be added only once in the color hash
+      # and all photos of the same colors are in the same product_photo instance
+      # so photos need to be added only once by color in the product_photos array as well
       if variation.color && !@colors[variation.color]
+        # if we find a new color, add it to the hash, and set its value to true
         @colors[variation.color] = true
+        # find the product photo corresponding to this color, and add it to the product_photos array as well
         product_photo = @product.product_photos.find_by(color: variation.color)
         @product_photos << product_photo
+        # if this photo/color is the main one, flag it as 'main' in the @colors hash
         @colors[variation.color] = 'main' if product_photo.main
       end
 
-      if @sizes[variation.size]
-        @sizes[variation.size][:count] += 1
-        @sizes[variation.size][:colors] << variation.color
 
       # the @sizes hash has 2 elements:
       # 1. the size count (to see if a size is repeated or not)
-      # 2. the associated colors of this size (to see for what colors the size is repeated)
+      # 2. an array with the associated colors of this size (to see for what colors the size is repeated)
+      if @sizes[variation.size]
+        @sizes[variation.size][:count] += 1
+        @sizes[variation.size][:colors] << variation.color
       else
         @sizes[variation.size] = {
           count: 1,
@@ -54,28 +65,14 @@ class ProductsController < ApplicationController
       end
     end
 
+    # if this is a product without color variations, at this point @product_photos array is still empty
+    # (because we only added photos for which we found a corresponding color)
+    # so if its the case, it means the product doesn't have color variations, so it only has 1 product_photo instance
+    # (with all photos of this product in it)
+    # in that case, just add it to the @product_photos array
     if @product_photos.empty?
       @product_photos << @product.product_photos.first
     end
-
-    # # remove color duplicates
-    # # OPTMIZE > We could use a hash for @colors in order to count colors and not put duplicate at the very beginning.
-    # # which would allow to delete this .uniq! step
-    # @colors.uniq!
-
-    # # if product has several product_photos instances, it means it has several color variations
-    # # in that case we need to build a @product_photo array that has the product_photo instances of all published product_variations
-    # # for that we use the @color array, because we already filtered it to only take the colors of published product variations
-
-
-    # if @product.product_photos.count > 1
-    #   @product_photos = @product.product_photos.filter do |product_photo|
-    #     @colors.include?(product_photo.color)
-    #   end
-    # else
-    #   # if product only has 1 product_photos instance, just store this one
-    #   @product_photos << @product.product_photos.first
-    # end
   end
 
   def search
