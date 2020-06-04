@@ -27,6 +27,8 @@ require("channels")
 import "bootstrap";
 
 // Internal imports
+import { initMapbox } from '../plugins/init_mapbox';
+
 import { sidebarCart } from '../components/sidebar_cart';
 import { pdpVariations } from '../components/pdp_variations';
 import { pdpPrice } from '../components/pdp_price';
@@ -36,7 +38,6 @@ import { doctorsCarousel } from '../components/doctors_carousel';
 import { boostrapTabs } from '../components/boostrap_tabs';
 import { productCreation } from '../components/product_creation';
 
-import { initMapbox } from '../plugins/init_mapbox';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here

@@ -5,10 +5,10 @@
 @import "config/utilities";
 
 // External libraries
+@import 'mapbox-gl/dist/mapbox-gl';
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
-@import 'mapbox-gl/dist/mapbox-gl';
 
 // Your CSS partials
 @import "components/index";

@@ -37,25 +37,22 @@ const initMapbox = () => {
 
   // Static map when showing addresse
   if (showAddressMap) {
-    mapboxgl.accessToken = showAddressMap.dataset.mapboxApiKey;
-    const map = new mapboxgl.Map({
-      container: 'show-address-map',
-      style: 'mapbox://styles/mapbox/streets-v10',
-      center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat], // by default showing address location
-      zoom: 14
-    });
+    // I need to wait 0.5 second before showing the map...
+    // otherwise JS/CSS doesnt load properly and the map is not centered.
+    // Don't know why.. Probably because of turbolink or something...
+    setTimeout(() => {
+      mapboxgl.accessToken = showAddressMap.dataset.mapboxApiKey;
+      const map = new mapboxgl.Map({
+        container: 'show-address-map',
+        style: 'mapbox://styles/mapbox/streets-v10',
+        center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat], // by default showing address location
+        zoom: 14
+      });
 
-    new mapboxgl.Marker()
-      .setLngLat([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ])
-      .addTo(map);
-
-    // const bounds = new mapboxgl.LngLatBounds();
-    // console.log(bounds);
-    // map.fitBounds([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ], { padding: 70, maxZoom: 15, duration: 10 })
-    // map.fitBounds([
-    //   [showAddressMap.dataset.lng - 15, showAddressMap.dataset.lat -15],
-    //   [showAddressMap.dataset.lng -15, showAddressMap.dataset.lat -15]
-    // ]);
+      new mapboxgl.Marker()
+        .setLngLat([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ])
+        .addTo(map);
+    }, 500);
   };
 };
 
