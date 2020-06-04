@@ -3,6 +3,13 @@ const productCreation = () => {
 
   if (productCreationContainer) {
 
+    // method to check first photo of a product type as the main one
+    // (we will use it to be sure there is always at least one photo selected as 'main photo')
+    const checkFirstPhoto = (productType) => {
+      const firstPhoto = document.querySelector(`.product-${productType} .photo-element #color_variations__photos__main_true`);
+      firstPhoto.checked = true
+    }
+
     // CHOSE PRODUCT TYPE
 
     // select the btn and the div for both product types
@@ -19,6 +26,9 @@ const productCreation = () => {
 
       productWithColorDiv.classList.add('display-none');
       productWithColorBtn.style.opacity = '0.3'
+
+      // then automatically check the first photo of product without color as the main photo
+      checkFirstPhoto('without-color');
     });
 
     productWithColorBtn.addEventListener('click', event => {
@@ -27,6 +37,9 @@ const productCreation = () => {
 
       productWithoutColorDiv.classList.add('display-none');
       productWithoutColorBtn.style.opacity = '0.3';
+
+      // then automatically check the first photo of product with color as the main photo
+      checkFirstPhoto('with-color');
     });
 
     // ADD ELEMENTS
@@ -48,6 +61,23 @@ const productCreation = () => {
           // (if we don't do that, if the last color variation is deleted, the color variation id count won't be correct)
           // (and we won't be able to add a new color variation element)
           colorVariationId = parseInt(lastColorVariationId)
+
+          // we also need to check if any of the product photos of this removed color was selected as the 'main photo'
+          // if yes, we call our checkFirstPhoto method on the product with color type
+          elementToRemove.querySelectorAll('.product-photos .photo-element #color_variations__photos__main_true').forEach((mainPhoto) => {
+            if (mainPhoto.checked) {
+              checkFirstPhoto('with-color');            }
+          })
+        }
+
+        // if the element to remove is a photo element, we need to check if this photo was not the 'main photo'
+        // if yes, we call our 'checkFirstPhoto' method on the correct product type
+        if (event.currentTarget.dataset.type === 'photo' && elementToRemove.querySelector('#color_variations__photos__main_true').checked) {
+          if (document.querySelector('#product_type_with_colors').checked) {
+            checkFirstPhoto('with-color');
+          } else {
+            checkFirstPhoto('without-color');
+          }
         }
       })
     }

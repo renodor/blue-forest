@@ -85,10 +85,12 @@ class DashboardsController < ApplicationController
   end
 
   def form_validation
-    result = { valid?: false, error_message: '' }
+    result = { valid?: true, error_message: '' }
 
-    result[:error_message] = 'Product name is empty' if params[:name].empty?
-    raise
+    if params[:name].empty?
+      result[:valid?] = false
+      result[:error_message] = 'Product name is empty'
+    end
 
     return result
   end
