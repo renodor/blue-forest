@@ -22,13 +22,17 @@ class ProductVariation < ApplicationRecord
     white: 'white',
     gray: '#b0b3b2',
     red: '#c73429',
-    blue: '#0a1f8f',
+    red_wine: '#4C0F13',
+    blue: '#021eb7',
+    light_blue: '#5dadd4',
+    dark_blue: '#161D4C',
     green: '#4CAF50',
     orange: '#ff9234',
     yellow: '#ffbf3c',
     pink: '#f38b8b',
     brown: '#884b20',
-    purple: '#c480d0'
+    purple: '#c480d0',
+    beige: '#F7D8A9'
   }
 
 
