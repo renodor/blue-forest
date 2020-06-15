@@ -41,13 +41,13 @@ class ProductsController < ApplicationController
       # and all photos of the same colors are in the same product_photo instance
       # so photos need to be added only once by color in the product_photos array as well
       if variation.color && !@colors[variation.color]
-        # if we find a new color, add it to the hash, and set its value to true
-        @colors[variation.color] = true
         # find the product photo corresponding to this color, and add it to the product_photos array as well
         product_photo = @product.product_photos.find_by(color: variation.color)
         @product_photos << product_photo
-        # if this photo/color is the main one, flag it as 'main' in the @colors hash
-        @colors[variation.color] = 'main' if product_photo.main
+
+        # if this photo/color is the main one, flag it as 'main' and put it at the beginning of th @colors hash
+        # if we find a (normal) new color, add it to the hash, and set its value to true
+        product_photo.main ? @colors[variation.color] = 'main' : @colors[variation.color] = true
       end
 
 

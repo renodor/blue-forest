@@ -39,7 +39,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = ["Product", "ProductVariation", "User", "Order", "Category", "FakeUser", "Address"]
+  config.included_models = ["Product", "ProductVariation", "ProductPhoto", "User", "Order", "Category", "FakeUser", "Address"]
 
   config.navigation_static_links = {
   'CREATE PRODUCT' => '/product_creation'

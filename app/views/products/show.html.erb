@@ -52,20 +52,24 @@
           <div class="colors">
             <!-- if there are several colors, show the color swatch -->
             <% if @colors.length > 1 %>
+              <!-- first put the main color and select it by default -->
+              <%= radio_button_tag 'color', @colors.key('main'), true %>
+              <%= label_tag "color_#{@colors.key('main')}", "", style: "background-color: #{ProductVariation::COLORS[@colors.key('main').to_sym]}" %>
+
+              <!-- then iterate over other colors and show it (just skiping the main one that we already showed) -->
               <% @colors.each do |key, value| %>
-                <!-- the third value of radio_button_tag define is the button is checked or not
-                putting i == 0 here will automatically check the first color -->
-                <%= radio_button_tag 'color', key, value == 'main' %>
+                <% next if value == 'main' %>
+                <%= radio_button_tag 'color', key, false %>
                 <%= label_tag "color_#{key}", "", style: "background-color: #{ProductVariation::COLORS[key.to_sym]}" %>
               <% end %>
-            <!-- if there is only 1 color, just put a checked radio button with the id 'unique' -->
+            <!-- if there is only 1 color, just put an (hidden) checked radio button with the id 'unique' -->
             <% else %>
               <%= radio_button_tag 'color', 'unique', true %>
             <% end %>
           </div>
           <div class="sizes">
             <% @product_variations.each_with_index do |variation, i| %>
-              <!-- if size is inot unique, show sizes -->
+              <!-- if size is not unique, show sizes -->
               <!-- (it still possible to have several 'unique' sizes, if there are several colors -->
               <!-- for example a product can have a 'red' (unique size), variation and a 'green' (unique size) variation -->
               <% if variation.size.downcase != 'unique' %>
