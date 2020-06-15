@@ -4,15 +4,13 @@
     <div id="cart">
       <div class="cart-products">
         <% total_quantity = 0 %>
-        <% @cart.line_items.reverse.each do |line_item| %>
+        <% @cart.line_items.order(created_at: :asc).each do |line_item| %>
           <div class="cart-product d-flex align-items-center bg-white">
             <%= cl_image_tag line_item.photo_key, height: 150, width: 150, crop: :fill %>
             <div>
-              <p>
-                <b>
-                  <%= link_to line_item.product_variation.product.name, product_path(line_item.product_variation.product.id) %>
-                </b>
-              </p>
+              <p><b>
+                <%= link_to line_item.product_variation.product.name, product_path(line_item.product_variation.product.id) %>
+              </b></p>
               <% if line_item.product_variation.color != '' %>
                 <p>Color: <%= line_item.product_variation.color %></p>
               <% end %>

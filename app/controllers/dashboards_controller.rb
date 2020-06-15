@@ -1,7 +1,7 @@
 class DashboardsController < ApplicationController
   def dashboard
     @address = current_user.addresses.first
-    @orders = current_user.orders.reverse
+    @orders = current_user.orders.order(created_at: :desc)
   end
 
   def product_creation_new
