@@ -1,0 +1,20 @@
+es:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: 'vacío'
+            last_name:
+              blank: 'vacío'
+            email:
+              blank: 'vacío'
+              invalid: 'inválido'
+            password:
+              blank: 'vacía'
+              too_short: 'demasiada corta'
+            password_confirmation:
+              confirmation: 'inválida'
+            phone:
+              blank: 'vacío'

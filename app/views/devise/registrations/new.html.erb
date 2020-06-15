@@ -7,24 +7,24 @@
     <div class="form-inputs">
       <div class="row">
         <div class="col">
-          <%= f.input :first_name, label: false, placeholder: 'Nombre' %>
+          <%= f.input :first_name, label: false %>
         </div>
         <div class="col">
-          <%= f.input :last_name, label: false, placeholder: 'Apellido' %>
+          <%= f.input :last_name, label: false %>
         </div>
       </div>
       <%= f.input :email,
                   required: true,
                   autofocus: true,
-                  input_html: { autocomplete: "email" }, label: false, placeholder: 'Correo' %>
+                  input_html: { autocomplete: "email" }, label: false %>
       <%= f.input :password,
                   required: true,
                   hint: ("#{@minimum_password_length} carácteres minimum" if @minimum_password_length),
-                  input_html: { autocomplete: "new-password" }, label: false, placeholder: 'Contraseña' %>
+                  input_html: { autocomplete: "new-password" }, label: false %>
       <%= f.input :password_confirmation,
                   required: true,
-                  input_html: { autocomplete: "new-password" }, label: false, placeholder: 'Confirmar contraseña' %>
-      <%= f.input :phone, label: false, placeholder: 'Teléfono' %>
+                  input_html: { autocomplete: "new-password" }, label: false %>
+      <%= f.input :phone, label: false %>
     </div>
 
     <div class="form-actions">

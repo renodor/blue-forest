@@ -6,6 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+
 module BlueForest
   class Application < Rails::Application
     config.generators do |generate|
@@ -20,5 +21,11 @@ module BlueForest
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # define es as default local so that devise and simple form messages are translated to spanish
+    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    config.i18n.default_locale = :es
   end
 end
+
+
