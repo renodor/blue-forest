@@ -39,3 +39,13 @@ es:
               blank: 'vacío'
             city:
               blank: 'vacía'
+        fake_user:
+          attributes:
+            first_name:
+              blank: 'vacío'
+            last_name:
+              blank: 'vacío'
+            email:
+              blank: 'vacío'
+            phone:
+              blank: 'vacío'
