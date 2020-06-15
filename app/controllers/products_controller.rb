@@ -13,11 +13,14 @@ class ProductsController < ApplicationController
     @product = Product.includes(:product_variations, :product_photos).find(params[:id])
 
     # filter product variations to only take the ones published and with stock quantity
-    @product_variations = @product.product_variations.filter do |variation|
+    unsorted_product_variations = @product.product_variations.order(price: :asc).filter do |variation|
       if variation.published && variation.quantity > 0
         variation
       end
     end
+
+    # then order product variation by sizes
+    @product_variations = sort_by_sizes(unsorted_product_variations)
 
     # build an hash to store all colors (without repetition)
     # and identify the main color
@@ -87,6 +90,32 @@ class ProductsController < ApplicationController
       OR products.long_description ILIKE :query AND products.published = true \
     "
     @products = Product.includes(:product_variations).where(sql_query, query: "%#{params[:query]}%")
+  end
+
+  private
+
+  # helper method to sort product variations by sizes
+  def sort_by_sizes(variations)
+    variations.sort do |a, b|
+      # if sizes have a number (like 'Pack10'), just sort by number
+      if a.size.match?(/.*\d.*/)
+        a.size.gsub(/\D*/, '').to_i <=> b.size.gsub(/\D*/, '').to_i
+
+      # if not, we assume that product variation has 'clothes sizes' (like L, M, XL etc...)
+      # so we need to use our clothes_sizes_order method to sort product variations correctly
+      else
+        clothes_sizes_order(a.size) <=> clothes_sizes_order(b.size)
+      end
+    end
+  end
+
+  def clothes_sizes_order(size)
+    return 0 if size == 'XS'
+    return 1 if size == 'S'
+    return 2 if size == 'M'
+    return 3 if size == 'L'
+    return 4 if size == 'XL'
+    return 5 if size == 'XXL'
   end
 end
 

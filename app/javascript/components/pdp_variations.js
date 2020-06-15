@@ -9,6 +9,9 @@ const pdpVariations = () => {
     const atcOverlay = document.querySelector('.pdp .atc-overlay');
     const sizeWarning = document.querySelector('.size-selection-warning');
 
+
+    console.log(sizes);
+
     // helper method to disable sizes that don't belong to the selected color
     // and to display-none sizes that are repeated accross colors
     const disableSizes = (size, targetColor, first) => {
@@ -54,7 +57,6 @@ const pdpVariations = () => {
       // when page load, select the checked color (the one of the main photo)
       // and call our 'disableSizes' method on this color
       const targetColor = document.querySelector('.pdp .colors input:checked').value;
-      console.log(targetColor.value)
       sizes.forEach((size) => {
         // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
         if (size.dataset.unique) {
