@@ -1,5 +1,16 @@
 es:
   activerecord:
+    attributes:
+      address:
+        street: 'Calle'
+        discrict: 'Corregimiento'
+        detail: 'Punto de Referencia'
+        city: 'Ciudad'
+      fake_user:
+        first_name: 'Nombre'
+        last_name: 'Apellido'
+        emaiil: 'Correo'
+        phone: 'Teléfono'
     errors:
       models:
         user:
@@ -18,3 +29,13 @@ es:
               confirmation: 'inválida'
             phone:
               blank: 'vacío'
+        address:
+          attributes:
+            street:
+              blank: 'vacía'
+            district:
+              blank: 'vacío'
+            detail:
+              blank: 'vacío'
+            city:
+              blank: 'vacía'

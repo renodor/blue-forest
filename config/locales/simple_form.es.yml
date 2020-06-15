@@ -12,9 +12,15 @@ es:
       default_message: "Por favor revisar los problemas en la página"
     placeholders:
       user:
-        first_name: Nombre
-        last_name: Apellido
-        email: Correo
+        first_name: 'Nombre'
+        last_name: 'Apellido'
+        email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmar contraseña'
-        phone: Teléfono
+        phone: 'Teléfono'
+      address:
+        street: 'Calle'
+        flat_number: 'Num de Casa o Apto'
+        district: 'Corregimiento'
+        detail: 'Punto de Referencia'
+        city: 'Ciudad'

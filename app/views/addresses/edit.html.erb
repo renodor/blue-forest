@@ -16,11 +16,11 @@
           <p><b>Teléfono:</b> <%= @user.phone %></p>
         <% end %>
         <div>
-          <%= f.input :street, label: false, placeholder: 'Calle' %>
-          <%= f.input :flat_number, label: false, placeholder: 'Num de Casa o Apto' %>
-          <%= f.input :district, label: false, placeholder: 'Corregimiento' %>
-          <%= f.input :detail, label: false, placeholder: 'Punto de Referencia' %>
-          <%= f.input :city, label: false, placeholder: 'Ciudad' %>
+          <%= f.input :street, label: false %>
+          <%= f.input :flat_number, label: false %>
+          <%= f.input :district, label: false %>
+          <%= f.input :detail, label: false %>
+          <%= f.input :city, label: false %>
           <%= f.input :latitude, as: :hidden %>
           <%= f.input :longitude, as: :hidden %>
 
