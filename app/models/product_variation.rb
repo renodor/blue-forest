@@ -1,5 +1,5 @@
 class ProductVariation < ApplicationRecord
-  belongs_to :product
+  belongs_to :product, touch: true
   has_many :line_items, dependent: :destroy
 
   validates :price, :quantity, :size, :name, presence: true

@@ -53,8 +53,8 @@ RailsAdmin.config do |config|
       field :published
       field :categories
       field :product_variations do inverse_of :products end
-      field :main_photo
-      field :description
+      field :short_description
+      field :long_description
       field :created_at
       field :updated_at
     end

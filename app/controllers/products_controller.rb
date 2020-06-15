@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
 
 
   def index
-    @products = Product.includes(:product_variations, :product_photos).where(published: true)
+    @products = Product.includes(:product_variations, :product_photos).where(published: true).order(updated_at: :desc)
   end
 
   def show
