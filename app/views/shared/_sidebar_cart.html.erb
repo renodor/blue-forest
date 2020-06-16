@@ -30,9 +30,8 @@
               </p>
             </div>
             <div class="quantity-counter d-flex" data-controller="counter">
-              <%= link_to "-", reduce_quantity_line_item_path(line_item), method: :post, data: { action: "click->counter#reduce_quantity" } %>
+              <button data-action='click->counter#reduceQuantity'>-</button>
               <span class="grow-1 text-center" data-target="counter.count" data-line-item=<%= line_item.id %>><%= line_item.quantity %></span>
-              <%= link_to "+", add_quantity_line_item_path(line_item), method: :post, data: { action: "click->counter#add_quantity" } %>
               <button data-action='click->counter#addQuantity'>+</button>
             </div>
           </div>

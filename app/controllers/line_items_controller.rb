@@ -65,13 +65,40 @@ class LineItemsController < ApplicationController
     if @line_item.quantity < @line_item.product_variation.quantity
       @line_item.quantity += 1
       @line_item.save
+      respond_to do |format|
+        format.html
+        format.json { render json: {
+            can_add_quantity: true,
+            current_cart: @current_cart,
+            total_items: @current_cart.total_items.to_i,
+            sub_total: @current_cart.sub_total,
+            shipping: @current_cart.shipping.to_i,
+            itbms: @current_cart.itbms.to_f,
+            total: @current_cart.total.to_f
+          }
+        }
+      end
     else
-      flash.alert = "No se puede añadir más de este producto"
+      respond_to do |format|
+        format.json { render json: {
+            can_add_quantity: false,
+            error: "No se puede añadir más de este producto"
+          }
+        }
+      end
     end
     # redirect_to cart_path(@current_cart)
+  end
+
+  def reduce_quantity
+    @line_item = LineItem.find(params[:id])
+    if @line_item.quantity > 1
+      @line_item.quantity -= 1
+    end
+    @line_item.save
     respond_to do |format|
-      format.html
       format.json { render json: {
+          can_add_quantity: true,
           current_cart: @current_cart,
           total_items: @current_cart.total_items.to_i,
           sub_total: @current_cart.sub_total,
@@ -81,15 +108,6 @@ class LineItemsController < ApplicationController
         }
       }
     end
-  end
-
-  def reduce_quantity
-    @line_item = LineItem.find(params[:id])
-    if @line_item.quantity > 1
-      @line_item.quantity -= 1
-    end
-    @line_item.save
-    # redirect_to cart_path(@current_cart)
   end
 
   def destroy
