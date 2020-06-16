@@ -29,10 +29,10 @@
                 <% end %>
               </p>
             </div>
-            <div class="quantity-counter d-flex">
-              <%= link_to "-", reduce_quantity_line_item_path(line_item), method: :post %>
-              <span class="grow-1 text-center"><%= line_item.quantity %></span>
-              <%= link_to "+", add_quantity_line_item_path(line_item), method: :post %>
+            <div class="quantity-counter d-flex" data-controller="counter">
+              <%= link_to "-", reduce_quantity_line_item_path(line_item), method: :post, data: { action: "click->counter#reduce_quantity" } %>
+              <span class="grow-1 text-center" data-target="counter.count"><%= line_item.quantity %></span>
+              <%= link_to "+", add_quantity_line_item_path(line_item), method: :post, data: { action: "click->counter#add_quantity" } %>
             </div>
           </div>
           <% total_quantity += line_item.quantity %>

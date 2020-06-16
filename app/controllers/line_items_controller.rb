@@ -67,7 +67,7 @@ class LineItemsController < ApplicationController
     else
       flash.alert = "No se puede añadir más de este producto"
     end
-    redirect_to cart_path(@current_cart)
+    # redirect_to cart_path(@current_cart)
   end
 
   def reduce_quantity
@@ -76,7 +76,7 @@ class LineItemsController < ApplicationController
       @line_item.quantity -= 1
     end
     @line_item.save
-    redirect_to cart_path(@current_cart)
+    # redirect_to cart_path(@current_cart)
   end
 
   def destroy
