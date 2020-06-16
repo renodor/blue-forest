@@ -31,8 +31,9 @@
             </div>
             <div class="quantity-counter d-flex" data-controller="counter">
               <%= link_to "-", reduce_quantity_line_item_path(line_item), method: :post, data: { action: "click->counter#reduce_quantity" } %>
-              <span class="grow-1 text-center" data-target="counter.count"><%= line_item.quantity %></span>
+              <span class="grow-1 text-center" data-target="counter.count" data-line-item=<%= line_item.id %>><%= line_item.quantity %></span>
               <%= link_to "+", add_quantity_line_item_path(line_item), method: :post, data: { action: "click->counter#add_quantity" } %>
+              <button data-action='click->counter#addQuantity'>+</button>
             </div>
           </div>
           <% total_quantity += line_item.quantity %>
@@ -41,8 +42,8 @@
     </div>
     <div class="sidebar-cart-footer">
       <div class="text-right sidebar-cart-footer-top">
-        <p><%= pluralize(total_quantity, 'producto') %></p>
-        <p><b>Sub Total: $<%= @current_cart.sub_total %></b></p>
+        <p class="total_items"><%= pluralize(total_quantity, 'producto') %></p>
+        <p><b>Sub Total: $<span class="sub_total"><%= @current_cart.sub_total %></span></b></p>
       </div>
       <div class="w-100 text-center">
         <% if user_signed_in? %>

@@ -1,5 +1,6 @@
 class LineItemsController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def create
     # Find associated product
@@ -68,6 +69,18 @@ class LineItemsController < ApplicationController
       flash.alert = "No se puede añadir más de este producto"
     end
     # redirect_to cart_path(@current_cart)
+    respond_to do |format|
+      format.html
+      format.json { render json: {
+          current_cart: @current_cart,
+          total_items: @current_cart.total_items.to_i,
+          sub_total: @current_cart.sub_total,
+          shipping: @current_cart.shipping.to_i,
+          itbms: @current_cart.itbms.to_f,
+          total: @current_cart.total.to_f
+        }
+      }
+    end
   end
 
   def reduce_quantity
