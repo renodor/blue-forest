@@ -7,7 +7,7 @@
         <% @cart.line_items.order(created_at: :asc).each do |line_item| %>
           <div class="cart-product d-flex align-items-center bg-white">
             <%= cl_image_tag line_item.photo_key, height: 150, width: 150, crop: :fill %>
-            <div>
+            <div class="cart-product-info">
               <p><b>
                 <%= link_to line_item.product_variation.product.name, product_path(line_item.product_variation.product.id) %>
               </b></p>
