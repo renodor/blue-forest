@@ -1,5 +1,7 @@
 class LineItemsController < ApplicationController
   skip_before_action :authenticate_user!
+
+  # TO DELETE > See SO solution to bypass that
   skip_before_action :verify_authenticity_token
 
   def create
