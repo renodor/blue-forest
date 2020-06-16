@@ -1,5 +1,6 @@
 class LineItemsController < ApplicationController
   skip_before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
 
   def create
     # Find associated product
@@ -59,35 +60,66 @@ class LineItemsController < ApplicationController
     end
   end
 
+  # this action will be triggered by an AJAX request (by the js stimulus counter controller)
+  # so it needs to respond a json
   def add_quantity
     @line_item = LineItem.find(params[:id])
     if @line_item.quantity < @line_item.product_variation.quantity
       @line_item.quantity += 1
       @line_item.save
+      # if quantity can be incremented send a json response with all current_cart info
+      cart_info_json_response
     else
-      flash.alert = "No se puede añadir más de este producto"
+      # if not, send a json response with an error message
+      respond_to do |format|
+        format.json { render json: {
+            can_change_quantity: false,
+            error: "No se puede añadir más de este producto"
+          }
+        }
+      end
     end
-    redirect_to cart_path(@current_cart)
   end
 
+  # this action will be triggered by an AJAX request (by the js stimulus counter controller)
+  # so it needs to respond a json
   def reduce_quantity
     @line_item = LineItem.find(params[:id])
     if @line_item.quantity > 1
       @line_item.quantity -= 1
     end
     @line_item.save
-    redirect_to cart_path(@current_cart)
+    # once quantity has been decreased send a json response with all current_cart info
+    cart_info_json_response
   end
 
+  # this action will be triggered by an AJAX request (by the js stimulus counter controller)
+  # so it needs to respond a json
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-    redirect_to cart_path(@current_cart)
+    cart_info_json_response
   end
 
-  # private
+  private
 
   # def line_item_params
   #   params.require(:line_item).permit(:quantity, :product_variation_id, :cart_id)
   # end
+
+  # helper method to send a json response with all current_cart info
+  def cart_info_json_response
+    respond_to do |format|
+      format.json { render json: {
+          can_change_quantity: true,
+          current_cart: @current_cart,
+          total_items: @current_cart.total_items.to_i,
+          sub_total: @current_cart.sub_total,
+          shipping: @current_cart.shipping.to_i,
+          itbms: @current_cart.itbms.to_f,
+          total: @current_cart.total.to_f
+        }
+      }
+    end
+  end
 end

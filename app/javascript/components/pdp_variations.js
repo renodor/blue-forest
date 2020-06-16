@@ -9,9 +9,6 @@ const pdpVariations = () => {
     const atcOverlay = document.querySelector('.pdp .atc-overlay');
     const sizeWarning = document.querySelector('.size-selection-warning');
 
-
-    console.log(sizes);
-
     // helper method to disable sizes that don't belong to the selected color
     // and to display-none sizes that are repeated accross colors
     const disableSizes = (size, targetColor, first) => {

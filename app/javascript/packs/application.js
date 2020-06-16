@@ -29,6 +29,7 @@ import "bootstrap";
 // Internal imports
 import { initMapbox } from '../plugins/init_mapbox';
 
+import { hideJsFlash } from '../components/hide_js_flash';
 import { sidebarCart } from '../components/sidebar_cart';
 import { pdpVariations } from '../components/pdp_variations';
 import { pdpPrice } from '../components/pdp_price';
@@ -41,6 +42,7 @@ import { productCreation } from '../components/product_creation';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here
+  hideJsFlash();
   sidebarCart();
   pdpVariations();
   pdpPrice();
@@ -53,3 +55,5 @@ document.addEventListener('turbolinks:load', () => {
 });
 
 
+
+import "controllers"

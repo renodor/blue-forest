@@ -14,3 +14,14 @@
     </button>
   </div>
 <% end %>
+
+<!-- to deal with AJAX flash messages we created a custom js flash element -->
+<!-- it is not displayed by default and need to be manually triggered if needed -->
+<div class="js-flash display-none">
+  <div class="alert alert-warning alert-dismissible fade show m-1" role="alert">
+    <span class='js-flash-message'></span>
+    <button class='close close-js-flash'>
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
