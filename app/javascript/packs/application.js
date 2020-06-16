@@ -55,5 +55,5 @@ document.addEventListener('turbolinks:load', () => {
 });
 
 
-
+// importe stimulus controllers
 import "controllers"
