@@ -29,10 +29,12 @@
                 <% end %>
               </p>
             </div>
+            <!-- the quantity counter is wrapped around stimulus js 'counter' controller -->
+            <!-- it allows to trigger the 'quantityTrigger' js action when a button is clicked -->
             <div class="quantity-counter d-flex" data-controller="counter">
-              <button data-action='click->counter#reduceQuantity'>-</button>
+              <button data-action='click->counter#quantityTrigger' <%= 'disabled' if line_item.quantity == 1 %>>-</button>
               <span class="grow-1 text-center" data-target="counter.count" data-line-item=<%= line_item.id %>><%= line_item.quantity %></span>
-              <button data-action='click->counter#addQuantity'>+</button>
+              <button data-action='click->counter#quantityTrigger'>+</button>
             </div>
           </div>
           <% total_quantity += line_item.quantity %>
