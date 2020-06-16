@@ -98,7 +98,7 @@ class LineItemsController < ApplicationController
     @line_item.save
     respond_to do |format|
       format.json { render json: {
-          can_add_quantity: true,
+          can_remove_quantity: true,
           current_cart: @current_cart,
           total_items: @current_cart.total_items.to_i,
           sub_total: @current_cart.sub_total,

@@ -24,7 +24,7 @@
                 <% end %>
               </p>
               <div class="quantity-counter d-flex" data-controller="counter">
-                <button data-action='click->counter#reduceQuantity'>-</button>
+                  <button data-action='click->counter#reduceQuantity' <%= 'disabled' if line_item.quantity == 1 %>>-</button>
                 <span class="grow-1 text-center" data-target="counter.count" data-line-item=<%= line_item.id %>><%= line_item.quantity %></span>
                 <button data-action='click->counter#addQuantity'>+</button>
               </div>

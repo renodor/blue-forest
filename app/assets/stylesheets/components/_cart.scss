@@ -121,6 +121,9 @@
       &:focus {
         outline: none;
       }
+      &:disabled {
+        color: $light-gray;
+      }
     }
   }
   .remove-items {

@@ -4,7 +4,7 @@ export default class extends Controller {
 
   static targets = [ 'count' ];
 
-  addQuantity(event) {
+  addQuantity() {
     const lineItemId = this.countTarget.dataset.lineItem;
     fetch(`/line_items/${lineItemId}/add_quantity`, {
       headers: { accept: "application/json" },
@@ -20,14 +20,14 @@ export default class extends Controller {
       })
   }
 
-  reduceQuantity(event) {
+  reduceQuantity() {
     const lineItemId = this.countTarget.dataset.lineItem;
     fetch(`/line_items/${lineItemId}/reduce_quantity`, {
       headers: { accept: "application/json" },
       method: 'POST'
     }).then(response => response.json())
       .then((data) => {
-        if (data.can_add_quantity) {
+        if (data.can_remove_quantity) {
           this.changeQuantityCounter('-', lineItemId)
           this.updateCartInfo(data);
         } else {
@@ -37,12 +37,20 @@ export default class extends Controller {
   }
 
   changeQuantityCounter(operator, lineItem) {
-    const counters = document.querySelectorAll('.quantity-counter span');
+    const counters = document.querySelectorAll('.quantity-counter');
     counters.forEach((counter) => {
-      if (counter.dataset.lineItem === lineItem) {
-        let currentQuantity = parseInt(counter.innerHTML)
-        operator === '+' ? currentQuantity += 1 : currentQuantity -= 1
-        counter.innerHTML = currentQuantity
+      const counterCount = counter.querySelector('span')
+      if (counterCount.dataset.lineItem === lineItem) {
+        const counterReduceBtn = counter.querySelector('button')
+        let currentQuantity = parseInt(counterCount.innerHTML)
+        if (operator === '+') {
+          currentQuantity += 1
+          counterReduceBtn.disabled = false;
+        } else {
+          currentQuantity -= 1
+          if (currentQuantity === 1) { counterReduceBtn.disabled = true; }
+        }
+        counterCount.innerHTML = currentQuantity
       }
     })
   }
