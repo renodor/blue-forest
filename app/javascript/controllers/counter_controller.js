@@ -4,6 +4,29 @@ export default class extends Controller {
 
   static targets = [ 'count' ];
 
+  // when removeProduct btn is clicked
+  // remove the targeted product from cart and sidebar cart
+  removeProduct(event) {
+    const lineItemId = this.countTarget.dataset.lineItem;
+    // triger the 'destroy' action of the line_items controller on the correct line item
+    fetch(`/line_items/${lineItemId}`, {
+      headers: { accept: "application/json" },
+      method: 'DELETE'
+    }).then(response => response.json())
+      // once it is done, we need to do 3 things:
+      // - update cart and sidebar cart info
+      // - remove this product from the cart and sidebar cart
+      // - update the cart toggle icon
+      // - check if the cart is empty, if yes reload the page
+      .then((data) => {
+        this.updateCartInfo(data);
+        const productsToRemove = document.querySelectorAll(`.cart-product[data-line-item="${lineItemId}"]`)
+        productsToRemove.forEach((product) => product.remove());
+        this.updateCartToggleIcon();
+        this.checkIfEmptyCart();
+      })
+  }
+
   // when quantityTrigger btn is clicked, check if it was the 'add' or the 'remove' btn
   // and call the 'changeQuantity' method with the correct operator
   quantityTrigger(event) {
@@ -28,7 +51,7 @@ export default class extends Controller {
         if (data.can_change_quantity) {
           this.changeQuantityCounter(`${operator}`, lineItemId)
           this.updateCartInfo(data);
-          this.changeCartToggleIcon(operator)
+          this.updateCartToggleIcon()
         } else {
           this.showJsFlash(data.error);
         }
@@ -95,12 +118,16 @@ export default class extends Controller {
   }
 
   // increase/decrease cart icon counter (in the navbar)
-  changeCartToggleIcon(operator) {
+  updateCartToggleIcon() {
     const cartIcon = document.querySelector('.cart-icon span');
-    let cartIconCurrentQuantity = parseInt(cartIcon.innerHTML);
-    console.log(cartIconCurrentQuantity);
-    operator === 'add' ? cartIconCurrentQuantity += 1 : cartIconCurrentQuantity -= 1;
-    cartIcon.innerHTML = cartIconCurrentQuantity;
+    const totalItems = document.querySelector('.total_items').innerHTML.match(/\d+/);
+    cartIcon.innerHTML = totalItems;
+  }
+
+  // check if the cart is empty, if yes reload the page to show empty cart layout
+  checkIfEmptyCart() {
+    const cartProducts = document.querySelectorAll('#cart .cart-product');
+    if (cartProducts.length === 0) { location.reload(); }
   }
 
   // method that display the js flash messages

@@ -93,10 +93,12 @@ class LineItemsController < ApplicationController
     cart_info_json_response
   end
 
+  # this action will be triggered by an AJAX request (by the js stimulus counter controller)
+  # so it needs to respond a json
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-    redirect_to cart_path(@current_cart)
+    cart_info_json_response
   end
 
   private
