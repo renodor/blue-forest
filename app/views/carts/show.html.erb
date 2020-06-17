@@ -42,7 +42,9 @@
       <div class="cart-detail padding-30">
         <h2>RESUMEN DE COMPRA</h2>
         <hr>
-        <p class="total_items"><%= pluralize(total_quantity, 'producto') %></p>
+        <p class="total_items">
+          <%= total_quantity %> <%= t('products', count: total_quantity) %>
+        </p>
         <p>Sub Total: $<span class="sub_total"><%= @cart.sub_total %></span></p>
         <p>Entrega:
           <% if @cart.shipping > 0 %>

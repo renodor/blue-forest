@@ -1,4 +1,7 @@
 es:
+  products:
+    one: 'producto'
+    other: 'productos'
   activerecord:
     attributes:
       address:
