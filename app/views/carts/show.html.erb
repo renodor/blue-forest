@@ -11,7 +11,7 @@
               <p><b>
                 <%= link_to line_item.product_variation.product.name, product_path(line_item.product_variation.product.id) %>
               </b></p>
-              <% if line_item.product_variation.color != '' %>
+              <% if line_item.product_variation.color %>
                 <p>Color: <%= line_item.product_variation.color %></p>
               <% end %>
               <p>Tamaño: <%= line_item.product_variation.size %></p>

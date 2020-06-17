@@ -11,7 +11,7 @@
           <%= cl_image_tag line_item.photo_key, height: 120, width: 120, crop: :fill %>
           <div class="grow-1">
             <p><b><%= line_item.product_variation.product.name %></b></p>
-            <% if line_item.product_variation.color != '' %>
+            <% if line_item.product_variation.color %>
               <p>Color: <%= line_item.product_variation.color %></p>
             <% end %>
             <p>Tamaño: <%= line_item.product_variation.size %></p>

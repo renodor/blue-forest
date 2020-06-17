@@ -9,6 +9,9 @@
     flex-basis: 80%;
     .cart-product .cart-product-info {
       padding-left: 20px;
+      p {
+        margin-bottom: 5px;
+      }
     }
   }
 }
