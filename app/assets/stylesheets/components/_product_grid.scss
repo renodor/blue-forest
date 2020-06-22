@@ -145,6 +145,14 @@
 @media (min-width: 1500px) {
   .products {
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    .product {
+      .product-grid-info-container {
+        background-color: $blue!important;
+      }
+    }
+    .product:nth-child(even) .product-grid-info-container {
+        background-color: $dark-blue!important;
+      }
   }
 }
 
