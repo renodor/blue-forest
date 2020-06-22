@@ -37,7 +37,7 @@ Rails.application.configure do
 
   # set asset host in order to show images on emails
   # config.action_controller.asset_host = 'blueforestpanama.com'
-  config.action_mailer.asset_host = config.action_controller.asset_host
+  # config.action_mailer.asset_host = config.action_controller.asset_host
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
