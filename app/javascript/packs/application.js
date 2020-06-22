@@ -38,6 +38,8 @@ import { atcModal } from '../components/atc_modal';
 import { doctorsCarousel } from '../components/doctors_carousel';
 import { boostrapTabs } from '../components/boostrap_tabs';
 import { productCreation } from '../components/product_creation';
+import { mobileMenu } from '../components/mobile_menu';
+
 
 
 document.addEventListener('turbolinks:load', () => {
@@ -52,6 +54,7 @@ document.addEventListener('turbolinks:load', () => {
   doctorsCarousel();
   boostrapTabs();
   productCreation();
+  mobileMenu();
 });
 
 
