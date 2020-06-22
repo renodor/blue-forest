@@ -2,11 +2,15 @@ Rails.application.configure do
   # postmark configuration
   config.action_mailer.delivery_method     = :postmark
   config.action_mailer.postmark_settings   = { api_token: ENV['POSTMARK_API_TOKEN'] }
-  config.action_mailer.default_url_options = { host: "http://www.blueforestpanama.com" }
+  config.action_mailer.default_url_options = { host: "https://www.blueforestpanama.com" }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = false
+
+  # set asset host in order to show images on emails
+  # config.action_controller.asset_host = 'blueforestpanama.com'
+  config.action_mailer.asset_host = 'https://www.blueforestpanama.com'
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -35,9 +39,6 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
-  # set asset host in order to show images on emails
-  # config.action_controller.asset_host = 'blueforestpanama.com'
-  # config.action_mailer.asset_host = config.action_controller.asset_host
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
