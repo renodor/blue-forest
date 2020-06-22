@@ -1,6 +1,8 @@
 <div id="footer">
   <div class="container">
-    <%= image_tag 'logo-footer.svg', class: 'logo-footer' %>
+    <%= link_to '#top-banner' do %>
+      <%= image_tag 'logo-footer.svg', class: 'logo-footer' %>
+    <% end %>
     <div class="footer-items">
       <div class="footer-item">
         <h5><%= link_to 'NOSOTROS', about_us_path %></h5>
