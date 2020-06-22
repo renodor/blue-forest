@@ -3,23 +3,23 @@
     <%= image_tag 'logo-footer.svg', class: 'logo-footer' %>
     <div class="footer-items">
       <div class="footer-item">
-        <h5>NOSOTROS</h5>
+        <h5><%= link_to 'NOSOTROS', about_us_path %></h5>
         <p><%= link_to 'TÉRMINOS Y CONDICIONES', terms_and_conditions_path %></p>
         <p><%= link_to 'POLÍTICA DE PRIVACIDAD', privacy_policy_path %></p>
-        <p><a href="">VENTAS AL POR MAYOR</a></p>
-        <p><a href="">COVID 19</a></p>
+        <p><%= link_to 'VENTAS AL POR MAYOR', wholesales_path %></p>
+        <p><%= link_to 'COVID 19', covid_19_path %></p>
       </div>
       <div class="footer-item">
         <h5>CONTÁCTANOS</h5>
         <p><a href="https://wa.me/+50766124433"><i class="fab fa-whatsapp"></i> POR WHATSAPP</a></p>
-        <p><a href="">PREGUNTAS FRECUENTES</a></p>
-        <p><a href="">CAMBIOS Y DEVOLUCIONES</a></p>
+        <p><%= link_to 'PREGUNTAS FRECUENTES', faq_path %></p>
+        <p><%= link_to 'CAMBIOS Y DEVOLUCIONES', returns_and_exchanges_path %></p>
       </div>
       <div class="footer-item">
         <h5>HORARIOS DE ENTREGA</h5>
         <p>LUNES A VIERNES 9:00 AM / 6.00 PM</p>
         <p>SABADOS 9:00 AM / 5:00 PM</p>
-        <p>ENVÍOS Y ÁREAS DE COBERTURA</p>
+        <p><%= link_to 'ENVÍOS Y ÁREAS DE COBERTURA', shipping_path %></p>
       </div>
     </div>
     <div class="social">

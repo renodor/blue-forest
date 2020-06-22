@@ -41,6 +41,12 @@ Rails.application.routes.draw do
   # routes for info pages
   get 'privacy_policy', to: 'pages#privacy_policy'
   get 'terms_and_conditions', to: 'pages#terms_and_conditions'
+  get 'returns_and_exchanges', to: 'pages#returns_and_exchanges'
+  get 'shipping', to: 'pages#shipping'
+  get 'faq', to: 'pages#faq'
+  get 'about_us', to: 'pages#about_us'
+  get 'covid_19', to: 'pages#covid_19'
+  get 'wholesales', to: 'pages#wholesales'
 
   # route form doctor contact form
   post 'doctor_contact_form', to: 'doctors#doctor_contact_form'
