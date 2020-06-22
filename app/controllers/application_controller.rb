@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   # automaticaly create a cart when a new session is created
   before_action :current_cart
 
+  # automaticaly create a cart when a new session is created
+  before_action :categories
+
 
 
   private
@@ -48,5 +51,9 @@ class ApplicationController < ActionController::Base
       @current_cart = Cart.create
       session[:cart_id] = @current_cart.id
     end
+  end
+
+  def categories
+    @categories = Category.joins(:products).distinct
   end
 end
