@@ -15,7 +15,14 @@
               <p>Color: <%= line_item.product_variation.color %></p>
             <% end %>
             <p>Tamaño: <%= line_item.product_variation.size %></p>
-            <p>$<%= line_item.product_variation.price %></p>
+            <p>
+              <% if line_item.product_variation.discount_price %>
+                <span class="crossed">$<%= line_item.product_variation.price %></span>
+                <span>$<%= line_item.product_variation.discount_price %></span>
+              <% else %>
+                $<%= line_item.product_variation.price %>
+              <% end %>
+            </p>
             <p>Cantidad: <%= line_item.quantity %></p>
           </div>
           <% total_quantity += line_item.quantity %>
