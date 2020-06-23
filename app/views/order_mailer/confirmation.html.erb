@@ -26,7 +26,7 @@
         <div>
           <p style="margin: 0 0 5px 0;"><b><%= line_item.product_variation.product.name %></b></p>
           <% if line_item.product_variation.color != '' %>
-            <p style="margin: 0 0 5px 0;">Color: <%= line_item.product_variation.color %></p>
+            <p style="margin: 0 0 5px 0;">Color: <%= t(line_item.product_variation.color) %></p>
           <% end %>
           <p style="margin: 0 0 5px 0;">Tamaño: <%= line_item.product_variation.size %></p>
           <p style="margin: 0 0 5px 0;">$<%= line_item.product_variation.price %></p>
