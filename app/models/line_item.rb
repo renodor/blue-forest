@@ -3,8 +3,6 @@ class LineItem < ApplicationRecord
   belongs_to :cart
   belongs_to :order, optional: true
 
-  validates :photo_key, presence: true
-
   before_validation :add_photo_key
 
   def total_price
@@ -22,6 +20,6 @@ class LineItem < ApplicationRecord
       product_photo.color == self.product_variation.color
     end
 
-    self.photo_key = product_photo.photos.first.key
+    self.photo_key = product_photo.photos.first.key if product_photo
   end
 end

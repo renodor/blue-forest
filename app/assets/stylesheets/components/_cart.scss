@@ -56,8 +56,13 @@
       background: rgba(0, 0, 0, .1);
     }
   }
-  .cart-product p {
-    margin-bottom: 0px;
+  .cart-product {
+    .cart-product-info {
+      padding-left: 20px;
+    }
+    p {
+      margin-bottom: 0px;
+    }
   }
   .sidebar-cart-footer {
     background-color: #E5E5E5;
