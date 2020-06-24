@@ -93,7 +93,8 @@ const pdpVariations = () => {
       });
     });
 
-    if (sizes.length > 0) {
+    // making sure that there is more than 1 size. Otherwise the size option is not even displayed
+    if (sizes.length > 1) {
       // disable add to cart button by default
       atc.disabled = true
 
@@ -117,16 +118,24 @@ const pdpVariations = () => {
           }
         })
       });
+    // if there is only one size, check if unique size has quantity
+    // if yes we can disable atcOverlay
+    } else if (sizes[0].dataset.quantity > 0) {
+      atcOverlay.style.display = 'none';
 
-      // if add to cart is disabled and there is a click on it show a warning message
-      // (we need to have a add to cart overlay for that because disabled button don't trigger events)
-      atcOverlay.addEventListener('click', event => {
-        if (atc.disabled) {
-          warning.style.display = 'block';
-        }
-      })
-
+    // if not it means the unique size is out of stock, thus we need to disable atc, update atc text and warning message
+    } else {
+      atc.disable = true
+      atc.querySelectorAll('span')[1].innerHTML = 'AGOTADO';
+      warning.innerHTML = 'Este producto está agotado'
     }
+
+    // if the atc is disable, there is an atcOverlay
+    // if there is a click on atcOverlay show a warning message
+    // (we need to have a add to cart overlay for that because disabled button don't trigger events)
+    atcOverlay.addEventListener('click', event => {
+        warning.style.display = 'block';
+    })
   };
 }
 

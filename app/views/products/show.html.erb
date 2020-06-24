@@ -82,7 +82,7 @@
               <!-- (because if size is unique, it doesn't show on frontend, and each time a color is selected, it will automatically check its unique size. But we need to check the first one by default for when the page load) -->
               <!-- + add a data-unique attribute to trigger specific js method -->
               <% else %>
-                <%= radio_button_tag :variation_id, variation.id, i == 0, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-unique': true %>
+                <%= radio_button_tag :variation_id, variation.id, i == 0, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-unique': true, 'data-quantity': variation.quantity %>
               <% end %>
             <% end %>
           </div>
