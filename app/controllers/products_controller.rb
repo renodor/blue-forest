@@ -95,14 +95,18 @@ class ProductsController < ApplicationController
   # helper method to sort product variations by sizes
   def sort_by_sizes(variations)
     variations.sort do |a, b|
-      # if sizes have a number (like 'Pack10'), just sort by number
-      if a.size.match?(/.*\d.*/)
+      # if size and next size have a number on it (like 'Pack10'), just sort by number
+      if a.size.match?(/.*\d.*/) && b.size.match?(/.*\d.*/)
         a.size.gsub(/\D*/, '').to_i <=> b.size.gsub(/\D*/, '').to_i
 
-      # if not, we assume that product variation has 'clothes sizes' (like L, M, XL etc...)
-      # so we need to use our clothes_sizes_order method to sort product variations correctly
-      else
+      # else if size has 'clothes sizes' (like L, M, XL etc...)
+      # we need to use our clothes_sizes_order method to sort product variations correctly
+      elsif a.size.match?(/XS|S|M|L|XL|XXL/)
         clothes_sizes_order(a.size) <=> clothes_sizes_order(b.size)
+
+      # if not, we assume that we can't order sizes, so just return variations has it is
+      else
+        return variations
       end
     end
   end
