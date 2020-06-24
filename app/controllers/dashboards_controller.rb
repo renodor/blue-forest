@@ -58,23 +58,27 @@ class DashboardsController < ApplicationController
 
         # iterate over photos params
         color_variation[:photos].each do |variation_photo|
-          if variation_photo[:main]
-            # if this is the main photo, put the photo at the beginning of the photos array
-            # and set this product photo as the main one
-            photos.unshift({io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type})
-            @product_photo.main = true
-          else
-            # otherwise just add photo to the photos array
-            photos << {io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type}
+          if variation_photo[:photo]
+            if variation_photo[:main]
+              # if this is the main photo, put the photo at the beginning of the photos array
+              # and set this product photo as the main one
+              photos.unshift({io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type})
+              @product_photo.main = true
+            else
+              # otherwise just add photo to the photos array
+              photos << {io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type}
+            end
           end
         end
 
-        # attach all photos to this product photo instance
-        @product_photo.photos.attach(photos)
-        # product photo color need to stay empty if there is no colors
-        # so put the color variation params unless the color value is 'unique'
-        @product_photo.color = color_variation[:color] unless color_variation[:color] == 'unique'
-        @product_photo.save!
+        if !photos.empty?
+          # attach all photos to this product photo instance
+          @product_photo.photos.attach(photos)
+          # product photo color need to stay empty if there is no colors
+          # so put the color variation params unless the color value is 'unique'
+          @product_photo.color = color_variation[:color] unless color_variation[:color] == 'unique'
+          @product_photo.save!
+        end
       end
       flash[:notice] = "Product Created"
       redirect_to product_creation_path

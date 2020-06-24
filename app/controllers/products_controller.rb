@@ -46,9 +46,11 @@ class ProductsController < ApplicationController
         product_photo = @product.product_photos.find_by(color: variation.color)
         @product_photos << product_photo
 
-        # if this photo/color is the main one, flag it as 'main' and put it at the beginning of th @colors hash
+        # if this photo/color is the main one, flag it as 'main' and put it at the beginning of the @colors hash
         # if we find a (normal) new color, add it to the hash, and set its value to true
-        product_photo.main ? @colors[variation.color] = 'main' : @colors[variation.color] = true
+        if product_photo # (prevent from crashing if there were a bug on product creation and it has no photos)
+         product_photo.main ? @colors[variation.color] = 'main' : @colors[variation.color] = true
+        end
       end
 
 
