@@ -123,6 +123,10 @@ const pdpVariations = () => {
     } else if (sizes[0].dataset.quantity > 0) {
       atcOverlay.style.display = 'none';
 
+      // we also make sure that unique size is checked
+      // unique sizes should be checked by default if they have the correct name 'unique', but if not we make sur of it here
+      sizes[0].checked = true // unique sizes should be checked by
+
     // if not it means the unique size is out of stock, thus we need to disable atc, update atc text and warning message
     } else {
       atc.disable = true
