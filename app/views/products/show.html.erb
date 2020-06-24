@@ -76,7 +76,7 @@
                 <!-- the data-price helps to dynamically change the displayed price (regarding the selected size) -->
                 <!-- the data-color helps map size variations to the correct selected color -->
                 <!-- the data-repeated-for list for what colors this size is repeated. It allows to remove repeated sizes from the front end, but only if the correct color is selected (otherwise repeated colors would disapear completely when it is not the correct color that is selected) -->
-                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated-for': @sizes[variation.size][:colors] %>
+                <%= radio_button_tag :variation_id, variation.id, false, 'data-price': variation.price, 'data-discount-price': variation.discount_price, 'data-color': variation.color, 'data-repeated-for': @sizes[variation.size][:colors], 'data-quantity': variation.quantity %>
                 <%= label_tag "variation_id_#{variation.id}", variation.size %>
               <!-- if size is 'unique' automatically check the first 'unique' size -->
               <!-- (because if size is unique, it doesn't show on frontend, and each time a color is selected, it will automatically check its unique size. But we need to check the first one by default for when the page load) -->

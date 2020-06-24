@@ -14,9 +14,7 @@ class ProductsController < ApplicationController
 
     # filter product variations to only take the ones published and with stock quantity
     unsorted_product_variations = @product.product_variations.order(price: :asc).filter do |variation|
-      if variation.published && variation.quantity > 0
-        variation
-      end
+      variation if variation.published
     end
 
     # then order product variation by sizes

@@ -7,14 +7,25 @@ const pdpVariations = () => {
 
     const atc = document.querySelector('.pdp .atc');
     const atcOverlay = document.querySelector('.pdp .atc-overlay');
-    const sizeWarning = document.querySelector('.size-selection-warning');
+    const warning = document.querySelector('.size-selection-warning');
+
+    // helper method to reset atc and warning message when a new color is selected:
+    // - disable atc
+    // - enable atc overlay
+    // - disable warning
+    // - reset warning to its 'default' message
+    // - reset atc button with its 'default' text
+    const resetAtc = () => {
+      atc.disabled = true;
+      atcOverlay.style.display = 'block';
+      warning.style.display = 'none';
+      warning.innerHTML = 'Por favor seleccionar una talla';
+      atc.querySelectorAll('span')[1].innerHTML = 'COMPRAR';
+    }
 
     // helper method to disable sizes that don't belong to the selected color
     // and to display-none sizes that are repeated accross colors
     const disableSizes = (size, targetColor, first) => {
-
-      atc.disabled = true;
-      atcOverlay.style.display = 'block';
 
       // if size belong to current selected color we do 2 things:
       // 1. enable size
@@ -66,6 +77,7 @@ const pdpVariations = () => {
 
     // add event listener on color selection
     // each time user select a different color, we need to call our 'disableSizes' method on the selected color
+    // and our 'resetATC' method
     colors.forEach((color) => {
       color.addEventListener('click', event => {
         sizes.forEach((size, i) => {
@@ -74,6 +86,7 @@ const pdpVariations = () => {
           if (size.dataset.unique) {
             uniqueSizesToggle(size, targetColor);
           } else {
+            resetAtc();
             disableSizes(size, targetColor);
           }
         });
@@ -81,30 +94,26 @@ const pdpVariations = () => {
     });
 
     if (sizes.length > 0) {
-
-
       // disable add to cart button by default
       atc.disabled = true
 
-      // check if one size is selected (after making sure the page is fully loaded)
-      // if yes, disable the overlay and enable the add to cart button
-      // this step is needed if you hit the 'previous' button of your browser
-      setTimeout(() => {
-        sizes.forEach(size => {
-          if(size.checked) {
-            atcOverlay.style.display = 'none';
-            atc.disabled = false
-          }
-        })
-      }, 1);
-
-      // When a size is checked, disable the overlay, disable warning message, and enable the add to cart button
+      // When a size is checked, disable the warning message.
+      // then if size has quantity : disable the overlay, reset atc message to 'buy', and enable the add to cart button
+      // if size is out of stock : enable the overlay, disable the atc, set the atc message to 'out of stock' and set the warning message to out of stock message
       sizes.forEach(size => {
         size.addEventListener('click', event => {
           if (size.checked) {
-            atcOverlay.style.display = 'none';
-            sizeWarning.style.display = 'none';
-            atc.disabled = false;
+            warning.style.display = 'none';
+            if (size.dataset.quantity > 0) {
+              atcOverlay.style.display = 'none';
+              atc.querySelectorAll('span')[1].innerHTML = 'COMPRAR';
+              atc.disabled = false;
+            } else {
+              atcOverlay.style.display = 'block';
+              atc.disabled = true;
+              atc.querySelectorAll('span')[1].innerHTML = 'AGOTADO';
+              warning.innerHTML = 'Este producto está agotado'
+            }
           }
         })
       });
@@ -113,7 +122,7 @@ const pdpVariations = () => {
       // (we need to have a add to cart overlay for that because disabled button don't trigger events)
       atcOverlay.addEventListener('click', event => {
         if (atc.disabled) {
-          sizeWarning.style.display = 'block';
+          warning.style.display = 'block';
         }
       })
 

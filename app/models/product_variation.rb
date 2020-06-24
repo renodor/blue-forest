@@ -11,11 +11,13 @@ class ProductVariation < ApplicationRecord
   before_validation :add_name
 
   # each time there is a quantity change, check stock level
-  before_save :check_stock_level, if: :will_save_change_to_quantity?
+  # (callback commented since we want out of stock products to appear on frontend)
+  # before_save :check_stock_level, if: :will_save_change_to_quantity?
 
-  # each time there is a publishing status change to on product variation,
+  # each time there is a publishing status change to one product variation,
   # check if the product has other product variations published
-  after_commit :check_other_variations_stock_level, if: :saved_change_to_published?
+  # (callback commented since we want out of stock products to appear on frontend)
+  # after_commit :check_other_variations_stock_level, if: :saved_change_to_published?
 
   COLORS = {
     black: 'black',
@@ -46,6 +48,7 @@ class ProductVariation < ApplicationRecord
     end
   end
 
+  # (callback commented since we want out of stock products to appear on frontend)
   def check_stock_level
     if self.quantity.zero?
       # if stock is down, unpublish product variation
@@ -53,6 +56,7 @@ class ProductVariation < ApplicationRecord
     end
   end
 
+  # (callback commented since we want out of stock products to appear on frontend)
   def check_other_variations_stock_level
     product = self.product
     product.product_variations.each do |variation|
