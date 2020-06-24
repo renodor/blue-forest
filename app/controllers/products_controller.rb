@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
     # 1. add its color to the @colors hash
     # 2. add its photos to the @product_photos hrray
     # 3. add its size, its size count and its associated colors to the @sizes hash
-    @product_variations.each do |variation|
+    @product_variations.each_with_index do |variation, i|
       # only add color and photos if the variation has a specific color (that we didn't came accross before)
       # indeed different product variations can have the same color
       # but a color need to be added only once in the color hash
@@ -49,7 +49,9 @@ class ProductsController < ApplicationController
         # if this photo/color is the main one, flag it as 'main' and put it at the beginning of the @colors hash
         # if we find a (normal) new color, add it to the hash, and set its value to true
         if product_photo # (prevent from crashing if there were a bug on product creation and it has no photos)
-         product_photo.main ? @colors[variation.color] = 'main' : @colors[variation.color] = true
+          product_photo.main ? @colors[variation.color] = 'main' : @colors[variation.color] = true
+        else # (if there are no photos, put the first product variation (color) as the main one by default)
+          i == 0 ? @colors[variation.color] = 'main' : @colors[variation.color] = true
         end
       end
 

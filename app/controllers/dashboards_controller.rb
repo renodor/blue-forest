@@ -57,16 +57,18 @@ class DashboardsController < ApplicationController
         @product_photo.product = @product
 
         # iterate over photos params
-        color_variation[:photos].each do |variation_photo|
-          if variation_photo[:photo]
-            if variation_photo[:main]
-              # if this is the main photo, put the photo at the beginning of the photos array
-              # and set this product photo as the main one
-              photos.unshift({io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type})
-              @product_photo.main = true
-            else
-              # otherwise just add photo to the photos array
-              photos << {io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type}
+        if color_variation[:photos]
+          color_variation[:photos].each do |variation_photo|
+            if variation_photo[:photo]
+              if variation_photo[:main]
+                # if this is the main photo, put the photo at the beginning of the photos array
+                # and set this product photo as the main one
+                photos.unshift({io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type})
+                @product_photo.main = true
+              else
+                # otherwise just add photo to the photos array
+                photos << {io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type}
+              end
             end
           end
         end

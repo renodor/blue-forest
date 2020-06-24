@@ -48,16 +48,31 @@ const pdpVariations = () => {
     }
 
     // simple healper method for 'unique' sizes
-    // if size is unique, and there are several colors, we just need to enable and check the size of the target color
+    // if size is unique, and there are several colors, for the clicked color we need to
+    // - enable and check the size of the target color
+    // - check if this size has stock, if yes disable atcOverlay, enable atc, disable warning
+    // - if this size has no stoc, enable atcOverlay, disable atc, enable warning
     // and disable and uncheck the other sizes
     const uniqueSizesToggle = (size, targetColor) => {
      if (size.dataset.color === targetColor) {
         size.disabled = false
         size.checked = true
+        if (size.dataset.quantity > 0) {
+          atc.disabled = false;
+          atcOverlay.style.display = 'none';
+          atc.querySelectorAll('span')[1].innerHTML = 'COMPRAR';
+          warning.style.display = 'none';
+        } else {
+          atc.disabled = true;
+          atcOverlay.style.display = 'block';
+          atc.querySelectorAll('span')[1].innerHTML = 'AGOTADO';
+          warning.innerHTML = 'Este producto está agotado'
+        }
       } else {
         size.disabled = true
         size.checked = false
       }
+
     }
 
     // making sure that there is more than 1 color. Otherwise the color option is not even displayed
@@ -66,7 +81,7 @@ const pdpVariations = () => {
       // and call our 'disableSizes' method on this color
       const targetColor = document.querySelector('.pdp .colors input:checked').value;
       sizes.forEach((size) => {
-        // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
+        // if size is 'unique', call a different method
         if (size.dataset.unique) {
           uniqueSizesToggle(size, targetColor);
         } else {
@@ -82,7 +97,7 @@ const pdpVariations = () => {
       color.addEventListener('click', event => {
         sizes.forEach((size, i) => {
           const targetColor = color.value;
-          // if size is 'unique', call a different method that will just check the size for the target color and uncheck the others
+          // if size is 'unique', call a different method
           if (size.dataset.unique) {
             uniqueSizesToggle(size, targetColor);
           } else {
