@@ -10,7 +10,10 @@ export default class extends Controller {
     const lineItemId = this.countTarget.dataset.lineItem;
     // triger the 'destroy' action of the line_items controller on the correct line item
     fetch(`/line_items/${lineItemId}`, {
-      headers: { accept: "application/json" },
+      headers: {
+        accept: "application/json",
+        'X-CSRF-Token': document.querySelector("meta[name='csrf-token'").getAttribute('content')
+      },
       method: 'DELETE'
     }).then(response => response.json())
       // once it is done, we need to do 3 things:
