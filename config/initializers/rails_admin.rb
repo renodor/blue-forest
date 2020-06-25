@@ -51,6 +51,7 @@ RailsAdmin.config do |config|
     weight 0
     list do
       field :id
+      field :order
       field :name
       field :published
       field :categories

@@ -30,7 +30,7 @@
                 <%= link_to product_path(product), class: 'simple-flexbox product-hover' do %>
                   <div>
                     <h3><%= product.name.upcase %></h3>
-                    <p><%= product.short_description.upcase.truncate(50) %></p>
+                    <p><%= product.short_description.upcase.truncate(50) if product.short_description %></p>
                   </div>
                 <% end %>
               </div>
