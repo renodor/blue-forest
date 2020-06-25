@@ -19,7 +19,7 @@ class Cart < ApplicationRecord
   end
 
   def shipping
-    sub_total >= 65 ? 0 : 5
+    sub_total >= 65 ? 0 : 3.5
   end
 
   def itbms

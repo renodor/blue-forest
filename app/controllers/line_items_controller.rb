@@ -117,7 +117,7 @@ class LineItemsController < ApplicationController
           current_cart: @current_cart,
           total_items: @current_cart.total_items.to_i,
           sub_total: @current_cart.sub_total,
-          shipping: @current_cart.shipping.to_i,
+          shipping: @current_cart.shipping.to_f,
           itbms: @current_cart.itbms.to_f,
           total: @current_cart.total.to_f
         }
