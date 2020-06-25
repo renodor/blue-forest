@@ -20,7 +20,7 @@
           <%= f.input :flat_number, label: false %>
           <%= f.input :district, label: false %>
           <%= f.input :detail, label: false %>
-          <%= f.input :city, label: false %>
+          <%= f.input :city, label: false, placeholder: 'Ciudad', input_html: { value: 'Ciudad de Panamá' }, readonly: true %>
           <%= f.input :latitude, as: :hidden %>
           <%= f.input :longitude, as: :hidden %>
 
