@@ -41,7 +41,10 @@ export default class extends Controller {
   changeQuantity(operator) {
     const lineItemId = this.countTarget.dataset.lineItem;
     fetch(`/line_items/${lineItemId}/${operator}_quantity`, {
-      headers: { accept: "application/json" },
+      headers: {
+        accept: "application/json",
+        'X-CSRF-Token': document.querySelector("meta[name='csrf-token'").getAttribute('content')
+      },
       method: 'POST'
     }).then(response => response.json())
     // once the line_items controller action has been triggered, analyse the JSON response
