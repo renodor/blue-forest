@@ -13,7 +13,8 @@
         <div>
           <%= f.input :street, label: false, placeholder: 'Calle' %>
           <%= f.input :flat_number, label: false, placeholder: 'Num de Casa o Apto' %>
-          <%= f.input :district, label: false, placeholder: 'Corregimiento' %>
+          <%= f.input :district, label: false, placeholder: 'Distrito', collection: Address::DISTRICTS, selected: 1 %>
+          <%= f.input :area, label: false, placeholder: 'Corregimiento', collection: Address::CORREGIMIENTOS, selected: 1 %>
           <%= f.input :detail, label: false, placeholder: 'Punto de Referencia' %>
           <%= f.input :city, label: false, placeholder: 'Ciudad', input_html: { value: 'Ciudad de Panamá' }, readonly: true %>
           <%= f.input :latitude, as: :hidden %>
