@@ -1,6 +1,8 @@
 <div class="container orders-funnel">
-  <%= render 'shared/order_breadcrumb' %>
-  <h1>DIRECCIÓN</h1>
+  <% if !params[:from_dashboard] %>
+    <%= render 'shared/order_breadcrumb' %>
+  <% end %>
+  <h1 class='mt-5'>DIRECCIÓN</h1>
   <br>
   <%= simple_form_for [ @user, @address ] do |f| %>
     <div class="shipping-container">
@@ -16,6 +18,12 @@
           <%= f.input :city, label: false, placeholder: 'Ciudad', input_html: { value: 'Ciudad de Panamá' }, readonly: true %>
           <%= f.input :latitude, as: :hidden %>
           <%= f.input :longitude, as: :hidden %>
+  <!--   this is a 'fake' (hidden) input that is not link to the address model
+        it is just a flag to let the controller know that the user is trying to modify its profile while ordering
+        (so that it is redirected to the correct page after) -->
+          <% if params[:from_dashboard] %>
+            <%= f.input :from_dashboard, as: :fake, label: false, input_html: { value: true } %>
+          <% end %>
         </div>
       </div>
       <div class="map <%= 'invalid' if params[:address] && params[:address][:longitude] = '' %>">
@@ -25,7 +33,11 @@
          data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
       </div>
     </div>
-    <%= f.submit "REVISAR ANTES DE CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>
+    <% if params[:from_dashboard] %>
+      <%= f.submit "CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>
+    <% else %>
+      <%= f.submit "REVISAR ANTES DE CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>
+    <% end %>
   <% end %>
 </div>
 

@@ -34,7 +34,13 @@ class AddressesController < ApplicationController
 
     if @address.save
       if user_type == 'user'
-        redirect_to new_user_order_path(@user)
+        # if from_dashboard params is present it means the user is trying to create its address from its dashboard
+        # in that case we need to redirect him to his dashbaord after create
+        if params[:from_dashboard]
+          redirect_to dashboards_path
+        else
+          redirect_to new_user_order_path(@user)
+        end
       else
         redirect_to new_fake_user_order_path(@user)
       end

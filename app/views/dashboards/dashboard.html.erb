@@ -35,7 +35,7 @@
               <p><%= @address.city %></p>
             <% else %>
               <p>No tienes dirección registrada</p>
-              <%= link_to 'Registrar dirección', new_user_address_path(current_user), class: 'btn btn-blue' %>
+              <%= link_to 'Registrar dirección', new_user_address_path(current_user, from_dashboard: true), class: 'btn btn-blue' %>
             <% end %>
           </div>
         </div>
