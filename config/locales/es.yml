@@ -53,6 +53,10 @@ es:
               blank: 'vacía'
             district:
               blank: 'vacío'
+              inclusion: 'Por favor seleccionar un Distrito'
+            area:
+              blank: 'vacía'
+              inclusion: 'Por favor seleccionar un Corregimiento'
             detail:
               blank: 'vacío'
             city:

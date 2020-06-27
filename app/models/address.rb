@@ -5,9 +5,9 @@ class Address < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :fake_user, optional: true
 
-  validates :area, inclusion: { in: CORREGIMIENTOS}
-  validates :district, inclusion: { in: DISTRICTS}
-  validates :street, :district, :area, :city, :latitude, :longitude, presence: true
+  validates :area, inclusion: { in: CORREGIMIENTOS }
+  validates :district, inclusion: { in: DISTRICTS }
+  validates :street, :city, :latitude, :longitude, presence: true
 
 
   private
