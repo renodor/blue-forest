@@ -48,6 +48,9 @@ gem 'geocoder'
 # Postmark mailer
 gem 'postmark-rails'
 
+# helper to handle svg files
+gem 'inline_svg'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
