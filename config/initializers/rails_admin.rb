@@ -106,6 +106,16 @@ RailsAdmin.config do |config|
 
   config.model 'Category' do
     weight 1
+    list do
+      field :id
+      field :order
+      field :name
+      field :description
+      field :parent
+      field :children
+      field :created_at
+      field :updated_at
+    end
   end
 
   config.model 'Order' do

@@ -54,6 +54,6 @@ class ApplicationController < ActionController::Base
   end
 
   def categories
-    @categories = Category.joins(:products).distinct
+    @categories = Category.joins(:products).distinct.order(order: :asc)
   end
 end
