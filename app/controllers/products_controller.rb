@@ -91,7 +91,7 @@ class ProductsController < ApplicationController
       OR products.short_description ILIKE :query AND products.published = true \
       OR products.long_description ILIKE :query AND products.published = true \
     "
-    @products = Product.includes(:product_variations).where(sql_query, query: "%#{params[:query]}%")
+    @products = Product.includes(:product_variations).where(sql_query, query: "%#{params[:query]}%").order(order: :asc)
   end
 
   private
