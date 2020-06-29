@@ -6,30 +6,34 @@ const addressForm = () => {
     const addressDistrict = document.getElementById('address_district');
     const panamaDistricts = document.querySelector('.panama-districts');
     const sanMiguelitoDistricts = document.querySelector('.san-miguelito-districts');
+    const currentDistrict = addressForm.dataset.district;
+    const currentArea = addressForm.dataset.area
 
-    sanMiguelitoDistricts.style = 'display: none!important';
-    sanMiguelitoDistricts.name = '';
-    sanMiguelitoDistricts.id = '';
+    const displayCorrectAreas = (district) => {
+      const correctAreas = document.querySelectorAll('.areas');
+
+      correctAreas.forEach((correctArea) => {
+        if (correctArea.dataset.area == district.toLowerCase()) {
+          correctArea.style = 'display: block!important';
+          correctArea.name = 'address[area]';
+          correctArea.id = 'address_area'
+          correctArea.value = currentArea;
+        } else {
+          correctArea.style = 'display: none!important';
+          correctArea.name = '';
+          correctArea.id = '';
+        }
+      });
+    }
+
+    if (currentDistrict) {
+      displayCorrectAreas(currentDistrict);
+    }
+
 
     addressDistrict.addEventListener('change', event => {
-      if (event.currentTarget.value == 'Panamá') {
-        sanMiguelitoDistricts.style = 'display: none!important';
-        sanMiguelitoDistricts.name = '';
-        sanMiguelitoDistricts.id = '';
-
-        panamaDistricts.style = 'display: block!important';
-        panamaDistricts.name = 'address[area]';
-        panamaDistricts.id = 'address_area'
-      } else {
-        panamaDistricts.style = 'display: none!important';
-        panamaDistricts.name = '';
-        panamaDistricts.id = '';
-
-        sanMiguelitoDistricts.style = 'display: block!important';
-        sanMiguelitoDistricts.name = 'address[area]';
-        sanMiguelitoDistricts.id = 'address_area'
-      }
-    })
+      displayCorrectAreas(event.currentTarget.value);
+    });
   }
 }
 

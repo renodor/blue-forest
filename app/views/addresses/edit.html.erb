@@ -8,7 +8,7 @@
   <%= simple_form_for [ @user, @address ] do |f| %>
 <!--     if user is modifying its address from dashboard (not while ordering),
     we need to align items in the center, cause divs are smallers -->
-    <div class="shipping-container <%= 'align-items-center' if !params[:order_edit] %> ">
+    <div class="shipping-container <%= 'align-items-center' if !params[:order_edit] %> " data-district='<%= @address.district %>' data-area='<%= @address.area %>'>
       <div class="grow-1 shipping-details">
         <% if params[:order_edit] %>
           <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
@@ -23,8 +23,8 @@
               <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1 %>
             </div>
             <div class="col">
-              <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'panama-districts' } %>
-              <%= f.input :area, label: false, placeholder: 'Corregimiento', collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: {class: 'san-miguelito-districts d-none' } %>
+              <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'areas', data: { area: 'panamá' } } %>
+              <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: { class: 'areas', data: { area: 'san miguelito' } } %>
             </div>
           </div>
           <%= f.input :detail, label: false %>
