@@ -4,32 +4,35 @@ const addressForm = () => {
 
   if (addressForm) {
     const addressDistrict = document.getElementById('address_district');
-    const panamaDistricts = document.querySelector('.panama-districts');
-    const sanMiguelitoDistricts = document.querySelector('.san-miguelito-districts');
+    const districtInput = document.querySelector('.district');
     const currentDistrict = addressForm.dataset.district;
     const currentArea = addressForm.dataset.area
 
     const displayCorrectAreas = (district) => {
-      const correctAreas = document.querySelectorAll('.areas');
-
-      correctAreas.forEach((correctArea) => {
-        if (correctArea.dataset.area == district.toLowerCase()) {
-          correctArea.style = 'display: block!important';
-          correctArea.name = 'address[area]';
-          correctArea.id = 'address_area'
-          correctArea.value = currentArea;
+      const areaInputs= document.querySelectorAll('.areas');
+      areaInputs.forEach((areaInput) => {
+        if (areaInput.dataset.area == district.toLowerCase()) {
+          areaInput.style = 'display: block!important';
+          areaInput.name = 'address[area]';
+          areaInput.id = 'address_area'
+          areaInput.value = currentArea;
         } else {
-          correctArea.style = 'display: none!important';
-          correctArea.name = '';
-          correctArea.id = '';
+          areaInput.style = 'display: none!important';
+          areaInput.name = '';
+          areaInput.id = '';
+          if (areaInput.parentNode.querySelector('.invalid-feedback')) {
+            areaInput.parentNode.querySelector('.invalid-feedback').style.display = 'none';
+          }
         }
       });
     }
 
     if (currentDistrict) {
+      districtInput.value = currentDistrict;
       displayCorrectAreas(currentDistrict);
+    } else {
+      displayCorrectAreas('panamá');
     }
-
 
     addressDistrict.addEventListener('change', event => {
       displayCorrectAreas(event.currentTarget.value);

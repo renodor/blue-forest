@@ -20,7 +20,7 @@
           <%= f.input :flat_number, label: false %>
           <div class="row">
             <div class="col">
-              <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1 %>
+              <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1, input_html: { class: 'district' } %>
             </div>
             <div class="col">
               <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'areas', data: { area: 'panamá' } } %>

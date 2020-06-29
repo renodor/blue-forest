@@ -18,8 +18,8 @@
               <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1 %>
             </div>
             <div class="col">
-              <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'mb-0 panama-districts' } %>
-              <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: {class: 'san-miguelito-districts d-none' } %>
+              <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'areas', data: { area: 'panamá' } } %>
+              <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: { class: 'areas', data: { area: 'san miguelito' } } %>
             </div>
           </div>
           <%= f.input :detail, label: false, placeholder: 'Punto de Referencia' %>
