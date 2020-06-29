@@ -123,6 +123,6 @@ class AddressesController < ApplicationController
   private
 
   def address_params
-    params.require(:address).permit(:street, :flat_number, :district, :detail, :city, :latitude, :longitude)
+    params.require(:address).permit(:street, :flat_number, :district, :area, :detail, :city, :latitude, :longitude)
   end
 end
