@@ -117,7 +117,7 @@
   .navbar-blueforest {
     .navbar-brand {
       margin-right: 0;
-        img {
+      svg {
         width: 130px;
       }
     }
@@ -182,7 +182,7 @@
 
 @media (max-width: 767px) {
   .navbar-blueforest {
-    .navbar-brand img {
+    .navbar-brand svg {
       width: 160px;
     }
   }
