@@ -111,10 +111,10 @@ class AddressesController < ApplicationController
   # Option3. It is a non-registered user (fake user), who wants to modify its address while ordering
   def update_order_edit_fake_user_address
     @address = Address.find(params[:id])
-    @fake_user = FakeUser.find(params[:fake_user_id])
-    @address.fake_user = @fake_user
+    @user = FakeUser.find(params[:fake_user_id])
+    @address.fake_user = @user
     if @address.update(address_params)
-       redirect_to new_fake_user_order_path(@fake_user)
+       redirect_to new_fake_user_order_path(@user)
     else
       render :edit
     end
