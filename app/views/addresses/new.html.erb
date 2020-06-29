@@ -6,41 +6,38 @@
   <br>
   <%= simple_form_for [ @user, @address ] do |f| %>
     <div class="shipping-container">
-      <div class="grow-1 shipping-details">
-        <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
-        <p><b>Email:</b> <%= @user.email %></p>
-        <p><b>Teléfono:</b> <%= @user.phone %></p>
-        <div>
-          <%= f.input :street, label: false, placeholder: 'Calle' %>
-          <%= f.input :flat_number, label: false, placeholder: 'Num de Casa o Apto' %>
-          <div class="row">
-            <div class="col">
-              <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1 %>
-            </div>
-            <div class="col">
-              <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'areas', data: { area: 'panamá' } } %>
-              <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: { class: 'areas', data: { area: 'san miguelito' } } %>
-            </div>
+      <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
+      <p><b>Email:</b> <%= @user.email %></p>
+      <p><b>Teléfono:</b> <%= @user.phone %></p>
+      <div>
+        <%= f.input :street, label: false, placeholder: 'Calle' %>
+        <%= f.input :flat_number, label: false, placeholder: 'Num de Casa o Apto' %>
+        <div class="row">
+          <div class="col">
+            <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1 %>
           </div>
-          <%= f.input :detail, label: false, placeholder: 'Punto de Referencia' %>
-          <%= f.input :city, label: false, placeholder: 'Ciudad', input_html: { value: 'Ciudad de Panamá' }, readonly: true %>
-          <%= f.input :latitude, as: :hidden %>
-          <%= f.input :longitude, as: :hidden %>
-  <!--   this is a 'fake' (hidden) input that is not link to the address model
-        it is just a flag to let the controller know that the user is trying to modify its profile while ordering
-        (so that it is redirected to the correct page after) -->
-          <% if params[:from_dashboard] %>
-            <%= f.input :from_dashboard, as: :fake, label: false, input_html: { value: true } %>
-          <% end %>
+          <div class="col">
+            <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'areas', data: { area: 'panamá' } } %>
+            <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: { class: 'areas', data: { area: 'san miguelito' } } %>
+          </div>
         </div>
+        <%= f.input :latitude, as: :hidden %>
+        <%= f.input :longitude, as: :hidden %>
       </div>
-      <button class='btn btn-blue w-100'>ELEGIR PUNTO EN EL MAPA</button>
-      <div class="map <%= 'invalid' if params[:address] && params[:address][:longitude] = '' %>">
+      <div class="display-none map <%= 'invalid' if params[:address] && params[:address][:longitude] = '' %>">
         <b class="map-title">ELEGIR PUNTO EN EL MAPA</b>
         <div id="create-address-map"
-         style="width: 100%; height: 380px;"
+         style="width: 100%; height: 500px;"
          data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
       </div>
+      <%= f.input :detail, label: false, placeholder: 'Punto de Referencia adicional' %>
+      <%= f.input :city, label: false, placeholder: 'Ciudad', input_html: { value: 'Ciudad de Panamá' }, readonly: true %>
+      <!--   this is a 'fake' (hidden) input that is not link to the address model
+      it is just a flag to let the controller know that the user is trying to modify its profile while ordering
+      (so that it is redirected to the correct page after) -->
+      <% if params[:from_dashboard] %>
+        <%= f.input :from_dashboard, as: :fake, label: false, input_html: { value: true } %>
+      <% end %>
     </div>
     <% if params[:from_dashboard] %>
       <%= f.submit "CONFIRMAR", class: "btn btn-blue w-100 shipping-cta" %>

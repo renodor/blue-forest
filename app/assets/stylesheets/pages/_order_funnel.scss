@@ -17,6 +17,10 @@
     }
     .map {
       flex-basis: 50%;
+      .mapboxgl-canvas {
+        width: 100%!important;
+        height: 500px;
+      }
     }
     .map.invalid {
       .map-title {

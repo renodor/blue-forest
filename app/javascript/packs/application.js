@@ -50,13 +50,13 @@ document.addEventListener('turbolinks:load', () => {
   pdpVariations();
   pdpPrice();
   pdpPhotos();
+  addressForm();
   initMapbox();
   atcModal();
   doctorsCarousel();
   boostrapTabs();
   productCreation();
   mobileMenu();
-  addressForm();
 });
 
 

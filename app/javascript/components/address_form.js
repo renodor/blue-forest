@@ -1,5 +1,4 @@
 const addressForm = () => {
-  // force to trigger add to cart modal if present
   const addressForm = document.querySelector('.shipping-container');
 
   if (addressForm) {
@@ -8,6 +7,7 @@ const addressForm = () => {
     const currentDistrict = addressForm.dataset.district;
     const currentArea = addressForm.dataset.area
 
+    // helper method to display correct areas regarding what district is selected
     const displayCorrectAreas = (district) => {
       const areaInputs= document.querySelectorAll('.areas');
       areaInputs.forEach((areaInput) => {
@@ -27,6 +27,9 @@ const addressForm = () => {
       });
     }
 
+    // if there is a current district, it means we user is trying to edit its address
+    // in that case we need to put the correct district and area values (regarding the current district)
+    // otherwise we just display Panama district and areas by default
     if (currentDistrict) {
       districtInput.value = currentDistrict;
       displayCorrectAreas(currentDistrict);
@@ -34,6 +37,7 @@ const addressForm = () => {
       displayCorrectAreas('panamá');
     }
 
+    // every time district is updated, we need to update the areas as well
     addressDistrict.addEventListener('change', event => {
       displayCorrectAreas(event.currentTarget.value);
     });
