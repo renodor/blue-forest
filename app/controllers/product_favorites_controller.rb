@@ -8,5 +8,6 @@ class ProductFavoritesController < ApplicationController
 
   def destroy
     ProductFavorite.find(params[:id]).destroy
+    redirect_to dashboards_path(anchor: 'favorites')
   end
 end
