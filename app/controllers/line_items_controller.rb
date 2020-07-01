@@ -1,16 +1,13 @@
 class LineItemsController < ApplicationController
   skip_before_action :authenticate_user!
 
-  # TO DELETE > See SO solution to bypass that
-  # skip_before_action :verify_authenticity_token
-
   def create
-    # Find associated product
+    # Find associated product variation
     chosen_product_variation = ProductVariation.find(params[:variation_id])
 
-    # Additional security to check if there is stock available for this product (Normally it shouldn't appear on the PDP any whay if there is no stock)
-    if chosen_product_variation.quantity > 0
-      # Find associated product variations
+    # Check if there is enough stock available for the quantity the user wants to buy
+    if chosen_product_variation.quantity >= params[:quantity].to_i
+
       current_cart = @current_cart
 
       # If cart already has this product variation then find the relevant line_item and increment quantity otherwise create a new line_item for this product
@@ -19,11 +16,11 @@ class LineItemsController < ApplicationController
         @line_item = current_cart.line_items.find_by(product_variation_id: chosen_product_variation.id)
 
         # making sure that there is stock available for this product regarding the quantity already present in the current cart
-        if @line_item.quantity < @line_item.product_variation.quantity
-          # Iterate the line_item's quantity by one
-          @line_item.quantity += 1
+        if (@line_item.quantity + params[:quantity].to_i) <= @line_item.product_variation.quantity
+          # Iterate the line_item's quantity by the quantity the user wants to buy
+          @line_item.quantity += params[:quantity].to_i
         else
-          flash.alert = "No se puede añadir más de este producto"
+          flash.alert = "No hay suficiente stock de este producto"
           # if it was added from home page, redirect to home page
           # else, redirect to product page
           if params[:atc_grid]
@@ -37,6 +34,7 @@ class LineItemsController < ApplicationController
         @line_item = LineItem.new
         @line_item.cart = current_cart
         @line_item.product_variation = chosen_product_variation
+        @line_item.quantity = params[:quantity].to_i
       end
 
       @line_item.save
