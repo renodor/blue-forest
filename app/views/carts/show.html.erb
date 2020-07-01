@@ -33,9 +33,6 @@
                 <button data-action='click->counter#quantityTrigger'>+</button>
                 <span class="remove-items">
                   <button data-action='click->counter#removeProduct'><i class="far fa-trash-alt"></i></button>
-                  <%= link_to line_item_path(line_item), method: :delete do %>
-
-                  <% end %>
                 </span>
               </div>
               <% total_quantity += line_item.quantity %>

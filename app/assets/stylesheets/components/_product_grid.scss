@@ -21,7 +21,7 @@
     img {
       object-fit: cover;
     }
-    .atc-grid {
+    .cta-grid {
       position: absolute;
       top: 20px;
       right: 30px;
@@ -37,6 +37,10 @@
       }
       &:hover + .product-grid-info .product-hover div {
         display: block;
+      }
+      img {
+        width: 24px;
+        margin-left: 10px;
       }
     }
     .product-grid-info-container {

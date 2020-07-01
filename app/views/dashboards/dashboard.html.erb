@@ -7,6 +7,9 @@
     <li class="nav-item" role="presentation">
       <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Mis Ordenes</a>
     </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="favorites-tab" data-toggle="tab" href="#favorites" role="tab" aria-controls="favorites" aria-selected="false">Favoritos</a>
+    </li>
   </ul>
 
   <div class="tab-content" id="dashboard">
@@ -76,6 +79,32 @@
           </div>
         </div>
       <% end %>
+    </div>
+    <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+      <div class="dashboard-favorites">
+        <% if @favorites.count > 0 %>
+          <% @favorites.each do |favorite| %>
+            <div class="d-flex align-items-center dashboard-favorites-products">
+              <% if !favorite.product.product_photos.empty? %>
+                <%= cl_image_tag favorite.product.product_photos.first.photos.first.key, height: 150, width: 150, crop: :fill %>
+              <% else %>
+                <div class="product-photo-placeholder-small"></div>
+              <% end %>
+              <div class="grow-1">
+                <p><b><%= favorite.product.name %></b></p>
+                <p><%= favorite.product.short_description %></p>
+              </div>
+              <%= link_to '', product_path(favorite.product), class: 'link-overlay' %>
+              <%= link_to product_favorite_path(favorite), method: :delete, class: 'remove-favorite' do %>
+                <i class="far fa-trash-alt"></i>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No tienes ningún producto favorito</p>
+          <%= link_to 'Descrubrir Productos', root_path(anchor: 'products'), class: 'btn btn-blue' %>
+        <% end %>
+      </div>
     </div>
   </div>
 

@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:show]
 
+  resources :product_favorites, only: [:create, :destroy]
+
   # custom route to redirect user to the correct page when the start an order and want to login after
   get 'login_before_new_order', to: 'orders#login_before_new'
 

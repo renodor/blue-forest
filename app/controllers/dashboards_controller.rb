@@ -2,6 +2,7 @@ class DashboardsController < ApplicationController
   def dashboard
     @address = current_user.addresses.first
     @orders = current_user.orders.order(created_at: :desc)
+    @favorites = current_user.product_favorites.order(created_at: :desc)
   end
 
   def product_creation_new
@@ -63,6 +64,7 @@ class DashboardsController < ApplicationController
               if variation_photo[:main]
                 # if this is the main photo, put the photo at the beginning of the photos array
                 # and set this product photo as the main one
+                # (like that, the main photo will always be the first one of the product photos array)
                 photos.unshift({io: variation_photo[:photo], filename: @product.name, content_type: variation_photo[:photo].content_type})
                 @product_photo.main = true
               else

@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
   has_many :addresses, dependent: :destroy
   has_many :orders
+  has_many :product_favorites, dependent: :destroy
 
   before_destroy :remove_orders_foreign_key
 

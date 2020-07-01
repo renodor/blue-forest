@@ -49,6 +49,24 @@
       color: $dark-gray;
     }
   }
+  .dashboard-favorites {
+    .dashboard-favorites-products {
+      padding: 10px;
+      border-bottom: 1px solid lightgray;
+      &:hover {
+        background-color: $light-gray
+      }
+      position: relative;
+      img {
+        margin-right: 10px;
+      }
+      .remove-favorite {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+      }
+    }
+  }
 }
 
 @media (max-width: 575px) {

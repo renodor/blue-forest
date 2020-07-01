@@ -1,6 +1,7 @@
 class ProductVariation < ApplicationRecord
   belongs_to :product, touch: true
   has_many :line_items, dependent: :destroy
+  has_many :product_favorites, dependent: :destroy
 
   validates :price, :quantity, :size, :name, presence: true
   validates :price, :quantity, numericality: { greater_than_or_equal_to: 0 }
