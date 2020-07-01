@@ -26,11 +26,6 @@
       top: 20px;
       right: 30px;
       z-index: 100;
-      opacity: 0.8;
-      transition: opacity .3s ease;
-      &:hover {
-        opacity: 1;
-      }
       &:hover + .product-grid-info .product-hover {
         color: white;
         background-color: rgba(10, 31, 143, 0.9);
@@ -41,6 +36,11 @@
       img {
         width: 24px;
         margin-left: 10px;
+        opacity: 0.6;
+        transition: opacity .3s ease;
+        &:hover {
+          opacity: 1;
+        }
       }
     }
     .product-grid-info-container {
