@@ -14,9 +14,6 @@
 .pdp {
   background-color: #f7f7f7;
   margin-bottom: -50px;
-  div {
-    flex-basis: 50%;
-  }
   .product-image {
     width: 100%;
     object-fit: cover;
@@ -50,6 +47,9 @@
   }
   .atc-container {
     position: relative;
+    .atc {
+      margin-left: 10px;
+    }
     span:first-child {
       border-right: 1px solid white;
       padding: 10px 15px 10px 0;

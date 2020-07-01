@@ -35,6 +35,10 @@
   position: relative;
 }
 
+.flex-basis-50 {
+  flex-basis: 50%
+}
+
 @media (max-width: 575px) {
   .hide-under-576 {
     display: none!important;

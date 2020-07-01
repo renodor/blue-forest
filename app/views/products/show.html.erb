@@ -8,7 +8,7 @@
 <%= render 'shared/atc_modal' if params[:atc_modal] %>
 <div class="container pdp-container">
   <div class="pdp d-flex">
-    <div class="grow-1">
+    <div class="grow-1 flex-basis-50">
       <!-- make sure there is something in the @product_photos array, otherwise show placeholder -->
       <% if @product_photos[0] %>
         <div id="pdp-carousel" class="carousel slide">
@@ -40,7 +40,7 @@
         <div class="product-photo-placeholder h-100"></div>
       <% end %>
     </div>
-    <div class="product-info">
+    <div class="product-info flex-basis-50">
       <h1><%= @product.name.upcase %></h1>
       <p><%= @product.short_description.upcase if @product.short_description %></p>
       <p class="prices">
@@ -89,12 +89,15 @@
         </div>
         <div class="atc-container">
           <p class="size-selection-warning">Por favor seleccionar una talla</p>
-          <%= number_field_tag 'quantity', 1, max: 10, min: 1 %>
-          <%= button_tag type: "submit", class: "btn btn-yellow atc" do %>
-            <span><%= image_tag 'cart.png' %></span>
-            <span>COMPRAR</span>
-          <% end %>
-          <span class="atc-overlay"></span>
+          <span class="small">Cantidad</span>
+          <div class=d-flex>
+            <%= number_field_tag 'quantity', 1, max: 10, min: 1 %>
+            <%= button_tag type: "submit", class: "btn btn-yellow atc" do %>
+              <span><%= image_tag 'cart.png' %></span>
+              <span>COMPRAR</span>
+            <% end %>
+            <span class="atc-overlay"></span>
+          </div>
         </div>
       <% end %>
     </div>
