@@ -49,7 +49,7 @@ class LineItemsController < ApplicationController
       end
       return
     end
-    flash.alert = "No se puede añadir más de este producto"
+    flash.alert = "No hay suficiente stock de este producto"
 
     # if it was added from home page, redirect to home page
     # else, redirect to product page

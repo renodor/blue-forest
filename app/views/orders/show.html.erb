@@ -54,7 +54,7 @@
   </div>
   <div class="order-review-footer">
     <div class="my-3">
-      <p><%= pluralize(total_quantity, 'producto') %></p>
+      <p><%= total_quantity %> <%= t('products', count: total_quantity) %></p>
       <p>Sub Total: $<%= @order.sub_total %></p>
        <p>Entrega:
           <% if @order.shipping > 0 %>
