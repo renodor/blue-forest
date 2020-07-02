@@ -17,15 +17,24 @@
           <!-- data-color help to know at what color this photo is linked -->
           <!-- data-order help to determine the first photo (to put the boostrap 'active' class only on 1 slide) -->
           <!-- the other classes (carousel-item or display-none), will be added in JS regarding what is the selected color -->
-              <% @product_photos.each_with_index do |product_photo, i| %>
-                <% product_photo.photos.each_with_index do |photo, j| %>
-                <!-- if there are several product_photos (it means there are several color variations) -->
-                <!-- put the color in data-color, otherwise put 'unique' -->
-                  <div class="" data-color="<%= @product_photos.length > 1 ? product_photo.color : 'unique' %>" data-order=<%= j+1 %> >
-                    <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
-                  </div>
-                <% end %>
+            <% @product_photos.each_with_index do |product_photo, i| %>
+              <% product_photo.photos.each_with_index do |photo, j| %>
+              <!-- if there are several product_photos (it means there are several color variations) -->
+              <!-- put the color in data-color, otherwise put 'unique' -->
+                <div class="" data-color="<%= @product_photos.length > 1 ? product_photo.color : 'unique' %>" data-order=<%= j+1 %> >
+                  <%= cl_image_tag photo.key, height: 500, width: 500, crop: :fill, class: "product-image" %>
+                </div>
               <% end %>
+            <% end %>
+            <% if user_signed_in? && current_user.product_favorites.exists?(product_id: product) %>
+              <span data-action='click->favorite#removeFavorite' data-target="favorite.toggle" data-favorite-id='<%= current_user.product_favorites.find_by(product_id: product).id %>' data-product-id='<%= product.id %>'>
+                <%= inline_svg_tag('like.svg', class: 'liked', data: { target: 'favorite.icon' }) %>
+              </span>
+            <% else %>
+              <span data-action='click->favorite#addFavorite' data-target="favorite.toggle" data-product-id='<%= product.id %>' >
+                <%= inline_svg_tag('like.svg', data: { target: 'favorite.icon' }) %>
+              </span>
+            <% end %>
           </div>
           <a class="carousel-control-prev" href="#pdp-carousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
