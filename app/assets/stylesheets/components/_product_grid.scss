@@ -38,6 +38,7 @@
         margin-left: 10px;
         opacity: 0.6;
         transition: opacity .3s ease;
+        cursor: pointer;
         &:hover {
           opacity: 1;
         }

@@ -18,6 +18,22 @@
     width: 100%;
     object-fit: cover;
   }
+  .pdp-favorite-container {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 35px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity .3s ease;
+    z-index: 102;
+    &:hover {
+      opacity: 1;
+    }
+    svg.liked #full {
+      display: block;
+    }
+  }
   .product-info {
     padding: 40px;
     display: flex;

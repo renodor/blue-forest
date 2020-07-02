@@ -26,15 +26,6 @@
                 </div>
               <% end %>
             <% end %>
-            <% if user_signed_in? && current_user.product_favorites.exists?(product_id: product) %>
-              <span data-action='click->favorite#removeFavorite' data-target="favorite.toggle" data-favorite-id='<%= current_user.product_favorites.find_by(product_id: product).id %>' data-product-id='<%= product.id %>'>
-                <%= inline_svg_tag('like.svg', class: 'liked', data: { target: 'favorite.icon' }) %>
-              </span>
-            <% else %>
-              <span data-action='click->favorite#addFavorite' data-target="favorite.toggle" data-product-id='<%= product.id %>' >
-                <%= inline_svg_tag('like.svg', data: { target: 'favorite.icon' }) %>
-              </span>
-            <% end %>
           </div>
           <a class="carousel-control-prev" href="#pdp-carousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -44,6 +35,17 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
+          <div class="pdp-favorite-container" data-controller="favorite">
+            <% if user_signed_in? && current_user.product_favorites.exists?(product_id: @product) %>
+              <span data-action='click->favorite#removeFavorite' data-target="favorite.toggle" data-favorite-id='<%= current_user.product_favorites.find_by(product_id: @product).id %>' data-product-id='<%= @product.id %>'>
+                <%= inline_svg_tag('like.svg', class: 'liked', data: { target: 'favorite.icon' }) %>
+              </span>
+            <% else %>
+              <span data-action='click->favorite#addFavorite' data-target="favorite.toggle" data-product-id='<%= @product.id %>' >
+                <%= inline_svg_tag('like.svg', data: { target: 'favorite.icon' }) %>
+              </span>
+            <% end %>
+          </div>
         </div>
       <% else %>
         <div class="product-photo-placeholder h-100"></div>
