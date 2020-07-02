@@ -87,21 +87,21 @@
             <% end %>
           </div>
         </div>
+        <p class="size-selection-warning">Por favor seleccionar una talla</p>
         <div class="atc-container">
-          <p class="size-selection-warning">Por favor seleccionar una talla</p>
-          <span class="small">Cantidad</span>
-          <div class=d-flex>
+          <div>
+            <span class="small">Cantidad</span>
             <div class="pdp-quantity-selector simple-flexbox">
               <button disabled>-</button>
               <%= number_field_tag 'quantity', 1, max: 10, min: 1 %>
               <button>+</button>
             </div>
-            <%= button_tag type: "submit", class: "btn btn-yellow atc" do %>
-              <span><%= image_tag 'cart.png' %></span>
-              <span>COMPRAR</span>
-            <% end %>
-            <span class="atc-overlay"></span>
           </div>
+          <%= button_tag type: "submit", class: "btn btn-yellow atc" do %>
+            <span><%= image_tag 'cart.png' %></span>
+            <span>COMPRAR</span>
+          <% end %>
+          <span class="atc-overlay"></span>
         </div>
       <% end %>
     </div>
