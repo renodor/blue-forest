@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
 
-   static targets = [ 'toggle', 'icon' ];
+   static targets = [ 'toggle', 'icon', 'product' ];
 
   // when removeFavorite toggle btn is clicked
   // remove the product from user favorite list
@@ -56,5 +56,27 @@ export default class extends Controller {
         }
       })
   }
+
+  // specific action when favorites are removed from the dashboard
+  removeFavoriteFromDashboard(event) {
+    const productFavoritId = event.currentTarget.dataset.favoriteId
+
+    fetch(`/product_favorites/${productFavoritId}`, {
+      headers: {
+        accept: "application/json",
+        'X-CSRF-Token': document.querySelector("meta[name='csrf-token'").getAttribute('content')
+      },
+      method: 'DELETE'
+    }).then(response => {
+        // when we have the response we need to do 2 things:
+        // - remove the product favorite from the dashboard
+        // - check if there are still some product favorite in the dashboard, if not reload the page to show the specific empty layout
+        this.productTarget.remove();
+        if (this.productTargets.length === 0) {
+          location.reload();
+        }
+      })
+  }
+
 }
 

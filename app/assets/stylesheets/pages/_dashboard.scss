@@ -62,8 +62,19 @@
       }
       .remove-favorite {
         position: absolute;
+        cursor: pointer;
         top: 15px;
         right: 20px;
+        width: 24px;
+        opacity: 0.6;
+        transition: opacity .3s ease;
+        &:hover {
+          opacity: 1;
+        }
+        #like #full {
+          display: block;
+          fill: $dark-gray;
+        }
       }
     }
   }

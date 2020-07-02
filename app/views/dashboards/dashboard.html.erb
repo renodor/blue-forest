@@ -81,10 +81,10 @@
       <% end %>
     </div>
     <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
-      <div class="dashboard-favorites">
+      <div class="dashboard-favorites" data-controller="favorite" >
         <% if @favorites.count > 0 %>
           <% @favorites.each do |favorite| %>
-            <div class="d-flex align-items-center dashboard-favorites-products">
+            <div class="d-flex align-items-center dashboard-favorites-products" data-target="favorite.product">
               <% if !favorite.product.product_photos.empty? %>
                 <%= cl_image_tag favorite.product.product_photos.first.photos.first.key, height: 150, width: 150, crop: :fill %>
               <% else %>
@@ -95,9 +95,11 @@
                 <p><%= favorite.product.short_description %></p>
               </div>
               <%= link_to '', product_path(favorite.product), class: 'link-overlay' %>
-              <%= link_to product_favorite_path(favorite), method: :delete, class: 'remove-favorite' do %>
-                <i class="far fa-trash-alt"></i>
-              <% end %>
+              <div class='remove-favorite'>
+                <span data-action='click->favorite#removeFavoriteFromDashboard' data-target="favorite.toggle" data-favorite-id='<%= favorite.id %>'>
+                  <%= inline_svg_tag('like.svg') %>
+                </span>
+              </div>
             </div>
           <% end %>
         <% else %>
