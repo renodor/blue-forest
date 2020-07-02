@@ -5,7 +5,7 @@
   <h1 class='mt-5'>DIRECCIÓN</h1>
   <br>
   <%= simple_form_for [ @user, @address ] do |f| %>
-    <div class="shipping-container">
+    <div class="shipping-container" data-district='<%= params[:address][:district] if params[:address] %>' data-area='<%= params[:address][:area] if params[:address] %>'>
       <p><b>Nombre:</b> <%= @user.first_name %> <%= @user.last_name %></p>
       <p><b>Email:</b> <%= @user.email %></p>
       <p><b>Teléfono:</b> <%= @user.phone %></p>
@@ -14,11 +14,11 @@
         <%= f.input :flat_number, label: false, placeholder: 'Num de Casa o Apto' %>
         <div class="row">
           <div class="col-xs-12 col-sm-6">
-            <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1 %>
+            <%= f.input :district, label: 'Distrito', collection: Address::DISTRICTS, selected: 1, input_html: { class: 'district' } %>
           </div>
           <div class="col-xs-12 col-sm-6">
-            <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'areas', data: { area: 'panamá' } } %>
-            <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: { class: 'areas', data: { area: 'san miguelito' } } %>
+            <%= f.input :area, label: 'Corregimiento', collection: Address::CORREGIMIENTOS[:panama], selected: 1, input_html: { class: 'areas', data: { district: 'panamá' } } %>
+            <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: { class: 'areas', data: { district: 'san miguelito' } } %>
           </div>
         </div>
         <%= f.input :latitude, as: :hidden %>
@@ -46,4 +46,3 @@
     <% end %>
   <% end %>
 </div>
-

@@ -9,9 +9,9 @@ const addressForm = () => {
 
     // helper method to display correct areas regarding what district is selected
     const displayCorrectAreas = (district) => {
-      const areaInputs= document.querySelectorAll('.areas');
+      const areaInputs = document.querySelectorAll('.areas');
       areaInputs.forEach((areaInput) => {
-        if (areaInput.dataset.area == district.toLowerCase()) {
+        if (areaInput.dataset.district == district.toLowerCase()) {
           areaInput.style = 'display: block!important';
           areaInput.name = 'address[area]';
           areaInput.id = 'address_area'
@@ -28,6 +28,7 @@ const addressForm = () => {
     }
 
     // if there is a current district, it means we user is trying to edit its address
+    // (or that we had to 'render new' because form submission was not valid)
     // in that case we need to put the correct district and area values (regarding the current district)
     // otherwise we just display Panama district and areas by default
     if (currentDistrict) {

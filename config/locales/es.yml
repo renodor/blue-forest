@@ -21,9 +21,12 @@ es:
     attributes:
       address:
         street: 'Calle'
-        discrict: 'Corregimiento'
+        discrict: 'Distrito'
         detail: 'Punto de Referencia'
         city: 'Ciudad'
+        area: 'Corregimiento'
+        latitude: 'Latitud'
+        longitude: 'Longitud'
       fake_user:
         first_name: 'Nombre'
         last_name: 'Apellido'
@@ -55,11 +58,15 @@ es:
               blank: 'vacío'
               inclusion: 'Por favor seleccionar un Distrito'
             area:
-              blank: 'vacía'
+              blank: 'vacío'
               inclusion: 'Por favor seleccionar un Corregimiento'
             detail:
               blank: 'vacío'
             city:
+              blank: 'vacía'
+            longitude:
+              blank: 'vacía'
+            latitude:
               blank: 'vacía'
         fake_user:
           attributes:

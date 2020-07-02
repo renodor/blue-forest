@@ -1,33 +1,31 @@
 import mapboxgl from 'mapbox-gl';
 
 const initMapbox = () => {
-  const createAddressMap = document.getElementById('create-address-map');
-  const showAddressMap = document.getElementById('show-address-map');
-  const addressDistrict = document.getElementById('address_district');
-  const addressArea = document.getElementById('address_area');
+
   const mapDiv = document.querySelector('.map');
-
-  const areaCoordinates = {
-    'Bella Vista': [-79.526022, 8.983972],
-    'Ancón': [-79.549556, 8.959927],
-    'Calidonia': [-79.535817, 8.968804]
-  }
-
-
   if (mapDiv) {
-    addressArea.addEventListener('change', event => {
-      event.preventDefault();
-      mapDiv.style.display = 'block';
-      let coordinates;
-      if (createAddressMap.dataset.lng && createAddressMap.dataset.lat) {
-        coordinates = [createAddressMap.dataset.lng, createAddressMap.dataset.lat]
-      } else if (addressArea.value) {
-        console.log(addressArea.value);
-        coordinates = areaCoordinates[addressArea.value]
-      } else {
-        coordinates = [-79.5254181, 9.0152974]
-      }
 
+    const createAddressMap = document.getElementById('create-address-map');
+    const showAddressMap = document.getElementById('show-address-map');
+    const addressDistrict = document.getElementById('address_district');
+    const addressArea = document.getElementById('address_area');
+
+    // Get latitude and longitude hidden inputs
+    const latitudeInput = document.getElementById('address_latitude');
+    const longitudeInput = document.getElementById('address_longitude');
+    const areaCoordinates = {
+      'Bella Vista': [-79.526022, 8.983972],
+      'Ancón': [-79.549556, 8.959927],
+      'Calidonia': [-79.535817, 8.968804]
+    }
+
+    // Method that update the value of latitude and longitude hidden inputs
+    const updateCoordinates = () => {
+      latitudeInput.value = marker.getLngLat().lat;
+      longitudeInput.value = marker.getLngLat().lng;
+    }
+
+    const generateMap = (coordinates) => {
       mapboxgl.accessToken = createAddressMap.dataset.mapboxApiKey;
       const map = new mapboxgl.Map({
         container: 'create-address-map',
@@ -36,25 +34,31 @@ const initMapbox = () => {
         style: 'mapbox://styles/mapbox/streets-v10'
       });
 
-
-      // Get latitude and longitude hidden inputs
-      const latitudeInput = document.getElementById('address_latitude');
-      const longitudeInput = document.getElementById('address_longitude');
-
-      // Create a new draggable market on the map, and put it by default in Panama
+      // Create a new draggable market on the map, and put it in the coordinates
       const marker = new mapboxgl.Marker({
         draggable: true
       })
       .setLngLat(coordinates)
       .addTo(map);
 
-      // Method that update the value of latitude and longitude hidden inputs
-      const updateCoordinates = () => {
-        latitudeInput.value = marker.getLngLat().lat;
-        longitudeInput.value = marker.getLngLat().lng;
-      }
       // Every time the marker is dragged, call updateCoordinates method
       marker.on('dragend', updateCoordinates);
+    }
+
+    if (createAddressMap.dataset.lng && createAddressMap.dataset.lat) {
+      coordinates = [createAddressMap.dataset.lng, createAddressMap.dataset.lat]
+      generateMap(coordinates);
+    }
+
+    addressArea.addEventListener('change', event => {
+      mapDiv.style.display = 'block';
+      let coordinates;
+      if (addressArea.value) {
+        coordinates = areaCoordinates[addressArea.value]
+      } else {
+        coordinates = [-79.5254181, 9.0152974]
+      }
+      generateMap(coordinates);
     })
 
 
