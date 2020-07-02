@@ -68,12 +68,12 @@ const initMapbox = () => {
       generateMap(coordinates);
     } else if (currentArea) {
       mapDiv.classList.remove('display-none');
-      coordinates = areaCoordinates[currentArea]
-      marker.setLngLat(coordinates);
-      map.flyTo({ center: coordinates });
       setTimeout(() => {
         map.resize();
-      }, 1000)
+        coordinates = areaCoordinates[currentArea]
+        marker.setLngLat(coordinates);
+        map.flyTo({ center: coordinates });
+      }, 500);
     }
 
 
