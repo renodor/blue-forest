@@ -47,21 +47,48 @@
   }
   .atc-container {
     position: relative;
+    .pdp-quantity-selector {
+      background-color: white;
+      border: 1px solid lightgray;
+      button {
+        padding: 20px;
+        color: $gray;
+        cursor: pointer;
+        border: none;
+        background-color: white;
+        &:hover {
+          color: black;
+        }
+        &:disabled {
+          color: $light-gray;
+          cursor: default;
+        }
+      }
+      input {
+        text-align: center;
+        border: none;
+        background-color: transparent;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+    }
     .atc {
       margin-left: 10px;
+      span:first-child {
+        border-right: 1px solid white;
+        padding: 10px 15px 10px 0;
+      }
+      span:last-child {
+        padding-left:15px;
+      }
     }
-    #quantity {
-      padding-left: 5px;
-      padding-right: 5px;
-      text-align: center;
-    }
-    span:first-child {
-      border-right: 1px solid white;
-      padding: 10px 15px 10px 0;
-    }
-    span:last-child {
-      padding-left:15px;
-    }
+
     .atc-overlay {
       position: absolute;
       top: 0;

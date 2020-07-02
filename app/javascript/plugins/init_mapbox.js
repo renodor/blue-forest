@@ -9,7 +9,6 @@ const initMapbox = () => {
 
     const addressDistrict = document.getElementById('address_district');
     const addressAreas = document.querySelectorAll('.address_area .areas');
-    console.log(showAddressMap);
     const currentArea = document.querySelector('.shipping-container').dataset.area;
 
     // Get latitude and longitude hidden inputs
@@ -74,7 +73,6 @@ const initMapbox = () => {
     // if user is editing an address, it already has lat and long
     // in that case we just need to update the map
     if (createAddressMap.dataset.lng && createAddressMap.dataset.lat) {
-      console.log('edition')
       coordinates = [createAddressMap.dataset.lng, createAddressMap.dataset.lat]
       marker.setLngLat(coordinates);
       map.resize();
