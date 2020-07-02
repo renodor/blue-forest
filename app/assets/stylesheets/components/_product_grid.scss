@@ -33,7 +33,7 @@
       &:hover + .product-grid-info .product-hover div {
         display: block;
       }
-      img {
+      img, svg {
         width: 24px;
         margin-left: 10px;
         opacity: 0.6;
@@ -41,6 +41,9 @@
         &:hover {
           opacity: 1;
         }
+      }
+      .liked #full {
+        display: block;
       }
     }
     .product-grid-info-container {
