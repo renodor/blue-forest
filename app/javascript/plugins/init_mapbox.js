@@ -8,15 +8,21 @@ const initMapbox = () => {
     const createAddressMap = document.getElementById('create-address-map');
     const showAddressMap = document.getElementById('show-address-map');
     const addressDistrict = document.getElementById('address_district');
-    const addressArea = document.getElementById('address_area');
+    const addressAreas = document.querySelectorAll('.address_area .areas');
+
+    const currentArea = document.querySelector('.shipping-container').dataset.area;
 
     // Get latitude and longitude hidden inputs
     const latitudeInput = document.getElementById('address_latitude');
     const longitudeInput = document.getElementById('address_longitude');
+
+    let coordinates;
+
     const areaCoordinates = {
       'Bella Vista': [-79.526022, 8.983972],
       'Ancón': [-79.549556, 8.959927],
-      'Calidonia': [-79.535817, 8.968804]
+      'Calidonia': [-79.535817, 8.968804],
+      'Amelia Denis de Icaza': [-79.5128063,9.0411865]
     }
 
     // Method that update the value of latitude and longitude hidden inputs
@@ -25,41 +31,51 @@ const initMapbox = () => {
       longitudeInput.value = marker.getLngLat().lng;
     }
 
-    const generateMap = (coordinates) => {
-      mapboxgl.accessToken = createAddressMap.dataset.mapboxApiKey;
-      const map = new mapboxgl.Map({
-        container: 'create-address-map',
-        center: coordinates, // by default showing Panama
-        zoom: 15,
-        style: 'mapbox://styles/mapbox/streets-v10'
+
+    mapboxgl.accessToken = createAddressMap.dataset.mapboxApiKey;
+    const map = new mapboxgl.Map({
+      container: 'create-address-map',
+      center: [-79.528142, 8.975448], // by default showing Panama
+      zoom: 15,
+      style: 'mapbox://styles/mapbox/streets-v10'
+    });
+
+    // Create a new draggable market on the map, and put it in the coordinates
+    const marker = new mapboxgl.Marker({
+      draggable: true
+    })
+    .setLngLat([-79.528142, 8.975448])
+    .addTo(map);
+
+    // Every time the marker is dragged, call updateCoordinates method
+    marker.on('dragend', updateCoordinates);
+
+    addressAreas.forEach((addressArea) => {
+      addressArea.addEventListener('change', event => {
+        if (mapDiv.classList.contains('display-none')) {
+          mapDiv.classList.remove('display-none');
+        }
+        coordinates = areaCoordinates[addressArea.value]
+        marker.setLngLat(coordinates);
+        map.resize();
+        map.flyTo({ center: coordinates });
       });
+    });
 
-      // Create a new draggable market on the map, and put it in the coordinates
-      const marker = new mapboxgl.Marker({
-        draggable: true
-      })
-      .setLngLat(coordinates)
-      .addTo(map);
-
-      // Every time the marker is dragged, call updateCoordinates method
-      marker.on('dragend', updateCoordinates);
-    }
 
     if (createAddressMap.dataset.lng && createAddressMap.dataset.lat) {
       coordinates = [createAddressMap.dataset.lng, createAddressMap.dataset.lat]
       generateMap(coordinates);
+    } else if (currentArea) {
+      mapDiv.classList.remove('display-none');
+      coordinates = areaCoordinates[currentArea]
+      marker.setLngLat(coordinates);
+      map.flyTo({ center: coordinates });
+      setTimeout(() => {
+        map.resize();
+      }, 1000)
     }
 
-    addressArea.addEventListener('change', event => {
-      mapDiv.style.display = 'block';
-      let coordinates;
-      if (addressArea.value) {
-        coordinates = areaCoordinates[addressArea.value]
-      } else {
-        coordinates = [-79.5254181, 9.0152974]
-      }
-      generateMap(coordinates);
-    })
 
 
     // Static map when showing addresse

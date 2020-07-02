@@ -15,6 +15,10 @@
     .address_area {
       margin-bottom: 0;
     }
+    .address_latitude .invalid-feedback,
+    .address_longitude .invalid-feedback {
+      display: none;
+    }
     .map {
       margin-bottom: 16px;
       .mapboxgl-canvas {
