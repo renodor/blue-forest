@@ -59,6 +59,7 @@ export default class extends Controller {
 
   // specific action when favorites are removed from the dashboard
   removeFavoriteFromDashboard(event) {
+    const favoriteToRemove = event.currentTarget.parentNode.parentNode
     const productFavoritId = event.currentTarget.dataset.favoriteId
 
     fetch(`/product_favorites/${productFavoritId}`, {
@@ -71,7 +72,8 @@ export default class extends Controller {
         // when we have the response we need to do 2 things:
         // - remove the product favorite from the dashboard
         // - check if there are still some product favorite in the dashboard, if not reload the page to show the specific empty layout
-        this.productTarget.remove();
+        //this.productTarget.remove();
+        favoriteToRemove.remove()
         if (this.productTargets.length === 0) {
           location.reload();
         }
