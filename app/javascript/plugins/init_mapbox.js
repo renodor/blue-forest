@@ -17,10 +17,38 @@ const initMapbox = () => {
 
     // manually define coordinates of panama areas (mapbox doesn't find it...)
     const areaCoordinates = {
-      'Bella Vista': [-79.526022, 8.983972],
+      '24 de Diciembre': [-79.360813, 9.099316],
+      'Alcalde Diaz': [-79.558165, 9.114019],
       'Ancón': [-79.549556, 8.959927],
+      'Betania': [-79.526553, 9.012151],
+      'Bella Vista': [-79.526022, 8.983972],
       'Calidonia': [-79.535817, 8.968804],
-      'Amelia Denis de Icaza': [-79.5128063,9.0411865]
+      'Chilibre': [-79.618491, 9.159972],
+      'Curundú': [-79.543629, 8.969860],
+      'El Chorrillo': [-79.543442, 8.950293],
+      'Ernesto Córdova Campos':[-79.5495714, 9.1007977],
+      'Juan Diaz': [-79.4589348, 9.036498],
+      'Las Cumbres': [-79.541515, 9.080642],
+      'Las Mañanitas': [-79.403837, 9.085597],
+      'Pacora': [-79.3129942, 9.0883206],
+      'Parque Lefevre': [-79.491183, 9.011381],
+      'Pedregal': [-79.428246, 9.070960],
+      'Pueblo Nuevo': [-79.513834, 9.008878],
+      'Rio Abajo': [-79.491915, 9.024213],
+      'San Felipe': [-79.535048, 8.952410],
+      'San Francisco': [-79.507848, 8.992609],
+      'San Martin': [-79.5561179, 9.111234],
+      'Santa Ana': [-79.540677, 8.956486],
+      'Tocumen': [-79.388304, 9.071253],
+      'Amelia Denis de Icaza': [-79.5128063,9.0411865],
+      'Arnulfo Arias': [-79.482514, 9.065796],
+      'Belisario Frías': [-79.490858, 9.074975],
+      'Belisario Porras': [-79.498926, 9.053881],
+      'Jose Domingo Espinar': [-79.478842, 9.046348],
+      'Mateo Iturralde': [-79.496242, 9.033294],
+      'Omar Torrijos': [-79.516361, 9.065943],
+      'Rufina Alfaro': [-79.453506, 9.065768],
+      'Victoriano Lorenzo': [-79.506351, 9.030720]
     }
 
     let coordinates;
