@@ -24,7 +24,7 @@ class LineItemsController < ApplicationController
           # if it was added from home page, redirect to home page
           # else, redirect to product page
           if params[:atc_grid]
-            redirect_to root_path
+            redirect_to params[:atc_grid]
           else
             redirect_to product_path(chosen_product_variation.product)
           end
@@ -40,10 +40,20 @@ class LineItemsController < ApplicationController
       @line_item.save
 
       # Once line item created, put a params to trigger add to cart modal
-      # and redirect back to home page (if it was added from home page)
-      # or to pdp (if it was added from pdp)
+      # and redirect back to pdp (if it was added from pdp)
+      # or to a specific page (if it was added from a product grid)
       if params[:atc_grid]
-        redirect_to root_path(chosen_product: chosen_product_variation.product.name, atc_modal: true)
+        url_parameters = "atc_modal=true&chosen_product=#{chosen_product_variation.product.name}"
+        # if it was added from a product grid, we need to reconstruct the url to redirect back from where it was added
+        # (the redirect_back rails method doesn't help because you can't add custom parameters to it)
+        # the previous url is stored in the params[:atc_grid]
+        # if the url already has url parameters (if it contains a "?"), we need to happens our parameters to the existing ones
+        # if not, we just add our parameters to the url
+        if params[:atc_grid].match?(/\?/)
+          redirect_to "#{params[:atc_grid]}&#{url_parameters}"
+        else
+          redirect_to "#{params[:atc_grid]}?#{url_parameters}"
+        end
       else
         redirect_to product_path(chosen_product_variation.product, atc_modal: true)
       end
@@ -54,7 +64,7 @@ class LineItemsController < ApplicationController
     # if it was added from home page, redirect to home page
     # else, redirect to product page
     if params[:atc_grid]
-      redirect_to root_path
+      redirect_to params[:atc_grid]
     else
       redirect_to product_path(chosen_product_variation.product)
     end

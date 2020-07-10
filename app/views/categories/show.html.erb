@@ -1,3 +1,5 @@
+<!-- render add to cart modal if params is present -->
+<%= render 'shared/atc_modal' if params[:atc_modal] %>
 <div class="container my-5">
   <h1 class="mb-5"><%= @category.name.capitalize %></h1>
   <% if @products.count > 0 %>
@@ -22,7 +24,7 @@
               <div class="cta-grid" data-controller="favorite">
                 <!-- if there is only 1 product variation, show the option to add to cart from the home page directly -->
                 <% if product.product_variations.length == 1 %>
-                  <%= link_to line_items_path(variation_id: product.product_variations.first, quantity: 1, atc_grid: true), method: 'post' do %>
+                  <%= link_to line_items_path(variation_id: product.product_variations.first, quantity: 1, atc_grid: request.fullpath), method: 'post' do %>
                     <%= inline_svg_tag('cart.svg') %>
                   <% end %>
                 <% end %>
