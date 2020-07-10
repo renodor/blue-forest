@@ -5,6 +5,9 @@
 
   <div class="order-review">
     <div class="order-summary">
+      <%= link_to cart_path(@current_cart) do %>
+        <i class="fas fa-pen"></i>
+      <% end %>
       <% total_quantity = 0 %>
       <% @current_cart.line_items.reverse.each do |line_item| %>
         <div class="cart-product d-flex align-items-center">
