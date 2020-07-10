@@ -8,9 +8,10 @@
 require 'faker'
 require 'open-uri'
 
-short_description = "Lorem ipsum dolor sit amet"
-long_description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt labore distinctio voluptatem totam, veniam sunt officiis quidem ex maxime enim deleniti ullam ut officia temporibus ducimus assumenda nemo ab quibusdam!"
-
+short_description = 'Lorem ipsum dolor sit amet'
+# rubocop:disable Metrics/LineLength
+long_description = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt labore distinctio voluptatem totam, veniam sunt officiis quidem ex maxime enim deleniti ullam ut officia temporibus ducimus assumenda nemo ab quibusdam!'
+# rubocop:enable Metrics/LineLength
 
 p 'Destroy all categories'
 Category.destroy_all

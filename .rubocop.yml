@@ -1,43 +1,36 @@
+Metrics/LineLength:
+  Max: 100
+
 AllCops:
   Exclude:
-    - 'bin/**/*'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'node_modules/**/*'
-    - 'script/**/*'
-    - 'support/**/*'
-    - 'tmp/**/*'
-    - 'test/**/*'
+    - db/migrate/*
+    - db/schema.rb
+    - bin/*
+    - node_modules/**/*
 
-ConditionalAssignment:
+Style/Documentation:
   Enabled: false
-StringLiterals:
+
+Style/DoubleNegation:
   Enabled: false
-RedundantReturn:
+
+Style/ClassAndModuleChildren:
   Enabled: false
-Documentation:
-  Enabled: false
-WordArray:
-  Enabled: false
-AbcSize:
-  Enabled: false
-MutableConstant:
-  Enabled: false
-SignalException:
-  Enabled: false
-Casecmp:
-  Enabled: false
-CyclomaticComplexity:
-  Enabled: false
-MissingRespondToMissing:
-  Enabled: false
-MethodMissingSuper:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
-LineLength:
-  Max: 120
-Style/EmptyMethod:
-  Enabled: false
-Bundler/OrderedGems:
-  Enabled: false
+
+Style/StructInheritance:
+  Exclude:
+    - app/policies/*
+
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/development.rb
+    - config/environments/production.rb
+    - Guardfile
+    - lib/tasks/auto_annotate_models.rake
+    - config/initializers/shopify_app.rb
+    - lib/tasks/*
+    - config/routes.rb
+
+Style/GlobalVars:
+  AllowedVariables:
+    - $redis

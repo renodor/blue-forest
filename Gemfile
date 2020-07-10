@@ -70,6 +70,7 @@ group :development do
 
   # to preview emails in development without having to sending it
   gem 'letter_opener'
+  gem 'rubocop', require: false
 end
 
 group :test do
