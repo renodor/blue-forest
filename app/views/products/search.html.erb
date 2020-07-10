@@ -23,7 +23,9 @@
                 <div class="cta-grid" data-controller="favorite">
                   <!-- if there is only 1 product variation, show the option to add to cart from the home page directly -->
                   <% if product.product_variations.length == 1 %>
-                    <%= link_to image_tag('cart.png'), line_items_path(variation_id: product.product_variations.first, atc_grid: true), method: 'post' %>
+                    <%= link_to line_items_path(variation_id: product.product_variations.first, atc_grid: true), method: 'post' do %>
+                      <%= inline_svg_tag('cart.svg') %>
+                    <% end %>
                   <% end %>
                   <!-- if user is signed in, we need to check if the product is within its favorites -->
                   <!-- if yes we show a 'full' like symbol, and the link will be to remove the product from its favorites -->

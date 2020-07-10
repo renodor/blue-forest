@@ -69,7 +69,7 @@
     </div>
     <div class="cart-list">
       <div class="nav-item cart-icon cart-toggle open-sidebar-cart simple-flexbox">
-        <%= image_tag 'cart.png' %>
+        <%= inline_svg_tag('cart.svg') %>
         <% if @current_cart.total_items > 0 %>
           <span><%= @current_cart.total_items %></span>
         <% end %>
