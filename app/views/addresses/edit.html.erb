@@ -27,10 +27,19 @@
               <%= f.input :area, label: false, collection: Address::CORREGIMIENTOS[:san_miguelito], selected: 1, input_html: { class: 'areas', data: { district: 'san miguelito' } } %>
             </div>
           </div>
-          <%= f.input :detail, label: false %>
-          <%= f.input :city, label: false, placeholder: 'Ciudad', input_html: { value: 'Ciudad de Panamá' }, readonly: true %>
           <%= f.input :latitude, as: :hidden %>
           <%= f.input :longitude, as: :hidden %>
+        </div>
+        <div class="map <%= 'invalid' if params[:address] && params[:address][:longitude] = '' %>">
+          <b class="map-title">ELEGIR PUNTO EN EL MAPA</b>
+          <div id="create-address-map"
+           style="width: 100%; height: 500px;"
+           data-lat="<%= @address.latitude %>"
+           data-lng="<%= @address.longitude %>"
+           data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+        </div>
+        <%= f.input :detail, label: false %>
+        <%= f.input :city, label: false, input_html: { value: 'Ciudad de Panamá' }, readonly: true %>
 
   <!--   this is a 'fake' (hidden) input that is not link to the address model
         it is just a flag to let the controller know that the user is trying to modify its profile while ordering
@@ -38,15 +47,6 @@
           <% if params[:order_edit] %>
             <%= f.input :order_edit, as: :fake, label: false, input_html: { value: true } %>
           <% end %>
-        </div>
-      </div>
-      <div class="map <%= 'invalid' if params[:address] && params[:address][:longitude] = '' %>">
-        <b class="map-title">ELEGIR PUNTO EN EL MAPA</b>
-        <div id="create-address-map"
-         style="width: 100%; height: 380px;"
-         data-lat="<%= @address.latitude %>"
-         data-lng="<%= @address.longitude %>"
-         data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"></div>
       </div>
     </div>
     <% if params[:order_edit] %>
