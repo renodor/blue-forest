@@ -11,7 +11,7 @@ class FakeUser < ApplicationRecord
   # When we delete an user we want its orders not to be deleted
   # we need this callback to avoid foreign key constraint
   def remove_orders_foreign_key
-    self.orders.each do |order|
+    orders.each do |order|
       order.update(fake_user: nil)
     end
   end
