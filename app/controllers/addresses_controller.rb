@@ -1,14 +1,10 @@
 class AddressesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  skip_before_action :authenticate_user!, only: %i[new create edit update]
 
   def new
     # DRY
-    if user_signed_in?
-      @user = current_user
-    else
-      @user = FakeUser.find(params[:fake_user_id])
+    @user = user_signed_in? ? current_user : FakeUser.find(params[:fake_user_id])
 
-    end
     # define what part of order breadcrumb is active/pending or hidden en mobile
     # (depending on what step we are on the order funnel)
     # those are css classes
@@ -34,7 +30,7 @@ class AddressesController < ApplicationController
 
     if @address.save
       if user_type == 'user'
-        # if from_dashboard params is present it means the user is trying to create its address from its dashboard
+        # if from_dashboard params is present, the user is creating its address from its dashboard
         # in that case we need to redirect him to his dashbaord after create
         if params[:from_dashboard]
           redirect_to dashboards_path
@@ -45,7 +41,7 @@ class AddressesController < ApplicationController
         redirect_to new_fake_user_order_path(@user)
       end
     else
-      # if none of the address can be saved, then no redirect, then render new again for form validation
+      # if none of the address can be saved, then no redirect and render new again
 
       @breadcrumb_contact_class = 'hide-under-576'
       @breadcrumb_shipping_class = 'active'
@@ -63,11 +59,7 @@ class AddressesController < ApplicationController
     @breadcrumb_confirm_class = 'pending hide-under-576'
 
     # DRY
-    if user_signed_in?
-      @user = current_user
-    else
-      @user = FakeUser.find(params[:fake_user_id])
-    end
+    @user = user_signed_in? ? current_user : FakeUser.find(params[:fake_user_id])
     @address = Address.find(params[:id])
   end
 
@@ -77,7 +69,7 @@ class AddressesController < ApplicationController
     # 2. It is a registered user, who wants to modify its address from its dashboard
     # 3. It is a non-registered user (fake user), who wants to modify its address while ordering
     if user_signed_in?
-      # if params[order_edit] is present, it means user is trying to modify its address while ordering
+      # if params[order_edit] is present, the user is trying to modify its address while ordering
       params['order_edit'] ? update_order_edit_user_address : update_user_address
     else
       update_order_edit_fake_user_address
@@ -90,7 +82,7 @@ class AddressesController < ApplicationController
     @user = current_user
     @address.user = @user
     if @address.update(address_params)
-       redirect_to new_user_order_path(@user)
+      redirect_to new_user_order_path(@user)
     else
       render :edit
     end
@@ -102,7 +94,7 @@ class AddressesController < ApplicationController
     @user = current_user
     @address.user = @user
     if @address.update(address_params)
-       redirect_to dashboards_path
+      redirect_to dashboards_path
     else
       render :edit
     end
@@ -114,7 +106,7 @@ class AddressesController < ApplicationController
     @user = FakeUser.find(params[:fake_user_id])
     @address.fake_user = @user
     if @address.update(address_params)
-       redirect_to new_fake_user_order_path(@user)
+      redirect_to new_fake_user_order_path(@user)
     else
       render :edit
     end
@@ -123,6 +115,7 @@ class AddressesController < ApplicationController
   private
 
   def address_params
-    params.require(:address).permit(:street, :flat_number, :district, :area, :detail, :city, :latitude, :longitude)
+    params.require(:address).permit(:street, :flat_number, :district, :area,
+                                    :detail, :city, :latitude, :longitude)
   end
 end
