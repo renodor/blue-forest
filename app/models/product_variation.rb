@@ -35,37 +35,36 @@ class ProductVariation < ApplicationRecord
     brown: '#884b20',
     purple: '#c480d0',
     beige: '#F7D8A9'
-  }
-
+  }.freeze
 
   private
 
   def add_name
-    if self.color
-      self.name = "#{self.product.name}-#{self.size}-#{self.color}"
-    else
-      self.name = "#{self.product.name}-#{self.size}"
-    end
+    self.name = if color
+                  "#{product.name}-#{size}-#{color}"
+                else
+                  "#{product.name}-#{size}"
+                end
   end
 
   # (callback commented since we want out of stock products to appear on frontend)
   def check_stock_level
-    if self.quantity.zero?
-      # if stock is down, unpublish product variation
-      self.published = false
-    end
+    return unless quantity.zero?
+
+    # if stock is down, unpublish product variation
+    self.published = false
   end
 
   # (callback commented since we want out of stock products to appear on frontend)
   def check_other_variations_stock_level
     product = self.product
     product.product_variations.each do |variation|
-      # return without doing anything if at least one variation is published
-      return if variation.published
+      # return true if at least one variation is published
+      return true if variation.published
     end
 
     # otherwise unpublish the product
     product.update(published: false)
+    false
   end
-
 end
