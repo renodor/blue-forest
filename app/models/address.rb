@@ -49,12 +49,6 @@ class Address < ApplicationRecord
   private
 
   # check that the area (corregimiento) correspond to the good district
-  # def area_regarding_district
-  #   if district == 'Panamá' && !CORREGIMIENTOS[:panama].include?(area) || district == 'San Miguelito' && !CORREGIMIENTOS[:san_miguelito].include?(area)
-  #     errors.add(:area, ': por favor seleccionar uno en la lista')
-  #   end
-  # end
-
   def area_regarding_district
     good_panama_disctricts = district == 'Panamá' && CORREGIMIENTOS[:panama].include?(area)
     good_sm_districts = district == 'San Miguelito' && CORREGIMIENTOS[:san_miguelito].include?(area)
