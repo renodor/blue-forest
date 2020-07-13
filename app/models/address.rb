@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  DISTRICTS = ['Panamá', 'San Miguelito']
+  DISTRICTS = ['Panamá', 'San Miguelito'].freeze
   CORREGIMIENTOS = {
     panama: [
       '24 de Diciembre',
@@ -37,7 +37,7 @@ class Address < ApplicationRecord
       'Victoriano Lorenzo'
     ]
 
-  }
+  }.freeze
 
   belongs_to :user, optional: true
   belongs_to :fake_user, optional: true
@@ -46,17 +46,24 @@ class Address < ApplicationRecord
   validate :area_regarding_district
   validates :street, :city, :latitude, :longitude, presence: true
 
-
   private
 
   # check that the area (corregimiento) correspond to the good district
+  # def area_regarding_district
+  #   if district == 'Panamá' && !CORREGIMIENTOS[:panama].include?(area) || district == 'San Miguelito' && !CORREGIMIENTOS[:san_miguelito].include?(area)
+  #     errors.add(:area, ': por favor seleccionar uno en la lista')
+  #   end
+  # end
+
   def area_regarding_district
-    if district == 'Panamá' && !CORREGIMIENTOS[:panama].include?(area) || district == 'San Miguelito' && !CORREGIMIENTOS[:san_miguelito].include?(area)
-      errors.add(:area, ": por favor seleccionar uno en la lista")
-    end
+    good_panama_disctricts = district == 'Panamá' && CORREGIMIENTOS[:panama].include?(area)
+    good_sm_districts = district == 'San Miguelito' && CORREGIMIENTOS[:san_miguelito].include?(area)
+    return if good_panama_disctricts || good_sm_districts
+
+    errors.add(:area, ': por favor seleccionar uno en la lista')
   end
 
   def google_maps_link
-    "http://www.google.com/maps/place/#{self.latitude},#{self.longitude}"
+    "http://www.google.com/maps/place/#{latitude},#{longitude}"
   end
 end
