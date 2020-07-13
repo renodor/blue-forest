@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:new, :show, :create, :shipping]
+  skip_before_action :authenticate_user!, only: %i[new show create shipping]
+
   def index
     @orders = Order.all
   end
@@ -7,17 +8,11 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
 
-    if user_signed_in?
-      @user = @order.user
-      # for now we will considere that users only have 1 address, so always take the first one
-      # we could easily have users with many addresses in the future
-      @address = @user.addresses.first
-    else
-      @user = @order.fake_user
-      # for now we will considere that users only have 1 address, so always take the first one
-      # we could easily have users with many addresses in the future
-      @address = @user.addresses.first
-    end
+    @user = user_signed_in? ? @order.user : @order.fake_user
+
+    # for now we will considere that users only have 1 address, so always take the first one
+    # we could easily have users with many addresses in the future
+    @address = @user.addresses.first
 
     @breadcrumb_contact_class = @breadcrumb_shipping_class = 'hide-under-576'
     @breadcrumb_confirm_class = 'active'
@@ -47,7 +42,6 @@ class OrdersController < ApplicationController
     @breadcrumb_contact_class = @breadcrumb_shipping_class = 'hide-under-576'
     @breadcrumb_review_class = 'active'
     @breadcrumb_confirm_class = 'pending'
-
   end
 
   def create
@@ -69,7 +63,8 @@ class OrdersController < ApplicationController
       new_quantity = item.product_variation.quantity - item.quantity
       item.product_variation.update(quantity: new_quantity)
 
-      # remove the link between theses line items and the current cart otherwises they will be destroyed when we destroy the cart later
+      # remove the link between theses line items and the current cart
+      # otherwises they will be destroyed when we destroy the cart later
       item.cart_id = nil
     end
 
@@ -84,7 +79,8 @@ class OrdersController < ApplicationController
     # link order to the session
     session[:order_id] = @order.id
 
-    # destroy the current cart, because order has been confirmed and user can now create new cart with new products
+    # destroy the current cart, because order has been confirmed
+    # user can now create new cart with new products
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
 
@@ -101,7 +97,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  # aditional method and route just to redirect users to the correct new order path if they start creating an order without being logged in and wants to log in afterword
+  # aditional method and route just to redirect users to the correct new order path
+  # if they start creating an order without being logged in and wants to log in afterword
   def login_before_new
     redirect_to new_user_order_path(current_user)
     return
