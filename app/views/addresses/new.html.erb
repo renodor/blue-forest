@@ -1,5 +1,5 @@
 <div class="container orders-funnel">
-  <% if !params[:from_dashboard] %>
+  <% unless params[:from_dashboard] %>
     <%= render 'shared/order_breadcrumb' %>
   <% end %>
   <h1 class='mt-5'>DIRECCIÓN</h1>

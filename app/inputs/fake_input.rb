@@ -2,8 +2,8 @@
 # it allows to create 'fake' (hidden) input, non related to models in simple forms
 # doc: https://github.com/heartcombo/simple_form/wiki/Create-a-fake-input-that-does-NOT-read-attributes
 
-# Currently used in the view/devise/registrations/edit.html.erb file
-# to pass a custom 'order_edit' params that allows us to trigger specific actions in the edit controller method
+# Currently used in the registration#edit, address#edit and address#new
+# to pass a custom 'from_dashboard' params to trigger specific actions in the edit controller method
 
 class FakeInput < SimpleForm::Inputs::StringInput
   # This method only create a basic input without reading any value from object

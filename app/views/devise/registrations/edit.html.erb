@@ -1,6 +1,6 @@
-<!-- if :order_edit params is present, it means that user is trying to change its contact info while ordering -->
+<!-- if :from_dashboard params is not present, it means that user is trying to change its contact info while ordering -->
 <!-- in that case we want to render order breacrumb and render a specific form -->
-<% if params[:order_edit] %>
+<% unless params[:from_dashboard] %>
   <div class="container orders-funnel">
     <%= render 'shared/order_breadcrumb' %>
     <h1>INFORMACIÓN DE CONTACTO</h1>
@@ -21,11 +21,6 @@
           <%= f.input :phone, label: false, class: 'form-control' %>
         </div>
       </div>
-<!--       this is a 'fake' (hidden) input that is not link to the user model
-      it is just a flag to let the controller know that the user is trying to modify its profile while ordering
-      (so that it is redirected to the correct page after) -->
-      <%= f.input :order_edit, as: :fake, label: false, input_html: { value: true } %>
-
       <%= f.button :submit, 'SEGUIR', class: 'btn btn-blue w-100' %>
     <% end %>
   </div>
@@ -71,6 +66,10 @@
       </div>
 
       <div class="form-actions">
+        <!-- this is a 'fake' (hidden) input that is not link to the user model
+        it is just a flag to let the controller know that the user is trying to modify its profile while ordering
+        (so that it is redirected to the correct page after) -->
+        <%= f.input :from_dashboard, as: :fake, label: false, input_html: { value: true } %>
         <%= f.button :submit, "Actualizar", class: 'btn btn-blue w-100' %>
       </div>
       <% end %>

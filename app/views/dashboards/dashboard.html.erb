@@ -17,7 +17,7 @@
       <div class="dashboard-profile">
         <div class="dashboard-info">
           <div class="position-relative">
-              <%= link_to edit_user_registration_path do %>
+              <%= link_to edit_user_registration_path(from_dashboard: true) do %>
                 <i class="fas fa-pen"></i>
               <% end %>
             <h2>Información de contacto</h2>
@@ -28,7 +28,7 @@
           <div class="position-relative">
             <h2>Dirección</h2>
             <% if @address %>
-              <%= link_to edit_user_address_path(current_user, @address) do %>
+              <%= link_to edit_user_address_path(current_user, @address, from_dashboard: true) do %>
                 <i class="fas fa-pen"></i>
               <% end %>
               <p><%= @address.street %></p>

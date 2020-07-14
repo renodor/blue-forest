@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
@@ -16,9 +14,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
-    # if :order_edit params is present, it means that user is trying to change its contact info while ordering
+    # if from_dashboard params is not present, the user is updating its contact info while ordering
     # in that case we need to render order breadcrumb and its relevant CSS classes
-    if params[:order_edit]
+    unless params[:from_dashboard]
       # DRY
       @breadcrumb_contact_class = 'active'
       @breadcrumb_review_class = @breadcrumb_confirm_class = 'pending hide-under-576'
@@ -28,11 +26,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    # if order_edit params is present, it means that the user is trying to change its contact info while ordering
-    # in that case we don't want him to enter his password or to offer him the possibility to modify his password
+    # if from_dashboard params is not present, the user is updating its contact info while ordering
+    # in that case we don't want him to enter his password or allowing him to modify his password
     # so we use a custom 'custom_user_params' strong params methods and a custom 'update' method
     # (otherwise we juste use the 'super' kw to trigger the normal devise update method)
-    if params['order_edit']
+    if !params[:from_dashboard]
       if current_user.update(custom_user_params)
         redirect_to new_user_order_path(current_user)
       else
@@ -63,14 +61,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:first_name, :last_name, :email, :phone)
   end
 
-  # By default devise only permit email, password and password confirmation fields through the new user form
-  # This "sanitizer" method allows to permit custom fields (firt_name, last_namet etc..) when users submit the signup form
+  # By default devise only permit email, password and password confirmation fields
+  # This "sanitizer" method allows to permit custom fields (firt_name, last_namet etc..)
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name phone])
   end
 
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :phone])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name phone])
   end
 
   # The path used after sign up.
@@ -87,7 +85,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.update_without_password(params)
   end
 
-    def after_update_path_for(resource)
-      dashboards_path
-    end
+  def after_update_path_for(_resource)
+    dashboards_path
+  end
 end
