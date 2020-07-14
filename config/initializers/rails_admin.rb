@@ -1,5 +1,4 @@
 RailsAdmin.config do |config|
-
   ### Popular gems integration
 
   ## == Devise ==
@@ -41,10 +40,10 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = ["Product", "ProductVariation", "ProductPhoto", "User", "Order", "Category", "FakeUser", "Address"]
+  config.included_models = %w[Product ProductVariation ProductPhoto User Order Category FakeUser Address]
 
   config.navigation_static_links = {
-  'CREATE PRODUCT' => '/product_creation'
+    'CREATE PRODUCT' => '/product_creation'
   }
 
   config.model 'Product' do
@@ -55,7 +54,9 @@ RailsAdmin.config do |config|
       field :name
       field :published
       field :categories
-      field :product_variations do inverse_of :products end
+      field :product_variations do
+        inverse_of :products
+      end
       field :short_description
       field :long_description
       field :created_at
@@ -147,9 +148,9 @@ RailsAdmin.config do |config|
     end
 
     edit do
-      configure :status , :enum do
+      configure :status, :enum do
         enum do
-          ['confirmed', 'pick_pack', 'shipping', 'delivered']
+          %w[confirmed pick_pack shipping delivered]
         end
       end
     end
@@ -192,14 +193,24 @@ RailsAdmin.config do |config|
     visible false
 
     show do
-      configure :latitude do hide end
-      configure :longitude do hide end
-      configure :google_maps_link do show end
+      configure :latitude do
+        hide
+      end
+      configure :longitude do
+        hide
+      end
+      configure :google_maps_link do
+        show
+      end
     end
 
     edit do
-      configure :latitude do hide end
-      configure :longitude do hide end
+      configure :latitude do
+        hide
+      end
+      configure :longitude do
+        hide
+      end
       configure :user do
         inline_add false
         inline_edit false
