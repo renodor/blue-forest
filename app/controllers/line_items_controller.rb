@@ -8,13 +8,11 @@ class LineItemsController < ApplicationController
     # Check if there is enough stock available for the quantity the user wants to buy
     if @chosen_product_variation.quantity >= params[:quantity].to_i
 
-      current_cart = @current_cart
-
       # If cart already has this product variation then find the relevant line_item
       # and increment quantity otherwise create a new line_item for this product
-      if current_cart.product_variations.include?(@chosen_product_variation)
+      if @current_cart.product_variations.include?(@chosen_product_variation)
         # Find the line_item with the chosen_product variation
-        @line_item = current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
+        @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
 
         # making sure that there is stock available for this product
         # regarding the quantity already present in the current cart
@@ -27,16 +25,12 @@ class LineItemsController < ApplicationController
         end
       else
         @line_item = LineItem.new
-        @line_item.cart = current_cart
+        @line_item.cart = @current_cart
         @line_item.product_variation = @chosen_product_variation
         @line_item.quantity = params[:quantity].to_i
       end
 
       @line_item.save
-
-      # Once line item created, put a params to trigger add to cart modal
-      # and redirect back to pdp (if it was added from pdp)
-      # or to a specific page (if it was added from a product grid)
       redirect_to_correct_path(true)
       return
     end
