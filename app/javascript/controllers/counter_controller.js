@@ -113,6 +113,7 @@ export default class extends Controller {
     subTotals.forEach((subTotal) => subTotal.innerHTML = cartInfo.sub_total);
 
     if (cart) {
+      console.log(cart)
       // update itbms and total (not present in the sidebar cart)
       itbms.innerHTML = cartInfo.itbms
       total.innerHTML = cartInfo.total
