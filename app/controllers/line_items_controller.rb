@@ -11,19 +11,12 @@ class LineItemsController < ApplicationController
       # If cart already has this product variation then find the relevant line_item
       # and increment quantity otherwise create a new line_item for this product
       if @current_cart.product_variations.include?(@chosen_product_variation)
-        # Find the line_item with the chosen_product variation
-        @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
-
-        # making sure that there is stock available for this product
-        # regarding the quantity already present in the current cart
-        if (@line_item.quantity + params[:quantity].to_i) <= @line_item.product_variation.quantity
-          # Iterate the line_item's quantity by the quantity the user wants to buy
-          @line_item.quantity += params[:quantity].to_i
-        else
+        unless increment_existing_line_item
           redirect_to_correct_path
           return
         end
       else
+        create_new_line_item
         @line_item = LineItem.new
         @line_item.cart = @current_cart
         @line_item.product_variation = @chosen_product_variation
@@ -78,6 +71,19 @@ class LineItemsController < ApplicationController
   end
 
   private
+
+  def increment_existing_line_item
+    # Find the line_item with the chosen_product variation
+    @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
+    # making sure that there is stock available for this product
+    # regarding the quantity already present in the current cart
+    if (@line_item.quantity + params[:quantity].to_i) <= @line_item.product_variation.quantity
+      # Iterate the line_item's quantity by the quantity the user wants to buy
+      @line_item.quantity += params[:quantity].to_i
+    else
+      false
+    end
+  end
 
   # method that redirect to the correct path after creating (or trying to create) a new line item
   # if atc_modal param is present it means line item was successfully created
