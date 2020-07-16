@@ -24,7 +24,7 @@
               <div class="cta-grid" data-controller="favorite">
                 <!-- if there is only 1 product variation, show the option to add to cart from the home page directly -->
                 <% if product.product_variations.length == 1 %>
-                  <%= link_to line_items_path(variation_id: product.product_variations.first, quantity: 1, atc_grid: request.fullpath), method: 'post' do %>
+                  <%= link_to line_items_path(variation_id: product.product_variations.first, quantity: 1, atc_from_grid: true, full_path: request.fullpath), method: 'post' do %>
                     <%= inline_svg_tag('cart.svg') %>
                   <% end %>
                 <% end %>

@@ -23,13 +23,7 @@ class LineItemsController < ApplicationController
           @line_item.quantity += params[:quantity].to_i
         else
           flash.alert = 'No hay suficiente stock de este producto'
-          # if it was added from home page, redirect to home page
-          # else, redirect to product page
-          if params[:atc_grid]
-            redirect_to params[:atc_grid]
-          else
-            redirect_to product_path(chosen_product_variation.product)
-          end
+          redirect_to_correct_path(chosen_product_variation)
           return
         end
       else
@@ -44,22 +38,7 @@ class LineItemsController < ApplicationController
       # Once line item created, put a params to trigger add to cart modal
       # and redirect back to pdp (if it was added from pdp)
       # or to a specific page (if it was added from a product grid)
-      if params[:atc_grid]
-        url_parameters = "atc_modal=true&chosen_product=#{chosen_product_variation.product.name}"
-        # if it was added from a product grid, we need to rebuild the url to redirect back correctly
-        # (the redirect_back rails method doesn't help because you can't add custom parameter to it)
-        # the previous url is stored in the params[:atc_grid]
-        # if the url already has url params (if it contains a "?"),
-        # we need to happens our params to the existing ones
-        # if not, we just add our parameters to the url
-        if params[:atc_grid].match?(/\?/)
-          redirect_to "#{params[:atc_grid]}&#{url_parameters}"
-        else
-          redirect_to "#{params[:atc_grid]}?#{url_parameters}"
-        end
-      else
-        redirect_to product_path(chosen_product_variation.product, atc_modal: true)
-      end
+      redirect_to_correct_path(chosen_product_variation, true)
       return
     end
     flash.alert = 'No hay suficiente stock de este producto'
@@ -114,6 +93,25 @@ class LineItemsController < ApplicationController
   end
 
   private
+
+  def redirect_to_correct_path(variation, atc_modal = nil)
+    # if it was added from a product grid, we need to rebuild the url to redirect back correctly
+    # (the redirect_back rails method doesn't help because you can't add custom parameter to it)
+    # the previous url is stored in the params[:full_path]
+    # if the url already has url params (if it contains a "?"),
+    # we need to happens our params to the existing ones
+    # if not, we just add our parameters to the url
+    if params[:atc_from_grid]
+      uri = URI(params[:full_path])
+      hash_uri = Hash[URI.decode_www_form(uri.query)]
+      hash_uri['chosen_product'] = variation.product.name
+      atc_modal ? hash_uri['atc_modal'] = true : hash_uri.delete('atc_modal')
+      queries = URI.encode_www_form(hash_uri)
+      redirect_to "#{uri.path}?#{queries}"
+    else
+      redirect_to product_path(variation.product, atc_modal: atc_modal)
+    end
+  end
 
   # def line_item_params
   #   params.require(:line_item).permit(:quantity, :product_variation_id, :cart_id)
