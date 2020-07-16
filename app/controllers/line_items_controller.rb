@@ -3,18 +3,18 @@ class LineItemsController < ApplicationController
 
   def create
     # Find associated product variation
-    chosen_product_variation = ProductVariation.find(params[:variation_id])
+    @chosen_product_variation = ProductVariation.find(params[:variation_id])
 
     # Check if there is enough stock available for the quantity the user wants to buy
-    if chosen_product_variation.quantity >= params[:quantity].to_i
+    if @chosen_product_variation.quantity >= params[:quantity].to_i
 
       current_cart = @current_cart
 
       # If cart already has this product variation then find the relevant line_item
       # and increment quantity otherwise create a new line_item for this product
-      if current_cart.product_variations.include?(chosen_product_variation)
+      if current_cart.product_variations.include?(@chosen_product_variation)
         # Find the line_item with the chosen_product variation
-        @line_item = current_cart.line_items.find_by(product_variation_id: chosen_product_variation.id)
+        @line_item = current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
 
         # making sure that there is stock available for this product
         # regarding the quantity already present in the current cart
@@ -22,14 +22,13 @@ class LineItemsController < ApplicationController
           # Iterate the line_item's quantity by the quantity the user wants to buy
           @line_item.quantity += params[:quantity].to_i
         else
-          flash.alert = 'No hay suficiente stock de este producto'
-          redirect_to_correct_path(chosen_product_variation)
+          redirect_to_correct_path
           return
         end
       else
         @line_item = LineItem.new
         @line_item.cart = current_cart
-        @line_item.product_variation = chosen_product_variation
+        @line_item.product_variation = @chosen_product_variation
         @line_item.quantity = params[:quantity].to_i
       end
 
@@ -38,18 +37,10 @@ class LineItemsController < ApplicationController
       # Once line item created, put a params to trigger add to cart modal
       # and redirect back to pdp (if it was added from pdp)
       # or to a specific page (if it was added from a product grid)
-      redirect_to_correct_path(chosen_product_variation, true)
+      redirect_to_correct_path(true)
       return
     end
-    flash.alert = 'No hay suficiente stock de este producto'
-
-    # if it was added from home page, redirect to home page
-    # else, redirect to product page
-    if params[:atc_grid]
-      redirect_to params[:atc_grid]
-    else
-      redirect_to product_path(chosen_product_variation.product)
-    end
+    redirect_to_correct_path
   end
 
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
@@ -94,22 +85,39 @@ class LineItemsController < ApplicationController
 
   private
 
-  def redirect_to_correct_path(variation, atc_modal = nil)
-    # if it was added from a product grid, we need to rebuild the url to redirect back correctly
-    # (the redirect_back rails method doesn't help because you can't add custom parameter to it)
-    # the previous url is stored in the params[:full_path]
-    # if the url already has url params (if it contains a "?"),
-    # we need to happens our params to the existing ones
-    # if not, we just add our parameters to the url
+  # method that redirect to the correct path after creating (or trying to create) a new line item
+  # if atc_modal param is present it means line item was successfully created
+  # if not, we trigger a flash alert message
+  def redirect_to_correct_path(atc_modal = nil)
+    flash.alert = 'No hay suficiente stock de este producto' unless atc_modal
+    # if atc_from_grid param is present, product was added from a grid page (hp, search, category)
+    # in that case we need to manually reconstruct the url and its query to redirect back the user
+    # (built in redirect_back rails method doesn't help because you can't add custom params to it)
     if params[:atc_from_grid]
+      # the previous url is stored in the :full_path params
       uri = URI(params[:full_path])
-      hash_uri = Hash[URI.decode_www_form(uri.query)]
-      hash_uri['chosen_product'] = variation.product.name
-      atc_modal ? hash_uri['atc_modal'] = true : hash_uri.delete('atc_modal')
-      queries = URI.encode_www_form(hash_uri)
+      # we need to construct queries (in order not to loose existing ones and to add custome ones)
+      queries = construct_uri_queries(uri, atc_modal)
+      # finally reconstruct the complete path and redirect
       redirect_to "#{uri.path}?#{queries}"
     else
-      redirect_to product_path(variation.product, atc_modal: atc_modal)
+      # if product was added from a pdp, just trigger atc_modal and redirect to pdp
+      redirect_to product_path(@chosen_product_variation.product, atc_modal: atc_modal)
+    end
+  end
+
+  # method to construct uri queries without losing existing ones
+  def construct_uri_queries(uri, atc_modal)
+    # if there are actually queries, we use the URI Module to convert queries to hash,
+    # we add our custom queries and we encode the hash to query again
+    if uri.query
+      hash_uri = Hash[URI.decode_www_form(uri.query)]
+      hash_uri['chosen_product'] = @chosen_product_variation.product.name
+      atc_modal ? hash_uri['atc_modal'] = true : hash_uri.delete('atc_modal')
+      URI.encode_www_form(hash_uri)
+    else
+      # if there is no queries, we just add the queries we need
+      "chosen_product=#{@chosen_product_variation.product.name}#{'&atc_modal=true' if atc_modal}"
     end
   end
 
