@@ -12,17 +12,12 @@ class LineItemsController < ApplicationController
       # and increment quantity otherwise create a new line_item for this product
       if @current_cart.product_variations.include?(@chosen_product_variation)
         @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
-        unless add_quantity
-          redirect_to_correct_path
-          return
-        end
+        redirect_to_correct_path and return unless add_quantity
       else
         create_new_line_item
       end
-
       @line_item.save
-      redirect_to_correct_path(true)
-      return
+      redirect_to_correct_path(true) and return
     end
     redirect_to_correct_path
   end
@@ -34,29 +29,18 @@ class LineItemsController < ApplicationController
     @line_item.quantity = params[:quantity].to_i
   end
 
-  def change_quantity(operator = nil)
-    if (@line_item.quantity + params[:quantity].to_i) <= @line_item.product_variation.quantity
-      @line_item.quantity = @line_item.quantity.public_send(operator, params[:quantity].to_i)
-    else
-      false
-    end
-  end
-
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json
   def add_quantity
-    @line_item = LineItem.find(params[:id]) unless @line_item
+    @line_item ||= LineItem.find(params[:id])
     quantity_to_add = params[:quantity] ? params[:quantity].to_i : 1
     if (@line_item.quantity + quantity_to_add) <= @line_item.product_variation.quantity
       @line_item.quantity += quantity_to_add
       @line_item.save
       # if quantity can be incremented send a json response with all current_cart info
-      cart_info_json_response if request.xhr?
-      true
-    elsif request.xhr?
-      error_json_response
+      request.xhr? ? cart_info_json_response : true
     else
-      false
+      request.xhr? ? error_json_response : false
     end
   end
 
