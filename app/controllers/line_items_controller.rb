@@ -11,16 +11,13 @@ class LineItemsController < ApplicationController
       # If cart already has this product variation then find the relevant line_item
       # and increment quantity otherwise create a new line_item for this product
       if @current_cart.product_variations.include?(@chosen_product_variation)
-        unless increment_existing_line_item
+        @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
+        unless change_quantity('+')
           redirect_to_correct_path
           return
         end
       else
         create_new_line_item
-        @line_item = LineItem.new
-        @line_item.cart = @current_cart
-        @line_item.product_variation = @chosen_product_variation
-        @line_item.quantity = params[:quantity].to_i
       end
 
       @line_item.save
@@ -28,6 +25,21 @@ class LineItemsController < ApplicationController
       return
     end
     redirect_to_correct_path
+  end
+
+  def create_new_line_item
+    @line_item = LineItem.new
+    @line_item.cart = @current_cart
+    @line_item.product_variation = @chosen_product_variation
+    @line_item.quantity = params[:quantity].to_i
+  end
+
+  def change_quantity(operator)
+    if (@line_item.quantity + params[:quantity].to_i) <= @line_item.product_variation.quantity
+      @line_item.quantity = @line_item.quantity.public_send(operator, params[:quantity].to_i)
+    else
+      false
+    end
   end
 
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
