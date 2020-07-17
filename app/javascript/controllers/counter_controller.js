@@ -43,6 +43,7 @@ export default class extends Controller {
     fetch(`/line_items/${lineItemId}/${operator}_quantity`, {
       headers: {
         accept: "application/json",
+        'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': document.querySelector("meta[name='csrf-token'").getAttribute('content')
       },
       method: 'POST'
@@ -103,6 +104,7 @@ export default class extends Controller {
     // update the total items (in the cart and sidebar cart), making sure to pluralize it if needed
     totalItems.forEach((totalItem) => {
       if (cartInfo.total_items > 1) {
+        console.log(cartInfo)
         totalItem.innerHTML = `${cartInfo.total_items} productos`
       } else {
         totalItem.innerHTML = `${cartInfo.total_items} producto`

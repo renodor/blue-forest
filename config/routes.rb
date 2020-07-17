@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :line_items, only: %i[create destroy] do
     member do
+      post :change_quantity
       post :add_quantity
       post :reduce_quantity
     end

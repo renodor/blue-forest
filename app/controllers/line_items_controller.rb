@@ -12,7 +12,7 @@ class LineItemsController < ApplicationController
       # and increment quantity otherwise create a new line_item for this product
       if @current_cart.product_variations.include?(@chosen_product_variation)
         @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
-        unless change_quantity('+')
+        unless add_quantity
           redirect_to_correct_path
           return
         end
@@ -34,7 +34,7 @@ class LineItemsController < ApplicationController
     @line_item.quantity = params[:quantity].to_i
   end
 
-  def change_quantity(operator)
+  def change_quantity(operator = nil)
     if (@line_item.quantity + params[:quantity].to_i) <= @line_item.product_variation.quantity
       @line_item.quantity = @line_item.quantity.public_send(operator, params[:quantity].to_i)
     else
@@ -45,22 +45,18 @@ class LineItemsController < ApplicationController
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json
   def add_quantity
-    @line_item = LineItem.find(params[:id])
-    if @line_item.quantity < @line_item.product_variation.quantity
-      @line_item.quantity += 1
+    @line_item = LineItem.find(params[:id]) unless @line_item
+    quantity_to_add = params[:quantity] ? params[:quantity].to_i : 1
+    if (@line_item.quantity + quantity_to_add) <= @line_item.product_variation.quantity
+      @line_item.quantity += quantity_to_add
       @line_item.save
       # if quantity can be incremented send a json response with all current_cart info
-      cart_info_json_response
+      cart_info_json_response if request.xhr?
+      true
+    elsif request.xhr?
+      error_json_response
     else
-      # if not, send a json response with an error message
-      respond_to do |format|
-        format.json do
-          render json: {
-            can_change_quantity: false,
-            error: 'No se puede añadir más de este producto'
-          }
-        end
-      end
+      false
     end
   end
 
@@ -136,6 +132,18 @@ class LineItemsController < ApplicationController
   # def line_item_params
   #   params.require(:line_item).permit(:quantity, :product_variation_id, :cart_id)
   # end
+
+  def error_json_response
+    # if not, send a json response with an error message
+    respond_to do |format|
+      format.json do
+        render json: {
+          can_change_quantity: false,
+          error: 'No se puede añadir más de este producto'
+        }
+      end
+    end
+  end
 
   # helper method to send a json response with all current_cart info
   def cart_info_json_response
