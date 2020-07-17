@@ -1,38 +1,36 @@
 class LineItemsController < ApplicationController
   skip_before_action :authenticate_user!
+  before_action :find_line_item, only: %i[reduce_quantity destroy]
 
   def create
     # Find associated product variation
-    @chosen_product_variation = ProductVariation.find(params[:variation_id])
+    @product_variation = ProductVariation.find(params[:variation_id])
 
     # Check if there is enough stock available for the quantity the user wants to buy
-    if @chosen_product_variation.quantity >= params[:quantity].to_i
+    redirect_to_correct_path and return unless @product_variation.quantity >= params[:quantity].to_i
 
-      # If cart already has this product variation then find the relevant line_item
-      # and increment quantity otherwise create a new line_item for this product
-      if @current_cart.product_variations.include?(@chosen_product_variation)
-        @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
-        redirect_to_correct_path and return unless add_quantity
-      else
-        create_new_line_item
-      end
-      @line_item.save
-      redirect_to_correct_path(true) and return
+    # If cart already has this product variation then find the relevant line_item
+    # and increment quantity otherwise create a new line_item for this product
+    if find_line_item
+      redirect_to_correct_path and return unless add_quantity
+    else
+      create_new_line_item
     end
-    redirect_to_correct_path
+    @line_item.save
+    redirect_to_correct_path(true)
   end
 
   def create_new_line_item
     @line_item = LineItem.new
     @line_item.cart = @current_cart
-    @line_item.product_variation = @chosen_product_variation
+    @line_item.product_variation = @product_variation
     @line_item.quantity = params[:quantity].to_i
   end
 
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json
   def add_quantity
-    @line_item ||= LineItem.find(params[:id])
+    find_line_item unless @line_item
     quantity_to_add = params[:quantity] ? params[:quantity].to_i : 1
     if (@line_item.quantity + quantity_to_add) <= @line_item.product_variation.quantity
       @line_item.quantity += quantity_to_add
@@ -47,7 +45,6 @@ class LineItemsController < ApplicationController
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json
   def reduce_quantity
-    @line_item = LineItem.find(params[:id])
     @line_item.quantity -= 1 if @line_item.quantity > 1
     @line_item.save
     # once quantity has been decreased send a json response with all current_cart info
@@ -57,21 +54,17 @@ class LineItemsController < ApplicationController
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json
   def destroy
-    @line_item = LineItem.find(params[:id])
     @line_item.destroy
     cart_info_json_response
   end
 
   private
 
-  def increment_existing_line_item
-    # Find the line_item with the chosen_product variation
-    @line_item = @current_cart.line_items.find_by(product_variation_id: @chosen_product_variation.id)
-    # making sure that there is stock available for this product
-    # regarding the quantity already present in the current cart
-    if (@line_item.quantity + params[:quantity].to_i) <= @line_item.product_variation.quantity
-      # Iterate the line_item's quantity by the quantity the user wants to buy
-      @line_item.quantity += params[:quantity].to_i
+  def find_line_item
+    if @product_variation && @current_cart.product_variations.include?(@product_variation)
+      @line_item = @current_cart.line_items.find_by(product_variation_id: @product_variation.id)
+    elsif params[:id]
+      @line_item = LineItem.find(params[:id])
     else
       false
     end
@@ -94,7 +87,7 @@ class LineItemsController < ApplicationController
       redirect_to "#{uri.path}?#{queries}"
     else
       # if product was added from a pdp, just trigger atc_modal and redirect to pdp
-      redirect_to product_path(@chosen_product_variation.product, atc_modal: atc_modal)
+      redirect_to product_path(@product_variation.product, atc_modal: atc_modal)
     end
   end
 
@@ -104,12 +97,12 @@ class LineItemsController < ApplicationController
     # we add our custom queries and we encode the hash to query again
     if uri.query
       hash_uri = Hash[URI.decode_www_form(uri.query)]
-      hash_uri['chosen_product'] = @chosen_product_variation.product.name
+      hash_uri['chosen_product'] = @product_variation.product.name
       atc_modal ? hash_uri['atc_modal'] = true : hash_uri.delete('atc_modal')
       URI.encode_www_form(hash_uri)
     else
       # if there is no queries, we just add the queries we need
-      "chosen_product=#{@chosen_product_variation.product.name}#{'&atc_modal=true' if atc_modal}"
+      "chosen_product=#{@product_variation.product.name}#{'&atc_modal=true' if atc_modal}"
     end
   end
 
