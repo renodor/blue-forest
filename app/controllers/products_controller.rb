@@ -1,8 +1,7 @@
 class ProductsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show, :search]
+  skip_before_action :authenticate_user!, only: %i[index show search]
   layout 'pdp', only: [:show]
   layout 'homepage', only: [:index]
-
 
   def index
     @products = Product.includes(:product_variations, :product_photos).where(published: true).order(order: :asc)
@@ -54,7 +53,6 @@ class ProductsController < ApplicationController
           i == 0 ? @colors[variation.color] = 'main' : @colors[variation.color] = true
         end
       end
-
 
       # the @sizes hash has 2 elements:
       # 1. the size count (to see if a size is repeated or not)
@@ -124,4 +122,3 @@ class ProductsController < ApplicationController
     return 5 if size == 'XXL'
   end
 end
-

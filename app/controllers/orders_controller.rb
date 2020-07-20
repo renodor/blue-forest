@@ -28,16 +28,12 @@ class OrdersController < ApplicationController
 
       # security check that current user has an address
       redirect_to new_user_address_path(@user) if @user.addresses.empty?
-
-      # for now we will considere that users only have 1 address, so always take the first one
-      # we could easily have users with many addresses in the future
-      @address = @user.addresses.first
     else
       @user = FakeUser.includes(:addresses).find(params[:fake_user_id])
-      # for now we will considere that users only have 1 address, so always take the first one
-      # we could easily have users with many addresses in the future
-      @address = @user.addresses.first
     end
+    # for now we will considere that users only have 1 address, so always take the first one
+    # we could easily have users with many addresses in the future
+    @address = @user.addresses.first
 
     @breadcrumb_contact_class = @breadcrumb_shipping_class = 'hide-under-576'
     @breadcrumb_review_class = 'active'
