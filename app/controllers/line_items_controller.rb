@@ -16,7 +16,6 @@ class LineItemsController < ApplicationController
     else
       create_new_line_item
     end
-    @line_item.save
     redirect_to_correct_path(true)
   end
 
@@ -25,12 +24,13 @@ class LineItemsController < ApplicationController
     @line_item.cart = @current_cart
     @line_item.product_variation = @product_variation
     @line_item.quantity = params[:quantity].to_i
+    @line_item.save
   end
 
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json
   def add_quantity
-    find_line_item unless @line_item
+    find_line_item
     quantity_to_add = params[:quantity] ? params[:quantity].to_i : 1
     if (@line_item.quantity + quantity_to_add) <= @line_item.product_variation.quantity
       @line_item.quantity += quantity_to_add
@@ -61,6 +61,8 @@ class LineItemsController < ApplicationController
   private
 
   def find_line_item
+    return if @line_item
+
     if @product_variation && @current_cart.product_variations.include?(@product_variation)
       @line_item = @current_cart.line_items.find_by(product_variation_id: @product_variation.id)
     elsif params[:id]
@@ -71,8 +73,10 @@ class LineItemsController < ApplicationController
   end
 
   # method that redirect to the correct path after creating (or trying to create) a new line item
-  # if atc_modal param is present it means line item was successfully created
+  # if atc_modal param is present it means line item was successfully created,
+  # and it will trigger the atc_modal
   # if not, we trigger a flash alert message
+  # if the atc_from_grid is present, product was added from a product grid (search, hp, category)
   def redirect_to_correct_path(atc_modal = nil)
     flash.alert = 'No hay suficiente stock de este producto' unless atc_modal
     # if atc_from_grid param is present, product was added from a grid page (hp, search, category)
