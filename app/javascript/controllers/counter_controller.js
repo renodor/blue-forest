@@ -40,7 +40,7 @@ export default class extends Controller {
   // method that will trigger the 'add_quantity' or 'remove_quantity' actions of the line_items controller
   changeQuantity(operator) {
     const lineItemId = this.countTarget.dataset.lineItem;
-    fetch(`/line_items/${lineItemId}/${operator}_quantity`, {
+    fetch(`/line_items/${lineItemId}/${operator}_quantity?quantity=1`, {
       headers: {
         accept: "application/json",
         'X-Requested-With': 'XMLHttpRequest',
