@@ -24,6 +24,7 @@ class LineItemsController < ApplicationController
     redirect_to_correct_path(true)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def add_quantity
     # check if there is enough product variation stock regarding the quantity user wants to add
     # and the quantity already present for this line item in user cart
@@ -31,12 +32,16 @@ class LineItemsController < ApplicationController
       @line_item.quantity += params[:quantity].to_i
       @line_item.save
       # this method can be triggered by https or ajax request
-      # so we use an external method to trigger the correct response
-      trigger_correct_response_after_adding_quantity(true)
+      # if it was an ajax request, we return a json respons with all cart info
+      # if not, we just return true
+      request.xhr? ? cart_info_json_response : true
     else
-      trigger_correct_response_after_adding_quantity(false)
+      # if it was an ajax request, we return a json respons with an error
+      # if not, just return false
+      request.xhr? ? error_json_response : false
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json
@@ -62,14 +67,6 @@ class LineItemsController < ApplicationController
     @line_item.product_variation = @product_variation
     @line_item.quantity = params[:quantity].to_i
     @line_item.save
-  end
-
-  def trigger_correct_response_after_adding_quantity(can_add_quantity)
-    if request.xhr?
-      can_add_quantity ? cart_info_json_response : error_json_response
-    else
-      can_add_quantity ? true : false
-    end
   end
 
   def find_line_item
@@ -140,15 +137,21 @@ class LineItemsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   # helper method to send a json response with all current_cart info
   def cart_info_json_response
     respond_to do |format|
       format.json do
-        render json: { can_change_quantity: true, current_cart: @current_cart,
-                       total_items: @current_cart.total_items.to_i,
-                       sub_total: @current_cart.sub_total, shipping: @current_cart.shipping.to_f,
-                       itbms: @current_cart.itbms.to_f, total: @current_cart.total.to_f }
+        render json: {
+          can_change_quantity: true,
+          current_cart: @current_cart,
+          total_items: @current_cart.total_items.to_i,
+          sub_total: @current_cart.sub_total,
+          shipping: @current_cart.shipping.to_f,
+          itbms: @current_cart.itbms.to_f, total: @current_cart.total.to_f
+        }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
