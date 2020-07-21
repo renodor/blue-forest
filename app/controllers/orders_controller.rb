@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[new show create shipping]
+  skip_before_action :authenticate_user!, except: :login_before_new
   before_action :new_order, only: %i[new create]
-  before_action :find_user, only: %i[show new create]
+  before_action :find_user, except: :login_before_new
 
   def show
     # prevent users from trying to access other users orders by changing the order id in the url
@@ -42,10 +42,9 @@ class OrdersController < ApplicationController
   end
 
   # aditional method and route just to redirect users to the correct new order path
-  # if they start creating an order without being logged in and wants to log in afterword
+  # if they start creating an order without being logged in and wants to log in after
   def login_before_new
     redirect_to new_user_order_path(current_user)
-    return
   end
 
   private
