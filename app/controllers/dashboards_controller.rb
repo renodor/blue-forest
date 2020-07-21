@@ -46,8 +46,11 @@ class DashboardsController < ApplicationController
 
   def create_product
     # create a new product with product creation form params
-    @product = Product.new(name: params[:name], short_description: params[:short_description],
-                           long_description: params[:long_description])
+    @product = Product.new(
+      name: params[:name],
+      short_description: params[:short_description],
+      long_description: params[:long_description]
+    )
     @product.published = params[:published] ? true : false
     @product.save!
   end
@@ -74,8 +77,10 @@ class DashboardsController < ApplicationController
     color_variation[:size_variations].each do |size_variation|
       # for each size variation, create a new Product Variation with size variation params
       product_variation = ProductVariation.new(
-        product_id: @product.id, size: size_variation[:size], price: size_variation[:price],
-        discount_price: size_variation[:discount_price], quantity: size_variation[:quantity]
+        product_id: @product.id, size: size_variation[:size],
+        price: size_variation[:price],
+        discount_price: size_variation[:discount_price],
+        quantity: size_variation[:quantity]
       )
 
       # product variation color need to stay empty if there is no colors

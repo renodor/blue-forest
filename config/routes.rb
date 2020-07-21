@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :fake_users, only: %i[new create edit update] do
-    resources :orders, only: %i[index show new create]
+    resources :orders, only: %i[show new create]
     resources :addresses, only: %i[new create edit update]
   end
 

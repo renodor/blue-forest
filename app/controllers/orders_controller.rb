@@ -1,11 +1,10 @@
 class OrdersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[new show create shipping]
 
-  def index
-    @orders = Order.all
-  end
-
   def show
+    # prevent users from trying to access other users orders by changing the order id in the url
+    redirect_to root_path if session[:order_id] != params[:id].to_i
+
     @order = Order.find(params[:id])
 
     @user = user_signed_in? ? @order.user : @order.fake_user
@@ -13,12 +12,7 @@ class OrdersController < ApplicationController
     # for now we will considere that users only have 1 address, so always take the first one
     # we could easily have users with many addresses in the future
     @address = @user.addresses.first
-
-    @breadcrumb_contact_class = @breadcrumb_shipping_class = 'hide-under-576'
-    @breadcrumb_confirm_class = 'active'
-
-    # prevent users from trying to access other users orders by changing the order id in the url
-    redirect_to root_path if session[:order_id] != params[:id].to_i
+    set_breadcrumb_classes('hide-under-576', 'hide-under-576', nil, 'active')
   end
 
   def new
@@ -34,10 +28,7 @@ class OrdersController < ApplicationController
     # for now we will considere that users only have 1 address, so always take the first one
     # we could easily have users with many addresses in the future
     @address = @user.addresses.first
-
-    @breadcrumb_contact_class = @breadcrumb_shipping_class = 'hide-under-576'
-    @breadcrumb_review_class = 'active'
-    @breadcrumb_confirm_class = 'pending'
+    set_breadcrumb_classes('hide-under-576', 'hide-under-576', 'active', 'pending')
   end
 
   def create
@@ -98,5 +89,17 @@ class OrdersController < ApplicationController
   def login_before_new
     redirect_to new_user_order_path(current_user)
     return
+  end
+
+  private
+
+  # define what part of order breadcrumb is active/pending or hidden en mobile
+  # (depending on what step we are on the order funnel)
+  # those are css classes
+  def set_breadcrumb_classes(contact_class, shipping_class, review_class, confirm_class)
+    @breadcrumb_contact_class = contact_class
+    @breadcrumb_shipping_class = shipping_class
+    @breadcrumb_review_class = review_class
+    @breadcrumb_confirm_class = confirm_class
   end
 end
