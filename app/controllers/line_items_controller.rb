@@ -83,7 +83,7 @@ class LineItemsController < ApplicationController
       # if not check if we have a params to find the line_item
       @line_item = LineItem.find(params[:id])
     else
-      # if not return fals to indicate we can't find the corresponding line_item
+      # if not return false to indicate we can't find the corresponding line_item
       false
     end
   end

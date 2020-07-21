@@ -4,7 +4,9 @@ class ProductsController < ApplicationController
   layout 'homepage', only: [:index]
 
   def index
-    @products = Product.includes(:product_variations, :product_photos).where(published: true).order(order: :asc)
+    @products = Product.includes(:product_variations, :product_photos)
+                       .where(published: true)
+                       .order(order: :asc)
   end
 
   def show
@@ -32,7 +34,7 @@ class ProductsController < ApplicationController
 
     # then iterate over all product variations and do 3 things:
     # 1. add its color to the @colors hash
-    # 2. add its photos to the @product_photos hrray
+    # 2. add its photos to the @product_photos array
     # 3. add its size, its size count and its associated colors to the @sizes hash
     @product_variations.each_with_index do |variation, i|
       # only add color and photos if the variation has a specific color (that we didn't came accross before)
