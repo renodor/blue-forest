@@ -13,62 +13,13 @@ class ProductsController < ApplicationController
     # get the product pre-loading its product variations and product photos
     @product = Product.includes(:product_variations, :product_photos).find(params[:id])
 
-    # filter product variations to only take the ones published and with stock quantity
-    unsorted_product_variations = @product.product_variations.order(price: :asc).filter do |variation|
-      variation if variation.published
-    end
+    # filter product variations to only take the ones published
+    unsorted_prod_variations = @product.product_variations.where(published: true).order(price: :asc)
 
     # then order product variation by sizes
-    @product_variations = sort_by_sizes(unsorted_product_variations)
+    @product_variations = sort_by_sizes(unsorted_prod_variations)
 
-    # build an hash to store all colors (without repetition)
-    # and identify the main color
-    @colors = {}
-
-    # build an hash to store all sizes, their count and their associated colors
-    # (in order to know what sizes are repeated accross colors)
-    @sizes = {}
-
-    # build an array to store all product photos
-    @product_photos = []
-
-    # then iterate over all product variations and do 3 things:
-    # 1. add its color to the @colors hash
-    # 2. add its photos to the @product_photos array
-    # 3. add its size, its size count and its associated colors to the @sizes hash
-    @product_variations.each_with_index do |variation, i|
-      # only add color and photos if the variation has a specific color (that we didn't came accross before)
-      # indeed different product variations can have the same color
-      # but a color need to be added only once in the color hash
-      # and all photos of the same colors are in the same product_photo instance
-      # so photos need to be added only once by color in the product_photos array as well
-      if variation.color && !@colors[variation.color]
-        # find the product photo corresponding to this color, and add it to the product_photos array as well
-        product_photo = @product.product_photos.find_by(color: variation.color)
-        @product_photos << product_photo
-
-        # if this photo/color is the main one, flag it as 'main' and put it at the beginning of the @colors hash
-        # if we find a (normal) new color, add it to the hash, and set its value to true
-        if product_photo # (prevent from crashing if there were a bug on product creation and it has no photos)
-          product_photo.main ? @colors[variation.color] = 'main' : @colors[variation.color] = true
-        else # (if there are no photos, put the first product variation (color) as the main one by default)
-          i == 0 ? @colors[variation.color] = 'main' : @colors[variation.color] = true
-        end
-      end
-
-      # the @sizes hash has 2 elements:
-      # 1. the size count (to see if a size is repeated or not)
-      # 2. an array with the associated colors of this size (to see for what colors the size is repeated)
-      if @sizes[variation.size]
-        @sizes[variation.size][:count] += 1
-        @sizes[variation.size][:colors] << variation.color
-      else
-        @sizes[variation.size] = {
-          count: 1,
-          colors: [variation.color]
-        }
-      end
-    end
+    build_product_variations_variables
 
     # if this is a product without color variations, at this point @product_photos array is still empty
     # (because we only added photos for which we found a corresponding color)
@@ -122,5 +73,53 @@ class ProductsController < ApplicationController
     return 3 if size == 'L'
     return 4 if size == 'XL'
     return 5 if size == 'XXL'
+  end
+
+  # then iterate over all product variations and do 3 things:
+  # 1. add its color to the @colors hash
+  # 2. add its photos to the @product_photos array
+  # 3. add its size, its size count and its associated colors to the @sizes hash
+  def build_product_variations_variables
+    # build an hash to store all colors (without repetition)
+    # build an hash to store all sizes, their count and their associated colors
+    # (in order to know what sizes are repeated accross colors)
+    @colors = {}
+    @sizes = {}
+
+    # build an array to store all product photos
+    @product_photos = []
+    @product_variations.each_with_index do |variation, index|
+      build_product_photos_variable(variation, index)
+      # the @sizes hash has 2 elements:
+      # 1. the size count (to see if a size is repeated or not)
+      # 2. an array with the colors of this size (to know for what colors the size is repeated)
+      if @sizes[variation.size]
+        @sizes[variation.size][:count] += 1
+        @sizes[variation.size][:colors] << variation.color
+      else
+        @sizes[variation.size] = { count: 1, colors: [variation.color] }
+      end
+    end
+  end
+
+  def build_product_photos_variable(product_variation, index)
+    # only add color and photos if the variation has a specific color (that we didn't see before)
+    # indeed different product variations can have the same color
+    # but a color need to be added only once in the color hash
+    # and all photos of the same colors are in the same product_photo instance
+    # so photos need to be added only once by color in the product_photos array as well
+    return unless product_variation.color && !@colors[product_variation.color]
+
+    # find the product photo corresponding to this color, and add it to the product_photos array
+    product_photo = @product.product_photos.find_by(color: product_variation.color)
+    @product_photos << product_photo
+
+    # if this photo/color is the main one, flag it as 'main' and put it at the beginning of the @colors hash
+    # if we find a (normal) new color, add it to the hash, and set its value to true
+    if product_photo # (prevent from crashing if there were a bug on product creation and it has no photos)
+      @colors[product_variation.color] = product_photo.main ? 'main' : true
+    else # (if there are no photos, put the first product_variation (color) as the main one by default)
+      @colors[product_variation.color] = index.zero? ? 'main' : true
+    end
   end
 end
