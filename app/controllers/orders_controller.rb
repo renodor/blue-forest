@@ -1,13 +1,13 @@
 class OrdersController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[new show create shipping]
+  before_action :new_order, only: %i[new create]
+  before_action :find_user, only: %i[show new create]
 
   def show
     # prevent users from trying to access other users orders by changing the order id in the url
     redirect_to root_path if session[:order_id] != params[:id].to_i
 
     @order = Order.find(params[:id])
-
-    @user = user_signed_in? ? @order.user : @order.fake_user
 
     # for now we will considere that users only have 1 address, so always take the first one
     # we could easily have users with many addresses in the future
@@ -16,15 +16,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
-    if user_signed_in?
-      @user = User.includes(:addresses).find(current_user.id)
-
-      # security check that current user has an address
-      redirect_to new_user_address_path(@user) if @user.addresses.empty?
-    else
-      @user = FakeUser.includes(:addresses).find(params[:fake_user_id])
-    end
     # for now we will considere that users only have 1 address, so always take the first one
     # we could easily have users with many addresses in the future
     @address = @user.addresses.first
@@ -32,35 +23,10 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if user_signed_in?
-      @order = Order.new
-      @user = current_user
-      @order.user = @user
-    else
-      @order = Order.new
-      @fake_user = FakeUser.find(params[:fake_user_id])
-      @order.fake_user = @fake_user
-    end
+    user_signed_in? ? @order.user = @user : @order.fake_user = @user
 
-    # append all line items of current cart to the order
-    @current_cart.line_items.each do |item|
-      @order.line_items << item
-
-      # reduce stock quantity product variation by the quantity purchased of each line item
-      new_quantity = item.product_variation.quantity - item.quantity
-      item.product_variation.update(quantity: new_quantity)
-
-      # remove the link between theses line items and the current cart
-      # otherwises they will be destroyed when we destroy the cart later
-      item.cart_id = nil
-    end
-
-    # append all order details of current cart to the order
-    @order.sub_total = @current_cart.sub_total
-    @order.total_items = @current_cart.total_items
-    @order.shipping = @current_cart.shipping
-    @order.itbms = @current_cart.itbms
-    @order.total = @current_cart.total
+    attach_cart_line_items_to_order
+    attach_cart_details_to_order
     @order.save
 
     # link order to the session
@@ -71,17 +37,8 @@ class OrdersController < ApplicationController
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
 
-    # send confirmation email
-    OrderMailer.confirmation(@order).deliver_now
-    # send new order notice email
-    OrderMailer.new_order_notice(@order).deliver_now
-
-    # redirect to the correct path
-    if @user
-      redirect_to user_order_path(@user, @order)
-    else
-      redirect_to fake_user_order_path(@fake_user, @order)
-    end
+    send_confirmations_emails
+    redirect_to_correct_path
   end
 
   # aditional method and route just to redirect users to the correct new order path
@@ -93,6 +50,21 @@ class OrdersController < ApplicationController
 
   private
 
+  def find_user
+    if user_signed_in?
+      @user = current_user
+
+      # security check that current user has an address
+      redirect_to new_user_address_path(@user) if @user.addresses.empty?
+    else
+      @user = FakeUser.includes(:addresses).find(params[:fake_user_id])
+    end
+  end
+
+  def new_order
+    @order = Order.new
+  end
+
   # define what part of order breadcrumb is active/pending or hidden en mobile
   # (depending on what step we are on the order funnel)
   # those are css classes
@@ -101,5 +73,46 @@ class OrdersController < ApplicationController
     @breadcrumb_shipping_class = shipping_class
     @breadcrumb_review_class = review_class
     @breadcrumb_confirm_class = confirm_class
+  end
+
+  # append all line items of current cart to the order
+  def attach_cart_line_items_to_order
+    @current_cart.line_items.each do |line_item|
+      @order.line_items << line_item
+
+      # reduce stock quantity product variation by the quantity purchased of each line item
+      new_quantity = line_item.product_variation.quantity - line_item.quantity
+      line_item.product_variation.update(quantity: new_quantity)
+
+      # remove the link between theses line items and the current cart
+      # otherwises they will be destroyed when we destroy the cart later
+      # (because of dependent destroy between cart and line items)
+      line_item.cart_id = nil
+    end
+  end
+
+  # append all order details of current cart to the order
+  def attach_cart_details_to_order
+    @order.sub_total = @current_cart.sub_total
+    @order.total_items = @current_cart.total_items
+    @order.shipping = @current_cart.shipping
+    @order.itbms = @current_cart.itbms
+    @order.total = @current_cart.total
+  end
+
+  def send_confirmations_emails
+    # send confirmation email
+    OrderMailer.confirmation(@order).deliver_now
+    # send new order notice email (to admin)
+    OrderMailer.new_order_notice(@order).deliver_now
+  end
+
+  # redirect to correct path regarding if its a user or a fake user
+  def redirect_to_correct_path
+    if user_signed_in?
+      redirect_to user_order_path(@user, @order)
+    else
+      redirect_to fake_user_order_path(@user, @order)
+    end
   end
 end
