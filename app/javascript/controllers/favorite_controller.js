@@ -1,13 +1,13 @@
-import { Controller } from "stimulus";
+import {Controller} from 'stimulus';
 
+/* eslint-disable require-jsdoc */
 export default class extends Controller {
-
-   static targets = [ 'toggle', 'icon', 'product' ];
+   // static targets = [ 'toggle', 'icon', 'product' ];
 
   // when removeFavorite toggle btn is clicked
   // remove the product from user favorite list
   removeFavorite(event) {
-    const productFavoritId = event.currentTarget.dataset.favoriteId
+    const productFavoritId = event.currentTarget.dataset.favoriteId;
 
     fetch(`/product_favorites/${productFavoritId}`, {
       headers: {

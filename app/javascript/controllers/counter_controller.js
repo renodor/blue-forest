@@ -1,8 +1,7 @@
 import {Controller} from 'stimulus';
 
-/* eslint-disable require-jsdoc */
 export default class extends Controller {
-  // static targets = [ 'count' ];
+  static targets = [ 'count' ];
 
 
   // when removeProduct btn is clicked
@@ -12,83 +11,86 @@ export default class extends Controller {
     // triger the 'destroy' action of the line_items controller on the correct line item
     fetch(`/line_items/${lineItemId}`, {
       headers: {
-        accept: "application/json",
-        'X-CSRF-Token': document.querySelector("meta[name='csrf-token'").getAttribute('content')
+        'accept': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"').getAttribute('content'),
       },
-      method: 'DELETE'
-    }).then(response => response.json())
-      // once it is done, we need to do 3 things:
-      // - update cart and sidebar cart info
-      // - remove this product from the cart and sidebar cart
-      // - update the cart toggle icon
-      // - check if the cart is empty, if yes reload the page
-      .then((data) => {
-        this.updateCartInfo(data);
-        const productsToRemove = document.querySelectorAll(`.cart-product[data-line-item="${lineItemId}"]`)
-        productsToRemove.forEach((product) => product.remove());
-        this.updateCartToggleIcon();
-        this.checkIfEmptyCart();
-      })
+      method: 'DELETE',
+    }).then((response) => response.json())
+    // once it is done, we need to do 3 things:
+    // - update cart and sidebar cart info
+    // - remove this product from the cart and sidebar cart
+    // - update the cart toggle icon
+    // - check if the cart is empty, if yes reload the page
+        .then((data) => {
+          this.updateCartInfo(data);
+          const cartProductCss = `.cart-product[data-line-item="${lineItemId}"]`;
+          const productsToRemove = document.querySelectorAll(cartProductCss);
+          productsToRemove.forEach((product) => product.remove());
+          this.updateCartToggleIcon();
+          this.checkIfEmptyCart();
+        });
   }
 
   // when quantityTrigger btn is clicked, check if it was the 'add' or the 'remove' btn
   // and call the 'changeQuantity' method with the correct operator
   quantityTrigger(event) {
     const btnType = event.target.innerHTML;
-    btnType === '+' ? this.changeQuantity('add') : this.changeQuantity('reduce')
+    btnType === '+' ? this.changeQuantity('add') : this.changeQuantity('reduce');
   }
 
-  // method that will trigger the 'add_quantity' or 'remove_quantity' actions of the line_items controller
+  // method that trigger 'add_quantity' or 'remove_quantity' actions of the line_items controller
   changeQuantity(operator) {
     const lineItemId = this.countTarget.dataset.lineItem;
     fetch(`/line_items/${lineItemId}/${operator}_quantity?quantity=1`, {
       headers: {
-        accept: "application/json",
+        'accept': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': document.querySelector("meta[name='csrf-token'").getAttribute('content')
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"').getAttribute('content'),
       },
-      method: 'POST'
-    }).then(response => response.json())
+      method: 'POST',
+    }).then((response) => response.json())
     // once the line_items controller action has been triggered, analyse the JSON response
     // if the response says we can change quantity we need to do 3 actions:
     // - change the quantity counter
     // - update cart info
     // - change the quantity counter in the navbar cart icon
     // if not show a js flash error message
-      .then((data) => {
-        if (data.can_change_quantity) {
-          this.changeQuantityCounter(`${operator}`, lineItemId)
-          this.updateCartInfo(data);
-          this.updateCartToggleIcon()
-        } else {
-          this.showJsFlash(data.error);
-        }
-      })
+        .then((data) => {
+          if (data.can_change_quantity) {
+            this.changeQuantityCounter(`${operator}`, lineItemId);
+            this.updateCartInfo(data);
+            this.updateCartToggleIcon();
+          } else {
+            this.showJsFlash(data.error);
+          }
+        });
   }
 
   // method that update the quantity counter of the correct line items in the cart and sidebar cart
   changeQuantityCounter(operator, lineItem) {
     const counters = document.querySelectorAll('.quantity-counter');
     counters.forEach((counter) => {
-      const counterCount = counter.querySelector('span')
+      const counterCount = counter.querySelector('span');
       // iterate over all counters and find the ones that correspond to the correct line item
       if (counterCount.dataset.lineItem === lineItem) {
-        const counterReduceBtn = counter.querySelector('button')
-        let currentQuantity = parseInt(counterCount.innerHTML)
+        const counterReduceBtn = counter.querySelector('button');
+        let currentQuantity = parseInt(counterCount.innerHTML);
         // if we need to add quantity, add quantity
         // and enable the 'reduce' quantity btn
         if (operator === 'add') {
-          currentQuantity += 1
+          currentQuantity += 1;
           counterReduceBtn.disabled = false;
         // if we need to remove quantity, remove quantity
         // and disable the 'reduce quantity' btn if quantity is 1
         } else {
-          currentQuantity -= 1
-          if (currentQuantity === 1) { counterReduceBtn.disabled = true; }
+          currentQuantity -= 1;
+          if (currentQuantity === 1) {
+            counterReduceBtn.disabled = true;
+          }
         }
-        counterCount.innerHTML = currentQuantity
+        counterCount.innerHTML = currentQuantity;
       }
-    })
+    });
   }
 
   // method that update cart and sidebar cart info
@@ -99,16 +101,15 @@ export default class extends Controller {
     const totalItems = document.querySelectorAll('.total_items');
     const itbms = document.querySelector('.itbms');
     const total = document.querySelector('.total');
-    const shipping = document.querySelector('.shipping');
+    const ship = document.querySelector('.shipping');
 
 
     // update the total items (in the cart and sidebar cart), making sure to pluralize it if needed
     totalItems.forEach((totalItem) => {
       if (cartInfo.total_items > 1) {
-        console.log(cartInfo)
-        totalItem.innerHTML = `${cartInfo.total_items} Productos`
+        totalItem.innerHTML = `${cartInfo.total_items} Productos`;
       } else {
-        totalItem.innerHTML = `${cartInfo.total_items} Producto`
+        totalItem.innerHTML = `${cartInfo.total_items} Producto`;
       }
     });
 
@@ -117,12 +118,12 @@ export default class extends Controller {
 
     if (cart) {
       // update itbms and total (not present in the sidebar cart)
-      itbms.innerHTML = cartInfo.itbms
-      total.innerHTML = cartInfo.total
+      itbms.innerHTML = cartInfo.itbms;
+      total.innerHTML = cartInfo.total;
 
       // update the shipping, making sure to show a custom message if shipping is free
       // (not present in the sidebar cart)
-      cartInfo.shipping > 0 ? shipping.innerHTML = `$${cartInfo.shipping}` : shipping.innerHTML = "<b>¡Envío gratuito!</b>"
+      ship.innerHTML = cartInfo.shipping > 0 ? `$${cartInfo.shipping}` : '<b>¡Envío gratuito!</b>';
     }
   }
 
@@ -136,13 +137,15 @@ export default class extends Controller {
   // check if the cart is empty, if yes reload the page to show empty cart layout
   checkIfEmptyCart() {
     const cartProducts = document.querySelectorAll('#cart .cart-product');
-    if (cartProducts.length === 0) { location.reload(); }
+    if (cartProducts.length === 0) {
+      location.reload();
+    }
   }
 
   // method that display the js flash messages
   showJsFlash(message) {
-    const jsFlash = document.querySelector('.js-flash')
-    const jsFlashMessage = document.querySelector('.js-flash-message')
+    const jsFlash = document.querySelector('.js-flash');
+    const jsFlashMessage = document.querySelector('.js-flash-message');
 
     jsFlashMessage.innerHTML = message;
     jsFlash.classList.remove('display-none');
