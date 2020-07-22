@@ -13,11 +13,8 @@ class ProductsController < ApplicationController
     # get the product pre-loading its product variations and product photos
     @product = Product.includes(:product_variations, :product_photos).find(params[:id])
 
-    # filter product variations to only take the ones published
-    unsorted_prod_variations = @product.product_variations.where(published: true).order(price: :asc)
-
     # then order product variation by sizes
-    @product_variations = sort_by_sizes(unsorted_prod_variations)
+    @product_variations = sort_by_sizes(@product.product_variations.where(published: true))
 
     build_product_variations_variables
 
@@ -26,14 +23,10 @@ class ProductsController < ApplicationController
     # so if its the case, it means the product doesn't have color variations, so it only has 1 product_photo instance
     # (with all photos of this product in it)
     # in that case, just add it to the @product_photos array
-    if @product_photos.empty?
-      @product_photos << @product.product_photos.first
-    end
+    @product_photos << @product.product_photos.first if @product_photos.empty?
 
     # if product is not published, redirect to hp unless current user is an admin
-    if !@product.published
-      redirect_to root_path unless current_user && current_user.admin
-    end
+    redirect_to root_path unless current_user&.admin || @product.published
   end
 
   def search
@@ -42,13 +35,16 @@ class ProductsController < ApplicationController
       OR products.short_description ILIKE :query AND products.published = true \
       OR products.long_description ILIKE :query AND products.published = true \
     "
-    @products = Product.includes(:product_variations).where(sql_query, query: "%#{params[:query]}%").order(order: :asc)
+    @products = Product.includes(:product_variations)
+                       .where(sql_query, query: "%#{params[:query]}%")
+                       .order(order: :asc)
   end
 
   private
 
   # helper method to sort product variations by sizes
   def sort_by_sizes(variations)
+    clothes_size_regex = /XS|S|M|L|XL|XXL/
     variations.sort do |a, b|
       # if size and next size have a number on it (like 'Pack10'), just sort by number
       if a.size.match?(/.*\d.*/) && b.size.match?(/.*\d.*/)
@@ -56,7 +52,7 @@ class ProductsController < ApplicationController
 
       # else if size has 'clothes sizes' (like L, M, XL etc...)
       # we need to use our clothes_sizes_order method to sort product variations correctly
-      elsif a.size.match?(/XS|S|M|L|XL|XXL/)
+      elsif a.size.match?(clothes_size_regex) && b.size.match?(clothes_size_regex)
         clothes_sizes_order(a.size) <=> clothes_sizes_order(b.size)
 
       # if not, we assume that we can't order sizes, so just return variations has it is

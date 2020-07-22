@@ -15,8 +15,8 @@ es:
   purple: 'Morado'
   beige: 'Beige'
   products:
-    one: 'producto'
-    other: 'productos'
+    one: 'Producto'
+    other: 'Productos'
   activerecord:
     attributes:
       address:
