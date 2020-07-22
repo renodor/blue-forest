@@ -5,8 +5,8 @@ const hideJsFlash = () => {
   const closeJsFlash = document.querySelector('.close-js-flash');
 
   if (jsFlash) {
-   closeJsFlash.addEventListener('click', event => jsFlash.classList.add('display-none'));
+    closeJsFlash.addEventListener('click', (event) => jsFlash.classList.add('display-none'));
   }
-}
+};
 
-export { hideJsFlash };
+export {hideJsFlash};
