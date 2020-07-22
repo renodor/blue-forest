@@ -1,7 +1,6 @@
 const pdpPhotos = () => {
   const pdpContainer = document.querySelector('.pdp-container');
   if (pdpContainer) {
-
     // boostrap jquery method to stop carousel autoplay
     $('#pdp-carousel').carousel('pause');
 
@@ -30,7 +29,7 @@ const pdpPhotos = () => {
           carouselItem.classList.add('display-none');
         }
       });
-    }
+    };
 
     // call the photoToggle method by default when page load on the checked color
     // (the checked color when page load is the main color)
@@ -38,12 +37,11 @@ const pdpPhotos = () => {
 
     // each time a color is clicked, call the photoToggle method on this color
     colors.forEach((color) => {
-      color.addEventListener('click', event => {
+      color.addEventListener('click', (event) => {
         photoToggle(color);
       });
-    })
-
+    });
   }
-}
+};
 
-export { pdpPhotos };
+export {pdpPhotos};
