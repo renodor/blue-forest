@@ -1,5 +1,4 @@
 const pdpPrice = () => {
-
   const pdpContainer = document.querySelector('.pdp-container');
   if (pdpContainer) {
     const sizes = document.querySelectorAll('.pdp .sizes input');
@@ -17,33 +16,33 @@ const pdpPrice = () => {
         price.classList.add('crossed');
         discountPrice.innerHTML = `$${newDiscountPrice}`;
       } else {
-        discountPrice.innerHTML = "";
+        discountPrice.innerHTML = '';
         price.classList.remove('crossed');
       }
-    }
+    };
 
     // update price regarding what product variation is selected
-    sizes.forEach(size => {
-      size.addEventListener('click', event => {
+    sizes.forEach((size) => {
+      size.addEventListener('click', (event) => {
         if (size.checked) {
           updatePrice(event.currentTarget);
         }
-      })
+      });
     });
 
     // if there are color variations but unique sizes, sizes don't appear on front end, so they can't be clicked
     // in that case we need to check for clicks on the colors and show the price corresponding to the correct color
     if (sizes[0].dataset.unique) {
-      colors.forEach(color => {
-        color.addEventListener('click', event => {
+      colors.forEach((color) => {
+        color.addEventListener('click', (event) => {
           const targetColor = event.currentTarget.value;
-          const targetSize = document.querySelector(`.pdp .sizes input[data-color=${targetColor}`)
+          const targetSize = document.querySelector(`.pdp .sizes input[data-color=${targetColor}`);
           updatePrice(targetSize);
-        })
-      })
+        });
+      });
     }
   };
-}
+};
 
 
-export { pdpPrice };
+export {pdpPrice};
