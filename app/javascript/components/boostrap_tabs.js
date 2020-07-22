@@ -6,31 +6,31 @@ const boostrapTabs = () => {
 
   if (dashboard) {
     $(document).ready(() => {
-      let url = location.href.replace(/\/$/, "");
+      let url = location.href.replace(/\/$/, '');
 
       if (location.hash) {
-        const hash = url.split("#");
-        $('#dashboardTab a[href="#'+hash[1]+'"]').tab("show");
-        url = location.href.replace(/\/#/, "#");
+        const hash = url.split('#');
+        $('#dashboardTab a[href="#'+hash[1]+'"]').tab('show');
+        url = location.href.replace(/\/#/, '#');
         history.replaceState(null, null, url);
         setTimeout(() => {
           $(window).scrollTop(0);
         }, 400);
       }
 
-      $('a[data-toggle="tab"]').on("click", function() {
+      $('a[data-toggle="tab"]').on('click', (event) => {
         let newUrl;
-        const hash = $(this).attr("href");
-        if(hash == "#profile") {
-          newUrl = url.split("#")[0];
+        const hash = $(event.currentTarget).attr('href');
+        if (hash == '#profile') {
+          newUrl = url.split('#')[0];
         } else {
-          newUrl = url.split("#")[0] + hash;
+          newUrl = url.split('#')[0] + hash;
         }
-        newUrl += "/";
+        newUrl += '/';
         history.replaceState(null, null, newUrl);
       });
     });
   }
-}
+};
 
-export { boostrapTabs };
+export {boostrapTabs};
