@@ -5,7 +5,8 @@
 
   <div class="order-review">
     <div class="order-summary">
-      <%= link_to cart_path(@current_cart) do %>
+      <% fake_user_params = user_signed_in? ? nil : @user.id  %>
+      <%= link_to cart_path(@current_cart, fake_user_id: fake_user_params) do %>
         <i class="fas fa-pen"></i>
       <% end %>
       <% total_quantity = 0 %>

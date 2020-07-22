@@ -49,6 +49,9 @@
       .liked #full {
         display: block;
       }
+      a:hover {
+        text-decoration: none;
+      }
     }
     .product-grid-info-container {
       background-color: white;

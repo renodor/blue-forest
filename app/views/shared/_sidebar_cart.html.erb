@@ -55,6 +55,8 @@
       <div class="w-100 text-center">
         <% if user_signed_in? %>
           <%= link_to "ORDENAR", new_user_order_path(current_user), class: 'btn btn-blue w-100' %>
+        <% elsif params[:fake_user_id] %>
+          <p><%= link_to "Finalizar Orden", new_fake_user_order_path(params[:fake_user_id]), class: 'btn btn-blue w-100' %></p>
         <% else %>
           <%= link_to "ORDENAR", new_fake_user_path, class: 'btn btn-blue w-100' %>
         <% end %>
