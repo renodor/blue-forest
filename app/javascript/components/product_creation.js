@@ -93,7 +93,7 @@ const productCreation = () => {
       // retrieve the element to add regarding the element type
       // it get the good HTML text by transforming the string elementTypeElement to a variable name
       let elementToAdd = eval(`${elementType}Element`);
-      console.log(elementToAdd)
+      console.log(elementToAdd);
 
       // select a lastChildElement (after witch the new element will be added)
       // we need to select the last element of the correct color variation
