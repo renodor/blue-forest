@@ -106,9 +106,9 @@ export default class extends Controller {
     totalItems.forEach((totalItem) => {
       if (cartInfo.total_items > 1) {
         console.log(cartInfo)
-        totalItem.innerHTML = `${cartInfo.total_items} productos`
+        totalItem.innerHTML = `${cartInfo.total_items} Productos`
       } else {
-        totalItem.innerHTML = `${cartInfo.total_items} producto`
+        totalItem.innerHTML = `${cartInfo.total_items} Producto`
       }
     });
 
