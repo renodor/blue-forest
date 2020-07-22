@@ -30,8 +30,10 @@ const pdpPrice = () => {
       });
     });
 
-    // if there are color variations but unique sizes, sizes don't appear on front end, so they can't be clicked
-    // in that case we need to check for clicks on the colors and show the price corresponding to the correct color
+    // if there are color variations but unique sizes,
+    // sizes don't appear on front end, so they can't be clicked
+    // in that case we need to check for clicks on the colors,
+    // and show the price corresponding to the correct color
     if (sizes[0].dataset.unique) {
       colors.forEach((color) => {
         color.addEventListener('click', (event) => {

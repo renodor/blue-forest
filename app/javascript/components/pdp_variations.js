@@ -28,10 +28,12 @@ const pdpVariations = () => {
     const disableSizes = (size, targetColor, first) => {
       // if size belong to current selected color we do 2 things:
       // 1. enable size
-      // 2. make sure that size label is displayed (it could have been hiden before if this size is repeated)
+      // 2. make sure that size label is displayed
+      //    (if this size is repeated it may have been hidden before)
       if (size.dataset.color == targetColor) {
         size.disabled = false;
-        document.querySelector(`label[for=variation_id_${size.value}]`).style.display = 'inline-block';
+        document.querySelector(`label[for=variation_id_${size.value}]`)
+            .style.display = 'inline-block';
 
       // if size doesn't belong to current selected color, we do 3 things
       // 1. uncheck size (to make sure no size remain checked if user change color seleccion)
@@ -90,7 +92,7 @@ const pdpVariations = () => {
     }
 
     // add event listener on color selection
-    // each time user select a different color, we need to call our 'disableSizes' method on the selected color
+    // when user select a color, we need to call our 'disableSizes' method on the selected color
     // and our 'resetATC' method
     colors.forEach((color) => {
       color.addEventListener('click', (event) => {
@@ -113,7 +115,11 @@ const pdpVariations = () => {
       atc.disabled = true;
 
       // When a size is checked, disable the warning message.
-      // then if size has quantity : disable the overlay, reset atc message to 'buy', and enable the add to cart button
+      // then if size has quantity :
+      // - disable the overlay
+      // - reset atc message to 'buy'
+      // - and enable the add to cart button
+
       // if size is out of stock :
       // - enable the overlay
       // - disable the atc
@@ -146,7 +152,8 @@ const pdpVariations = () => {
       // but if for some reason its not the case, we make sur of it here
       sizes[0].checked = true; // unique sizes should be checked by
 
-    // if not it means the unique size is out of stock, thus we need to disable atc, update atc text and warning message
+    // if not it means the unique size is out of stock,
+    // thus we need to disable atc, update atc text and warning message
     } else {
       atc.disable = true;
       atc.querySelectorAll('span')[1].innerHTML = 'AGOTADO';
