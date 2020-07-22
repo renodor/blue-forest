@@ -1,13 +1,10 @@
 import mapboxgl from 'mapbox-gl';
 
 const initMapbox = () => {
-
   const mapDiv = document.querySelector('.map');
   const createAddressMap = document.getElementById('create-address-map');
   const showAddressMap = document.getElementById('show-address-map');
   if (mapDiv) {
-
-    const addressDistrict = document.getElementById('address_district');
     const addressAreas = document.querySelectorAll('.address_area .areas');
     const currentArea = document.querySelector('.shipping-container').dataset.area;
 
@@ -26,7 +23,7 @@ const initMapbox = () => {
       'Chilibre': [-79.618491, 9.159972],
       'Curundú': [-79.543629, 8.969860],
       'El Chorrillo': [-79.543442, 8.950293],
-      'Ernesto Córdova Campos':[-79.5495714, 9.1007977],
+      'Ernesto Córdova Campos': [-79.5495714, 9.1007977],
       'Juan Diaz': [-79.4589348, 9.036498],
       'Las Cumbres': [-79.541515, 9.080642],
       'Las Mañanitas': [-79.403837, 9.085597],
@@ -40,7 +37,7 @@ const initMapbox = () => {
       'San Martin': [-79.5561179, 9.111234],
       'Santa Ana': [-79.540677, 8.956486],
       'Tocumen': [-79.388304, 9.071253],
-      'Amelia Denis de Icaza': [-79.5128063,9.0411865],
+      'Amelia Denis de Icaza': [-79.5128063, 9.0411865],
       'Arnulfo Arias': [-79.482514, 9.065796],
       'Belisario Frías': [-79.490858, 9.074975],
       'Belisario Porras': [-79.498926, 9.053881],
@@ -48,8 +45,8 @@ const initMapbox = () => {
       'Mateo Iturralde': [-79.496242, 9.033294],
       'Omar Torrijos': [-79.516361, 9.065943],
       'Rufina Alfaro': [-79.453506, 9.065768],
-      'Victoriano Lorenzo': [-79.506351, 9.030720]
-    }
+      'Victoriano Lorenzo': [-79.506351, 9.030720],
+    };
 
     let coordinates;
 
@@ -57,7 +54,7 @@ const initMapbox = () => {
     const updateCoordinates = () => {
       latitudeInput.value = marker.getLngLat().lat;
       longitudeInput.value = marker.getLngLat().lng;
-    }
+    };
 
     // initialize a mapbox map in the center of Panama
     mapboxgl.accessToken = createAddressMap.dataset.mapboxApiKey;
@@ -65,15 +62,15 @@ const initMapbox = () => {
       container: 'create-address-map',
       center: [-79.528142, 8.975448], // by default showing Panama
       zoom: 15,
-      style: 'mapbox://styles/mapbox/streets-v10'
+      style: 'mapbox://styles/mapbox/streets-v10',
     });
 
     // Create a new draggable market on the map, and put it by default in the center of Panama
     const marker = new mapboxgl.Marker({
-      draggable: true
+      draggable: true,
     })
-    .setLngLat([-79.528142, 8.975448])
-    .addTo(map);
+        .setLngLat([-79.528142, 8.975448])
+        .addTo(map);
 
     // Every time the marker is dragged, call updateCoordinates method
     marker.on('dragend', updateCoordinates);
@@ -81,7 +78,7 @@ const initMapbox = () => {
     // Add en event listener on the area (corregimiento) field
     // and update the map each time it changes
     addressAreas.forEach((addressArea) => {
-      addressArea.addEventListener('change', event => {
+      addressArea.addEventListener('change', (event) => {
         // if the map is not visible (first time you arrive on 'new address'), display it
         if (mapDiv.classList.contains('display-none')) {
           mapDiv.classList.remove('display-none');
@@ -90,32 +87,35 @@ const initMapbox = () => {
         // - put the marker on the center of the selected area
         // - resize the map
         // - put the center of the map on the selected area
-        coordinates = areaCoordinates[addressArea.value]
+        coordinates = areaCoordinates[addressArea.value];
         marker.setLngLat(coordinates);
         map.resize();
-        map.flyTo({ center: coordinates });
-        latitudeInput.value = longitudeInput.value = null
+        map.flyTo({center: coordinates});
+        latitudeInput.value = longitudeInput.value = null;
       });
     });
 
     // if user is editing an address, it already has lat and long
     // in that case we just need to update the map
     if (createAddressMap.dataset.lng && createAddressMap.dataset.lat) {
-      coordinates = [createAddressMap.dataset.lng, createAddressMap.dataset.lat]
+      coordinates = [createAddressMap.dataset.lng, createAddressMap.dataset.lat];
       marker.setLngLat(coordinates);
       map.resize();
-      map.flyTo({ center: coordinates });
+      map.flyTo({center: coordinates});
     // if there are no lat and long but already a selected area,
     // it means the form has been rendered ('render new') again because it was invalid
-    // in that case we also need to resize map, set new area coordinate to marker, and center the map to thos coordinates
+    // in that case we also need to :
+    // - resize map
+    // - set new area coordinate to marker
+    // - and center the map to thos coordinates
     // (we do that insidde a SetTimeout otherwise Mapbox has a small display bug...)
     } else if (currentArea) {
       mapDiv.classList.remove('display-none');
       setTimeout(() => {
         map.resize();
-        coordinates = areaCoordinates[currentArea]
+        coordinates = areaCoordinates[currentArea];
         marker.setLngLat(coordinates);
-        map.flyTo({ center: coordinates });
+        map.flyTo({center: coordinates});
       }, 500);
     }
   }
@@ -130,15 +130,15 @@ const initMapbox = () => {
       const map = new mapboxgl.Map({
         container: 'show-address-map',
         style: 'mapbox://styles/mapbox/streets-v10',
-        center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat], // by default showing address location
-        zoom: 15
+        center: [showAddressMap.dataset.lng, showAddressMap.dataset.lat],
+        zoom: 15,
       });
 
       new mapboxgl.Marker()
-        .setLngLat([ showAddressMap.dataset.lng, showAddressMap.dataset.lat ])
-        .addTo(map);
+          .setLngLat([showAddressMap.dataset.lng, showAddressMap.dataset.lat])
+          .addTo(map);
     }, 500);
   };
 };
 
-export { initMapbox };
+export {initMapbox};
