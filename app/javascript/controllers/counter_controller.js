@@ -4,6 +4,7 @@ export default class extends Controller {
 
   static targets = [ 'count' ];
 
+
   // when removeProduct btn is clicked
   // remove the targeted product from cart and sidebar cart
   removeProduct(event) {

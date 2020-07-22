@@ -3,12 +3,10 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-
-
+require('@rails/ujs').start();
+require('turbolinks').start();
+require('@rails/activestorage').start();
+require('channels');
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -24,25 +22,23 @@ require("channels")
 // ----------------------------------------------------
 
 // External imports
-import "bootstrap";
+import 'bootstrap';
 
 // Internal imports
-import { initMapbox } from '../plugins/init_mapbox';
+import {initMapbox} from '../plugins/init_mapbox';
 
-import { hideJsFlash } from '../components/hide_js_flash';
-import { sidebarCart } from '../components/sidebar_cart';
-import { pdpVariations } from '../components/pdp_variations';
-import { pdpPrice } from '../components/pdp_price';
-import { pdpPhotos } from '../components/pdp_photos';
-import { pdpQuantities } from '../components/pdp_quantities';
-import { atcModal } from '../components/atc_modal';
-import { doctorsCarousel } from '../components/doctors_carousel';
-import { boostrapTabs } from '../components/boostrap_tabs';
-import { productCreation } from '../components/product_creation';
-import { mobileMenu } from '../components/mobile_menu';
-import { addressForm } from '../components/address_form';
-
-
+import {hideJsFlash} from '../components/hide_js_flash';
+import {sidebarCart} from '../components/sidebar_cart';
+import {pdpVariations} from '../components/pdp_variations';
+import {pdpPrice} from '../components/pdp_price';
+import {pdpPhotos} from '../components/pdp_photos';
+import {pdpQuantities} from '../components/pdp_quantities';
+import {atcModal} from '../components/atc_modal';
+import {doctorsCarousel} from '../components/doctors_carousel';
+import {boostrapTabs} from '../components/boostrap_tabs';
+import {productCreation} from '../components/product_creation';
+import {mobileMenu} from '../components/mobile_menu';
+import {addressForm} from '../components/address_form';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here
@@ -63,4 +59,4 @@ document.addEventListener('turbolinks:load', () => {
 
 
 // importe stimulus controllers
-import "controllers"
+import 'controllers';
