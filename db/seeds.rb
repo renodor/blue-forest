@@ -32,6 +32,7 @@ p "----------> done, #{Category.count} categories created"
 categories = [toys, food, masks, gloves]
 
 p 'Create products, product variations and product/categories associations'
+# rubocop:disable Metrics/BlockLength
 10.times do |n|
   product = Product.new(
     name: "Product#{n + 1}",
@@ -80,6 +81,8 @@ p 'Create products, product variations and product/categories associations'
   ProductCategory.create!(product_id: product.id, category_id: categories[rand(4)].id)
   p "product #{n + 1} created!"
 end
+# rubocop:enable Metrics/BlockLength
+
 p "----------> done, #{Product.count} products created"
 p "----------> done, #{ProductVariation.count} product variations created"
 p "----------> done, #{ProductCategory.count} products/categories created"

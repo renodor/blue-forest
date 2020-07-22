@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { host: "http://localhost:3000" }
+  config.action_mailer.default_url_options = { host: 'http://localhost:3000' }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # set asset host in order to show images on emails
@@ -42,7 +42,6 @@ Rails.application.configure do
 
   # Don't send real email but using letter opener
   config.action_mailer.delivery_method = :letter_opener
-
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

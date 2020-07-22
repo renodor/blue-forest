@@ -5,26 +5,26 @@ class FakeUserTest < ActiveSupport::TestCase
     @fake_user = users(:user1)
   end
 
-  test "valid user" do
+  test 'valid user' do
     assert @fake_user.valid?
   end
 
-  test "fake user must have a first name" do
+  test 'fake user must have a first name' do
     @fake_user.first_name = nil
     assert_not @fake_user.valid?
   end
 
-  test "fake user must have a last name" do
+  test 'fake user must have a last name' do
     @fake_user.last_name = nil
     assert_not @fake_user.valid?
   end
 
-  test "fake user must have an email" do
+  test 'fake user must have an email' do
     @fake_user.email = nil
     assert_not @fake_user.valid?
   end
 
-  test "fake user must have a phone" do
+  test 'fake user must have a phone' do
     @fake_user.phone = nil
     assert_not @fake_user.valid?
   end

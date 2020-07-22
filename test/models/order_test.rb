@@ -9,11 +9,11 @@ class OrderTest < ActiveSupport::TestCase
     @line_item3 = line_items(:line_item3)
   end
 
-  test "valid order with fake user" do
+  test 'valid order with fake user' do
     assert @order.valid?
   end
 
-  test "valid order with user" do
+  test 'valid order with user' do
     assert @order2.valid?
   end
 

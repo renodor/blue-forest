@@ -1,3 +1,4 @@
+# rubocop:disable all
 # frozen_string_literal: true
 
 # Please do not make direct changes to this file!
@@ -431,3 +432,4 @@ SimpleForm.setup do |config|
   #   time:          :custom_multi_select
   # }
 end
+# rubocop:enable Metrics/BlockLength

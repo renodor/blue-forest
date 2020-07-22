@@ -8,18 +8,18 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     @fake_user = fake_users(:fake_user1)
   end
 
-  test "should get new for users, if user is signed in" do
+  test 'should get new for users, if user is signed in' do
     sign_in(@user)
     get new_user_address_path(@user)
     assert_response :success
   end
 
-  test "should get new for fake users, if user is not signed in" do
+  test 'should get new for fake users, if user is not signed in' do
     get new_fake_user_address_path(@fake_user)
     assert_response :success
   end
 
-  test "create a valid user address if user is signed in" do
+  test 'create a valid user address if user is signed in' do
     sign_in(@user)
     assert_difference 'Address.count', 1 do
       post user_addresses_path(@user), params: {
@@ -42,7 +42,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_order_path(@user)
   end
 
-  test "create a valid fake user address if user is not signed in" do
+  test 'create a valid fake user address if user is not signed in' do
     assert_difference 'Address.count', 1 do
       post fake_user_addresses_path(@fake_user), params: {
         address: {
@@ -64,4 +64,3 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_fake_user_order_path(@fake_user)
   end
 end
-

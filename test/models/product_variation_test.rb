@@ -7,15 +7,15 @@ class ProductVariationTest < ActiveSupport::TestCase
     @line_item = line_items(:line_item1)
   end
 
-  test "valid product variation" do
+  test 'valid product variation' do
     assert @variation.valid?
   end
 
-  test "product variation should be published by default" do
+  test 'product variation should be published by default' do
     assert @variation.published
   end
 
-  test "product variation should have a quantity" do
+  test 'product variation should have a quantity' do
     @variation.quantity = nil
     assert_not @variation.valid?
   end
@@ -39,7 +39,7 @@ class ProductVariationTest < ActiveSupport::TestCase
     assert @variation.valid?
   end
 
-  test "product variation quantity should be a number greater or equal than 0" do
+  test 'product variation quantity should be a number greater or equal than 0' do
     @variation.quantity = 'q'
     assert_not @variation.valid?
     @variation.quantity = -1

@@ -9,28 +9,27 @@ class AddressTest < ActiveSupport::TestCase
     assert @address.valid?
   end
 
-  test "address must have street" do
+  test 'address must have street' do
     @address.street = nil
     assert_not @address.valid?
   end
 
-
-  test "address must have a district" do
+  test 'address must have a district' do
     @address.district = nil
     assert_not @address.valid?
   end
 
-  test "address must have details" do
+  test 'address must have details' do
     @address.detail = nil
     assert_not @address.valid?
   end
 
-  test "address must have a latitude" do
+  test 'address must have a latitude' do
     @address.latitude = nil
     assert_not @address.valid?
   end
 
-  test "address must have a longitude" do
+  test 'address must have a longitude' do
     @address.longitude = nil
     assert_not @address.valid?
   end

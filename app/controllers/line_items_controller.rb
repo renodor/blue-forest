@@ -24,7 +24,6 @@ class LineItemsController < ApplicationController
     redirect_to_correct_path(true)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def add_quantity
     # check if there is enough product variation stock regarding the quantity user wants to add
     # and the quantity already present for this line item in user cart
@@ -41,7 +40,6 @@ class LineItemsController < ApplicationController
       request.xhr? ? error_json_response : false
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # this action will be triggered by an AJAX request (by the js stimulus counter controller)
   # so it needs to respond a json

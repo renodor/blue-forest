@@ -1,8 +1,8 @@
-import { Controller } from "stimulus";
+import {Controller} from 'stimulus';
 
+/* eslint-disable require-jsdoc */
 export default class extends Controller {
-
-  static targets = [ 'count' ];
+  // static targets = [ 'count' ];
 
 
   // when removeProduct btn is clicked

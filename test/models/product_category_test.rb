@@ -7,7 +7,7 @@ class ProductCategoryTest < ActiveSupport::TestCase
     @product_category = product_categories(:product_category)
   end
 
-  test "valid product_categories" do
+  test 'valid product_categories' do
     assert @product_category
   end
 end

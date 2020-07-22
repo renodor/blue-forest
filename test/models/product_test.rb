@@ -15,7 +15,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_not @product.valid?
   end
 
-  test "product should be published by default" do
+  test 'product should be published by default' do
     assert @product.published
   end
 

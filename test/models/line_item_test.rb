@@ -8,17 +8,17 @@ class LineItemTest < ActiveSupport::TestCase
     @line_item.cart = Cart.new
   end
 
-  test "valid line item" do
+  test 'valid line item' do
     # assert @line_item.valid?
     # @line_item.product_variation.product.product_photos
   end
 
-  test "line item quantity should be 1 by default" do
+  test 'line item quantity should be 1 by default' do
     line_item = LineItem.new
     assert_equal line_item.quantity, 1
   end
 
-  test "line item total price instance method" do
+  test 'line item total price instance method' do
     assert_equal @line_item.total_price, 10
     @line_item.quantity = 3
     assert_equal @line_item.total_price, 30

@@ -5,27 +5,26 @@ class UserTest < ActiveSupport::TestCase
     @user = users(:user1)
   end
 
-  test "valid user" do
+  test 'valid user' do
     assert @user.valid?
   end
 
-  test "user must have a first name" do
+  test 'user must have a first name' do
     @user.first_name = nil
     assert_not @user.valid?
   end
 
-
-  test "user must have a last name" do
+  test 'user must have a last name' do
     @user.last_name = nil
     assert_not @user.valid?
   end
 
-  test "user must have an email" do
+  test 'user must have an email' do
     @user.email = nil
     assert_not @user.valid?
   end
 
-  test "user must have a phone" do
+  test 'user must have a phone' do
     @user.phone = nil
     assert_not @user.valid?
   end
