@@ -1,60 +1,9 @@
 <!-- render add to cart modal if params is present -->
 <%= render 'shared/atc_modal' if params[:atc_modal] %>
-<div class="container my-5 search-results text-center">
+<div class="container my-5">
   <h2 class="text-center mb-5"><%= @products.count %> Resultados de búsqueda para: <em><%= params[:query] %></em></h2>
   <% if @products.count > 0 %>
-    <div class="products">
-      <% @products.each do |product| %>
-        <% if product.product_variations.length > 0 %>
-          <div class="product">
-            <!-- iterate over product photos, find the main photos -->
-            <!-- take the first on of the main photos and break the iteration -->
-            <% if !product.product_photos.empty? %>
-              <% product.product_photos.each do |product_photo| %>
-                <% if product_photo.main %>
-                  <%= cl_image_tag product_photo.photos[0].key, height: 400, crop: :fill %>
-                  <% break %>
-                <% end %>
-              <% end %>
-            <% else %>
-              <div class="product-photo-placeholder"></div>
-            <% end %>
-            <div class="product-grid-info-container">
-              <%= inline_svg_tag('symbol.svg', class: 'grid-symbol') %>
-              <div class="cta-grid" data-controller="favorite">
-                <!-- if there is only 1 product variation, show the option to add to cart from the home page directly -->
-                <% if product.product_variations.length == 1 %>
-                  <%= link_to line_items_path(variation_id: product.product_variations.first, quantity: 1, atc_from_grid: true, full_path: request.fullpath), method: 'post' do %>
-                    <%= inline_svg_tag('cart.svg') %>
-                  <% end %>
-                <% end %>
-                <!-- if user is signed in, we need to check if the product is within its favorites -->
-                <!-- if yes we show a 'full' like symbol, and the link will be to remove the product from its favorites -->
-                <!-- if no, we show a 'stroked' like symbol, and the link will be to add the product to its favorites -->
-                <% if user_signed_in? && current_user.product_favorites.exists?(product_id: product) %>
-                  <span data-action='click->favorite#removeFavorite' data-target="favorite.toggle" data-favorite-id='<%= current_user.product_favorites.find_by(product_id: product).id %>' data-product-id='<%= product.id %>'>
-                    <%= inline_svg_tag('like.svg', class: 'liked', data: { target: 'favorite.icon' }) %>
-                  </span>
-                <% else %>
-                  <span data-action='click->favorite#addFavorite' data-target="favorite.toggle" data-product-id='<%= product.id %>' >
-                    <%= inline_svg_tag('like.svg', data: { target: 'favorite.icon' }) %>
-                  </span>
-                <% end %>
-              </div>
-              <div class="product-grid-info">
-                <span class="grow-1"><%= product.name.upcase %></span>
-                <%= link_to product_path(product), class: 'simple-flexbox product-hover' do %>
-                  <div>
-                    <h3><%= product.name.upcase %></h3>
-                    <p><%= product.short_description.upcase.truncate(50) if product.short_description %></p>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+    <%= render 'shared/products_grid' %>
   <% else %>
     <p><%= link_to 'Ver todos los productos', root_path(anchor: 'products'), class: 'btn btn-blue' %></p>
   <% end %>
