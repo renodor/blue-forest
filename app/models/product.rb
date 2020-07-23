@@ -9,6 +9,7 @@ class Product < ApplicationRecord
   validates :published, inclusion: { in: [true, false] }
 
   before_save :convert_long_description_to_html, if: :will_save_change_to_long_description?
+  before_save :define_main_color
 
   private
 
@@ -30,5 +31,10 @@ class Product < ApplicationRecord
 
     # convert break lines
     long_description.gsub!(/\r\n/, '<br>')
+  end
+
+  def define_main_color
+    main_photo = product_photos.find_by(main: true)
+    self.main_color = main_photo.color if main_photo
   end
 end

@@ -20,8 +20,11 @@
   padding: 30px;
 }
 
-.crossed {
+.crossed, .crossed-white {
   text-decoration: line-through;
+}
+
+.crossed {
   color: $red;
 }
 

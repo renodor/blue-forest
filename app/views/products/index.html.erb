@@ -42,7 +42,29 @@
               </div>
               <div class="product-grid-info">
                 <p class="product-title"><b><%= product.name.upcase %></b></p>
-                <p class="product-price">$<%= product.product_variations.first.price %></p>
+                <% price = nil %>
+                <% discount_price = nil %>
+                <% product.product_variations.each_with_index do |product_variation, i| %>
+                  <% if product_variation.color == product.main_color %>
+                    <% if !price %>
+                      <% price = product_variation.price %>
+                      <% discount_price = product_variation.discount_price if product_variation.discount_price %>
+                    <% elsif product_variation.price < price %>
+                      <% price = product_variation.price %>
+                      <% discount_price = product_variation.discount_price if product_variation.discount_price %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+                <p class="product-price">
+                  <% if discount_price %>
+                    <span class="crossed-white">$<%= price %></span> $<%= discount_price %>
+                  <% elsif price %>
+                    $<%= price %>
+                  <% else %>
+                    <!-- Just a security if for some reason price is still empty... -->
+                    $<%= product.product_variations.first.price %>
+                  <% end %>
+                </p>
                 <%= link_to product_path(product), class: 'simple-flexbox product-hover' do %>
                   <div>
                     <h3><%= product.name.upcase %></h3>
