@@ -19,7 +19,7 @@
               <div class="product-photo-placeholder"></div>
             <% end %>
             <div class="product-grid-info-container">
-              <%= inline_svg_tag('symbol.svg', class: 'grid-symbol') %>
+              <div class="grid-symbol simple-flexbox"><%= inline_svg_tag('symbol.svg') %></div>
               <div class="cta-grid" data-controller="favorite">
                 <!-- if there is only 1 product variation, show the option to add to cart from the home page directly -->
                 <% if product.product_variations.length == 1 %>
@@ -41,7 +41,8 @@
                 <% end %>
               </div>
               <div class="product-grid-info">
-                <span class="grow-1"><%= product.name.upcase %></span>
+                <p class="product-title"><b><%= product.name.upcase %></b></p>
+                <p class="product-price">$<%= product.product_variations.first.price %></p>
                 <%= link_to product_path(product), class: 'simple-flexbox product-hover' do %>
                   <div>
                     <h3><%= product.name.upcase %></h3>

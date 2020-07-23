@@ -61,16 +61,31 @@
       background-color: $blue;
       color: white;
       border-right: 1px solid #3f3f75;
-      height: 70px;
+      height: 100px;
       .grid-symbol {
-        width: 15px;
-        margin-right: 20px;
-        margin-left: 10px;
+        height: 70%;
+        border-right: 1px solid $light-blue;;
+        padding-left: 5px;
+        padding-right: 20px;
+        svg {
+          height: 25px;
+        }
       }
       .product-grid-info {
+        height: 100%;
         padding: 0 20px;
-        border-left: 1px solid $light-blue;
-        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        p {
+          margin-bottom: 0;
+        }
+        .product-title {
+          font-size: 12px;
+        }
+        .product-price {
+          font-size: 13px;
+        }
       }
     }
     .product-hover {
@@ -148,7 +163,7 @@
 }
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   .products {
     grid-template-columns: 1fr 1fr;
   }
