@@ -34,6 +34,16 @@ class AddressTest < ActiveSupport::TestCase
     assert @address.valid?
   end
 
+  test 'address model must have a DISTRICTS array constant' do
+    assert_not_nil Address::DISTRICTS
+    assert_not_empty Address::DISTRICTS
+  end
+
+  test 'address model must have a CORREGIMIENTOS hash constant' do
+    assert_not_nil Address::CORREGIMIENTOS
+    assert_not_empty Address::CORREGIMIENTOS
+  end
+
   test 'address area must belong to the correct district' do
     @address.district = 'San Miguelito'
     assert_not @address.valid?

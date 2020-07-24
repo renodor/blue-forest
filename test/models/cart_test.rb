@@ -26,6 +26,18 @@ class CartTest < ActiveSupport::TestCase
     assert_equal @cart.line_items.first.product_variation.product.name, 'product1'
   end
 
+  test 'cart model must have a SHIPPING_PRICE constant' do
+    assert_not_nil Cart::SHIPPING_PRICE
+  end
+
+  test 'cart model must have a FREE_SHIPPING_THRESHOLD constant' do
+    assert_not_nil Cart::FREE_SHIPPING_THRESHOLD
+  end
+
+  test 'cart model must have a TAX value constant' do
+    assert_not_nil Cart::TAX
+  end
+
   test 'cart sub total instance method' do
     assert_equal @cart.sub_total, @sub_total1
 
