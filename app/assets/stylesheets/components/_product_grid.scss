@@ -23,15 +23,24 @@
     }
     .cta-grid {
       position: absolute;
-      top: 20px;
-      right: 30px;
+      top: 0;
+      left: 0;
       z-index: 100;
+      color: $gray;
+      padding: 20px 30px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      text-align: right;
       &:hover + .product-grid-info .product-hover {
         color: white;
         background-color: rgba(10, 31, 143, 0.9);
       }
       &:hover + .product-grid-info .product-hover div {
         display: block;
+      }
+      span:first-child {
+        font-weight: 600;
       }
       img, svg {
         width: 24px;
