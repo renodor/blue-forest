@@ -8,3 +8,14 @@ address1:
   city: Panama
   latitude: 8.9898124
   longitude: -79.5266467
+
+address2:
+  fake_user: fake_user1
+  street: PH Bello, Avenida 1AB Norte
+  flat_number: 8A
+  district: Panamá
+  area: Bella Vista
+  detail: al lado del jap jap
+  city: Panama
+  latitude: 8.9898124
+  longitude: -79.5266467

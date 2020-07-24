@@ -2,7 +2,7 @@ require 'test_helper'
 
 class FakeUserTest < ActiveSupport::TestCase
   def setup
-    @fake_user = users(:user1)
+    @fake_user = fake_users(:fake_user1)
   end
 
   test 'valid user' do
@@ -29,13 +29,19 @@ class FakeUserTest < ActiveSupport::TestCase
     assert_not @fake_user.valid?
   end
 
-  test 'when destroy an fake user, its addresses should be destroyed' do
+  test 'when destroy a fake user, its addresses should be destroyed' do
     assert_difference 'Address.count', -1 do
       @fake_user.destroy
     end
   end
 
-  test 'fake user has many orders' do
+  test 'fake user can have many orders' do
     assert_equal @fake_user.orders.count, 2
+  end
+
+  test 'when delete fake user, its order should not be deleted' do
+    assert_no_difference 'Order.count' do
+      @fake_user.destroy
+    end
   end
 end

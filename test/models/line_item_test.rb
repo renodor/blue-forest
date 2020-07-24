@@ -9,8 +9,7 @@ class LineItemTest < ActiveSupport::TestCase
   end
 
   test 'valid line item' do
-    # assert @line_item.valid?
-    # @line_item.product_variation.product.product_photos
+    assert @line_item.valid?
   end
 
   test 'line item quantity should be 1 by default' do
@@ -19,9 +18,20 @@ class LineItemTest < ActiveSupport::TestCase
   end
 
   test 'line item total price instance method' do
-    assert_equal @line_item.total_price, 10
+    item_price = @line_item.product_variation.discount_price || @line_item.product_variation.price
+    total_price = item_price * @line_item.quantity
+    assert_equal @line_item.total_price, total_price
+
     @line_item.quantity = 3
-    assert_equal @line_item.total_price, 30
-    assert_equal @line_item2.total_price, 46.5
+    assert_equal @line_item.total_price, item_price * 3
+
+    @line_item.product_variation.discount_price = 9
+    item_price = @line_item.product_variation.discount_price
+    total_price = item_price * @line_item.quantity
+    assert_equal @line_item.total_price, total_price
+
+    item_price = @line_item2.product_variation.discount_price || @line_item2.product_variation.price
+    total_price = item_price * @line_item2.quantity
+    assert_equal @line_item2.total_price, total_price
   end
 end
