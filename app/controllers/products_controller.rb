@@ -41,37 +41,46 @@ class ProductsController < ApplicationController
 
   private
 
-  # rubocop:disable Metrics/MethodLength
   # helper method to sort product variations by sizes
   def sort_by_sizes(variations)
-    clothe_sizes_regex = /XS|S|M|L|XL|XXL/
+    clothes_sizes_regex = /XS|S|M|L|XL|XXL/
     variations.sort do |a, b|
       a = a.size
       b = b.size
-      # if size and next size have a number on it (like 'Pack10'), just sort by number
-      if a.match?(/.*\d.*/) && b.match?(/.*\d.*/)
-        a.gsub(/\D*/, '').to_i <=> b.gsub(/\D*/, '').to_i
 
-      # else if size has 'clothes sizes' (like L, M, XL etc...)
-      # we need to use our clothes_sizes_order method to sort product variations correctly
-      elsif a.match?(clothe_sizes_regex) && b.match?(clothe_sizes_regex)
+      # If size has 'clothes sizes' (like L, M, XL etc...)
+      # we use our clothes_sizes_order method to sort product variations correctly
+      if a.match?(clothes_sizes_regex) && b.match?(clothes_sizes_regex)
         clothes_sizes_order(a) <=> clothes_sizes_order(b)
-
-      # if not, we assume that we can't order sizes, so just return variations has it is
+      # otherwise use the 'normal' size order method
       else
-        return variations
+        sizes_order(a) <=> sizes_order(b)
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
+  # helper method to define the order of 'clothes sizes'
   def clothes_sizes_order(size)
-    return 0 if size == 'XS'
-    return 1 if size == 'S'
-    return 2 if size == 'M'
-    return 3 if size == 'L'
-    return 4 if size == 'XL'
-    return 5 if size == 'XXL'
+    return 1 if size == 'XS'
+    return 2 if size == 'S'
+    return 3 if size == 'M'
+    return 4 if size == 'L'
+    return 5 if size == 'XL'
+    return 6 if size == 'XXL'
+  end
+
+  # helper method to define order of sizes :
+  # - if size is 'unit', it should go first
+  # - if size has a number (like 'Pack10', 'Pack15'), order by number
+  # - otherwise we have no clue how to order, so don't order it
+  def sizes_order(size)
+    return -1 if size.match?(/unit/i)
+
+    if size.match?(/.*\d.*/)
+      size.gsub(/\D*/, '').to_i
+    else
+      0
+    end
   end
 
   # then iterate over all product variations and do 3 things:
