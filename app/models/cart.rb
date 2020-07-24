@@ -1,4 +1,7 @@
 class Cart < ApplicationRecord
+  SHIPPING_PRICE = 3.5
+  FREE_SHIPPING_THRESHOLD = 65
+  TAX = 0.07
   has_many :line_items, dependent: :destroy
   has_many :product_variations, through: :line_items
 
@@ -19,11 +22,11 @@ class Cart < ApplicationRecord
   end
 
   def shipping
-    sub_total >= 65 ? 0 : 3.5
+    sub_total >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_PRICE
   end
 
   def itbms
-    ((sub_total + shipping) * 0.07).round(2)
+    ((sub_total + shipping) * TAX).round(2)
   end
 
   def total

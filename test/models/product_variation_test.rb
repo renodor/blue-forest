@@ -48,11 +48,11 @@ class ProductVariationTest < ActiveSupport::TestCase
     assert @variation.valid?
   end
 
-  test 'if quantity == 0, product variation should not be published' do
-    @variation.quantity = 0
-    @variation.save
-    assert_not @variation.published
-  end
+  # test 'if quantity == 0, product variation should not be published' do
+  #   @variation.quantity = 0
+  #   @variation.save
+  #   assert_not @variation.published
+  # end
 
   test 'when destroy a product variation, its line items should be destroyed' do
     assert_difference 'LineItem.count', -2 do
