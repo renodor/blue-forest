@@ -29,9 +29,9 @@ class LineItemTest < ActiveSupport::TestCase
     item_price = @line_item.product_variation.discount_price
     total_price = item_price * @line_item.quantity
     assert_equal @line_item.total_price, total_price
+  end
 
-    item_price = @line_item2.product_variation.discount_price || @line_item2.product_variation.price
-    total_price = item_price * @line_item2.quantity
-    assert_equal @line_item2.total_price, total_price
+  test 'line item add photo key method' do
+    # test to do
   end
 end
