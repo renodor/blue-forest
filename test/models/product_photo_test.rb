@@ -6,7 +6,6 @@ class ProductPhotoTest < ActiveSupport::TestCase
   end
 
   test 'valid product photo' do
-    # assert @line_item.valid?
-    # @product_photo
+    # test to do
   end
 end
