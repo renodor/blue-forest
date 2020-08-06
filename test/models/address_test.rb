@@ -51,4 +51,9 @@ class AddressTest < ActiveSupport::TestCase
     @address.area = 'Amelia Denis de Icaza'
     assert @address.valid?
   end
+
+  test 'google maps links' do
+    assert @address.google_maps_link,
+           "http://www.google.com/maps/place/#{@address.latitude},#{@address.longitude}"
+  end
 end

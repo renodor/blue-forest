@@ -8,3 +8,4 @@ child_category:
 child_category2:
   name: child_category2
   parent: parent_category
+

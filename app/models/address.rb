@@ -46,6 +46,10 @@ class Address < ApplicationRecord
   validate :area_regarding_district
   validates :street, :city, :latitude, :longitude, presence: true
 
+  def google_maps_link
+    "http://www.google.com/maps/place/#{latitude},#{longitude}"
+  end
+
   private
 
   # check that the area (corregimiento) correspond to the good district
@@ -57,7 +61,4 @@ class Address < ApplicationRecord
     errors.add(:area, ': por favor seleccionar uno en la lista')
   end
 
-  def google_maps_link
-    "http://www.google.com/maps/place/#{latitude},#{longitude}"
-  end
 end

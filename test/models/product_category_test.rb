@@ -2,8 +2,6 @@ require 'test_helper'
 
 class ProductCategoryTest < ActiveSupport::TestCase
   def setup
-    @product = products(:product1)
-    @category = categories(:parent_category)
     @product_category = product_categories(:product_category)
   end
 
