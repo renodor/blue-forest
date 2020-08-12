@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'open-uri'
 
 class LineItemTest < ActiveSupport::TestCase
   def setup
@@ -6,6 +7,15 @@ class LineItemTest < ActiveSupport::TestCase
     @line_item2 = line_items(:line_item2)
     @variation = product_variations(:product_variation1)
     @line_item.cart = Cart.new
+
+    @line_item.product_variation.product.product_photos.first.photos.attach(
+      [
+        { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
+          filename: '1.png', content_type: 'image/jpg' },
+        { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/861-500x500_s0fflw.jpg'),
+          filename: '2.png', content_type: 'image/jpg' }
+      ]
+    )
   end
 
   test 'valid line item' do
@@ -32,6 +42,10 @@ class LineItemTest < ActiveSupport::TestCase
   end
 
   test 'line item add photo key method' do
-    # test to do
+    product_photo = @line_item.product_variation.product.product_photos.find do |photo|
+      photo.color == @variation.color
+    end
+    @line_item.save
+    assert_equal @line_item.photo_key, product_photo.photos.first.key
   end
 end

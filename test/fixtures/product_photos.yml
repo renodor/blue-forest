@@ -1,3 +1,8 @@
 product_photo1:
-  color: ''
+  color: 'blue'
+  product: product1
+
+product_photo2:
+  color: 'red'
+  main: true
   product: product1

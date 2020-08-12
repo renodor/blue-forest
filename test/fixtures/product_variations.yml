@@ -3,12 +3,14 @@ product_variation1:
   product: product1
   price: 10
   size: 'M'
+  color: 'red'
 
 product_variation2:
   quantity: 10
   product: product1
   price: 15.5
   size: 'S'
+  color: 'blue'
 
 product_variation3:
   quantity: 10

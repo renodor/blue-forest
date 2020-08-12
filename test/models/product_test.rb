@@ -42,7 +42,9 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'when destroy a product, its product_photos should be destroyed' do
-    # test to do
+    assert_difference 'ProductPhoto.count', -2 do
+      @product.destroy
+    end
   end
 
   test 'markdown to html converter callback' do
@@ -60,7 +62,9 @@ class ProductTest < ActiveSupport::TestCase
     assert_match '<br>', @product.long_description
   end
 
-  test 'define main photo callback' do
-    # test to do
+  test 'define main color' do
+    @product.save
+    main_color = @product.product_photos.find_by(main: true).color
+    assert_equal @product.main_color, main_color
   end
 end
