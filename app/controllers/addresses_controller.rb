@@ -1,7 +1,7 @@
 class AddressesController < ApplicationController
   before_action :find_user
   before_action :set_breadcrumb_classes, only: %i[new edit]
-  skip_before_action :authenticate_user!, only: %i[new create edit update]
+  skip_before_action :authenticate_user!
 
   def new
     @address = Address.new

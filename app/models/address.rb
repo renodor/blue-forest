@@ -60,5 +60,4 @@ class Address < ApplicationRecord
 
     errors.add(:area, ': por favor seleccionar uno en la lista')
   end
-
 end

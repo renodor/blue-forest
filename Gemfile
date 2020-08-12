@@ -83,6 +83,9 @@ group :test do
   # Add fancy test design
   gem 'launchy'
   gem 'minitest-reporters'
+
+  # Gem needed to use assert_template in tests
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

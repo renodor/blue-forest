@@ -4,6 +4,8 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   def setup
+    @address1 = addresses(:address1)
+    @address2 = addresses(:address2)
     @user = users(:user1)
     @fake_user = fake_users(:fake_user1)
   end
@@ -11,6 +13,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
   test 'should get new for users, if user is signed in' do
     sign_in(@user)
     get new_user_address_path(@user)
+    assert_template 'addresses/new'
     assert_response :success
   end
 
@@ -19,48 +22,99 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test 'create a valid user address if user is signed in' do
-  #   sign_in(@user)
-  #   assert_difference 'Address.count', 1 do
-  #     post user_addresses_path(@user), params: {
-  #       address: {
-  #         street: 'street name',
-  #         flat_number: '8B',
-  #         district: 'Cool district',
-  #         detail: 'amazing details',
-  #         city: 'Panama',
-  #         latitude: 10,
-  #         longitude: -100
-  #       }
-  #     }
-  #   end
-  #   # new address should belong to user
-  #   assert_equal Address.last.user, @user
-  #   # fake user should be nil
-  #   assert_not Address.last.fake_user
-  #   # redirect to new order path for fake users
-  #   assert_redirected_to new_user_order_path(@user)
-  # end
+  test 'create a valid user address if user is signed in' do
+    sign_in(@user)
+    assert_difference 'Address.count', 1 do
+      post user_addresses_path(@user), params: {
+        address: {
+          street: 'street name',
+          flat_number: '8B',
+          district: 'Panamá',
+          area: 'Bella Vista',
+          detail: 'amazing details',
+          city: 'Panama',
+          latitude: 10,
+          longitude: -100
+        }
+      }
+    end
+    # new address should belong to user
+    assert_equal Address.last.user, @user
+    # fake user should be nil
+    assert_nil Address.last.fake_user
+    # redirect to new order path for fake users
+    assert_redirected_to new_user_order_path(@user)
+  end
 
-  # test 'create a valid fake user address if user is not signed in' do
-  #   assert_difference 'Address.count', 1 do
-  #     post fake_user_addresses_path(@fake_user), params: {
-  #       address: {
-  #         street: 'street name',
-  #         flat_number: '8B',
-  #         district: 'Cool district',
-  #         detail: 'amazing details',
-  #         city: 'Panama',
-  #         latitude: 10,
-  #         longitude: -100
-  #       }
-  #     }
-  #   end
-  #   # new address should belong to fake user
-  #   assert_equal Address.last.fake_user, @fake_user
-  #   # user should be nil
-  #   assert_not Address.last.user
-  #   # redirect to new order path for fake users
-  #   assert_redirected_to new_fake_user_order_path(@fake_user)
-  # end
+  test 'create a valid fake user address if user is not signed in' do
+    assert_difference 'Address.count', 1 do
+      post fake_user_addresses_path(@fake_user), params: {
+        address: {
+          street: 'street name',
+          flat_number: '8B',
+          district: 'Panamá',
+          area: 'Bella Vista',
+          detail: 'amazing details',
+          city: 'Panama',
+          latitude: 10,
+          longitude: -100
+        }
+      }
+    end
+    # new address should belong to fake user
+    assert_equal Address.last.fake_user, @fake_user
+    # user should be nil
+    assert_nil Address.last.user
+    # redirect to new order path for fake users
+    assert_redirected_to new_fake_user_order_path(@fake_user)
+  end
+
+  test "don't create address and render new if address creation is not valid" do
+    assert_difference 'Address.count', 0 do
+      post fake_user_addresses_path(@fake_user), params: {
+        address: {
+          street: 'street name'
+        }
+      }
+    end
+    # render new
+    assert_template 'addresses/new'
+  end
+
+  test 'edit address for users' do
+    sign_in(@user)
+    get edit_user_address_path(@user, @address1)
+    assert_response :success
+  end
+
+  test 'edit address for fake users' do
+    get edit_fake_user_address_path(@fake_user, @address2)
+    assert_response :success
+  end
+
+  test 'update a valid fake user address if user is not signed in' do
+    patch fake_user_address_path(@fake_user, @address2), params: {
+      address: {
+        street: 'new street name'
+      }
+    }
+    @address2.reload
+    assert_equal @address2.street, 'new street name'
+  end
+
+  test 'update a valid user address if user is signed in' do
+    sign_in(@user)
+    patch user_address_path(@user, @address1), params: {
+      address: {
+        street: 'new street name'
+      }
+    }
+    @address1.reload
+    assert_equal @address1.street, 'new street name'
+  end
+
+  test 'redirect to correct path' do
+    # see if testing the whole function
+    # or testing different cases scenarios
+  end
 end
