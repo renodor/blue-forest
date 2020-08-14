@@ -48,10 +48,6 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'when destroy a product, its product_favorites should be destroyed' do
-    product_favorite = ProductFavorite.new
-    product_favorite.user = users(:user1)
-    product_favorite.product = @product
-    product_favorite.save
     assert_difference 'ProductFavorite.count', -1 do
       @product.destroy
     end

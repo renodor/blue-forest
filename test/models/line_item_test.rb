@@ -2,11 +2,17 @@ require 'test_helper'
 require 'open-uri'
 
 class LineItemTest < ActiveSupport::TestCase
+  # rubocop:disable Metrics/MethodLength
   def setup
     @line_item = line_items(:line_item1)
     @line_item2 = line_items(:line_item2)
     @variation = product_variations(:product_variation1)
     @line_item.cart = Cart.new
+
+    product_photo = ProductPhoto.new
+    product_photo.product = products(:product1)
+    product_photo.color = 'red'
+    product_photo.save
 
     @line_item.product_variation.product.product_photos.first.photos.attach(
       [
@@ -17,6 +23,7 @@ class LineItemTest < ActiveSupport::TestCase
       ]
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   test 'valid line item' do
     assert @line_item.valid?
