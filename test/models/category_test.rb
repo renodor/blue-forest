@@ -26,6 +26,10 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test 'when destroy a category, its product_categories should be destroyed' do
+    product_category = ProductCategory.new
+    product_category.product = products(:product1)
+    product_category.category = @parent_category
+    product_category.save
     assert_difference 'ProductCategory.count', -1 do
       @parent_category.destroy
     end

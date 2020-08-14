@@ -4,6 +4,13 @@ class ProductTest < ActiveSupport::TestCase
   def setup
     @product = products(:product1)
     @variation = product_variations(:product_variation1)
+    @category = categories(:parent_category)
+
+    @product_photo = ProductPhoto.new
+    @product_photo.product = @product
+    @product_photo.color = 'red'
+    @product_photo.main = true
+    @product_photo.save
   end
 
   test 'valid product' do
@@ -26,23 +33,32 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'when destroy a product, its product_categories should be destroyed' do
+    product_category = ProductCategory.new
+    product_category.product = @product
+    product_category.category = @category
+    product_category.save
     assert_difference 'ProductCategory.count', -1 do
       @product.destroy
     end
   end
 
   test 'can access product categories through product_categories' do
+    @product.categories = [@category]
     assert @product.categories.first.name, 'parent_category'
   end
 
   test 'when destroy a product, its product_favorites should be destroyed' do
+    product_favorite = ProductFavorite.new
+    product_favorite.user = users(:user1)
+    product_favorite.product = @product
+    product_favorite.save
     assert_difference 'ProductFavorite.count', -1 do
       @product.destroy
     end
   end
 
   test 'when destroy a product, its product_photos should be destroyed' do
-    assert_difference 'ProductPhoto.count', -2 do
+    assert_difference 'ProductPhoto.count', -1 do
       @product.destroy
     end
   end
@@ -62,7 +78,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_match '<br>', @product.long_description
   end
 
-  test 'define main color' do
+  test 'define main color callback' do
     @product.save
     main_color = @product.product_photos.find_by(main: true).color
     assert_equal @product.main_color, main_color

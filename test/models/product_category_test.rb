@@ -1,11 +1,10 @@
 require 'test_helper'
 
 class ProductCategoryTest < ActiveSupport::TestCase
-  def setup
-    @product_category = product_categories(:product_category)
-  end
-
   test 'valid product_categories' do
-    assert @product_category
+    product_category = ProductCategory.new
+    product_category.product = products(:product1)
+    product_category.category = categories(:parent_category)
+    assert product_category.valid?
   end
 end

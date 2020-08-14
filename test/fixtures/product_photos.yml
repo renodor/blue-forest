@@ -1,8 +1,0 @@
-product_photo1:
-  color: 'blue'
-  product: product1
-
-product_photo2:
-  color: 'red'
-  main: true
-  product: product1
