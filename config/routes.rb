@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :addresses, only: %i[new create edit update]
   end
 
-  resources :carts, only: %i[show destroy]
+  resources :carts, only: :show
   resources :products do
     collection do
       get :search

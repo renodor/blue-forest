@@ -8,15 +8,16 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get show' do
-    # get root_path
-    # params = {}
-    # session[:cart_id] = @cart.id
-    # params[:id] = @cart.id
+    # it seems that each test line create a new session...
+    # so the only way to have the cart id equal to session[:cart_id] is to anticipate it adding 1
+    get root_path
+    @cart.id = session[:cart_id] + 1
+    get cart_path(@cart)
+    assert_response :success
+  end
 
-    # p "@cart.id: #{@cart.id} ----- "
-    # p "session[:cart_id]: #{session[:cart_id]} ----- "
-    # p "params[:id]: #{params[:id]} ----- "
-    # get cart_path(@cart)
-    # assert_response :success
+  test 'user should be redirected to correct cart if cart id is not equal to session[:cart_id]' do
+    get cart_path(@cart)
+    assert_redirected_to "http://www.example.com/carts/#{session[:cart_id]}"
   end
 end
