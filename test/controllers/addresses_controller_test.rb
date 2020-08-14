@@ -100,6 +100,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     }
     @address2.reload
     assert_equal @address2.street, 'new street name'
+    assert_redirected_to new_fake_user_order_path(@fake_user)
   end
 
   test 'update a valid user address if user is signed in' do
@@ -111,10 +112,28 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     }
     @address1.reload
     assert_equal @address1.street, 'new street name'
+    assert_redirected_to new_user_order_path(@user)
   end
 
-  test 'redirect to correct path' do
-    # see if testing the whole function
-    # or testing different cases scenarios
+  test "don't update address and render new if address update is not valid" do
+    assert_difference 'Address.count', 0 do
+      patch fake_user_address_path(@fake_user, @address2), params: {
+        address: {
+          district: 'invalid name'
+        }
+      }
+    end
+    # render new
+    assert_template 'addresses/edit'
+  end
+
+  test 'redirect to dashboard if from_dashboard params is present' do
+    sign_in(@user)
+    patch user_address_path(@user, @address1, from_dashboard: true), params: {
+      address: {
+        street: 'new street name'
+      }
+    }
+    assert_redirected_to dashboards_path
   end
 end
