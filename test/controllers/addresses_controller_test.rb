@@ -1,5 +1,6 @@
 require 'test_helper'
 
+# rubocop:disable Metrics/ClassLength
 class AddressesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
@@ -19,6 +20,7 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new for fake users, if user is not signed in' do
     get new_fake_user_address_path(@fake_user)
+    assert_template 'addresses/new'
     assert_response :success
   end
 
@@ -84,11 +86,13 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
   test 'edit address for users' do
     sign_in(@user)
     get edit_user_address_path(@user, @address1)
+    assert_template 'addresses/edit'
     assert_response :success
   end
 
   test 'edit address for fake users' do
     get edit_fake_user_address_path(@fake_user, @address2)
+    assert_template 'addresses/edit'
     assert_response :success
   end
 
@@ -137,3 +141,4 @@ class AddressesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to dashboards_path
   end
 end
+# rubocop:enable Metrics/ClassLength

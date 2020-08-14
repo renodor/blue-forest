@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :addresses, only: %i[new create edit update]
   end
 
-  resources :categories, only: [:show]
+  resources :categories, only: :show
 
   resources :product_favorites, only: %i[create destroy]
 

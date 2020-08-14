@@ -13,6 +13,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
     get root_path
     @cart.id = session[:cart_id] + 1
     get cart_path(@cart)
+    assert_template 'carts/show'
     assert_response :success
   end
 
