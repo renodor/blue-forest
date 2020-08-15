@@ -7,8 +7,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
     # need to manually attach photos to the products of the category
     # otherwise the view returns 500 error
-    product_photo = ProductPhoto.new
-    product_photo.product = products(:product1)
+    product_photo = product_photos(:product_photo1)
     product_photo.photos.attach(
       [
         { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),

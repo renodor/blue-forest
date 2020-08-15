@@ -1,0 +1,9 @@
+product_photo1:
+  product: product1
+  color: red
+  main: true
+
+product_photo2:
+  product: product1
+  color: blue
+

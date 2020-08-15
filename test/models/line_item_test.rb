@@ -9,12 +9,8 @@ class LineItemTest < ActiveSupport::TestCase
     @variation = product_variations(:product_variation1)
     @line_item.cart = Cart.new
 
-    product_photo = ProductPhoto.new
-    product_photo.product = products(:product1)
-    product_photo.color = 'red'
-    product_photo.save
-
-    @line_item.product_variation.product.product_photos.first.photos.attach(
+    @product_photo = product_photos(:product_photo1)
+    @product_photo.photos.attach(
       [
         { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
           filename: '1.png', content_type: 'image/jpg' },

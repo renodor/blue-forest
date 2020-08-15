@@ -2,11 +2,8 @@ require 'test_helper'
 require 'open-uri'
 
 class ProductPhotoTest < ActiveSupport::TestCase
-  # rubocop:disable Metrics/MethodLength
   def setup
-    @product_photo = ProductPhoto.new
-    @product_photo.product = products(:product1)
-    @product_photo.color = 'blue'
+    @product_photo = product_photos(:product_photo1)
     @product_photo.photos.attach(
       [
         { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
@@ -17,7 +14,6 @@ class ProductPhotoTest < ActiveSupport::TestCase
     )
     @product_photo.save
   end
-  # rubocop:enable Metrics/MethodLength
 
   test 'valid product photo' do
     assert @product_photo.valid?
