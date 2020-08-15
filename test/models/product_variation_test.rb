@@ -2,9 +2,7 @@ require 'test_helper'
 
 class ProductVariationTest < ActiveSupport::TestCase
   def setup
-    @product = products(:product1)
     @variation = product_variations(:product_variation1)
-    @line_item = line_items(:line_item1)
   end
 
   test 'valid product variation' do

@@ -3,7 +3,6 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = users(:user1)
-    @product = products(:product1)
   end
 
   test 'valid user' do

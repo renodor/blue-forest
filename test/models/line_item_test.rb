@@ -2,15 +2,11 @@ require 'test_helper'
 require 'open-uri'
 
 class LineItemTest < ActiveSupport::TestCase
-  # rubocop:disable Metrics/MethodLength
   def setup
     @line_item = line_items(:line_item1)
-    @line_item2 = line_items(:line_item2)
-    @variation = product_variations(:product_variation1)
     @line_item.cart = Cart.new
 
-    @product_photo = product_photos(:product_photo1)
-    @product_photo.photos.attach(
+    product_photos(:product_photo1).photos.attach(
       [
         { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
           filename: '1.png', content_type: 'image/jpg' },
@@ -19,9 +15,8 @@ class LineItemTest < ActiveSupport::TestCase
       ]
     )
   end
-  # rubocop:enable Metrics/MethodLength
 
-  test 'valid line item' do
+  test 'valid line items' do
     assert @line_item.valid?
   end
 
@@ -46,7 +41,7 @@ class LineItemTest < ActiveSupport::TestCase
 
   test 'line item add photo key method' do
     product_photo = @line_item.product_variation.product.product_photos.find do |photo|
-      photo.color == @variation.color
+      photo.color == product_variations(:product_variation1).color
     end
     @line_item.save
     assert_equal @line_item.photo_key, product_photo.photos.first.key
