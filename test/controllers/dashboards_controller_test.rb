@@ -1,6 +1,7 @@
 require 'test_helper'
 require 'open-uri'
 
+# rubocop:disable Metrics/ClassLength
 class DashboardsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   def setup
@@ -50,6 +51,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  # rubocop:disable Metrics/BlockLength
   test 'product creation tool whith a product without colors' do
     sign_in(@user)
     assert_difference 'Product.count', 1 do
@@ -139,6 +141,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     assert_equal product_photos[1].color, 'blue'
     assert_not product_photos[1].main
   end
+  # rubocop:enable Metrics/BlockLength
 
   test 'product creation tool whith an invalid product' do
     sign_in(@user)
@@ -242,3 +245,4 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   end
   # rubocop:enable Metrics/MethodLength
 end
+# rubocop:enable Metrics/ClassLength
