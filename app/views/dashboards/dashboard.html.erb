@@ -53,31 +53,36 @@
       </div>
     </div>
     <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-      <% @orders.each do |order| %>
-        <div class="dashboard-order">
-          <div>
-            <p><b>Fecha</b></p>
-            <span><%= order.created_at.strftime("%-d %B %Y") %></span>
-          </div>
-          <div>
-            <p><b><%= pluralize(order.total_items.to_i, 'producto') %></b></p>
+      <% if !@orders.empty? %>
+        <% @orders.each do |order| %>
+          <div class="dashboard-order">
             <div>
-              <% order.line_items.each do |item| %>
-                <%= link_to product_path(item.product_variation.product) do %>
-                  <p class="mb-0"><%= item.product_variation.name %> <%= "(x #{item.quantity})" if item.quantity > 1%></p>
+              <p><b>Fecha</b></p>
+              <span><%= order.created_at.strftime("%-d %B %Y") %></span>
+            </div>
+            <div>
+              <p><b><%= pluralize(order.total_items.to_i, 'producto') %></b></p>
+              <div>
+                <% order.line_items.each do |item| %>
+                  <%= link_to product_path(item.product_variation.product) do %>
+                    <p class="mb-0"><%= item.product_variation.name %> <%= "(x #{item.quantity})" if item.quantity > 1%></p>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
+            </div>
+            <div>
+              <p><b>Entrega</b></p>
+              <span>$<%= order.shipping %></span>
+            </div>
+            <div>
+              <p><b>Total</b></p>
+              <span>$<%= order.total %></span>
             </div>
           </div>
-          <div>
-            <p><b>Entrega</b></p>
-            <span>$<%= order.shipping %></span>
-          </div>
-          <div>
-            <p><b>Total</b></p>
-            <span>$<%= order.total %></span>
-          </div>
-        </div>
+        <% end %>
+      <% else %>
+          <p>No tienes ningún orden</p>
+          <%= link_to 'Descrubrir Productos', root_path(anchor: 'products'), class: 'btn btn-blue' %>
       <% end %>
     </div>
     <div class="tab-pane fade" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
