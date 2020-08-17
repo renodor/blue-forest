@@ -67,4 +67,8 @@ class ProductVariationTest < ActiveSupport::TestCase
       @variation.destroy
     end
   end
+
+  test 'product variation model should have a COLORS constant' do
+    assert ProductVariation::COLORS
+  end
 end
