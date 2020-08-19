@@ -20,6 +20,9 @@ class ProductFavoritesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'remove product from favorites' do
-
+    sign_in(@user)
+    assert_difference 'ProductFavorite.count', -1 do
+      delete product_favorite_path(product_favorites(:product_favorite1).id), xhr: true
+    end
   end
 end
