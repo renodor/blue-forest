@@ -25,4 +25,12 @@ class ProductFavoritesControllerTest < ActionDispatch::IntegrationTest
       delete product_favorite_path(product_favorites(:product_favorite1).id), xhr: true
     end
   end
+
+  test 'create product favorite should redirect if user not signed in' do
+    assert_no_difference 'ProductFavorite.count' do
+      post product_favorites_path(product_id: @product.id), xhr: true
+    end
+    assert_response :unauthorized
+    assert_equal 'Tienes que iniciar sesión o registrarte para poder continuar.', @response.body
+  end
 end
