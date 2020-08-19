@@ -79,6 +79,7 @@ class LineItemsController < ApplicationController
       @line_item = @current_cart.line_items.find_by(product_variation_id: @product_variation.id)
     elsif params[:id]
       # if not check if we have a params to find the line_item
+      # (when we add it in AJAX from the cart)
       @line_item = LineItem.find(params[:id])
     else
       # if not return false to indicate we can't find the corresponding line_item
