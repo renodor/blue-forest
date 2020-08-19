@@ -2,6 +2,7 @@ require 'test_helper'
 require 'open-uri'
 require 'json'
 
+# rubocop:disable Metrics/ClassLength
 class LineItemsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @current_cart = carts(:cart1)
@@ -235,3 +236,4 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal expected_ajax_sucess_response.to_json, @response.body
   end
 end
+# rubocop:enable Metrics/ClassLength
