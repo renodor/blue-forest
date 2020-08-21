@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
 
   def show
     # prevent users from trying to access other users orders by changing the order id in the url
-    redirect_to root_path if session[:order_id] != params[:id].to_i
+    redirect_to root_path and return if session[:order_id] != params[:id].to_i
 
     @order = Order.find(params[:id])
 
