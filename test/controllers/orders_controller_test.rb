@@ -7,6 +7,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     @user = users(:user1)
     @fake_user = fake_users(:fake_user1)
     @order = orders(:order1)
+    @cart = carts(:cart1)
   end
 
   test 'should get new for users, if user is signed in' do
@@ -24,15 +25,16 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
 
   test 'create an order if user is signed in' do
     sign_in(@user)
+    @current_cart = @cart
     assert_difference 'Order.count', 1 do
       post user_orders_path(@user)
     end
-    # # new address should belong to user
-    # assert_equal Address.last.user, @user
-    # # fake user should be nil
-    # assert_nil Address.last.fake_user
-    # # redirect to new order path for fake users
-    # assert_redirected_to new_user_order_path(@user)
+    # new address should belong to user
+    assert_equal Address.last.user, @user
+    # fake user should be nil
+    assert_nil Address.last.fake_user
+    # redirect to new order path for fake users
+    assert_redirected_to new_user_order_path(@user)
   end
 
   # test 'should get new for users, if user is signed in' do
