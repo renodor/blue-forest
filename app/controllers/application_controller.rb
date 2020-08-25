@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # automaticaly create a cart when a new session is created
   before_action :current_cart
 
-  # automaticaly create a cart when a new session is created
+  # get all categories (needed for the main nav dropdown)
   before_action :categories
 
   private

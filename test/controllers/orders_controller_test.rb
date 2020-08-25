@@ -10,12 +10,14 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     @cart = carts(:cart1)
   end
 
-  # test 'should get new for users, if user is signed in' do
-  #   sign_in(@user)
-  #   get new_user_order_path(@user)
-  #   assert_template 'orders/new'
-  #   assert_response :success
-  # end
+  test 'should get new for users, if user is signed in' do
+    sign_in(@user)
+    assign(:address, addresses(:address2))
+    get new_user_order_path(@user)
+    p ">>>>>>>>>>>>>>>>>>>>>>>>>> #{assigns(:address).street}"
+    assert_template 'orders/new'
+    assert_response :success
+  end
 
   # test 'should get new for fake users' do
   #   get new_fake_user_order_path(@fake_user)
@@ -23,16 +25,10 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   #   assert_response :success
   # end
 
-  test 'create an order if user is signed in' do
-    # get root_path
-    # request.session[:cart_id] = @cart.id
-    # # new address should belong to user
-    # assert_equal Address.last.user, @user
-    # # fake user should be nil
-    # assert_nil Address.last.fake_user
-    # # redirect to new order path for fake users
-    # assert_redirected_to new_user_order_path(@user)
-  end
+  # test 'create an order if user is signed in' do
+  #   get user_order_path(@user, @order)
+  #   assert_equal @order, assigns(:order)
+  # end
 
   # test 'should get new for users, if user is signed in' do
   #   get root_path

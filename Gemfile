@@ -84,7 +84,7 @@ group :test do
   gem 'launchy'
   gem 'minitest-reporters'
 
-  # Gem needed to use assert_template in tests
+  # Gem needed to use assert_template and access instance variables in tests
   gem 'rails-controller-testing'
 end
 
