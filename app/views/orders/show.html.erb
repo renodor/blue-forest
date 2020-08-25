@@ -21,10 +21,10 @@
             <p>Tamaño: <%= line_item.product_variation.size %></p>
             <p>
               <% if line_item.product_variation.discount_price %>
-                <span class="crossed">$<%= line_item.product_variation.price %></span>
-                <span>$<%= line_item.product_variation.discount_price %></span>
+                <span class="crossed"><%= number_to_currency(line_item.product_variation.price, precision: 2) %></span>
+                <span><%= number_to_currency(line_item.product_variation.discount_price, precision: 2) %></span>
               <% else %>
-                $<%= line_item.product_variation.price %>
+                <%= number_to_currency(line_item.product_variation.price, precision: 2) %>
               <% end %>
             </p>
             <p>Cantidad: <%= line_item.quantity %></p>
@@ -55,16 +55,16 @@
   <div class="order-review-footer">
     <div class="my-3">
       <p><%= total_quantity %> <%= t('products', count: total_quantity) %></p>
-      <p>Sub Total: $<%= @order.sub_total %></p>
+      <p>Sub Total: <%= number_to_currency(@order.sub_total, precision: 2) %></p>
        <p>Entrega:
           <% if @order.shipping > 0 %>
-            $<%= @order.shipping %>
+            <%= number_to_currency(@order.shipping, precision: 2) %>
           <% else %>
             <b>¡Envío gratuito!</b>
           <% end %>
         </p>
-      <p>ITBMS (7%): $<%= (@order.itbms) %></p>
-      <p><b>TOTAL: $<%= @order.total %></b></p>
+      <p>ITBMS (7%): <%= number_to_currency(@order.itbms, precision: 2) %></p>
+      <p><b>TOTAL: <%= number_to_currency(@order.total, precision: 2) %></b></p>
     </div>
     <div class="order-review-footer-bottom mt-3">
       <p class='text-center'>Todos los pagos se hacen contra entrega. Gracias por preferirnos.</p>

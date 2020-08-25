@@ -41,7 +41,7 @@
             <p style="margin: 0 0 5px 0;">Color: <%= t(line_item.product_variation.color) %></p>
           <% end %>
           <p style="margin: 0 0 5px 0;">Tamaño: <%= line_item.product_variation.size %></p>
-          <p style="margin: 0 0 5px 0;">$<%= line_item.product_variation.price %></p>
+          <p style="margin: 0 0 5px 0;"><%= number_to_currency(line_item.product_variation.price, precision: 2) %></p>
           <p style="margin: 0 0 5px 0;">Cantidad: <%= line_item.quantity %></p>
         </div>
       </div>
@@ -53,14 +53,14 @@
   <p>Sub total: $<%= @order.sub_total %></p>
   <p>Manejo y envío:
     <% if @order.shipping > 0 %>
-      $<%= @order.shipping %>
+      <%= number_to_currency(@order.shipping, precision: 2) %>
     <% else %>
       <b>¡Envío gratuito!</b>
     <% end %>
   </p>
-  <p>ITBMS: $<%= @order.itbms %></p>
+  <p>ITBMS: <%= number_to_currency(@order.itbms, precision: 2) %></p>
   <hr>
-  <p><b>Total Orden: $<%= @order.total %></b></p>
+  <p><b>Total Orden: <%= number_to_currency(@order.total, precision: 2) %></b></p>
 </div>
 <div style="text-align: center; font-family: sans-serif; padding: 30px 60px;">
   <p>Importante: En el caso de no estar presente a la hora de entrega nos comunicaremos al teléfono incluido es su

@@ -21,10 +21,10 @@
               <p>Tamaño: <%= line_item.product_variation.size %></p>
               <p>
                 <% if line_item.product_variation.discount_price %>
-                  <span class="crossed">$<%= line_item.product_variation.price %></span>
-                  <span>$<%= line_item.product_variation.discount_price %></span>
+                  <span class="crossed"><%= number_to_currency(line_item.product_variation.price, precision: 2) %></span>
+                  <span><%= number_to_currency(line_item.product_variation.discount_price, precision: 2) %></span>
                 <% else %>
-                  $<%= line_item.product_variation.price %>
+                  <%= number_to_currency(line_item.product_variation.price, precision: 2) %>
                 <% end %>
               </p>
               <div class="quantity-counter d-flex" data-controller="counter">
@@ -46,16 +46,16 @@
         <p class="total_items">
           <%= total_quantity %> <%= t('products', count: total_quantity) %>
         </p>
-        <p>Sub Total: $<span class="sub_total"><%= @cart.sub_total %></span></p>
+        <p>Sub Total: <span class="sub_total"><%= number_to_currency(@cart.sub_total, precision: 2) %></span></p>
         <p>Entrega:
           <% if @cart.shipping > 0 %>
-            <span class="shipping">$<%= @cart.shipping %></span>
+            <span class="shipping"><%= number_to_currency(@cart.shipping, precision: 2) %></span>
           <% else %>
             <span class="shipping"><b>¡Envío gratuito!</b></span>
           <% end %>
         </p>
-        <p>ITBMS (7%): $<span class="itbms"><%= @cart.itbms %></span></p>
-        <p><b>TOTAL: $<span class="total"><%= @cart.total %></span></b></p>
+        <p>ITBMS (7%): <span class="itbms"><%= number_to_currency(@cart.itbms, precision: 2) %></span></p>
+        <p><b>TOTAL: <span class="total"><%= number_to_currency(@cart.total, precision: 2) %></span></b></p>
         <% if user_signed_in? %>
           <p><%= link_to "Ordenar", new_user_order_path(current_user), class: 'btn btn-blue w-100' %></p>
         <% elsif params[:fake_user_id] %>

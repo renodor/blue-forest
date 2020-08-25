@@ -59,12 +59,12 @@
             <% end %>
             <p class="product-price">
               <% if discount_price %>
-                <span class="crossed-white">$<%= price %></span> $<%= discount_price %>
+                <span class="crossed-white"><%= number_to_currency(price, precision: 2) %></span> <%= number_to_currency(discount_price, precision: 2) %>
               <% elsif price %>
-                $<%= price %>
+                <%= number_to_currency(price, precision: 2) %>
               <% else %>
                 <!-- Just a security if for some reason price is still empty... -->
-                $<%= product.product_variations.first.price %>
+                <%= number_to_currency(product.product_variations.first.price, precision: 2) %>
               <% end %>
             </p>
             <%= link_to product_path(product), class: 'simple-flexbox product-hover' do %>
