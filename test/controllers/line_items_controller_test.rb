@@ -18,16 +18,19 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
+  # rubocop:disable Layout/LineLength
   def expected_ajax_sucess_response
     {
       can_change_quantity: true,
       current_cart: @current_cart,
       total_items: @current_cart.total_items.to_i,
-      sub_total: @current_cart.sub_total,
-      shipping: @current_cart.shipping.to_f,
-      itbms: @current_cart.itbms.to_f, total: @current_cart.total.to_f
+      sub_total: ActionController::Base.helpers.number_to_currency(@current_cart.sub_total, precision: 2),
+      shipping: ActionController::Base.helpers.number_to_currency(@current_cart.shipping, precision: 2, unit: ''),
+      itbms: ActionController::Base.helpers.number_to_currency(@current_cart.itbms, precision: 2),
+      total: ActionController::Base.helpers.number_to_currency(@current_cart.total, precision: 2)
     }
   end
+  # rubocop:enable Layout/LineLength
 
   def expected_ajax_error_response
     {

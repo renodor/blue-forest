@@ -12,32 +12,32 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new for users, if user is signed in' do
     sign_in(@user)
-    assign(:address, addresses(:address2))
     get new_user_order_path(@user)
-    p ">>>>>>>>>>>>>>>>>>>>>>>>>> #{assigns(:address).street}"
     assert_template 'orders/new'
     assert_response :success
   end
 
-  # test 'should get new for fake users' do
-  #   get new_fake_user_order_path(@fake_user)
-  #   assert_template 'orders/new'
-  #   assert_response :success
-  # end
+  test 'should redirect user if trying to access new orders without address' do
+    @user.addresses.first.delete
+    sign_in(@user)
+    get new_user_order_path(@user)
+    assert_redirected_to new_user_address_path(@user)
+  end
 
-  # test 'create an order if user is signed in' do
-  #   get user_order_path(@user, @order)
-  #   assert_equal @order, assigns(:order)
-  # end
+  test 'should get new for fake users' do
+    get new_fake_user_order_path(@fake_user)
+    assert_template 'orders/new'
+    assert_response :success
+  end
 
-  # test 'should get new for users, if user is signed in' do
-  #   get root_path
-  #   sign_in(@user)
-  #   session[:order_id] = @order.id
-  #   # p ">>>>>>>>>>>>>>>>>>>>>>> #{session[:order_id]}"
-  #   # p ">>>>>>>>>>>>>>>>>>>>>>>> #{@order.id}"
-  #   get user_order_path(@user, @order)
-  #   # assert_template 'orders/show'
-  #   assert_response :success
-  # end
+  test 'login before new route should redirect logged out users to login page' do
+    get login_before_new_order_path
+    assert_redirected_to new_user_session_path
+  end
+
+  test 'login before new route should redirect logged in users to new user order page' do
+    sign_in(@user)
+    get login_before_new_order_path
+    assert_redirected_to new_user_order_path(@user)
+  end
 end
