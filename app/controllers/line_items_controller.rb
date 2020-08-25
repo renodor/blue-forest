@@ -145,9 +145,10 @@ class LineItemsController < ApplicationController
           can_change_quantity: true,
           current_cart: @current_cart,
           total_items: @current_cart.total_items.to_i,
-          sub_total: @current_cart.sub_total,
-          shipping: @current_cart.shipping.to_f,
-          itbms: @current_cart.itbms.to_f, total: @current_cart.total.to_f
+          sub_total: view_context.number_to_currency(@current_cart.sub_total, precision: 2),
+          shipping: view_context.number_to_currency(@current_cart.shipping, precision: 2, unit: ''),
+          itbms: view_context.number_to_currency(@current_cart.itbms, precision: 2),
+          total: view_context.number_to_currency(@current_cart.total, precision: 2)
         }
       end
     end
