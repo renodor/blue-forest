@@ -32,6 +32,7 @@ PreCommit:
 PrePush:
   Minitest:
     enabled: true
+    requires_files: true
 #
 #PostCheckout:
 #  ALL: # Special hook name that customizes all hooks of this type
