@@ -1,12 +1,11 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show search]
-  layout 'pdp', only: [:show]
-  layout 'homepage', only: [:index]
 
   def index
     @products = Product.includes(:product_variations, :product_photos)
                        .where(published: true)
                        .order(order: :asc)
+    render layout: 'homepage'
   end
 
   def show
@@ -26,6 +25,7 @@ class ProductsController < ApplicationController
 
     # if product is not published, redirect to hp unless current user is an admin
     redirect_to root_path unless current_user&.admin || @product.published
+    render layout: 'pdp'
   end
 
   def search
