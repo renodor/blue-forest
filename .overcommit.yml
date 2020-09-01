@@ -21,6 +21,9 @@ PreCommit:
    on_warn: fail # Treat all warnings as failures
    command: ['bundle', 'exec', 'rubocop']
 
+ EsLint:
+  enabled: true
+
  TrailingWhitespace:
    enabled: true
    exclude:
