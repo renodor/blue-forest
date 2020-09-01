@@ -24,7 +24,8 @@ class ProductsController < ApplicationController
     @product_photos << @product.product_photos.first if @product_photos.empty?
 
     # if product is not published, redirect to hp unless current user is an admin
-    redirect_to root_path unless current_user&.admin || @product.published
+    redirect_to root_path and return unless current_user&.admin || @product.published
+
     render layout: 'pdp'
   end
 
