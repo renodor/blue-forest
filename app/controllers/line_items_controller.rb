@@ -137,7 +137,7 @@ class LineItemsController < ApplicationController
   end
 
   # rubocop:disable Metrics/MethodLength
-  # helper method to send a json response with all current_cart info
+  # helper method to send a json response with all current_cart infos
   def cart_info_json_response
     respond_to do |format|
       format.json do
