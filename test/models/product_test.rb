@@ -6,7 +6,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test 'valid product' do
-    assert @product.valid?
+    assert_not @product.valid?
   end
 
   test 'product should have a name' do
