@@ -28,6 +28,10 @@ PreCommit:
    enabled: true
    exclude:
      - '**/db/structure.sql' # Ignore trailing whitespace in generated files
+
+PrePush:
+  Minitest:
+    enabled: true
 #
 #PostCheckout:
 #  ALL: # Special hook name that customizes all hooks of this type
