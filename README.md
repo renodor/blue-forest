@@ -1,3 +1,3 @@
-![CI](https://github.com/renodor/blue-forest/workflows/CI/badge.svg)
-
 Blue-forest ecommerce webapp
+
+[Access production website](https://blueforestpanama.com/)
