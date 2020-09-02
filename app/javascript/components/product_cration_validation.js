@@ -17,7 +17,7 @@ const productCrationValidation = () => {
 
     const checkSizeVariations = (productType) => {
       createProductForm.querySelectorAll('#product-type-container label').forEach((label) => {
-        label.style.border = 'none';
+        label.classList.remove('is-invalid');
       });
       const sizeVariations = createProductForm.querySelectorAll(`.${productType} .size-element`);
       sizeVariations.forEach((sizeVariation) => {
@@ -35,10 +35,10 @@ const productCrationValidation = () => {
       photoElements.forEach((photoElement) => {
         const photoInput = photoElement.querySelector('#color_variations__photos__photo');
         if (photoInput.files.length == 0) {
-          photoInput.style.border = '2px solid red';
+          photoInput.classList.add('is-invalid');
           formIsValid = false;
         } else if (photoInput.files.length == 1) {
-          photoInput.style.border = 'none';
+          photoInput.classList.remove('is-invalid');
         }
       });
     };
@@ -54,7 +54,7 @@ const productCrationValidation = () => {
       if (!productWithColors.checked && !productWithoutColors.checked) {
         const productTypeContainer = createProductForm.querySelector('#product-type-container');
         productTypeContainer.querySelectorAll('label').forEach((label) => {
-          label.style.border = '4px solid red';
+          label.classList.add('is-invalid');
           formIsValid = false;
         });
       } else if (productWithoutColors.checked) {
@@ -64,6 +64,9 @@ const productCrationValidation = () => {
       }
       if (formIsValid) {
         createProductForm.submit();
+      } else {
+        const firstInvalidElement = document.querySelector('.is-invalid');
+        firstInvalidElement.parentNode.scrollIntoView();
       }
     });
   }

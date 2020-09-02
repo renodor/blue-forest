@@ -18,6 +18,9 @@
 }
 
 #product-creation-container {
+  #product-type-container label.is-invalid {
+    border: 4px solid red;
+  }
   .product-with-color,
   .product-without-color {
     margin-bottom: 15px;
@@ -56,6 +59,9 @@
 
   .photo-element{
     margin-bottom: 10px;
+    input[type='file'].is-invalid {
+      border: 2px solid red;
+    }
   }
 
   .remove-element {
