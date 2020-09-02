@@ -143,18 +143,6 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   end
   # rubocop:enable Metrics/BlockLength
 
-  test 'product creation tool whith an invalid product' do
-    sign_in(@user)
-    assert_no_difference 'Product.count' do
-      post product_creation_path, params: {
-        name: ''
-      }
-    end
-
-    assert_equal flash[:alert], 'Product name is empty'
-    assert_template 'dashboards/product_creation_new'
-  end
-
   # rubocop:disable Metrics/MethodLength
   def product_without_color_params
     {
