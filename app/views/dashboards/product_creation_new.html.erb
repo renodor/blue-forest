@@ -1,7 +1,7 @@
-<div class="container my-5" id='product-creation'>
+<div class="container my-5" id='product-creation-container'>
   <h1>Create New Product</h1>
   <br>
-  <%= form_tag product_creation_path, multipart: true do %>
+  <%= form_tag product_creation_path, multipart: true, id: 'product-creation-form' do %>
     <div class="form-group">
       <%= label_tag  :name, "Name" %>
       <%= text_field_tag :name, nil, class: "form-control"  %>
@@ -29,7 +29,7 @@
       <%= check_box_tag :published, true, class: "form-control"  %>
     </div>
     <h5>Variations</h5>
-    <div class="form-group text-center">
+    <div class="form-group text-center" id="product-type-container">
       <%= label_tag  :product_type_with_colors, "PRODUCT WITH COLOR VARIATIONS", class: 'btn btn-dark-gray small', id: 'product-with-color' %>
       <%= radio_button_tag 'product_type', 'with_colors', false, class: "display-none"  %>
       <%= label_tag  :product_type_without_colors, "PRODUCT WITHOUT COLOR VARIATIONS", class: 'btn btn-dark-gray small', id: 'product-without-color' %>
@@ -125,6 +125,6 @@
       </div>
       <span class="btn btn-dark-gray small add-element" data-type='color'>Add Color</span>
     </div>
-    <%= submit_tag 'CREATE PRODUCT', class: 'btn btn-blue w-100' %>
+    <%= submit_tag 'CREATE PRODUCT', class: 'btn btn-blue w-100', id: 'create-product' %>
   <% end %>
 </div>

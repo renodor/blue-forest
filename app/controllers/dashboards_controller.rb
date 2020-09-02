@@ -20,29 +20,40 @@ class DashboardsController < ApplicationController
   end
 
   def product_creation_create
-    if form_validation[:valid?]
-      create_product
-      create_product_variations
-      flash[:notice] = 'Product Created'
-      redirect_to product_creation_path
-    else
-      flash[:alert] = form_validation[:error_message]
-      render :product_creation_new
-    end
+    create_product
+    create_product_variations
+    flash[:notice] = 'Product Created'
+    redirect_to product_creation_path
   end
 
   private
 
-  def form_validation
-    result = { valid?: true, error_message: '' }
+  # def form_validation
+  #   result = { valid?: true, error_message: '' }
 
-    if params[:name].empty?
-      result[:valid?] = false
-      result[:error_message] = 'Product name is empty'
-    end
+  #   if params[:name].empty?
+  #     result[:valid?] = false
+  #     result[:error_message] = 'Product name is empty'
+  #   elsif params[:product_type] == 'without_colors'
+  #     params[:color_variations].each do |color_variation|
+  #       next if color_variation[:color] != 'unique'
 
-    result
-  end
+  #       color_variation[:size_variations].each do |size_variation|
+  #         if size_variation[:size].empty?
+  #           result[:valid?] = false
+  #           result[:error_message] = 'Size is empty'
+  #         elsif size_variation[:price].empty?
+  #           result[:valid?] = false
+  #           result[:error_message] = 'Price is empty'
+  #         elsif size_variation[:quantity].empty?
+  #           result[:valid?] = false
+  #           result[:error_message] = 'Price is empty'
+  #         end
+  #       end
+  #     end
+  #   end
+  #   result
+  # end
 
   def create_product
     # create a new product with product creation form params

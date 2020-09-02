@@ -39,6 +39,7 @@ import {boostrapTabs} from '../components/boostrap_tabs';
 import {productCreation} from '../components/product_creation';
 import {mobileMenu} from '../components/mobile_menu';
 import {addressForm} from '../components/address_form';
+import {productCrationValidation} from '../components/product_cration_validation';
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here
@@ -55,6 +56,7 @@ document.addEventListener('turbolinks:load', () => {
   boostrapTabs();
   productCreation();
   mobileMenu();
+  productCrationValidation();
 });
 
 
