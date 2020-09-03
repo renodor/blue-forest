@@ -7,13 +7,12 @@ const productCrationValidation = () => {
     let formIsValid;
 
     const addValidationWarning = (element, message) => {
-      const nextElement = element.nextSibling;
-      console.log(nextElement.classList);
-      if (nextElement.classList && nextElement.classList.contains('input-warning')) {
+      const nextElement = element.nextElementSibling;
+      if (nextElement && nextElement.classList.contains('input-warning')) {
         nextElement.innerHTML = message;
       } else {
         element.insertAdjacentHTML('afterend', `
-        <span id="${element.id}-warning" class="input-warning" style="color:red;">
+        <span class="input-warning" style="color:red;">
           ${message}
         </span>`);
       }
@@ -26,11 +25,10 @@ const productCrationValidation = () => {
         formIsValid = false;
       } else if (element.classList.contains('is-invalid')) {
         element.classList.remove('is-invalid');
-        element.nextSibling.remove();
+        element.nextElementSibling.remove();
       }
     };
 
-    /* eslint-disable max-len */
     const checkSizeVariations = (productType) => {
       createProductForm.querySelectorAll('#product-type-container label').forEach((label) => {
         label.classList.remove('is-invalid');
@@ -43,19 +41,20 @@ const productCrationValidation = () => {
         const price = sizeVariation.querySelector('#color_variations__size_variations__price');
         checkIfHasValue(price);
 
+        /* eslint-disable max-len */
         const discountPrice = sizeVariation.querySelector('#color_variations__size_variations__discount_price');
+        /* eslint-enable max-len */
         if (discountPrice.value && price.value <= discountPrice.value) {
           discountPrice.classList.add('is-invalid');
-          addValidationWarning(discountPrice);
+          addValidationWarning(discountPrice, 'Discount price must smaller than normal price');
         } else if (discountPrice.classList.contains('is-invalid')) {
           discountPrice.classList.remove('is-invalid');
-          element.nextSibling.remove();
+          discountPrice.nextElementSibling.remove();
         }
 
         const qty = sizeVariation.querySelector('#color_variations__size_variations__quantity');
         checkIfHasValue(qty);
       });
-      /* eslint-enable max-len */
 
       const photoElements = createProductForm.querySelectorAll(`.${productType} .photo-element`);
       photoElements.forEach((photoElement) => {
@@ -65,6 +64,27 @@ const productCrationValidation = () => {
           formIsValid = false;
         } else if (photoInput.files.length == 1) {
           photoInput.classList.remove('is-invalid');
+        }
+      });
+    };
+
+    const checkColorUniqueness = () => {
+      const colors = {};
+      /* eslint-disable max-len */
+      document.querySelectorAll('.product-with-color #color_variations__color').forEach((colorVariation) => {
+      /* eslint-enable max-len */
+        if (colorVariation.classList.contains('is-invalid')) {
+          colorVariation.classList.remove('is-invalid');
+          colorVariation.nextElementSibling.remove();
+        }
+
+        if (!colors[colorVariation.value]) {
+          colors[colorVariation.value] = 1;
+        } else {
+          colors[colorVariation.value] += 1;
+          colorVariation.classList.add('is-invalid');
+          addValidationWarning(colorVariation, 'Color must be unique');
+          formIsValid = false;
         }
       });
     };
@@ -88,6 +108,7 @@ const productCrationValidation = () => {
         checkSizeVariations('product-without-color');
       } else if (productWithColors.checked) {
         checkSizeVariations('product-with-color');
+        checkColorUniqueness();
       }
       if (formIsValid) {
         createProductForm.submit();
