@@ -1,4 +1,6 @@
 class LineItem < ApplicationRecord
+  default_scope { includes(:product_variation) }
+
   belongs_to :product_variation
   belongs_to :cart
   belongs_to :order, optional: true
