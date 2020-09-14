@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   # We create a new Cart each time a user visits the site and store its ID in session[:cart_id]
   def current_cart
     if session[:cart_id]
-      cart = Cart.find_by(id: session[:cart_id])
+      cart = Cart.includes(line_items: [product_variation: :product]).find_by(id: session[:cart_id])
       cart.present? ? @current_cart = cart : session[:cart_id] = nil
     end
 

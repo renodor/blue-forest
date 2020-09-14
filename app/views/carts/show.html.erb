@@ -4,7 +4,7 @@
     <div id="cart">
       <div class="cart-products">
         <% total_quantity = 0 %>
-        <% @cart.line_items.order(created_at: :asc).each do |line_item| %>
+        <% @cart.line_items.each do |line_item| %>
           <div class="cart-product d-flex align-items-center bg-white" data-line-item=<%= line_item.id %>>
             <% if line_item.photo_key %>
               <%= cl_image_tag line_item.photo_key, height: 150, width: 150, crop: :fill %>
@@ -84,4 +84,3 @@
   </div>
   <% end %>
 </div>
-

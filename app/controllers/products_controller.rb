@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show search]
 
   def index
-    @products = Product.includes(:product_variations, :product_photos)
+    @products = Product.includes(:product_variations, product_photos: [photos_attachments: :blob])
                        .where(published: true)
                        .order(order: :asc)
     render layout: 'homepage'
@@ -10,10 +10,12 @@ class ProductsController < ApplicationController
 
   def show
     # get the product pre-loading its product variations and product photos
-    @product = Product.includes(:product_variations, :product_photos).find(params[:id])
+    @product = Product.includes(:product_variations)
+                      .where(product_variations: { published: true })
+                      .find(params[:id])
 
     # then filter unpublished product variations and order product variation by sizes
-    @product_variations = sort_by_sizes(@product.product_variations.where(published: true))
+    @product_variations = sort_by_sizes(@product.product_variations)
     build_product_variations_variables
 
     # for product without color variations, at this point @product_photos array is still empty
