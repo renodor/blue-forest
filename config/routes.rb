@@ -33,10 +33,10 @@ Rails.application.routes.draw do
   resources :product_favorites, only: %i[create destroy]
 
   # custom route to redirect user to the correct page
-  # when the start an order and want to login after
+  # when they start an order and want to login after
   get 'login_before_new_order', to: 'orders#login_before_new'
 
-  # route to the use profile page
+  # route to the user profile page
   get 'dashboards', to: 'dashboards#dashboard'
 
   # route for product creation tool
