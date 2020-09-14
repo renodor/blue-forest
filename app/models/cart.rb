@@ -2,7 +2,7 @@ class Cart < ApplicationRecord
   SHIPPING_PRICE = 3.5
   FREE_SHIPPING_THRESHOLD = 65
   TAX = 0.07
-  has_many :line_items, -> { order(created_at: :asc) }, dependent: :destroy
+  has_many :line_items, dependent: :destroy
   has_many :product_variations, through: :line_items
 
   def sub_total
