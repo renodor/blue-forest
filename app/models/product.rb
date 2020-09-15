@@ -13,6 +13,7 @@ class Product < ApplicationRecord
 
   scope :ordered, -> { order order: :asc }
   scope :published, -> { where published: true }
+  scope :with_product_photos, -> { includes(product_photos: [photos_attachments: :blob]) }
   scope :with_published_variations, lambda {
     includes(:product_variations).where(product_variations: { published: true })
   }

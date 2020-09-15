@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   before_action :find_product_favorites, only: %i[index search]
 
   def index
-    @products = Product.includes(:product_variations, product_photos: [photos_attachments: :blob])
+    @products = Product.with_published_variations
+                       .with_product_photos
                        .published
                        .ordered
 
@@ -14,6 +15,7 @@ class ProductsController < ApplicationController
   def show
     # get the product pre-loading its product variations and product photos
     @product = Product.with_published_variations
+                      .with_product_photos
                       .find(params[:id])
 
     # then filter unpublished product variations and order product variation by sizes

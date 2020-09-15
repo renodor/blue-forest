@@ -186,7 +186,7 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     assert_equal expected_ajax_sucess_response.to_json, @response.body
   end
 
-  test 'remove quantity to an existing line item from the cart with an AJAX request' do
+  test 'reduce quantity to an existing line item from the cart with an AJAX request' do
     post line_items_path, params: {
       quantity: '2',
       variation_id: @variation.id
