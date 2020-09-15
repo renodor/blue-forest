@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show search]
 
+  before_action :find_product_favorites, only: %i[index search]
+
   def index
     @products = Product.includes(:product_variations, product_photos: [photos_attachments: :blob])
                        .published
@@ -44,6 +46,10 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def find_product_favorites
+    @product_favorites = current_user.product_favorites if user_signed_in?
+  end
 
   # helper method to sort product variations by sizes
   def sort_by_sizes(variations)

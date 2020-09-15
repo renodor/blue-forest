@@ -31,8 +31,8 @@
             <!-- if yes we show a 'full' like symbol, and the link will be to remove the product from its favorites -->
             <!-- if no, we show a 'stroked' like symbol, and the link will be to add the product to its favorites -->
             <div class="flex-grow-1">
-              <% if user_signed_in? && current_user.product_favorites.exists?(product_id: product) %>
-                <span data-action='click->favorite#removeFavorite' data-target="favorite.toggle" data-favorite-id='<%= current_user.product_favorites.find_by(product_id: product).id %>' data-product-id='<%= product.id %>'>
+              <% if user_signed_in? && (matching_product_favorite = @product_favorites.find { |product_favorite| product_favorite.product_id == product.id }) %>
+                <span data-action='click->favorite#removeFavorite' data-target="favorite.toggle" data-favorite-id='<%= matching_product_favorite.id %>' data-product-id='<%= product.id %>'>
                   <%= inline_svg_tag('like.svg', class: 'liked', data: { target: 'favorite.icon' }) %>
                 </span>
               <% else %>
