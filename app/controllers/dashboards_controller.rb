@@ -1,8 +1,12 @@
 class DashboardsController < ApplicationController
   def dashboard
     @address = current_user.addresses.first
-    @orders = current_user.orders.order(created_at: :desc)
-    @favorites = current_user.product_favorites.order(created_at: :desc)
+    @orders = current_user.orders
+                          .includes(line_items: [product_variation: :product])
+                          .order(created_at: :desc)
+    @favorites = current_user.product_favorites
+                             .includes(product: [product_photos: [photos_attachments: :blob]])
+                             .order(created_at: :desc)
   end
 
   def product_creation_new
