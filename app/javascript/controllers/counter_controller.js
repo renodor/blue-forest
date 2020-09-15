@@ -73,6 +73,10 @@ export default class extends Controller {
 
   // method that update the quantity counter of the correct line items in the cart and sidebar cart
   changeQuantityCounter(operator, lineItem) {
+    if (operator === 'reduce' && this.countTarget.innerHTML === '1') {
+      return;
+    }
+
     const counters = document.querySelectorAll('.quantity-counter');
     counters.forEach((counter) => {
       const counterCount = counter.querySelector('span');
