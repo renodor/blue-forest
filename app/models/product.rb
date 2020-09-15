@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  scope :ordered, -> { order order: :asc }
+  scope :published, -> { where published: true }
+
   has_many :product_variations, dependent: :destroy
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories

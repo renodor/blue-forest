@@ -3,6 +3,6 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @products = @category.products.order(order: :asc)
+    @products = @category.products.published.ordered
   end
 end

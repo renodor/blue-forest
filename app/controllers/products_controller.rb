@@ -3,8 +3,9 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.includes(:product_variations, product_photos: [photos_attachments: :blob])
-                       .where(published: true)
-                       .order(order: :asc)
+                       .published
+                       .ordered
+
     render layout: 'homepage'
   end
 
@@ -38,8 +39,9 @@ class ProductsController < ApplicationController
       OR products.long_description ILIKE :query AND products.published = true \
     "
     @products = Product.includes(:product_variations)
+                       .published
                        .where(sql_query, query: "%#{params[:query]}%")
-                       .order(order: :asc)
+                       .ordered
   end
 
   private
