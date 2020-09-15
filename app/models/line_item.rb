@@ -3,7 +3,7 @@ class LineItem < ApplicationRecord
   belongs_to :cart, optional: true
   belongs_to :order, optional: true
 
-  before_validation :add_photo_key
+  before_create :add_photo_key
 
   def total_price
     item_price = product_variation.discount_price || product_variation.price

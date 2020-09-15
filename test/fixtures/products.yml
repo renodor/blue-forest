@@ -1,8 +1,11 @@
 product1:
   name: product1
+  order: 8
 
 product2:
   name: product2
+  order: 2
 
 product3:
   name: product3
+  order: 3

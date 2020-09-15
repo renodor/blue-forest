@@ -67,4 +67,20 @@ class ProductTest < ActiveSupport::TestCase
     main_color = @product.product_photos.find_by(main: true).color
     assert_equal @product.main_color, main_color
   end
+
+  test 'product ordered scope' do
+    assert_equal Product.ordered, Product.order(order: :asc)
+  end
+
+  test 'product published scope' do
+    @product.update(published: false)
+    assert_equal Product.published, Product.where(published: true)
+  end
+
+  test 'product with published product variations scope' do
+    products = Product.with_published_variations
+    assert_equal products, Product.includes(:product_variations)
+                                  .where(product_variations: { published: true })
+    assert products.first.product_variations.loaded?
+  end
 end

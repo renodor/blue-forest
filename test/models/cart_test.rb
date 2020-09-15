@@ -22,6 +22,11 @@ class CartTest < ActiveSupport::TestCase
     end
   end
 
+  test 'by default cart line items are orered by creation date' do
+    @line_item1.update(created_at: Time.now)
+    assert_equal @cart.line_items, @cart.line_items.order(created_at: :asc)
+  end
+
   test 'cart can access product variations and thus products from cart through line items' do
     assert_equal @cart.line_items.first.product_variation.product.name, 'product1'
   end

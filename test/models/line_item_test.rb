@@ -40,10 +40,13 @@ class LineItemTest < ActiveSupport::TestCase
   end
 
   test 'line item add photo key method' do
-    product_photo = @line_item.product_variation.product.product_photos.find do |photo|
+    line_item = LineItem.new
+    line_item.product_variation = product_variations(:product_variation1)
+
+    product_photo = line_item.product_variation.product.product_photos.find do |photo|
       photo.color == product_variations(:product_variation1).color
     end
-    @line_item.save
-    assert_equal @line_item.photo_key, product_photo.photos.first.key
+    line_item.save
+    assert_equal line_item.photo_key, product_photo.photos.first.key
   end
 end
