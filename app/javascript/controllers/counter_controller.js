@@ -1,8 +1,9 @@
 import {Controller} from 'stimulus';
 
 export default class extends Controller {
-  static targets = [ 'count' ];
-
+  static get targets() {
+    return ['count'];
+  }
 
   // when removeProduct btn is clicked
   // remove the targeted product from cart and sidebar cart
@@ -40,6 +41,10 @@ export default class extends Controller {
 
   // method that trigger 'add_quantity' or 'remove_quantity' actions of the line_items controller
   changeQuantity(operator) {
+    if (operator === 'reduce' && this.countTarget.innerHTML === '1') {
+      return;
+    }
+
     const lineItemId = this.countTarget.dataset.lineItem;
     fetch(`/line_items/${lineItemId}/${operator}_quantity?quantity=1`, {
       headers: {
