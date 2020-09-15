@@ -1,7 +1,4 @@
 class Product < ApplicationRecord
-  scope :ordered, -> { order order: :asc }
-  scope :published, -> { where published: true }
-
   has_many :product_variations, dependent: :destroy
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories
@@ -13,6 +10,12 @@ class Product < ApplicationRecord
 
   before_save :convert_long_description_to_html, if: :will_save_change_to_long_description?
   before_save :define_main_color
+
+  scope :ordered, -> { order order: :asc }
+  scope :published, -> { where published: true }
+  scope :with_published_variations, lambda {
+    includes(:product_variations).where(product_variations: { published: true })
+  }
 
   private
 

@@ -11,8 +11,7 @@ class ProductsController < ApplicationController
 
   def show
     # get the product pre-loading its product variations and product photos
-    @product = Product.includes(:product_variations)
-                      .where(product_variations: { published: true })
+    @product = Product.with_published_variations
                       .find(params[:id])
 
     # then filter unpublished product variations and order product variation by sizes
@@ -38,7 +37,7 @@ class ProductsController < ApplicationController
       OR products.short_description ILIKE :query AND products.published = true \
       OR products.long_description ILIKE :query AND products.published = true \
     "
-    @products = Product.includes(:product_variations)
+    @products = Product.with_published_variations
                        .published
                        .where(sql_query, query: "%#{params[:query]}%")
                        .ordered
