@@ -3,4 +3,5 @@ user1:
   last_name: Potter
   email: harry@gmail.com
   phone: '123456789'
+  encrypted_password: <%= Devise::Encryptor.digest(User, '123456') %>
   confirmed_at: <%= DateTime.now %>
