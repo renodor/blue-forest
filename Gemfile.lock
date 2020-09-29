@@ -84,10 +84,6 @@ GEM
     crass (1.0.6)
     cypress-on-rails (1.8.0)
       rack
-    database_cleaner (1.8.5)
-    database_cleaner-active_record (1.8.0)
-      activerecord
-      database_cleaner (~> 1.8.0)
     devise (4.7.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -328,7 +324,7 @@ GEM
       railties (>= 4.2)
     websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.4)
+    websocket-extensions (0.1.5)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -341,7 +337,6 @@ DEPENDENCIES
   byebug
   cloudinary (~> 1.12.0)
   cypress-on-rails (~> 1.0)
-  database_cleaner-active_record
   devise
   dotenv-rails
   faker
