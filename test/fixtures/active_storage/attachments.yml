@@ -1,0 +1,21 @@
+product_photo1_photos1:
+  name: photos
+  record: product_photo1 (ProductPhoto)
+  blob: product_photo1_blob1
+
+product_photo1_photos2:
+  name: photos
+  record: product_photo1 (ProductPhoto)
+  blob: product_photo1_blob2
+
+
+product_photo2_photos1:
+  name: photos
+  record: product_photo2 (ProductPhoto)
+  blob: product_photo2_blob1
+
+product_photo2_photos2:
+  name: photos
+  record: product_photo2 (ProductPhoto)
+  blob: product_photo2_blob2
+

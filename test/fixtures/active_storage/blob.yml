@@ -1,0 +1,33 @@
+product_photo1_blob1:
+  key: hnvzio2693y82deolzhczpf7zwps
+  filename: photo.jpg
+  content_type: image/jpeg
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: 1000
+  checksum: fdUivZUf74Y6pjAiemuvlg==
+
+product_photo1_blob2:
+  key: 5qy5stn1hojtfah4z9ujhmk6t6vk
+  filename: photo.jpg
+  content_type: image/jpeg
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: 1000
+  checksum: fdUivZUf74Y6pjAiemuvlg==
+
+product_photo2_blob1:
+  key: 4o7o4whozx97rgfgplvii8l1oxxo
+  filename: photo.jpg
+  content_type: image/jpeg
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: 1000
+  checksum: fdUivZUf74Y6pjAiemuvlg==
+
+product_photo2_blob2:
+  key: dprvrxmf5c8qdts1cz95bp1pih8j
+  filename: photo.jpg
+  content_type: image/jpeg
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: 1000
+  checksum: fdUivZUf74Y6pjAiemuvlg==
+
+
