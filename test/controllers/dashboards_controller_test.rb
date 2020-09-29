@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'open-uri'
 
 # rubocop:disable Metrics/ClassLength
 class DashboardsControllerTest < ActionDispatch::IntegrationTest
@@ -7,17 +6,6 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:user1)
     @user.update(admin: true)
-
-    # [product_photos(:product_photo1), product_photos(:product_photo2)].each do |product_photo|
-    #   product_photo.photos.attach(
-    #     [
-    #       { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
-    #         filename: '1.png', content_type: 'image/jpg' },
-    #       { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/861-500x500_s0fflw.jpg'),
-    #         filename: '2.png', content_type: 'image/jpg' }
-    #     ]
-    #   )
-    # end
   end
 
   test 'should have a dashboard' do

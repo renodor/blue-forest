@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'open-uri'
 require 'json'
 
 # rubocop:disable Metrics/ClassLength
@@ -7,15 +6,6 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @current_cart = carts(:cart1)
     @variation = product_variations(:product_variation1)
-
-    product_photos(:product_photo1).photos.attach(
-      [
-        { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
-          filename: '1.png', content_type: 'image/jpg' },
-        { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/861-500x500_s0fflw.jpg'),
-          filename: '2.png', content_type: 'image/jpg' }
-      ]
-    )
   end
 
   # rubocop:disable Layout/LineLength

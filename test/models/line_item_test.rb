@@ -1,19 +1,9 @@
 require 'test_helper'
-require 'open-uri'
 
 class LineItemTest < ActiveSupport::TestCase
   def setup
     @line_item = line_items(:line_item1)
     @line_item.cart = Cart.new
-
-    product_photos(:product_photo1).photos.attach(
-      [
-        { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846867/744-500x500_q9y6wr.jpg'),
-          filename: '1.png', content_type: 'image/jpg' },
-        { io: URI.open('https://res.cloudinary.com/blueforest/image/upload/v1588846864/861-500x500_s0fflw.jpg'),
-          filename: '2.png', content_type: 'image/jpg' }
-      ]
-    )
   end
 
   test 'valid line items' do

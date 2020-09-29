@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'open-uri'
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
   test 'category should get show' do
