@@ -56,7 +56,6 @@ group :development, :test do
   gem 'cypress-on-rails', '~> 1.0'
 
   # to clean database before tests
-  gem 'database_cleaner-active_record'
 
   gem 'dotenv-rails'
   gem 'pry-byebug'
@@ -83,12 +82,6 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
-
   # Add fancy test design
   gem 'launchy'
   gem 'minitest-reporters'
