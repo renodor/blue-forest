@@ -55,8 +55,6 @@ group :development, :test do
   # for integration tests
   gem 'cypress-on-rails', '~> 1.0'
 
-  # to clean database before tests
-
   gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-rails'
